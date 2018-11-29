@@ -8,11 +8,15 @@ T = 272.55; % T[K]
 a = sqrt(1.4*287.15*T); % speed of sound
 v = 92.6; % [m/s], 180kts
 
+cl = 0.30647;
+cl = 2.;
+
 cambered = 0; % 1 for True, 0 for False
 A = 8;
 sweep = 0;
 e = 0.75; % default assumed Oswald factor
 S_ref = 15;
+c = sqrt(S_ref/A);
 S_h = 0.15*S_ref;
 S_v = 0.1*S_ref;
 tc_avg = 0.15; % (t/c)_avg is the average thickness to chord
@@ -30,7 +34,8 @@ k = 0.634E-5; % smooth paint
 L1 = 1; % nosecone length
 L2 = 4; % main fuselage length
 L3 = 2; % tailcone length
-D = 1; % derived from frontal area (even though fuselage may not be cilindrical)
+A_cs = 3;
+D = sqrt(A_cs/pi); % derived from frontal area (even though fuselage may not be cilindrical)
 
 mu = 1.7331332E-5; % viscosity of standard air at h=2400m (T=272K)
 
@@ -54,27 +59,62 @@ IF_cs = [1.0, 1.25, 1.05, 1.05];
 S_cs = S_wet_c(S_ref, S_h, S_v, D, L1, L2, L3);
 
 
-tot_comp_drag(C_f_cs, FF_cs, IF_cs, S_cs, S_ref, 0)
+cd0_c = tot_comp_drag0(C_f_cs, FF_cs, IF_cs, S_cs, S_ref, 0);
+misc = cD_misc0(0.034, A_cs, L2*D*0.1, v, a, 0.6, 1., 0, 0.1*S_ref, S_ref, 0.1*c, c);
+
+total_cD0 = cd0_c + misc
+
+cD = total_cD0 + k_f(A, sweep, cl) * cl^2
 
 %% Functions
 
-function misc = cD_misc(A_cs_max, A_base, v, a, S_A, S_r)
+function l_cd_l = k_f(A, sweep, cl)
+l_cd_l = cl^2 / (pi*A_oswald_eff(A, sweep));
+end
+
+function e = A_oswald_eff(A, sweep)
+A_eff = eff_ar(A);
+if sweep == 0
+    e = A_eff*1.78*(1-0.045*A_eff^0.68) - 0.64;
+else
+    e = A_eff*4.61*(1-0.045*A_eff^0.68)*cos(sweep)^0.15 -3.1;
+end
+end
+
+function ar = eff_ar(A)
+dA = 0.004; % straight (square rectangular)
+dA = -0.18; % sharp LE-corner, droplet shape (round rectangular)
+% dA = -0.20; % (round rounded)
+% dA = -0.19; % (sharp rounded)
+% dA = 0;     % (sharp rear corner)
+% dA = 0;     % (shar pull)
+ar = A + dA;
+end
+
+function misc = cD_misc0(u, A_cs_max, A_base, v, a, S_A, S_r, lg, S_flap, S_ref, c_f, c) % lg=1 for lg out, lg=0 for retracted
 % Fuselage upsweep (A_max is max fuselage cross sectional area, u is upsweep in rad)
 dcD = 3.83*A_cs_max*u^2.5;
 % Fuselage base drag
 dcD = [dcD, (0.139 + 0.419*(v/a - 0.161)^2)*A_base];
+
 % Landing gear (nose)
-m = S_A/S_r;
-n = S_A/A_cs_max;
-dcD = [dcD, n*0.3];
+m = S_A/S_r; % fraction of actual landing gear to outer cross section of landing gear
+n = S_A/A_cs_max; % fraction of actual landing gear to total cross sectional area
+dcD = [dcD, lg*n*0.3];
 
 % Landing gear (main)
 c = 0.05328; % open wheel wells
 % c = 0.04955; % closed wheel wells
-dcD = [dcD, n*c*exp(5.615*m)];
+dcD = [dcD, lg*n*c*exp(5.615*m)];
 
+% Flap drag
+% F_flap = 0.0144; % plain flap
+F_flap = 0.0074; % slotted flap
+defl_deg = 0;
+misc_drags0 = [dcD, abs(F_flap*c_f/c * S_flap/S_ref*(defl_deg-10))];
 
-misc = sum(dcD);
+misc = sum(misc_drags0);
+end
 
 function cD0 = fast_sum_C_D_0(C_D_Cs, A_Cs, S)
 iterated = 0;
@@ -119,7 +159,7 @@ function s_c = S_wet_c(S_w_exp, S_HT_exp, S_VT_exp, D, L1, L2, L3)
 s_c = [S_F_wet(D, L1, L2, L3), S_w_wet(S_w_exp), S_HT_wet(S_HT_exp), S_VT_wet(S_VT_exp)];
 end
 
-function cD0 = tot_comp_drag(C_f_cs, FF_cs, IF_cs, S_cs, S_ref, CD0_misc)
+function cD0 = tot_comp_drag0(C_f_cs, FF_cs, IF_cs, S_cs, S_ref, CD0_misc)
 cd0 = 0;
 for j = 1:length(C_f_cs)
     cd0 = [cd0, comp_drag(C_f_cs(j), FF_cs(j), IF_cs(j), S_cs(j))];
@@ -146,18 +186,3 @@ end
 function s = S_F_wet(D, L1, L2, L3)
 s = pi*D/4 * ((1/(3*L1^2) * (4*L1^2 + 0.25*D^2)^1.5 - 1/8 * D^3) - D + 4*L2 + 2*sqrt(L3^2 + D^2 /4));
 end
-
-
-
-%% To be implemented
-% % Standard C_D calculation
-% if cambered == True
-%     C_D = C_D_min + K * (C_L - C_L_minD);
-% else
-%     C_D = C_D_0 + K * C_L * C_L;
-% end
-
-% C_D_0 = C_f_e * S_W/S;
-
-% % Calculated inputs:
-% K = 1/(pi * A * e);
