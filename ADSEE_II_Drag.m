@@ -64,13 +64,14 @@ dcD = 3.83*A_cs_max*u^2.5;
 % Fuselage base drag
 dcD = [dcD, (0.139 + 0.419*(v/a - 0.161)^2)*A_base];
 % Landing gear (nose)
-dcD = [dcD, ];
+m = S_A/S_r;
+n = S_A/A_cs_max;
+dcD = [dcD, n*0.3];
 
 % Landing gear (main)
-m = S_A/S_r;
 c = 0.05328; % open wheel wells
 % c = 0.04955; % closed wheel wells
-dcD = [dcD, m*c*exp(5.615*m)];
+dcD = [dcD, n*c*exp(5.615*m)];
 
 
 misc = sum(dcD);
