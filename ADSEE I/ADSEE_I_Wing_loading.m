@@ -1,3 +1,41 @@
+clear; clc;
+% The goal is to pick a point at the top right corner. This will give
+% information on what S, A, Cl and W/P you need.
+
+%%%%%%%%%%%%%%%%% General INPUT
+h = 3000; % cruising altitude % <-------INPUT
+
+A = [9]; % copied from slides 67 <-------INPUT
+         
+
+% drag coefficients and oswald factors 
+cd0_clean = 0.0280;  % slide 15  <-------INPUT
+e_clean = 0.78; % slide 15  <-------INPUT
+
+de_to_gear = 0.05;
+dcd_to_gear = 0.01;
+cd0_to_lg_down = cd0_clean + dcd_to_gear;    % <-------INPUT
+e_to_lg_down = e_clean + de_to_gear;    % <-------INPUT
+ 
+de_la_gear = 0.1;
+dcd_la_gear = 0.045;
+cd0_la_lg_down = cd0_clean + dcd_la_gear;    % <-------INPUT
+e_la_lg_down = e_clean + de_la_gear;    % <-------INPUT
+
+
+c = 5.0; % climb rate: either slides or use reference aircraft
+         % or you make choice wether climbing fast is your priority
+         % <-------INPUT
+
+rho_0 = 1.225;
+
+%% sizing for stall
+
+Cl_max_la_lg_down = 2.2;   % assumption <-------INPUT
+
+V_stall = 31.38; % m/s assumed from slide 18  % <-------INPUT     
+WS_stall = 0.5*rho_0*V_stall*V_stall*Cl_max_la_lg_down      
+
                                                            
 plot([WS_stall, WS_stall], [0, 2], "magenta")
 hold on
@@ -8,6 +46,13 @@ hold on
 cl_to = [1.9, 2.0, 2.1]/1.21; % <-------INPUT cl for takeoff choices
 
 s_to = 762; % m from project guide requirements
+
+% How to find the TOP:
+% read off your value for 2500 ft S_to and then multiply it by 0.2512!
+top = 250*0.2512 % checked with formula on slide 41
+
+sigma = 1; % rho/rho0 slide 27 . Assume from Sizing mission - sea level
+WS_x = [1:1:1800];
 
 
 for i = cl_to
