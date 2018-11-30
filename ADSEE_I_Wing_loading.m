@@ -5,7 +5,7 @@ clear; clc;
 %%%%%%%%%%%%%%%%% General INPUT
 h = 3000; % cruising altitude % <-------INPUT
 
-A = [8]; % copied from slides 67 <-------INPUT
+A = [9]; % copied from slides 67 <-------INPUT
          
 
 % drag coefficients and oswald factors 
