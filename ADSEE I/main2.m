@@ -1,13 +1,13 @@
 clc; clear all
 % <------ INPUT    Means you can change/adjust it
-%lekkerelunch
+
 %% Read reference aircraft for getting starting MTOW form average weights
 filename = 'Reference_Olivier.xlsx';    % reference file with aircraft
 sheet = 1;
 MTOW_weights_set = 'C2:C13'; % where does matlab have to look in the excel
 MTOW_weights = xlsread(filename,sheet,MTOW_weights_set);
 average_MTOW = mean(MTOW_weights);
-%Broodje LEOLEOELOELOELEO
+
 
 %% General input and input for Fuel fractions
 % Input MTOW, A, e, V_cruise, V_stall
