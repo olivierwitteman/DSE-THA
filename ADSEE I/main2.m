@@ -1,19 +1,21 @@
 clc; clear all
 % <------ INPUT    Means you can change/adjust it
-
+%Bonjour
 %% Read reference aircraft for getting starting MTOW form average weights
 filename = 'Reference_Olivier.xlsx';    % reference file with aircraft
 sheet = 1;
 MTOW_weights_set = 'C17:C39'; % where does matlab have to look in the excel
 MTOW_weights = xlsread(filename,sheet,MTOW_weights_set);
 average_MTOW = mean(MTOW_weights);
+%hallohallo
 
+% uheafiudhiue
 %% General input and input for Fuel fractions
 % Input MTOW, A, e, V_cruise, V_stall
 %
-% Output: Cd0, LD_cruise (also loiter if needed), 
+% Output: Cd0, LD_cruise (also loiter if needed),
 % Wl_Wto (for wingloading),
-% W4W5 (for wing loading), 
+% W4W5 (for wing loading),
 % OEW, W_fuel_used (cruise or all????)
 
 MTOW = 1835; % or choose average MTOW % <------ INPUT
@@ -36,12 +38,12 @@ V_land = 32 % ms From requirements?     % <------ INPUT
 
 OEW = summary(1,2);                 % Input from fuel fractions
 W_fuel_used = summary(3,2);         % Input from fuel fractions
-Wl_Wto;                             % Input from fuel fractions 
+Wl_Wto;                             % Input from fuel fractions
 cd0_clean = Cd0                     % Input from fuel fractions
-A = double(summary(4,2));           % Input from fuel fractions 
-e_clean = double(summary(5,2));     % Input from fuel fractions 
-V_stall = double(summary(6, 2));    % Input from fuel fractions 
-V_cruise = double(summary(7, 2));   % Input from fuel fractions 
+A = double(summary(4,2));           % Input from fuel fractions
+e_clean = double(summary(5,2));     % Input from fuel fractions
+V_stall = double(summary(6, 2));    % Input from fuel fractions
+V_cruise = double(summary(7, 2));   % Input from fuel fractions
 m_cruise = double(summary(8, 2));   % Input from fuel fractions  !!!!!
 W_fuel_total = double(summary(9, 2))% Input from fuel fractions  !!!!!
 
@@ -52,7 +54,7 @@ W4W5;                               % Input from fuel fractions
 payload = 363;                      % from requirements
 percent_emptiness_payload = 0.5;    % Input : how empty the payload is
 
-PR_func(MTOW, OEW, W_fuel_used, payload, LD_cruise, W4W5, percent_emptiness_payload); 
+PR_func(MTOW, OEW, W_fuel_used, payload, LD_cruise, W4W5, percent_emptiness_payload);
 % maybe change W_fuel_used to W_fuel_total
 
 
@@ -101,7 +103,7 @@ N = 1
 fus_length = 5.2;   % <------ INPUT
 X_oew = 0.5;        % <------ INPUT Assume position of the OEW cg
 X_payload = 0.35;   % <------ INPUT Assume position of the Payload(including passengers) cg
-xc_oewcg = 0.3;     % <------ INPUT 
+xc_oewcg = 0.3;     % <------ INPUT
 xc_wcg = 0.4;       % <------ INPUT
 
 wing_x = 0.4;       % <------ INPUT Assume position of the wing cg from the nose
@@ -110,7 +112,7 @@ fus_x = 0.5;        % <------ INPUT Assume position of the fuselage cg
 nacell_x = 0.4;     % <------ INPUT Assume position of the nacelle cg = same for engines
                     % fixed equipment is the same position as the fuselage
                     % cg
- 
+
 % [x_lemac, most_aft_cg, most_forward_cg] = CG_calc_func(MAC, payload, fus_length, W_fuel_total, MTOW, OEW, X_oew, X_payload, xc_oewcg, xc_wcg)
 [x_lemac, most_aft_cg, most_forward_cg] = CG_calc_func(MAC, payload, fus_length, W_fuel_total,...
     double(MTOW), double(OEW), X_oew, X_payload, xc_oewcg, xc_wcg, wing_x, empen_x, fus_x, nacell_x)

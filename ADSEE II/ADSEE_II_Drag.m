@@ -25,7 +25,7 @@ xc_max = 0.25; % (x/c)_max is the position of maximum thickness
 C_f_e = 0.0055; % light AC - single engine
 % C_f_e = 0.0045; % light AC - twin engine
 
-S_W = 4 * S; % assumed wetted area
+S_W = 4 * S_ref; % assumed wetted area
 
 % k = 0.152E-5; % polished sheet metal
 k = 0.634E-5; % smooth paint
