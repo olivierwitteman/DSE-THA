@@ -1,6 +1,6 @@
 clc; clear all
 % <------ INPUT    Means you can change/adjust it
-
+%Au Revoir
 %% Read reference aircraft for getting starting MTOW form average weights
 filename = 'Reference_Olivier.xlsx';    % reference file with aircraft
 sheet = 1;
