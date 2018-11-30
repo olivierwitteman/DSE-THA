@@ -16,7 +16,7 @@ average_MTOW = mean(MTOW_weights);
 % W4W5 (for wing loading), 
 % OEW, W_fuel_used (cruise or all????)
 
-MTOW = 1835; % or choose average MTOW % <------ INPUT
+MTOW = average_MTOW; % or choose average MTOW % <------ INPUT
 A = 7.5;                              % <------ INPUT
 e = 0.75;                             % <------ INPUT
 V_cruise = 180;  % kts                % <------ INPUT
@@ -29,7 +29,7 @@ V_stall = 61;    % kts                % <------ INPUT
 %% Input for wingloading and payload range diagram
 h = 2300;                   % <------ INPUT
 
-Cl_max = 2.2;               % <------ INPUT
+CL_max = 2.2;               % <------ INPUT
 cl_to = 1.9                 % <------ INPUT
 c = 5       % 1.2*V_stall*grad(0.083) = 3.1 minimum . % <------ INPUT
 V_land = 32 % ms From requirements?     % <------ INPUT
@@ -46,7 +46,7 @@ m_cruise = double(summary(8, 2));   % Input from fuel fractions  !!!!!
 W_fuel_total = double(summary(9, 2))% Input from fuel fractions  !!!!!
 
 
-Wing_Loading_Func(h,A,e_clean,cd0_clean, Cl_max,cl_to ,c, Wl_Wto, V_land, V_stall, V_cruise)
+Wing_Loading_Func(h,A,e_clean,cd0_clean, CL_max,cl_to ,c, Wl_Wto, V_land, V_stall, V_cruise)
 
 W4W5;                               % Input from fuel fractions
 payload = 363;                      % from requirements
@@ -75,7 +75,7 @@ summary_end = ["MTOW: ", MTOW;
      "A: ", A;
      "e: ", e;
      "LD_cruise: ", LD_cruise;
-     "Cl_max: ", Cl_max;
+     "Cl_max: ", CL_max;
      "Cl_to: ", cl_to;
      "V_cruise: ", V_cruise;
      "V_stall: ", V_stall;
