@@ -1,6 +1,7 @@
 clc; clear all
-%%%%%%%%%%%%%
+%%
 %Input file
+%% ADSEE II - Lecture 1
 %Airfoil selection
 %INPUTS
 LAMBDA =  0.1;           %Wingsweep at 0.25MAC
@@ -12,7 +13,8 @@ WSec =     50;         %Wing loading at the end of the cruise
 
 [Cldes, CLdes] = Airfoilselection(LAMBDA, rho, Wfiml, Vinf, WSsc, WSec)
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% ADSEE II - Lecture 2
 %General inputs
 A=0.002; %aspect ratio 
 sweepc2 =0.25; %1/2 cord sweep
@@ -124,4 +126,5 @@ total_cD0 = cd0_c + misc
 
 cD = total_cD0 + ADSEE_II_Drag.k_f(A, sweep, cl) * cl^2
 
+%%
 
