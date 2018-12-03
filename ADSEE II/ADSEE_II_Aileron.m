@@ -11,7 +11,7 @@
 
 
 %clc; clear all
-%%% ADSEE II - Lecture 4 - Drag coefficient estimation
+%%% ADSEE II - Lecture 4 - Drag coefficient estimation 
 P_req = degtorad(60)/1.3;%requirement of roll rate
 
 %Input here your wing  parameters
@@ -64,7 +64,7 @@ for j = [1:1:1]
 end
 %P.S. this code doesn't include differentiable ailerons, nor does it take
 %into account the twist of the wing (which on its place reduces the lift
-%and thus rolling moment) caused by the deflection of the aileron (aileron reversal).
+%and thus rolling moment) hoi caused by the deflection of the aileron (aileron reversal).
 % It may be better to place the aileron inboard, rather than outboard
 % because we only fly at low speeds. This is done, not to suffer from
 % aileron reversal.
