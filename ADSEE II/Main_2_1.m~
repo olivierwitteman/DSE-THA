@@ -1,14 +1,12 @@
-clc; clear all
-%%
-%Input file
-%% ADSEE II - Lecture 1
-%Airfoil selection
-%INPUTS
-LAMBDA =  0.;           %Wingsweep at 0.25MAC
-Wfiml=    2;          %Aircraft weight at fuel intensive mission leg %ADSEEII-LECTURE1-SLIDE48
-Vinf =    102;          %Cruise Speed
-WSsc =     70;         %Wing loading at the start of the cruise
-WSec =     50;         %Wing loading at the end of the cruise
+clc;
+%% ADSEE II
+% Inputs
+
+LAMBDA = 0.;    %Wingsweep at 0.25MAC
+Wfiml = 2;      %Aircraft weight at fuel intensive mission leg %ADSEEII-LECTURE1-SLIDE48
+Vinf = 102;     %Cruise Speed
+WSsc = 70;      %Wing loading at the start of the cruise
+WSec = 50;      %Wing loading at the end of the cruise
 
 % h = 2400m
 rho = 0.966632; % [kg/m^3]
@@ -18,10 +16,8 @@ v = 92.6; % [m/s], 180kts
 
 [Cldes, CLdes] = Airfoilselection(LAMBDA, rho, Wfiml, Vinf, WSsc, WSec)
 
-
 % cl = 0.30647;
 clmax = 2.1;
-
 
 cambered = 0; % 1 for True, 0 for False
 A = 8;
@@ -53,7 +49,7 @@ mu = 1.7331332E-5; % viscosity of standard air at h=2400m (T=272K)
 
 %% ADSEE II - Lecture 2
 
-[CLmax, alpha_stall] = clalpha(A, clmax)
+[CLmax, alpha_stall] = clalpha(A, clmax, LAMBDA, Cldes*b)
 
 %% ADSEE II - Lecture 3 - Drag coefficient estimation
 %% Component contributions propeller AC (fast method)
@@ -79,7 +75,6 @@ misc = ADSEE_II_Drag.cD_misc0(0.034, A_cs, L2*D*0.1, v, a, 0.6, 1., 0, 0.1*S_ref
 
 total_cD0 = cd0_c + misc
 
-cD = total_cD0 + ADSEE_II_Drag.k_f(A, LAMBDA, Cldes*sqrt(A*S_ref)) * (Cldes*sqrt(A*S_ref))^2
+cD = total_cD0 + ADSEE_II_Drag.k_f(A, LAMBDA, Cldes*b) * (Cldes*b)^2
 
-%%
-
+L_D = 

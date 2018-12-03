@@ -13,7 +13,7 @@ Sharpfactor=0.02; %from the airfoil.
 %%statistical
 %general
 C1=0.02; %From Table (slide:15)
-C2=0.02  %From table slide: 15 raymer.
+C2=0.02;  %From table slide: 15 raymer.
 
 
 CLmax_base=0.2;

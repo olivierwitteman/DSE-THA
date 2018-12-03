@@ -15,7 +15,6 @@ a = sqrt(1.4*287.15*T); % speed of sound
 v = 92.6; % [m/s], 180kts
 
 
-[Cldes, CLdes] = Airfoilselection(LAMBDA, rho, Wfiml, Vinf, WSsc, WSec)
 
 % cl = 0.30647;
 clmax = 2.1;
@@ -48,9 +47,12 @@ D = sqrt(A_cs/pi); % derived from frontal area (even though fuselage may not be 
 
 mu = 1.7331332E-5; % viscosity of standard air at h=2400m (T=272K)
 
+%% ADSEE II - Lecture 1
+
+[Cldes, CLdes] = Airfoilselection(LAMBDA, rho, Wfiml, Vinf, WSsc, WSec)
 %% ADSEE II - Lecture 2
 
-[CLmax, alpha_stall] = clalpha(A, clmax, LAMBDA, Cldes*b)
+[CLmax, alpha_stall] = clalpha(A, clmax, LAMBDA, CLdes)
 
 %% ADSEE II - Lecture 3 - Drag coefficient estimation
 %% Component contributions propeller AC (fast method)
@@ -76,5 +78,6 @@ misc = ADSEE_II_Drag.cD_misc0(0.034, A_cs, L2*D*0.1, v, a, 0.6, 1., 0, 0.1*S_ref
 
 total_cD0 = cd0_c + misc
 
-cD = total_cD0 + ADSEE_II_Drag.k_f(A, LAMBDA, Cldes*b) * (Cldes*b)^2
+cD = total_cD0 + ADSEE_II_Drag.k_f(A, LAMBDA, CLdes) * (CLdes)^2
 
+L_D = CLdes/cD
