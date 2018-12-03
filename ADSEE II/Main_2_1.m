@@ -117,7 +117,6 @@ cD = Fast_Cd0 + + ADSEE_II_Drag.k_f(A, LAMBDA, CLdes) * (CLdes)^2
 
 L_D = CLdes/cD
 
-<<<<<<< HEAD
 %% ADSEE II - Lecture 4
 P_req = degtorad(60)/1.3;%requirement of roll rate
 
@@ -150,8 +149,7 @@ P = AileronSizing.Intergral(lambda, theta, b1, b2, c_l_alpha, tau, S_ref, b, c_d
 [b1, Inner_Ail_Chord, Outer_Ail_Chord] = AileronSizing.Iteration(lambda, theta, b1, b2, c_l_alpha, tau, S_ref, b, c_d0, c_r, da_max, V, P, P_req, chordratio_ail_total)
 
 
-=======
 %% ADSEE II - Lecture 6 - Drag coefficient estimation
 
 W_breakdown = C2W.calculation(W_dg,N_z,N_gear,S_w,A,tc_avg,lambda,LAMBDA,S_f,L_over_D,W_fw,V_cruise,rho,S_ht,LAMBDA_ht,A_ht,lambda_h,H_t_over_H_v,S_vt,LAMBDA_vt,A_vt,lambda_vt,L_t,W_press,W_l,L_m,L_n,W_en,N_en,V_t,V_i,N_t,L,b,W_uav,N_p,M)
->>>>>>> c760699a3f9762e63a1b513f4a2b6ea8afef20c3
+
