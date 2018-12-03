@@ -145,8 +145,8 @@ b2 = b/2;
 b1 = b2/2;
 P = AileronSizing.Intergral(lambda, theta, b1, b2, c_l_alpha, tau, S_ref, b, total_cD0, c_r, da_max, V);
 [b1, Inner_Ail_Chord, Outer_Ail_Chord] = AileronSizing.Iteration(lambda, theta, b1, b2, c_l_alpha, tau, S_ref, b, total_cD0, c_r, da_max, V, P, P_req, chordratio_ail_total);
-disp('The total aileron size is from the tip of the wing up until: in [m] from the base of the fuselage'), disp(b1);
-disp('Inner Aileron Chord:'), disp(Inner_Ail_Chord), disp('Inner Aileron Chord:'), disp(Outer_Ail_Chord);
+disp('The total aileron size is from the tip of the wing up until: in [m] from the base of the fuselage'), b1
+disp('')
 
 %% ADSEE II - Lecture 6 - Drag coefficient estimation
 

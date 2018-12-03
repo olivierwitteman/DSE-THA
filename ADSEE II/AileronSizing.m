@@ -83,7 +83,7 @@ classdef AileronSizing
     properties
     end
     methods (Static)
-    function [b1, Inner_Ail_Chord, Outer_Ail_Chord] = Iteration(lambda, theta, b1, b2, c_l_alpha, tau, S_ref, b, c_d0, c_r, da_max, V, P, P_req, chordratio_ail_total) 
+    function [b1, Inner_Ail_Chord, Outer_Ail_Chord] = Iteration(lambda, theta, b1, b2, c_l_alpha, tau, S_ref, b, total_cD0, c_r, da_max, V, P, P_req, chordratio_ail_total) 
         while abs(double(P)-P_req) > 0.005
             if double(P)>P_req
                  b1=b1+(b2-b1)/2;
@@ -91,22 +91,21 @@ classdef AileronSizing
             if double(P)<P_req
                 b1=b1-(b2-b1)/2;
             end
-            P = AileronSizing.Intergral(lambda, theta, b1, b2, c_l_alpha, tau, S_ref, b, c_d0, c_r, da_max, V);
+            P = AileronSizing.Intergral(lambda, theta, b1, b2, c_l_alpha, tau, S_ref, b, total_cD0, c_r, da_max, V);
         end
-        Inner_Ail_Chord = (c_r - b1*(tan(degtorad(lambda))+tan(degtorad(theta))))*chordratio_ail_total %disp('The aileron inner chord equals (meters):'), 
-        Outer_Ail_Chord = (c_r - b2*(tan(degtorad(lambda))+tan(degtorad(theta))))*chordratio_ail_total %disp('The aileron outer chord equals (meters):') 
+        Inner_Ail_Chord = (c_r - b1*(tan(degtorad(lambda))+tan(degtorad(theta))))*chordratio_ail_total; %disp('The aileron inner chord equals (meters):'), 
+        Outer_Ail_Chord = (c_r - b2*(tan(degtorad(lambda))+tan(degtorad(theta))))*chordratio_ail_total; %disp('The aileron outer chord equals (meters):') 
     end
     
-    function P = Intergral(lambda, theta, b1, b2, c_l_alpha, tau, S_ref, b, c_d0, c_r, da_max, V) 
+    function P = Intergral(lambda, theta, b1, b2, c_l_alpha, tau, S_ref, b, total_cD0, c_r, da_max, V) 
         syms y;
         cy = (c_r - y*(tan(degtorad(lambda))+tan(degtorad(theta))));
         ail_sur = int(y*cy,[b1 b2]);
         C_l_dda = 2.*c_l_alpha*tau/(S_ref*b)*ail_sur; %Derative of the rolling moment coefficient w.r.t. aileron deflection
         ail_vol = int(cy*y^2,[0 b/2]);
-        C_l_p = -4.*(c_l_alpha+c_d0)/(S_ref*b)*ail_vol;
+        C_l_p = -4.*(c_l_alpha+total_cD0)/(S_ref*b)*ail_vol;
         P = -C_l_dda/C_l_p*degtorad(da_max)*(2*V/b);
     end
-   
     end
 end
 
