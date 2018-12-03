@@ -52,7 +52,7 @@ mu = 1.7331332E-5; % viscosity of standard air at h=2400m (T=272K)
 [Cldes, CLdes] = Airfoilselection(LAMBDA, rho, Wfiml, Vinf, WSsc, WSec)
 %% ADSEE II - Lecture 2
 
-[CLmax, alpha_stall] = clalpha(A, clmax, LAMBDA, CLdes)
+[CLmax, alpha_stall] = clalpha(A, clmax, LAMBDA, CLdes, S_ref)
 
 %% ADSEE II - Lecture 3 - Drag coefficient estimation
 %% Component contributions propeller AC (fast method)

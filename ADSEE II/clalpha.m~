@@ -1,4 +1,4 @@
-function [CLmax, alpha_stall] = clalpha(A, clmax, sweepLE, CLdes, S_ref)
+function [CLmax, alpha_stall] = clalpha(A, clmax, sweepLE, CLdes)
 %input values for Cl-alpha curve for finite wing (clean and flapped
 %General inputs
 
@@ -18,14 +18,14 @@ C2=0.02;  %From table slide: 15 raymer.
 
 CLmax_base=0.2;
 % Use the datcom method to get the CL slope from statistics
-Datcomtop = 2 * pi * A;
-Datcombottom=sqrt(4 + (A * Beta / eta)^2 * (1 + ((tan(sweepc2))^2/Beta^2))) + 2;
-CLalpha = Datcomtop / Datcombottom;
+Datcomtop=2*pi*A;
+Datcombottom=sqrt(4+(A*Beta/eta)^2*(1+((tan(sweepc2))^2/Beta^2)))+2;
+CLalpha=Datcomtop/Datcombottom;
 
 %next is the trim angle.this is the angle the aircraft needs to fly at to
 %fly at CLdes
 
-alphatrim = CLdes / CLalpha + alpha0L;
+alphatrim=CLdes/CLalpha+alpha0L;
 
 %Next is the CLmax, 2 methods are being introduced. The Datcom method and a
 %general  one. Datcom is prefferred. CLmax
@@ -74,17 +74,17 @@ TE='tripple_slotted'; %enter TE flap according to name;
 c_ac_c=0.5; %c'/c is a something we choose in general.
 Delta_Clmax_HLD=HLD(LE,TE,c_ac_c);
 
-HLD_Delta_CLmax = 0.9 * Delta_Clmax_HLD * Swf / S_ref * cos(sweep_hinge); %The difference in CLmax
+HLD_Delta_CLmax=0.9*Delta_Clmax_HLD*Swf/S*cos(sweep_hinge); %The difference in CLmax
 %due to the high lift devices.
-HLD_Delta_alpha0L=delta_alpha0L_airfoil*Swf/S_ref*cos(sweep_hinge); %Same but than
+HLD_Delta_alpha0L=delta_alpha0L_airfoil*Swf/S*cos(sweep_hinge); %Same but than
 %0L angle of attack.
 %%
 %CLalpha for flapped configuration
 %if HLD increase wing surface
-S_ac_S = 1 + Swf/S_ref * (c_ac_c - 1);% S'/S
-CL_alpha_flap = 1.; %The value is the same if certain flaps are not used.
-if S_ac_S > 1.
-    CL_alpha_flap = S_ac_S * CLalpha;
+S_ac_S = 1 + Swf/S * (c_ac_c - 1);% S'/S
+CL_alpha_flap=1.; %The value is the same if certain flaps are not used.
+if S_ac_S>1.
+    CL_alpha_flap=S_ac_S*CLalpha;
 end
 
 %Check if in the end the values make sense. Feasability check is very
