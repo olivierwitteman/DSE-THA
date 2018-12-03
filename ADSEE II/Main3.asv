@@ -1,6 +1,7 @@
 clc; clear all
-%%%%%%%%%%%%%
+%%
 %Input file
+%% ADSEE II - Lecture 1
 %Airfoil selection
 %INPUTS
 LAMBDA =  0.1;           %Wingsweep at 0.25MAC
@@ -12,7 +13,8 @@ WSec =     50;         %Wing loading at the end of the cruise
 
 [Cldes, CLdes] = Airfoilselection(LAMBDA, rho, Wfiml, Vinf, WSsc, WSec)
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% ADSEE II - Lecture 2
 %General inputs
 A=0.002; %aspect ratio 
 sweepc2 =0.25; %1/2 cord sweep
@@ -112,16 +114,17 @@ C_f_c_fuselage = ADSEE_II_Drag.fp_skin_friction(0.1, k, rho, v, L2, mu, a);
 C_f_c_wingtail = ADSEE_II_Drag.fp_skin_friction(0.4, k, rho, v, L3, mu, a);
 C_f_cs = [C_f_c_fuselage, C_f_c_wingtail, C_f_c_wingtail, C_f_c_wingtail];
 option = [2, 1, 1, 1];
-FF_cs = [form_factor(option(1), L2, D, tc_avg, xc_max, sweep, v, a), form_factor(option(2), L2, D, tc_avg, xc_max, sweep, v, a), form_factor(option(3), L2, D, tc_avg, xc_max, sweep, v, a), form_factor(option(4), L2, D, tc_avg, xc_max, sweep, v, a)];
+FF_cs = [ADSEE_II_Drag.form_factor(option(1), L2, D, tc_avg, xc_max, sweep, v, a), ADSEE_II_Drag.form_factor(option(2), L2, D, tc_avg, xc_max, sweep, v, a), ADSEE_II_Drag.form_factor(option(3), L2, D, tc_avg, xc_max, sweep, v, a), ADSEE_II_Drag.form_factor(option(4), L2, D, tc_avg, xc_max, sweep, v, a)];
 IF_cs = [1.0, 1.25, 1.05, 1.05];
-S_cs = S_wet_c(S_ref, S_h, S_v, D, L1, L2, L3);
+S_cs = ADSEE_II_Drag.S_wet_c(S_ref, S_h, S_v, D, L1, L2, L3);
 
 
-cd0_c = tot_comp_drag0(C_f_cs, FF_cs, IF_cs, S_cs, S_ref, 0);
-misc = cD_misc0(0.034, A_cs, L2*D*0.1, v, a, 0.6, 1., 0, 0.1*S_ref, S_ref, 0.1*c, c);
+cd0_c = ADSEE_II_Drag.tot_comp_drag0(C_f_cs, FF_cs, IF_cs, S_cs, S_ref, 0);
+misc = ADSEE_II_Drag.cD_misc0(0.034, A_cs, L2*D*0.1, v, a, 0.6, 1., 0, 0.1*S_ref, S_ref, 0.1*c, c);
 
 total_cD0 = cd0_c + misc
 
-cD = total_cD0 + k_f(A, sweep, cl) * cl^2
+cD = total_cD0 + ADSEE_II_Drag.k_f(A, sweep, cl) * cl^2
 
+%%
 
