@@ -1,6 +1,6 @@
 clc;
 %% ADSEE II
-% Inputs
+% Inputs Hallo Pieter
 
 LAMBDA = 0.;    %Wingsweep at 0.25MAC
 Wfiml = 2;      %Aircraft weight at fuel intensive mission leg %ADSEEII-LECTURE1-SLIDE48
