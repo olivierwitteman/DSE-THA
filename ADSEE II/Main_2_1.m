@@ -13,6 +13,38 @@ rho = 0.966632; % [kg/m^3]
 T = 272.55; % T[K]
 a = sqrt(1.4*287.15*T); % speed of sound
 v = 92.6; % [m/s], 180kts
+M = v/a;
+
+%inputs (page 477-479 Raymer) (everything is in retard units) (lbs,
+%gallons, ft^3, ft^2, inch etc.)
+W_dg = 1.; %Design gross weight
+N_z = 1.; %Load factor
+N_gear = 1;
+S_w = 1.; % Wing surface
+lambda = 1.; %taper ratio
+S_f = 1.; %Wetted area
+L_over_D = 1.;
+W_fw = 1.;
+V_cruise = 1.;
+LAMBDA_ht = 1.; % Sweep at 25% MAC
+A_ht = 1.; % Aspect ratio horizontal tailwing
+H_t_over_H_v = 1.; % = 0 for conventional tail, 1 for 1 tail
+LAMBDA_vt = 1.; % Sweep at 25% of vertical tail MAC
+A_vt = 1.; % Aspect ratio vertical tail
+lambda_vt = 1.; % taper raio vertical tail
+lambda_h = 1; %Taper ratio horizontal tail 
+L_t = 1.; % Tail length, wing quarter MAC to tail quarter MAC
+W_press = 0 ;%11.9+(V_pr*P_delta)^0.271; %Weight penalty due to pressurization; PROBABLY ZERO FOR OUR DESIGNS BECAUSE WE DON'T PRESSURIZE OUR CABIN
+W_l = 1.; %Landing design gross weight
+L_m = 1.; %Extended length of main landing gear
+L_n = 1. ; %Extended nose gear length (inch)
+W_en = 1.; %Engine weight (each) in pounds
+N_en = 1; %Number of engines\
+V_t = 1. ; %Total fuel volume in gallons
+V_i = 1. ;%Integral tanks volume in gallons
+N_t = 1; %Number of fuel tanks
+W_uav = 1.; %Uninstalled avionics weight in pounds
+N_p = 1; %Number of personal onboard
 
 
 
@@ -25,8 +57,8 @@ e = 0.75; % default assumed Oswald factor
 S_ref = 15;
 c = sqrt(S_ref/A);
 b = S_ref/c;
-S_h = 0.15*S_ref;
-S_v = 0.1*S_ref;
+S_ht = 0.15*S_ref;
+S_vt = 0.1*S_ref;
 tc_avg = 0.15; % (t/c)_avg is the average thickness to chord
 xc_max = 0.25; % (x/c)_max is the position of maximum thickness
 
@@ -42,6 +74,7 @@ k = 0.634E-5; % smooth paint
 L1 = 1; % nosecone length
 L2 = 4; % main fuselage length
 L3 = 2; % tailcone length
+L = (L1+L2+L3)*3.281 ; %Fuselage structural length in ft for lecture 6 raymer pls dont hate 
 A_cs = 3;
 D = sqrt(A_cs/pi); % derived from frontal area (even though fuselage may not be cilindrical)
 
@@ -60,7 +93,7 @@ Component = ['Wing', 'Fuselage multi-engine', 'Fuselage single-engine', 'Nacelle
 C_D_Cs = [0.007, 0.08, 0.11, 0.06, 0.008, 0.15];
 % Change these according to component name (defined above)
 A_Cs = [15, 0, 3.0, 0.1, 0.3];
-% Fast_Cd0 = ADSEE_II_Drag.fast_sum_C_D_0(C_D_Cs, A_Cs, S_ref)
+Fast_Cd0 = ADSEE_II_Drag.fast_sum_C_D_0(C_D_Cs, A_Cs, S_ref)
 
 %% Component method
 % [Fuselage, Wing, horizontal tail, vertical tail]
@@ -70,7 +103,7 @@ C_f_cs = [C_f_c_fuselage, C_f_c_wingtail, C_f_c_wingtail, C_f_c_wingtail];
 option = [2, 1, 1, 1];
 FF_cs = [ADSEE_II_Drag.form_factor(option(1), L2, D, tc_avg, xc_max, LAMBDA, v, a), ADSEE_II_Drag.form_factor(option(2), L2, D, tc_avg, xc_max, LAMBDA, v, a), ADSEE_II_Drag.form_factor(option(3), L2, D, tc_avg, xc_max, LAMBDA, v, a), ADSEE_II_Drag.form_factor(option(4), L2, D, tc_avg, xc_max, LAMBDA, v, a)];
 IF_cs = [1.0, 1.25, 1.05, 1.05];
-S_cs = ADSEE_II_Drag.S_wet_c(S_ref, S_h, S_v, D, L1, L2, L3);
+S_cs = ADSEE_II_Drag.S_wet_c(S_ref, S_ht, S_vt, D, L1, L2, L3);
 
 
 cd0_c = ADSEE_II_Drag.tot_comp_drag0(C_f_cs, FF_cs, IF_cs, S_cs, S_ref, 0);
@@ -78,10 +111,13 @@ misc = ADSEE_II_Drag.cD_misc0(0.034, A_cs, L2*D*0.1, v, a, 0.6, 1., 0, 0.1*S_ref
 
 total_cD0 = cd0_c + misc
 
-cD = total_cD0 + ADSEE_II_Drag.k_f(A, LAMBDA, CLdes) * (CLdes)^2
+% cD = total_cD0 + ADSEE_II_Drag.k_f(A, LAMBDA, CLdes) * (CLdes)^2
+
+cD = Fast_Cd0 + + ADSEE_II_Drag.k_f(A, LAMBDA, CLdes) * (CLdes)^2
 
 L_D = CLdes/cD
 
+<<<<<<< HEAD
 %% ADSEE II - Lecture 4
 P_req = degtorad(60)/1.3;%requirement of roll rate
 
@@ -114,3 +150,8 @@ P = AileronSizing.Intergral(lambda, theta, b1, b2, c_l_alpha, tau, S_ref, b, c_d
 [b1, Inner_Ail_Chord, Outer_Ail_Chord] = AileronSizing.Iteration(lambda, theta, b1, b2, c_l_alpha, tau, S_ref, b, c_d0, c_r, da_max, V, P, P_req, chordratio_ail_total)
 
 
+=======
+%% ADSEE II - Lecture 6 - Drag coefficient estimation
+
+W_breakdown = C2W.calculation(W_dg,N_z,N_gear,S_w,A,tc_avg,lambda,LAMBDA,S_f,L_over_D,W_fw,V_cruise,rho,S_ht,LAMBDA_ht,A_ht,lambda_h,H_t_over_H_v,S_vt,LAMBDA_vt,A_vt,lambda_vt,L_t,W_press,W_l,L_m,L_n,W_en,N_en,V_t,V_i,N_t,L,b,W_uav,N_p,M)
+>>>>>>> c760699a3f9762e63a1b513f4a2b6ea8afef20c3
