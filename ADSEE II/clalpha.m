@@ -22,7 +22,7 @@ Datcomtop = 2 * pi * A;
 Datcombottom=sqrt(4 + (A * Beta / eta)^2 * (1 + ((tan(sweepc2))^2/Beta^2))) + 2;
 CLalpha = Datcomtop / Datcombottom;
 
-%next is the trim angle.this is the angle the aircraft needs to fly at to
+%next is the trim angle. this is the angle the aircraft needs to fly at to
 %fly at CLdes
 
 alphatrim = CLdes / CLalpha + alpha0L;

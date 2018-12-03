@@ -1,6 +1,6 @@
 clc;
 %% ADSEE II
-% Inputs Hallo Pieter
+% Inputs
 
 LAMBDA = 0.;    %Wingsweep at 0.25MAC
 Wfiml = 2;      %Aircraft weight at fuel intensive mission leg %ADSEEII-LECTURE1-SLIDE48
@@ -45,8 +45,6 @@ V_i = 1. ;%Integral tanks volume in gallons
 N_t = 1; %Number of fuel tanks
 W_uav = 1.; %Uninstalled avionics weight in pounds
 N_p = 1; %Number of personal onboard
-
-
 
 cl = 0.30647;
 clmax = 2.1;
@@ -147,7 +145,6 @@ b2 = b/2;
 b1 = b2/2;
 P = AileronSizing.Intergral(lambda, theta, b1, b2, c_l_alpha, tau, S_ref, b, c_d0, c_r, da_max, V);
 [b1, Inner_Ail_Chord, Outer_Ail_Chord] = AileronSizing.Iteration(lambda, theta, b1, b2, c_l_alpha, tau, S_ref, b, c_d0, c_r, da_max, V, P, P_req, chordratio_ail_total)
-
 
 %% ADSEE II - Lecture 6 - Drag coefficient estimation
 
