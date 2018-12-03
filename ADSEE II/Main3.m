@@ -127,4 +127,14 @@ total_cD0 = cd0_c + misc
 cD = total_cD0 + ADSEE_II_Drag.k_f(A, sweep, cl) * cl^2
 
 %%
+%% ADSEE II - Lecture 4 - Drag coefficient estimation
+
+
+
+
+
+
+
+
+
 

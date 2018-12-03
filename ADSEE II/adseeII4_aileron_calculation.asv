@@ -1,4 +1,17 @@
-clc; clear all
+classdef ADSEE_II_Aileron
+    properties
+    end
+    methods (Static)
+        function
+            
+        end
+    end
+end
+
+
+
+%clc; clear all
+%%% ADSEE II - Lecture 4 - Drag coefficient estimation
 P_req = degtorad(60)/1.3 ;%requirement of roll rate
 
 %Input here your wing  parameters
