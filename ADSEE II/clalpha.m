@@ -7,16 +7,16 @@ Beta = 1;
 eta = 0.95;
 %%Airfoil ans wing
 
-alpha0L=0; %Given by the airfoil
-taper=0.6; %Given
-Sharpfactor=0.02; %from the airfoil.
+alpha0L = 0; %Given by the airfoil
+taper = 0.6; %Given
+Sharpfactor = 0.02; %from the airfoil.
 %%statistical
 %general
-C1=0.02; %From Table (slide:15)
-C2=0.02;  %From table slide: 15 raymer.
+C1 = 0.02; %From Table (slide:15)
+C2 = 0.02;  %From table slide: 15 raymer.
 
 
-CLmax_base=0.2;
+CLmax_base = 0.2;
 % Use the datcom method to get the CL slope from statistics
 Datcomtop = 2 * pi * A;
 Datcombottom=sqrt(4 + (A * Beta / eta)^2 * (1 + ((tan(sweepc2))^2/Beta^2))) + 2;
@@ -32,11 +32,11 @@ alphatrim = CLdes / CLalpha + alpha0L;
 
 Datcom_choose_method=((C1+1)*cos(sweepLE));
 
-delta_CLmax=0.5; %Term for M>0.2. Not for take-off and landing.
-delta_alpha_CLmax=0.02; %From table slide 19 (Raymer)
-CLM_clmax=0.05; %slide 17 use right table
-CLmax_base=0.2; %table from Raymer
-alpha_CLmax=0.04;
+delta_CLmax = 0.5; %Term for M>0.2. Not for take-off and landing.
+delta_alpha_CLmax = 0.02; %From table slide 19 (Raymer)
+CLM_clmax = 0.05; %slide 17 use right table
+CLmax_base = 0.2; %table from Raymer
+alpha_CLmax = 0.04;
 
 if A> 4/Datcom_choose_method
     delta_CLmax_Datcom=0.5; %Term for M>0.2. Not for take-off and landing.
@@ -64,19 +64,19 @@ end
 %feasibility check.
 %assume chord fractions (cf/c) (slide 52)
 %Use the following equations
-sweep_hinge=0.025; %hinge line for the flap/slat
+sweep_hinge = 0.025; %hinge line for the flap/slat
 
-Swf=2; %Area affected by the HLD might be easier to do this other way.
+Swf = 2; %Area affected by the HLD might be easier to do this other way.
 
-delta_alpha0L_airfoil=5;%Get from the LE or TE difficult to say.
-LE= 'Slat'; %enter the leading edge flap according to the name
-TE='tripple_slotted'; %enter TE flap according to name;
-c_ac_c=0.5; %c'/c is a something we choose in general.
-Delta_Clmax_HLD=HLD(LE,TE,c_ac_c);
+delta_alpha0L_airfoil = 5;%Get from the LE or TE difficult to say.
+LE = 'Slat'; %enter the leading edge flap according to the name
+TE ='tripple_slotted'; %enter TE flap according to name;
+c_ac_c = 0.5; %c'/c is a something we choose in general.
+Delta_Clmax_HLD = HLD(LE,TE,c_ac_c);
 
 HLD_Delta_CLmax = 0.9 * Delta_Clmax_HLD * Swf / S_ref * cos(sweep_hinge); %The difference in CLmax
 %due to the high lift devices.
-HLD_Delta_alpha0L=delta_alpha0L_airfoil*Swf/S_ref*cos(sweep_hinge); %Same but than
+HLD_Delta_alpha0L = delta_alpha0L_airfoil * Swf / S_ref*cos(sweep_hinge); %Same but than
 %0L angle of attack.
 %%
 %CLalpha for flapped configuration
