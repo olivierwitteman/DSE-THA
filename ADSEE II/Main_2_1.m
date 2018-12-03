@@ -43,7 +43,6 @@ N_en = 1; %Number of engines\
 V_t = 1. ; %Total fuel volume in gallons
 V_i = 1. ;%Integral tanks volume in gallons
 N_t = 1; %Number of fuel tanks
-L = 1. ; %Fuselage structural length in ft
 W_uav = 1.; %Uninstalled avionics weight in pounds
 N_p = 1; %Number of personal onboard
 
