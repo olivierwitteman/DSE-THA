@@ -1,6 +1,7 @@
 clc
 
-OEW = 1300;
+% Really quick and course first iteration on battery weight for a fully
+% electric aircraft
 
 E_sp_f = 43; % MJ/kg
 W_f = 176; % fuel weight

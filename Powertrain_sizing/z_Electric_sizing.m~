@@ -1,6 +1,7 @@
 clc
 
-OEW = 1300;
+% Really quick and course first iteration on battery weight for a fully
+% electric aircraft
 
 E_sp_f = 43; % MJ/kg
 W_f = 176; % fuel weight
@@ -13,5 +14,6 @@ disp(['Required energy (without losses) [MJ]: ', num2str(E_req)])
 E_sp_batt = 0.87; % MJ/kg
 eta_batt_tot = 0.9;
 
-W_batt = E_req / (eta_batt_tot * E_sp_batt)
-disp(['Battery mass without iterating for snowball eff [MJ]: ', num2str(E_req)])
+W_batt = E_req / (eta_batt_tot * E_sp_batt);
+
+disp(['Battery mass without iterating for snowball effect [kg]: ', num2str(round(W_batt, 0))])
