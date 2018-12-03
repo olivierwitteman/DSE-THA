@@ -48,7 +48,7 @@ N_p = 1; %Number of personal onboard
 
 
 
-cl = 0.30647;
+% cl = 0.30647;
 clmax = 2.1;
 
 cambered = 0; % 1 for True, 0 for False
