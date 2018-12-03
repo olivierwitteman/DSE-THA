@@ -98,7 +98,7 @@ Component = ['Wing', 'Fuselage multi-engine', 'Fuselage single-engine', 'Nacelle
 C_D_Cs = [0.007, 0.08, 0.11, 0.06, 0.008, 0.15];
 % Change these according to component name (defined above)
 A_Cs = [15, 0, 3.0, 0.1, 0.3];
-% Fast_Cd0 = ADSEE_II_Drag.fast_sum_C_D_0(C_D_Cs, A_Cs, S_ref)
+Fast_Cd0 = ADSEE_II_Drag.fast_sum_C_D_0(C_D_Cs, A_Cs, S_ref)
 
 %% Component method
 % [Fuselage, Wing, horizontal tail, vertical tail]
@@ -116,7 +116,9 @@ misc = ADSEE_II_Drag.cD_misc0(0.034, A_cs, L2*D*0.1, v, a, 0.6, 1., 0, 0.1*S_ref
 
 total_cD0 = cd0_c + misc
 
-cD = total_cD0 + ADSEE_II_Drag.k_f(A, LAMBDA, CLdes) * (CLdes)^2
+% cD = total_cD0 + ADSEE_II_Drag.k_f(A, LAMBDA, CLdes) * (CLdes)^2
+
+cD = Fast_Cd0 + + ADSEE_II_Drag.k_f(A, LAMBDA, CLdes) * (CLdes)^2
 
 L_D = CLdes/cD
 
