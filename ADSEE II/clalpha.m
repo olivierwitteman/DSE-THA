@@ -55,6 +55,7 @@ elseif A< 4/Datcom_choose_method
     CLmax=CLmax_base+delta_CLmax_Datcom;
     alpha_stall=alpha_CLmax+delta_alpha_CLmax;
 end
+
 %% High Lift Devices.
 %Can we take-off at CLmax-clean? Hopfully no otherwise redesign wing.
 %Propose approiate type and combination of HLD's
