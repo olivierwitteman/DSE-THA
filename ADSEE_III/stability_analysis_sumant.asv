@@ -1,17 +1,17 @@
 clear all
 % Weights based on engine selection and preliminary design (might change) 
 OEW = 1300*9.81;  %operational empty weight [N]
-MTOW = 1900*9.81; %maximum take-off weight [N]
+MTOW = 1700*9.81; %maximum take-off weight [N]
 Payload  = 350*9.81; %total payload [N]
 Fuel = MTOW - OEW - Payload; %fuel weight [N]
 %Dimensions and parameters (fixed) 
 b = 16.0; %span [m]
 S = 17.0816; %reference surface area [m^2]
-A = 7.5;   %aspect ratio [-]
-M = 0.27; %mach number at cruise [-]
+A = 14.98;   %aspect ratio [-]
+M = 0.12; %mach number at cruise [-]
 beta=sqrt(1-M^2);
-bf = 1.5; %fuselage width [m]
-hf = 1.5; %fuselage height [m]
+bf = 1.35; %fuselage width [m]
+hf = 1.35; %fuselage height [m]
 bh = 4.0; %horizontal tail span [m]
 Sh = 2.726; %horizontal tail area [m^2]
 Sv = 1.32;  %vertical tail area [m^2]
@@ -64,12 +64,12 @@ x_Fuel = x_lemac + 0.5*mac;         % CG of fuel [m]
 %%% Variables Stability (CRUISE CONFIGURATION *- deg Aoa, - deg Incidence, V = m/s)
 SM = 0.15;
 %stability margin for safety given as percentage/100
-CLa_w = (2*pi*A)/(2 + sqrt(4+(A/eta)^2*(1 +(tan(sweep_12)^2/beta^2)) )) ; 
+CLa_w = (2*pi*A)/(2 + sqrt(4 + (A/eta)^2 *(1 + (tan(sweep_12)^2/beta^2)) )) ; 
 % dCl/dalpha using DATCOM method [1/rad]
 %compressibility ignored due to low speeds
 
 %for main wing
-CLa_h = (2*pi*Ah)/(2+ sqrt(4 + (Ah/eta)^2 *(1+(tan(sweep_12_h)^2/beta^2)) ));
+CLa_h = (2*pi*Ah)/(2+ sqrt(4 + (Ah/eta)^2 *(1 + (tan(sweep_12_h)^2/beta^2)) ));
 %CLa_h = 2.0; %(for verification)
 % dCl/dalpha using DATCOM method [1/rad]
 %compressibility ignored due to low speeds
