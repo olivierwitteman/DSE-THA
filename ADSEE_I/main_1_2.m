@@ -118,3 +118,5 @@ nacell_x = 0.4;     % <------ INPUT Assume position of the nacelle cg = same for
 
 
 % maybe add the input in the wingloading function
+
+save('variables_ADSEE_I.mat', 'A', 'MTOW', 'OEW', 'S', 'V_cruise', 'W4W5')
