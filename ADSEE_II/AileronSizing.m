@@ -90,7 +90,7 @@ classdef AileronSizing
                  b1 = 0.5*(b1_0+b1);
             end
             if double(P)<P_req
-                b1=0.5*(b1+b2_0);
+                b1 = 0.5*(b1+b2_0);
             end
             b1
             double(P)
