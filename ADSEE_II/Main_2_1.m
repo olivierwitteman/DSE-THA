@@ -3,7 +3,7 @@ clear variables;
 %% ADSEE II
 % Inputs
 
-vars = load('../ADSEE_I/variables.mat');
+vars = load('../ADSEE_I/variables_ADSEE_I.mat');
 
 A = vars.A;
 MTOW = vars.MTOW;
