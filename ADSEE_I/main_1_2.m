@@ -1,7 +1,7 @@
 clc; clear all
 % <------ INPUT    Means you can change/adjust it
 
-%% Read reference aircraft for getting starting MTOW form average weights
+%% Read reference aircraft for getting starting MTOW form average weights (Test4Terence)
 filename = 'Reference_Olivier.xlsx';    % reference file with aircraft
 sheet = 1;
 MTOW_weights_set = 'C17:C39'; % where does matlab have to look in the excel
@@ -118,3 +118,5 @@ nacell_x = 0.4;     % <------ INPUT Assume position of the nacelle cg = same for
 
 
 % maybe add the input in the wingloading function
+
+save('variables_ADSEE_I.mat', 'A', 'MTOW', 'OEW', 'S', 'V_cruise', 'W4W5')
