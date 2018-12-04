@@ -1,7 +1,3 @@
-<<<<<<< HEAD:ADSEE II/Main_2_1.m
-clc; clear all
-%% ADSEE II
-=======
 clc;
 clear variables;
 %% ADSEE II
@@ -15,7 +11,6 @@ OEW = vars.OEW;
 S_ref = vars.S;
 v = vars.V_cruise;
 W4W5 = vars.W4W5;
->>>>>>> 3e403f8ee9e423fc4f45ee7f04b7d093252c96f1:ADSEE_II/Main_2_1.m
 
 LAMBDA = 0.;    %Wingsweep at 0.25MAC
 Wfiml = 0.97*MTOW*9.81;      %Aircraft weight at fuel intensive mission leg %ADSEEII-LECTURE1-SLIDE48
@@ -156,13 +151,13 @@ L_D = CLdes/cD
 <<<<<<< HEAD:ADSEE II/Main_2_1.m
 % %% ADSEE II - Lecture 4
 % P_req = degtorad(60)/1.3;%requirement of roll rate
-% 
+%
 % %Input here your wing  parameters
 % c_r = 1.67; % root chord
 % c_t = 0.67; %tip chord
 % theta = 10.7773; %sweep at trailing edge in degrees (positive number) (If sweep at leading edge is zero, this equals "atan((c_r-c_t)/(b/2.))"
 % c_l_alpha = 0.32; % Airfoil lift curve slope
-% 
+%
 % %%%Aileron geometry input (DO NOT CHANGE)!%%%
 % tau = 0.6 ; % Function of ratio of the aileron chord over the wing chord (aileron effectiveness) (See slide 10 of ADSEE-II lecture 4 of 2016 for the graph, or look in aircraft design by Mohammed Sadraey)
 %             % The aileron should be placed after the rear spar, this
@@ -171,7 +166,7 @@ L_D = CLdes/cD
 % %chordratio_ail_total = [0.075, 0.19, 0.41, 0.7];
 % %tau = [0.2, 0.4, 0.6, 0.8];
 % da_max = 30. ; %maximum aileron deflection angle in degrees (reference Mohammed Sadraey)
-% 
+%
 % b1_0 = 0.
 % b2_0 = b/2.
 % b2 = b/2;
