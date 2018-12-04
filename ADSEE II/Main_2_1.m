@@ -9,8 +9,8 @@ MTOW = 2000;
 
 LAMBDA = 0.;    %Wingsweep at 0.25MAC
 Wfiml = 0.97*MTOW*9.81;      %Aircraft weight at fuel intensive mission leg %ADSEEII-LECTURE1-SLIDE48
-WSsc = MTOW*9.81/S_ref;      %Wing loading at the start of the cruise
-WSec = WOE*9.81/S_ref;     %Wing loading at the end of the cruise
+WSsc = MTOW*0.98*9.81/S_ref;      %Wing loading at the start of the cruise
+WSec = 0.945*WSsc;     %Wing loading at the end of the cruise
 
 % h = 2400m
 rho = 0.966632; % [kg/m^3]
@@ -27,7 +27,6 @@ N_gear = 1;
 S_w = 1.; % Wing surface
 lambda = 1.; %taper ratio
 S_f = 1.; %Wetted area
-L_over_D = 1.;
 W_fw = 1.;
 
 LAMBDA_ht = 1.; % Sweep at 25% MAC
@@ -81,6 +80,33 @@ D = sqrt(A_cs/pi); % derived from frontal area (even though fuselage may not be 
 
 mu = 1.7331332E-5; % viscosity of standard air at h=2400m (T=272K)
 
+
+P_req = degtorad(60)/1.3; % requirement of roll rate
+
+%Input here your wing  parameters
+c_r = 1.67; % root chord
+c_t = 0.67; %tip chord
+
+theta = 10.7773; %sweep at trailing edge in degrees (positive number) (If sweep at leading edge is zero, this equals "atan((c_r-c_t)/(b/2.))"
+c_l_alpha = 0.32; % Airfoil lift curve slope
+
+%%%
+%b1 = [0:0.5:(b/2-aileron_length)]; %   the length in meters where the aileron starts measured from the wing root
+%b2 = b1+aileron_length ; % end aileron '
+%%%Aileron geometry input (DO NOT CHANGE)!%%%
+aileron_length = [0:0.05:b/2]; % aileron length in meters
+tau = 0.6 ; % Function of ratio of the aileron chord over the wing chord (aileron effectiveness) (See slide 10 of ADSEE-II lecture 4 of 2016 for the graph, or look in aircraft design by Mohammed Sadraey)
+            % The aileron should be placed after the rear spar, this
+            % determines the maximum chord ratio
+chordratio_ail_total = 0.41;
+%chordratio_ail_total = [0.075, 0.19, 0.41, 0.7];
+%tau = [0.2, 0.4, 0.6, 0.8];
+da_max = 30. ; %maximum aileron deflection angle in degrees (reference Mohammed Sadraey)
+
+b2 = b/2;
+b1 = b2/2;
+
+
 %% ADSEE II - Lecture 1
 
 [Cldes, CLdes] = Airfoilselection(LAMBDA, rho, Wfiml, v, WSsc, WSec)
@@ -119,36 +145,12 @@ cD = Fast_Cd0 + ADSEE_II_Drag.k_f(A, LAMBDA, CLdes) * (CLdes)^2
 L_D = CLdes/cD
 
 %% ADSEE II - Lecture 4
-P_req = degtorad(60)/1.3;%requirement of roll rate
 
-%Input here your wing  parameters
-c_r = 1.67; % root chord
-c_t = 0.67; %tip chord
-lambda = 0.; % sweep at leading edge in degrees (positive number)
-theta = 10.7773; %sweep at trailing edge in degrees (positive number) (If sweep at leading edge is zero, this equals "atan((c_r-c_t)/(b/2.))"
-c_l_alpha = 0.32; % Airfoil lift curve slope
-V = 190.; %speed in m/s
-b = 10.51; %wingspan in meters
-%%%
-%b1 = [0:0.5:(b/2-aileron_length)]; %   the length in meters where the aileron starts measured from the wing root
-%b2 = b1+aileron_length ; % end aileron '
-%%%Aileron geometry input (DO NOT CHANGE)!%%%
-aileron_length = [0:0.05:b/2]; % aileron length in meters
-tau = 0.6 ; % Function of ratio of the aileron chord over the wing chord (aileron effectiveness) (See slide 10 of ADSEE-II lecture 4 of 2016 for the graph, or look in aircraft design by Mohammed Sadraey)
-            % The aileron should be placed after the rear spar, this
-            % determines the maximum chord ratio
-chordratio_ail_total = 0.41;
-%chordratio_ail_total = [0.075, 0.19, 0.41, 0.7];
-%tau = [0.2, 0.4, 0.6, 0.8];
-da_max = 30. ; %maximum aileron deflection angle in degrees (reference Mohammed Sadraey)
 
-b2 = b/2;
-b1 = b2/2;
-
-P = AileronSizing.Intergral(lambda, theta, b1, b2, c_l_alpha, tau, S_ref, b, total_cD0, c_r, da_max, V);
-[b1, Inner_Ail_Chord, Outer_Ail_Chord] = AileronSizing.Iteration(lambda, theta, b1, b2, c_l_alpha, tau, S_ref, b, total_cD0, c_r, da_max, V, P, P_req, chordratio_ail_total)
-P = AileronSizing.Intergral(lambda, theta, b1, b2, c_l_alpha, tau, S_ref, b, total_cD0, c_r, da_max, V);
-[b1, Inner_Ail_Chord, Outer_Ail_Chord] = AileronSizing.Iteration(lambda, theta, b1, b2, c_l_alpha, tau, S_ref, b, total_cD0, c_r, da_max, V, P, P_req, chordratio_ail_total);
+P = AileronSizing.Intergral(lambda, theta, b1, b2, c_l_alpha, tau, S_ref, b, total_cD0, c_r, da_max, v);
+[b1, Inner_Ail_Chord, Outer_Ail_Chord] = AileronSizing.Iteration(lambda, theta, b1, b2, c_l_alpha, tau, S_ref, b, total_cD0, c_r, da_max, v, P, P_req, chordratio_ail_total)
+P = AileronSizing.Intergral(lambda, theta, b1, b2, c_l_alpha, tau, S_ref, b, total_cD0, c_r, da_max, v);
+[b1, Inner_Ail_Chord, Outer_Ail_Chord] = AileronSizing.Iteration(lambda, theta, b1, b2, c_l_alpha, tau, S_ref, b, total_cD0, c_r, da_max, v, P, P_req, chordratio_ail_total);
 disp('The total aileron size is from the tip of the wing up until: in [m] from the base of the fuselage'), disp(b1);
 disp('Inner Aileron Chord:'), disp(Inner_Ail_Chord), disp('Inner Aileron Chord:'), disp(Outer_Ail_Chord);
 
