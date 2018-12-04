@@ -13,8 +13,8 @@ v = vars.V_cruise;
 W4W5 = vars.W4W5;
 W_f = vars.W_fuel_used;
 taper_ratio = vars.tr;
+LAMBDA = 0.; %vars.LAMBDA_25;   %Wingsweep at 0.25MAC
 
-LAMBDA = 0.;    %Wingsweep at 0.25MAC
 Wfiml = 0.97*MTOW*9.81;      %Aircraft weight at fuel intensive mission leg %ADSEEII-LECTURE1-SLIDE48
 WSsc = MTOW*0.98*9.81/S_ref;      %Wing loading at the start of the cruise
 WSec = W4W5*WSsc;     %Wing loading at the end of the cruise
