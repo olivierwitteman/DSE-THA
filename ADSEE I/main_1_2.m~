@@ -88,7 +88,7 @@ summary_end = ["MTOW: ", MTOW;
 
 
 %% wing planform BASED ON WING AREA FROM WINGLOADING DIAGRAM
-[summary_wing] = wing_planform_design(V_cruise, A, S, m_cruise, h); % m_cruise 
+[summary_wing] = wing_planform_design(V_cruise, A, S, m_cruise, h);
 
 summary_wing = [summary_wing; ["Wing Area", S]]
 
