@@ -85,7 +85,7 @@ D = sqrt(A_cs/pi); % derived from frontal area (even though fuselage may not be 
 mu = 1.7331332E-5; % viscosity of standard air at h=2400m (T=272K)
 
 
-P_req = degtorad(60)/1.3; % requirement of roll rate
+P_req = deg2rad(60)/1.3; % requirement of roll rate
 
 %Input here your wing  parameters
 c_r = 1.67; % root chord
@@ -148,7 +148,6 @@ cD = Fast_Cd0 + ADSEE_II_Drag.k_f(A, LAMBDA, CLdes) * (CLdes)^2
 
 L_D = CLdes/cD
 
-<<<<<<< HEAD:ADSEE II/Main_2_1.m
 % %% ADSEE II - Lecture 4
 % P_req = degtorad(60)/1.3;%requirement of roll rate
 %
@@ -175,9 +174,7 @@ L_D = CLdes/cD
 % [b1, Inner_Ail_Chord, Outer_Ail_Chord] = AileronSizing.Iteration(b1_0,b2_0, LAMBDA, theta, b1, b2, c_l_alpha, tau, S_ref, b, total_cD0, c_r, da_max, v, P, P_req, chordratio_ail_total);
 % disp('The total distance from the root to the aileron in [m] from the base of the fuselage'), disp(b1);
 % disp('Inner Aileron Chord:'), disp(Inner_Ail_Chord), disp('Outer Aileron Chord:'), disp(Outer_Ail_Chord);
-=======
 %% ADSEE II - Lecture 4
-
 
 P = AileronSizing.Intergral(lambda, theta, b1, b2, c_l_alpha, tau, S_ref, b, total_cD0, c_r, da_max, v);
 [b1, Inner_Ail_Chord, Outer_Ail_Chord] = AileronSizing.Iteration(lambda, theta, b1, b2, c_l_alpha, tau, S_ref, b, total_cD0, c_r, da_max, v, P, P_req, chordratio_ail_total)
@@ -185,7 +182,6 @@ P = AileronSizing.Intergral(lambda, theta, b1, b2, c_l_alpha, tau, S_ref, b, tot
 [b1, Inner_Ail_Chord, Outer_Ail_Chord] = AileronSizing.Iteration(lambda, theta, b1, b2, c_l_alpha, tau, S_ref, b, total_cD0, c_r, da_max, v, P, P_req, chordratio_ail_total);
 disp('The total aileron size is from the tip of the wing up until: in [m] from the base of the fuselage'), disp(b1);
 disp('Inner Aileron Chord:'), disp(Inner_Ail_Chord), disp('Inner Aileron Chord:'), disp(Outer_Ail_Chord);
->>>>>>> 3e403f8ee9e423fc4f45ee7f04b7d093252c96f1:ADSEE_II/Main_2_1.m
 
 %% ADSEE II - Lecture 6 - Drag coefficient estimation
 
