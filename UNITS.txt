@@ -1,0 +1,55 @@
+ADSEE I				INPUTS				OUTPUTS
+
+	Fuel Fractions		MTOW [kg]			Cd0	
+				A				L/D_cruise
+				e				Wl_Wto
+				V_cruise [kts]			W4W5
+				V_stall	[kts]			OEW
+								W_fuel_used
+				
+	Wing & Power loading	h [m]				WS	
+				A				WP
+				e_clean				P
+				cd0_clean
+				CL_max				
+				cl_to
+				c [m/s]
+				W1_Wto
+				V_land [kts]			
+				V_stall
+				V_stall
+
+	
+	Payload Range Diagram	MTOW
+				OEW
+				W_fuel_used
+				LD_cruise
+				payload [kg]
+				W4W5
+				percent_emptyness_payload
+
+	Wing Planform		V_cruise			MAC
+				A				b
+				S				root chord
+				m_cruise			tip chord
+				h				t/c
+								sweep
+								dihedral
+								CL_cruise
+	Engine Dimensions	P
+				N
+
+	Class I CG		MAC
+				payload
+				fus_length
+				w_fuel_total
+				MTOW
+				OEW
+				X_oew
+				X_payload
+				xc_oewcg
+				xc_wcg
+				wing_x
+				empen_x
+				fus_x
+				nacell_x

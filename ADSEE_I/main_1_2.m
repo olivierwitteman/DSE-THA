@@ -1,7 +1,7 @@
 clc; clear all
 % <------ INPUT    Means you can change/adjust it
 
-%% Read reference aircraft for getting starting MTOW form average weights
+%% Read reference aircraft for getting starting MTOW form average weights (Test4Terence)
 filename = 'Reference_Olivier.xlsx';    % reference file with aircraft
 sheet = 1;
 MTOW_weights_set = 'C17:C39'; % where does matlab have to look in the excel
@@ -19,7 +19,7 @@ average_MTOW = mean(MTOW_weights);
 
 MTOW = average_MTOW; % or choose average MTOW % <------ INPUT
 A = 7.5;                              % <------ INPUT
-e = 0.75;                             % <------ INPUT
+e = 0.7;                             % <------ INPUT
 V_cruise = 180;  % kts                % <------ INPUT
 V_stall = 61;    % kts                % <------ INPUT
 
@@ -33,7 +33,7 @@ h = 2300;                   % <------ INPUT
 CL_max = 2.2;               % <------ INPUT
 cl_to = 1.9                 % <------ INPUT
 c = 5       % 1.2*V_stall*grad(0.083) = 3.1 minimum . % <------ INPUT
-V_land = 32 % ms From requirements?     % <------ INPUT
+V_land = 1.2*32 % ms From requirements?     % <------ INPUT
 
 OEW = summary(1,2);                 % Input from fuel fractions
 W_fuel_used = summary(3,2);         % Input from fuel fractions
@@ -88,10 +88,11 @@ summary_end = ["MTOW: ", MTOW;
 
 
 %% wing planform BASED ON WING AREA FROM WINGLOADING DIAGRAM
-[summary_wing] = wing_planform_design(V_cruise, A, S, m_cruise, h);
+[summary_wing] = wing_planform_design(V_cruise, A, S, m_cruise, h); % m_cruise 
 
 summary_wing = [summary_wing; ["Wing Area", S]]
 
+tr = summary_wing(3, 2)
 MAC = double(summary_wing(9, 2))
 
 %% eng dimensions
@@ -118,3 +119,5 @@ nacell_x = 0.4;     % <------ INPUT Assume position of the nacelle cg = same for
 
 
 % maybe add the input in the wingloading function
+
+save('variables_ADSEE_I.mat', 'A', 'MTOW', 'OEW', 'S', 'V_cruise', 'W4W5', 'W_fuel_used', 'tr')
