@@ -13,30 +13,15 @@ v = double(vars.V_cruise);
 W4W5 = double(vars.W4W5);
 W_f = double(vars.W_fuel_used);
 taper_ratio = double(vars.tr);
-sweep_c4 = double(vars.sweep_c4);
-sweep_c2_deg = double(vars.sweep_c2_deg);
-sweep_LE_deg = double(vars.sweep_LE_deg);
-sweep_TE_deg = double(vars.sweep_TE_deg);
+sweep_c4 = double(vars.sweep_4c);
+sweep_c2_deg = double(vars.sweep_2c);
+sweep_LE_deg = double(vars.sweep_LE);
+sweep_TE_deg = double(vars.sweep_TE);
 
-LAMBDA = 0.;    % Wingsweep at 0.25MAC
+LAMBDA = sweep_c4;    % Wingsweep at 0.25MAC
 Wfiml = 0.97 * MTOW * 9.81;      % Aircraft weight at fuel intensive mission leg %ADSEEII-LECTURE1-SLIDE48
 WSsc = MTOW * 0.98 * 9.81 / S_ref;      % Wing loading at the start of the cruise
 WSec = W4W5 * WSsc;     % Wing loading at the end of the cruise
-
-A = vars.A;
-MTOW = vars.MTOW;
-OEW = vars.OEW;
-S_ref = vars.S;
-v = vars.V_cruise;
-W4W5 = vars.W4W5;
-W_f = vars.W_fuel_used;
-taper_ratio = vars.tr;
-LAMBDA = 0.; %vars.LAMBDA_25;   %Wingsweep at 0.25MAC
-
-Wfiml = 0.97*MTOW*9.81;      %Aircraft weight at fuel intensive mission leg %ADSEEII-LECTURE1-SLIDE48
-WSsc = MTOW*0.98*9.81/S_ref;      %Wing loading at the start of the cruise
-WSec = W4W5*WSsc;     %Wing loading at the end of the cruise
->>>>>>> ba52f384230881d7840e6ac279bacb652f521936
 
 % h = 2400m
 rho = 0.966632; % [kg/m^3]

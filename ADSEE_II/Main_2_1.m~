@@ -13,11 +13,29 @@ v = double(vars.V_cruise);
 W4W5 = double(vars.W4W5);
 W_f = double(vars.W_fuel_used);
 taper_ratio = double(vars.tr);
+sweep_c4 = double(vars.sweep_4c);
+sweep_c2_deg = double(vars.sweep_2c);
+sweep_LE_deg = double(vars.sweep_LE);
+sweep_TE_deg = double(vars.sweep_TE);
 
 LAMBDA = 0.;    % Wingsweep at 0.25MAC
 Wfiml = 0.97 * MTOW * 9.81;      % Aircraft weight at fuel intensive mission leg %ADSEEII-LECTURE1-SLIDE48
 WSsc = MTOW * 0.98 * 9.81 / S_ref;      % Wing loading at the start of the cruise
 WSec = W4W5 * WSsc;     % Wing loading at the end of the cruise
+
+A = vars.A;
+MTOW = vars.MTOW;
+OEW = double(vars.OEW);
+S_ref = vars.S;
+v = vars.V_cruise;
+W4W5 = vars.W4W5;
+W_f = vars.W_fuel_used;
+taper_ratio = vars.tr;
+LAMBDA = 0.; %vars.LAMBDA_25;   %Wingsweep at 0.25MAC
+
+Wfiml = 0.97*MTOW*9.81;      %Aircraft weight at fuel intensive mission leg %ADSEEII-LECTURE1-SLIDE48
+WSsc = MTOW*0.98*9.81/S_ref;      %Wing loading at the start of the cruise
+WSec = W4W5*WSsc;     %Wing loading at the end of the cruise
 
 % h = 2400m
 rho = 0.966632; % [kg/m^3]
@@ -33,7 +51,7 @@ N_z = 4.4; % Load factor
 N_gear = 1; % Find Raymer!!!!
 lambda = taper_ratio; % taper ratio
 
-LAMBDA_ht = LAMBDA; % Sweep at 25% MAC
+LAMBDA_ht = sweep_c4; % Sweep at 25% MAC
 A_ht = 1.; % Aspect ratio horizontal tailwing
 H_t_over_H_v = 1.; % = 0 for conventional tail, 1 for 1 tail
 LAMBDA_vt = 1.; % Sweep at 25% of vertical tail MAC
@@ -48,7 +66,7 @@ L_n = 1.; %Extended nose gear length (inch)
 W_en = 1. * 2.2; %Engine weight (each) in pounds
 N_en = 1; %Number of engines\
 V_t = 1.; %Total fuel volume in gallons
-V_i = 1.;%Integral tanks volume in gallons
+V_i = 1.; %Integral tanks volume in gallons
 N_t = 1; %Number of fuel tanks
 W_uav = 1.; %Uninstalled avionics weight in pounds
 N_p = 1; %Number of personal onboard
@@ -90,7 +108,7 @@ P_req = deg2rad(60)/1.3; % requirement of roll rate
 c_r = 1.67; % root chord
 c_t = 0.67; %tip chord
 
-theta = 10.7773; %sweep at trailing edge in degrees (positive number) (If sweep at leading edge is zero, this equals "atan((c_r-c_t)/(b/2.))"
+theta = sweep_TE_deg; %sweep at trailing edge in degrees (positive number) (If sweep at leading edge is zero, this equals "atan((c_r-c_t)/(b/2.))"
 c_l_alpha = 0.32; % Airfoil lift curve slope
 
 %%%
