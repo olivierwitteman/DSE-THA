@@ -92,6 +92,7 @@ summary_end = ["MTOW: ", MTOW;
 
 summary_wing = [summary_wing; ["Wing Area", S]]
 
+tr = summary_wing(3, 2)
 MAC = double(summary_wing(9, 2))
 
 %% eng dimensions
@@ -119,4 +120,4 @@ nacell_x = 0.4;     % <------ INPUT Assume position of the nacelle cg = same for
 
 % maybe add the input in the wingloading function
 
-save('variables_ADSEE_I.mat', 'A', 'MTOW', 'OEW', 'S', 'V_cruise', 'W4W5')
+save('variables_ADSEE_I.mat', 'A', 'MTOW', 'OEW', 'S', 'V_cruise', 'W4W5', 'W_fuel_used', 'tr')

@@ -11,6 +11,8 @@ OEW = vars.OEW;
 S_ref = vars.S;
 v = vars.V_cruise;
 W4W5 = vars.W4W5;
+W_f = vars.W_fuel_used;
+taper_ratio = vars.tr;
 
 LAMBDA = 0.;    %Wingsweep at 0.25MAC
 Wfiml = 0.97*MTOW*9.81;      %Aircraft weight at fuel intensive mission leg %ADSEEII-LECTURE1-SLIDE48
@@ -26,15 +28,12 @@ M = v/a;
 
 %inputs (page 477-479 Raymer) (everything is in retard units) (lbs,
 %gallons, ft^3, ft^2, inch etc.)
-W_dg = 1.; %Design gross weight
-N_z = 1.; %Load factor
-N_gear = 1;
-S_w = 1.; % Wing surface
-lambda = 1.; %taper ratio
-S_f = 1.; %Wetted area
-W_fw = 1.;
+W_dg = OEW; %Design gross weight
+N_z = 4.4; %Load factor
+N_gear = 1; % Find Raymer!!!!
+lambda = taper_ratio; % taper ratio
 
-LAMBDA_ht = 1.; % Sweep at 25% MAC
+LAMBDA_ht = LAMBDA; % Sweep at 25% MAC
 A_ht = 1.; % Aspect ratio horizontal tailwing
 H_t_over_H_v = 1.; % = 0 for conventional tail, 1 for 1 tail
 LAMBDA_vt = 1.; % Sweep at 25% of vertical tail MAC
@@ -54,13 +53,13 @@ N_t = 1; %Number of fuel tanks
 W_uav = 1.; %Uninstalled avionics weight in pounds
 N_p = 1; %Number of personal onboard
 
-cl = 0.30647;
+% cl = 0.30647;
 clmax = 2.1;
 
 cambered = 0; % 1 for True, 0 for False
 e = 0.75; % default assumed Oswald factor
 c = sqrt(S_ref/A);
-b = S_ref/c
+b = S_ref/c;
 S_ht = 0.15*S_ref;
 S_vt = 0.1*S_ref;
 tc_avg = 0.15; % (t/c)_avg is the average thickness to chord
@@ -176,13 +175,16 @@ L_D = CLdes/cD
 % disp('Inner Aileron Chord:'), disp(Inner_Ail_Chord), disp('Outer Aileron Chord:'), disp(Outer_Ail_Chord);
 %% ADSEE II - Lecture 4
 
-P = AileronSizing.Intergral(lambda, theta, b1, b2, c_l_alpha, tau, S_ref, b, total_cD0, c_r, da_max, v);
-[b1, Inner_Ail_Chord, Outer_Ail_Chord] = AileronSizing.Iteration(lambda, theta, b1, b2, c_l_alpha, tau, S_ref, b, total_cD0, c_r, da_max, v, P, P_req, chordratio_ail_total)
-P = AileronSizing.Intergral(lambda, theta, b1, b2, c_l_alpha, tau, S_ref, b, total_cD0, c_r, da_max, v);
-[b1, Inner_Ail_Chord, Outer_Ail_Chord] = AileronSizing.Iteration(lambda, theta, b1, b2, c_l_alpha, tau, S_ref, b, total_cD0, c_r, da_max, v, P, P_req, chordratio_ail_total);
-disp('The total aileron size is from the tip of the wing up until: in [m] from the base of the fuselage'), disp(b1);
-disp('Inner Aileron Chord:'), disp(Inner_Ail_Chord), disp('Inner Aileron Chord:'), disp(Outer_Ail_Chord);
+% P = AileronSizing.Intergral(lambda, theta, b1, b2, c_l_alpha, tau, S_ref, b, total_cD0, c_r, da_max, v);
+% [b1, Inner_Ail_Chord, Outer_Ail_Chord] = AileronSizing.Iteration(lambda, theta, b1, b2, c_l_alpha, tau, S_ref, b, total_cD0, c_r, da_max, v, P, P_req, chordratio_ail_total);
+% P = AileronSizing.Intergral(lambda, theta, b1, b2, c_l_alpha, tau, S_ref, b, total_cD0, c_r, da_max, v);
+% [b1, Inner_Ail_Chord, Outer_Ail_Chord] = AileronSizing.Iteration(lambda, theta, b1, b2, c_l_alpha, tau, S_ref, b, total_cD0, c_r, da_max, v, P, P_req, chordratio_ail_total);
+% disp('The total aileron size is from the tip of the wing up until: in [m] from the base of the fuselage'), disp(b1);
+% disp('Inner Aileron Chord:'), disp(Inner_Ail_Chord), disp('Inner Aileron Chord:'), disp(Outer_Ail_Chord);
 
 %% ADSEE II - Lecture 6 - Drag coefficient estimation
 
-W_breakdown = C2W.calculation(W_dg,N_z,N_gear,S_w,A,tc_avg,lambda,LAMBDA,S_f,L_over_D,W_fw,v,rho,S_ht,LAMBDA_ht,A_ht,lambda_h,H_t_over_H_v,S_vt,LAMBDA_vt,A_vt,lambda_vt,L_t,W_press,W_l,L_m,L_n,W_en,N_en,V_t,V_i,N_t,L,b,W_uav,N_p,M)
+W_breakdown = C2W.calculation(W_dg,N_z,N_gear,S_ref,A,tc_avg,lambda,LAMBDA,S_W,L_D,W_f,v,rho,S_ht,LAMBDA_ht,A_ht,lambda_h,H_t_over_H_v,S_vt,LAMBDA_vt,A_vt,lambda_vt,L_t,W_press,W_l,L_m,L_n,W_en,N_en,V_t,V_i,N_t,L,b,W_uav,N_p,M)
+W_t = sum(W_breakdown);
+
+disp(['sum of W_breakdown: ', W_t])
