@@ -120,10 +120,7 @@ de_da = delta_s_de_da + (ked/ked0)*( (r/(r^2 + m_tv^2))*(0.4876/sqrt(r^2 + 0.631
     (1+(r^2/(r^2 + 0.7915+5.0734*m_tv^2))^0.3113)*(1-sqrt(m_tv^2/(1+m_tv^2))))...
     *(CLa_w/(pi*A)); %total downwash with added delta_s controbution for propeller
 %de_da = 0.2; %(for verification) as proven by 4/(A+2)
-
 kn = -4.0; % for an engine positioned in front of the lemac/nose propeller 
-
-
 x_ac_w = 0.4; %aerodynamic center of wing (assumed at 0.4mac)
 x_ac_c = x_ac_w - ((1.8/CLa_A_h)*(bf*hf*lfn/(S*mac))) +...
     ((0.273/(1+lambda))*((bf*cg*(b-bf))/(mac^2*(b+2.15*bf))))*tan(sweep_14) +...
