@@ -5,7 +5,6 @@ clear variables;
 
 vars = load('../ADSEE_I/variables_ADSEE_I.mat');
 
-<<<<<<< HEAD
 A = double(vars.A);
 MTOW = double(vars.MTOW);
 OEW = double(vars.OEW);
@@ -23,7 +22,7 @@ LAMBDA = 0.;    % Wingsweep at 0.25MAC
 Wfiml = 0.97 * MTOW * 9.81;      % Aircraft weight at fuel intensive mission leg %ADSEEII-LECTURE1-SLIDE48
 WSsc = MTOW * 0.98 * 9.81 / S_ref;      % Wing loading at the start of the cruise
 WSec = W4W5 * WSsc;     % Wing loading at the end of the cruise
-=======
+
 A = vars.A;
 MTOW = vars.MTOW;
 OEW = vars.OEW;
