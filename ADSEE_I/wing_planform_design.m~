@@ -59,17 +59,17 @@ sweep_TE_deg = sweep_c4 - 3 * dsweep_dc
 summary_wing = ["M_cruise",M_cruise;
     "Span",b;
     "Taper",taper;
-    "Sweep c_4 (deg): ", sweep_c4;
-    "Sweep c_2 (deg): ", sweep_c2_deg;
-    "Sweep LE (deg): ", sweep_LE_deg;
-    "Sweep TE (deg): ", sweep_TE_deg;
-    "Cl cruise: ", cl_cruise;
-    "c root", cr;
-    "c tip", ct;
-    "MAC: ", MAC;
-    "MAC position", MAC_pos;
+    "Sweep c_4: ",sweep_c4;
+    "Sweep c_2 (deg: ",sweep_c2_deg;
+    "Sweep LE (deg): ",sweep_LE;
+    "Sweep TE (deg): ",sweep_TE;
+    "Cl cruise: ",cl_cruise;
+    "c root",cr;
+    "c tip",ct;
+    "MAC: ",MAC;
+    "MAC position",MAC_pos;
     "Dihedral", dihedral;
-    "t/c", tc;
+    "t/c",tc;
     ];
 
 % f4 = figure;

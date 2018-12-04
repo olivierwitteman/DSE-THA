@@ -1,4 +1,5 @@
-clc; clear all
+clc;
+clear variables;
 % <------ INPUT    Means you can change/adjust it
 
 %% Read reference aircraft for getting starting MTOW form average weights (Test4Terence)
@@ -28,23 +29,23 @@ V_stall = 61;    % kts                % <------ INPUT
 %                                       !!!!!!!!
 
 %% Input for wingloading and payload range diagram
-h = 2300;                   % <------ INPUT
+h = 2400;                   % <------ INPUT
 
 CL_max = 2.2;               % <------ INPUT
-cl_to = 1.9                 % <------ INPUT
-c = 5       % 1.2*V_stall*grad(0.083) = 3.1 minimum . % <------ INPUT
-V_land = 1.2*32 % ms From requirements?     % <------ INPUT
+cl_to = 1.9;                 % <------ INPUT
+c = 5;       % 1.2*V_stall*grad(0.083) = 3.1 minimum . % <------ INPUT
+V_land = 1.2*32; % ms From requirements?     % <------ INPUT
 
 OEW = summary(1,2);                 % Input from fuel fractions
 W_fuel_used = summary(3,2);         % Input from fuel fractions
 Wl_Wto;                             % Input from fuel fractions
-cd0_clean = Cd0                     % Input from fuel fractions
+cd0_clean = Cd0;                    % Input from fuel fractions
 A = double(summary(4,2));           % Input from fuel fractions
 e_clean = double(summary(5,2));     % Input from fuel fractions
 V_stall = double(summary(6, 2));    % Input from fuel fractions
 V_cruise = double(summary(7, 2));   % Input from fuel fractions
 m_cruise = double(summary(8, 2));   % Input from fuel fractions  !!!!!
-W_fuel_total = double(summary(9, 2))% Input from fuel fractions  !!!!!
+W_fuel_total = double(summary(9, 2));% Input from fuel fractions  !!!!!
 
 
 Wing_Loading_Func(h,A,e_clean,cd0_clean, CL_max,cl_to ,c, Wl_Wto, V_land, V_stall, V_cruise)
@@ -90,13 +91,17 @@ summary_end = ["MTOW: ", MTOW;
 %% wing planform BASED ON WING AREA FROM WINGLOADING DIAGRAM
 [summary_wing] = wing_planform_design(V_cruise, A, S, m_cruise, h); % m_cruise 
 
-summary_wing = [summary_wing; ["Wing Area", S]]
+summary_wing = [summary_wing; ["Wing Area", S]];
 
-tr = summary_wing(3, 2)
-MAC = double(summary_wing(9, 2))
+tr = summary_wing(3, 2);
+MAC = double(summary_wing(9, 2));
+sweep_LE = summary_wing(6, 2);
+sweep_TE = summary_wing(7, 2);
+sweep_4c = summary_wing(4, 2);
+sweep_2c = summary_wing(5, 2);
 
 %% eng dimensions
-N = 1
+N = 1;
 [D_p, w_ee, l_ee, h_ee] = engine_dim_func(P, N);
 
 %% CG VERY ROUGH ESTIMATION
@@ -115,9 +120,8 @@ nacell_x = 0.4;     % <------ INPUT Assume position of the nacelle cg = same for
 
 % [x_lemac, most_aft_cg, most_forward_cg] = CG_calc_func(MAC, payload, fus_length, W_fuel_total, MTOW, OEW, X_oew, X_payload, xc_oewcg, xc_wcg)
 [x_lemac, most_aft_cg, most_forward_cg] = CG_calc_func(MAC, payload, fus_length, W_fuel_total,...
-    double(MTOW), double(OEW), X_oew, X_payload, xc_oewcg, xc_wcg, wing_x, empen_x, fus_x, nacell_x)
-
+    double(MTOW), double(OEW), X_oew, X_payload, xc_oewcg, xc_wcg, wing_x, empen_x, fus_x, nacell_x);
 
 % maybe add the input in the wingloading function
 
-save('variables_ADSEE_I.mat', 'A', 'MTOW', 'OEW', 'S', 'V_cruise', 'W4W5', 'W_fuel_used', 'tr')
+save('variables_ADSEE_I.mat', 'A', 'MTOW', 'OEW', 'S', 'V_cruise', 'W4W5', 'W_fuel_used', 'tr', 'sweep_LE', 'sweep_TE', 'sweep_2c', 'sweep_4c')

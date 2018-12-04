@@ -5,31 +5,31 @@ clear variables;
 
 vars = load('../ADSEE_I/variables_ADSEE_I.mat');
 
-A = vars.A;
-MTOW = vars.MTOW;
-OEW = vars.OEW;
-S_ref = vars.S;
-v = vars.V_cruise;
-W4W5 = vars.W4W5;
-W_f = vars.W_fuel_used;
-taper_ratio = vars.tr;
+A = double(vars.A);
+MTOW = double(vars.MTOW);
+OEW = double(vars.OEW);
+S_ref = double(vars.S);
+v = double(vars.V_cruise);
+W4W5 = double(vars.W4W5);
+W_f = double(vars.W_fuel_used);
+taper_ratio = double(vars.tr);
 
-LAMBDA = 0.;    %Wingsweep at 0.25MAC
-Wfiml = 0.97*MTOW*9.81;      %Aircraft weight at fuel intensive mission leg %ADSEEII-LECTURE1-SLIDE48
-WSsc = MTOW*0.98*9.81/S_ref;      %Wing loading at the start of the cruise
-WSec = W4W5*WSsc;     %Wing loading at the end of the cruise
+LAMBDA = 0.;    % Wingsweep at 0.25MAC
+Wfiml = 0.97 * MTOW * 9.81;      % Aircraft weight at fuel intensive mission leg %ADSEEII-LECTURE1-SLIDE48
+WSsc = MTOW * 0.98 * 9.81 / S_ref;      % Wing loading at the start of the cruise
+WSec = W4W5 * WSsc;     % Wing loading at the end of the cruise
 
 % h = 2400m
 rho = 0.966632; % [kg/m^3]
 T = 272.55; % T[K]
-a = sqrt(1.4*287.15*T); % speed of sound
+a = sqrt(1.4 * 287.15 * T); % speed of sound
 % v = 92.6; % [m/s], 180kts
-M = v/a;
+M = v / a;
 
 %inputs (page 477-479 Raymer) (everything is in retard units) (lbs,
 %gallons, ft^3, ft^2, inch etc.)
-W_dg = OEW; %Design gross weight
-N_z = 4.4; %Load factor
+W_dg = OEW * 2.2; % Design gross weight
+N_z = 4.4; % Load factor
 N_gear = 1; % Find Raymer!!!!
 lambda = taper_ratio; % taper ratio
 
@@ -42,13 +42,13 @@ lambda_vt = 1.; % taper raio vertical tail
 lambda_h = 1; %Taper ratio horizontal tail
 L_t = 1.; % Tail length, wing quarter MAC to tail quarter MAC
 W_press = 0 ;%11.9+(V_pr*P_delta)^0.271; %Weight penalty due to pressurization; PROBABLY ZERO FOR OUR DESIGNS BECAUSE WE DON'T PRESSURIZE OUR CABIN
-W_l = 1.; %Landing design gross weight
+W_l = 1. * 2.2; %Landing design gross weight
 L_m = 1.; %Extended length of main landing gear
-L_n = 1. ; %Extended nose gear length (inch)
-W_en = 1.; %Engine weight (each) in pounds
+L_n = 1.; %Extended nose gear length (inch)
+W_en = 1. * 2.2; %Engine weight (each) in pounds
 N_en = 1; %Number of engines\
-V_t = 1. ; %Total fuel volume in gallons
-V_i = 1. ;%Integral tanks volume in gallons
+V_t = 1.; %Total fuel volume in gallons
+V_i = 1.;%Integral tanks volume in gallons
 N_t = 1; %Number of fuel tanks
 W_uav = 1.; %Uninstalled avionics weight in pounds
 N_p = 1; %Number of personal onboard
@@ -185,6 +185,4 @@ L_D = CLdes/cD
 %% ADSEE II - Lecture 6 - Drag coefficient estimation
 
 W_breakdown = C2W.calculation(W_dg,N_z,N_gear,S_ref,A,tc_avg,lambda,LAMBDA,S_W,L_D,W_f,v,rho,S_ht,LAMBDA_ht,A_ht,lambda_h,H_t_over_H_v,S_vt,LAMBDA_vt,A_vt,lambda_vt,L_t,W_press,W_l,L_m,L_n,W_en,N_en,V_t,V_i,N_t,L,b,W_uav,N_p,M)
-W_t = sum(W_breakdown);
-
-disp(['sum of W_breakdown: ', W_t])
+W_t = sum(W_breakdown)
