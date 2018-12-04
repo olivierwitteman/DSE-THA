@@ -76,7 +76,7 @@ L1 = 1; % nosecone length
 L2 = 4; % main fuselage length
 L3 = 2; % tailcone length
 L = (L1+L2+L3)*3.281 ; %Fuselage structural length in ft for lecture 6 raymer pls dont hate
-A_cs = 3;
+A_cs = 3; %Maxiumum cross sectional area (probably fuselage)
 D = sqrt(A_cs/pi); % derived from frontal area (even though fuselage may not be cilindrical)
 
 mu = 1.7331332E-5; % viscosity of standard air at h=2400m (T=272K)
