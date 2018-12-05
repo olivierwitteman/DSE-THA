@@ -4,7 +4,7 @@ clc; clear all
 %% Read reference aircraft for getting starting MTOW form average weights
 filename = 'Reference_Olivier.xlsx';    % reference file with aircraft
 sheet = 1;
-MTOW_weights_set = 'C17:C39'; % where does matlab have to look in the excel
+MTOW_weights_set = 'C17:C40'; % where does matlab have to look in the excel
 MTOW_weights = xlsread(filename,sheet,MTOW_weights_set);
 average_MTOW = mean(MTOW_weights);
 
@@ -18,7 +18,7 @@ average_MTOW = mean(MTOW_weights);
 % OEW, W_fuel_used (cruise or all????)
 
 MTOW = average_MTOW; % or choose average MTOW % <------ INPUT
-A = 7.5;                              % <------ INPUT
+A = 8.2;                              % <------ INPUT
 e = 0.75;                             % <------ INPUT
 V_cruise = 180;  % kts                % <------ INPUT
 V_stall = 61;    % kts                % <------ INPUT
@@ -95,7 +95,7 @@ summary_wing = [summary_wing; ["Wing Area", S]]
 MAC = double(summary_wing(9, 2))
 
 %% eng dimensions
-N = 1
+N = 2 %<-------Input
 [D_p, w_ee, l_ee, h_ee] = engine_dim_func(P, N);
 
 %% CG VERY ROUGH ESTIMATION
