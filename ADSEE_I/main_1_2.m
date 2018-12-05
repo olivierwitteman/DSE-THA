@@ -5,7 +5,7 @@ clear variables;
 %% Read reference aircraft for getting starting MTOW form average weights (Test4Terence)
 filename = 'Reference_Olivier.xlsx';    % reference file with aircraft
 sheet = 1;
-MTOW_weights_set = 'C17:C39'; % where does matlab have to look in the excel
+MTOW_weights_set = 'C17:C40'; % where does matlab have to look in the excel
 MTOW_weights = xlsread(filename,sheet,MTOW_weights_set);
 average_MTOW = mean(MTOW_weights);
 
@@ -19,8 +19,12 @@ average_MTOW = mean(MTOW_weights);
 % OEW, W_fuel_used (cruise or all????)
 
 MTOW = average_MTOW; % or choose average MTOW % <------ INPUT
+A = 8.2;                              % <------ INPUT
+e = 0.75;                             % <------ INPUT
+=======
 A = 7.5;                              % <------ INPUT
 e = 0.7;                             % <------ INPUT
+>>>>>>> dae35f013eb25c47f567fa3ca9e98180a0d83478
 V_cruise = 180;  % kts                % <------ INPUT
 V_stall = 61;    % kts                % <------ INPUT
 
@@ -89,24 +93,31 @@ summary_end = ["MTOW: ", MTOW;
 
 
 %% wing planform BASED ON WING AREA FROM WINGLOADING DIAGRAM
-[summary_wing] = wing_planform_design(V_cruise, A, S, m_cruise, h); % m_cruise 
+[summary_wing] = wing_planform_design(V_cruise, A, S, m_cruise, h); % m_cruise
 
 summary_wing = [summary_wing; ["Wing Area", S]];
 
+<<<<<<< HEAD
 
 tr = double(summary_wing(3, 2));
 MAC = double(summary_wing(9, 2));
 
+=======
+>>>>>>> b2be306c439fabf1b2da90c850d673aed36f56eb
 tr = summary_wing(3, 2);
 MAC = double(summary_wing(9, 2));
 sweep_LE = summary_wing(6, 2);
 sweep_TE = summary_wing(7, 2);
 sweep_4c = summary_wing(4, 2);
 sweep_2c = summary_wing(5, 2);
+<<<<<<< HEAD
 
+=======
+>>>>>>> b2be306c439fabf1b2da90c850d673aed36f56eb
 
 %% eng dimensions
-N = 1;
+N = 2
+>>>>>>> c6e37a56f0916c7b55715ef9a092b22b613d0723
 [D_p, w_ee, l_ee, h_ee] = engine_dim_func(P, N);
 
 %% CG VERY ROUGH ESTIMATION
