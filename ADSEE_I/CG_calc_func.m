@@ -71,6 +71,8 @@ end
 M_wing_grp = sum(M_wing_grp); % make the group as values for X_lemac formula
 M_fus_grp = sum(M_fus_grp);   % make the group as values for X_lemac formula
 
+disp("XXXXXX_fcg")
+disp(X_fcg)
 
 
 
@@ -84,7 +86,7 @@ X_payload = fus_length * X_payload;    % <---- INPUT from func input
 
 X_fuel = x_lemac + 0.05 * fus_length;  % < --- INPUT 5% of fuselage aft from the X_lemac
 
-
+% change to xlemac + 0.15*mac
 
 
 

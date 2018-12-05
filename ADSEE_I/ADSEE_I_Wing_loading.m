@@ -3,9 +3,9 @@ clear; clc;
 % information on what S, A, Cl and W/P you need.
 
 %%%%%%%%%%%%%%%%% General INPUT
-h = 3000; % cruising altitude % <-------INPUT
+h = 2300; % cruising altitude % <-------INPUT
 
-A = [9]; % copied from slides 67 <-------INPUT
+A = [6.,6.5 ,7., 7.5, 8., 8.5, 9., 9.5]; % copied from slides 67 <-------INPUT
          
 
 % drag coefficients and oswald factors 
@@ -43,7 +43,7 @@ hold on
 
 
 %% Sizing for Take-Off
-cl_to = [1.9, 2.0, 2.1]/1.21; % <-------INPUT cl for takeoff choices
+cl_to = [1.4, 1.5, 1.6, 1.7, 1.8,1.9, 2.0, 2.1]/1.21; % <-------INPUT cl for takeoff choices
 
 s_to = 762; % m from project guide requirements
 
@@ -73,7 +73,7 @@ f_group2 = 0.87   % <-------INPUT
 f_group3 = 0.93322    % <-------INPUT
 Cl_land_group3 = [2.0, 2.1, 2.2]   % <-------INPUT copied from slide 11 - single piston
 Cl_land_group2 = [1.6, 1.8, 2.0, 2.2]   % <-------INPUT copied from slide 11 - single piston
-Cl_land_group1 = [1.6, 1.9, 2.2, 2.5]   % <-------INPUT copied from slide 11 - twin engine
+Cl_land_group1 = [1.6,1.7,1.8 1.9,2.0,2.1 2.2,2.3,2.4 2.5]   % <-------INPUT copied from slide 11 - twin engine
 
 
 for i = Cl_land_group3 % CHANGE CL_LAND_GROUP# ACCORDING TO YOUR GROUP
@@ -157,4 +157,3 @@ legend({'Stall land. config.'...
     ,'c at A = 8'...
     ,'c/V at A = 8'...
     ,'Reference Aircraft', 'Design point'},'Location','northeast', 'FontSize', 16)
-

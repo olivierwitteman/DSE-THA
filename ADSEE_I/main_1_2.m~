@@ -1,11 +1,10 @@
-clc;
-clear variables;
+clc; clear all
 % <------ INPUT    Means you can change/adjust it
 
 %% Read reference aircraft for getting starting MTOW form average weights (Test4Terence)
 filename = 'Reference_Olivier.xlsx';    % reference file with aircraft
 sheet = 1;
-MTOW_weights_set = 'C17:C40'; % where does matlab have to look in the excel
+MTOW_weights_set = 'C17:C39'; % where does matlab have to look in the excel
 MTOW_weights = xlsread(filename,sheet,MTOW_weights_set);
 average_MTOW = mean(MTOW_weights);
 
@@ -19,16 +18,8 @@ average_MTOW = mean(MTOW_weights);
 % OEW, W_fuel_used (cruise or all????)
 
 MTOW = average_MTOW; % or choose average MTOW % <------ INPUT
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> c6e37a56f0916c7b55715ef9a092b22b613d0723
-A = 8.2;                              % <------ INPUT
-e = 0.75;                             % <------ INPUT
-=======
 A = 7.5;                              % <------ INPUT
 e = 0.7;                             % <------ INPUT
->>>>>>> dae35f013eb25c47f567fa3ca9e98180a0d83478
 V_cruise = 180;  % kts                % <------ INPUT
 V_stall = 61;    % kts                % <------ INPUT
 
@@ -37,21 +28,12 @@ V_stall = 61;    % kts                % <------ INPUT
 %                                       !!!!!!!!
 
 %% Input for wingloading and payload range diagram
-<<<<<<< HEAD
-h = 2300;                   % <------ INPUT m
+h = 2300;                   % <------ INPUT
 
 CL_max = 2.2;               % <------ INPUT
 cl_to = 1.9                 % <------ INPUT
 c = 5       % 1.2*V_stall*grad(0.083) = 3.1 minimum . % <------ INPUT
-V_land = 1.2*V_stall % ms From requirements?     % <------ INPUT
-=======
-h = 2400;                   % <------ INPUT
-
-CL_max = 2.2;               % <------ INPUT
-cl_to = 1.9;                 % <------ INPUT
-c = 5;       % 1.2*V_stall*grad(0.083) = 3.1 minimum . % <------ INPUT
-V_land = 1.2*32; % ms From requirements?     % <------ INPUT
->>>>>>> c6e37a56f0916c7b55715ef9a092b22b613d0723
+V_land = 1.2*32 % ms From requirements?     % <------ INPUT
 
 OEW = summary(1,2);                 % Input from fuel fractions
 W_fuel_used = summary(3,2);         % Input from fuel fractions
@@ -110,47 +92,36 @@ summary_end = ["MTOW: ", MTOW;
 
 summary_wing = [summary_wing; ["Wing Area", S]];
 
-<<<<<<< HEAD
-tr = double(summary_wing(3, 2))
-MAC = double(summary_wing(9, 2))
-=======
 tr = summary_wing(3, 2);
 MAC = double(summary_wing(9, 2));
 sweep_LE = summary_wing(6, 2);
 sweep_TE = summary_wing(7, 2);
 sweep_4c = summary_wing(4, 2);
 sweep_2c = summary_wing(5, 2);
->>>>>>> 49c07be9e38ed2104a91403228a10ed08c956bea
 
 %% eng dimensions
-<<<<<<< HEAD
-N = 2
-=======
-<<<<<<< HEAD
-N = 2 %<-------Input
-=======
 N = 1;
->>>>>>> dae35f013eb25c47f567fa3ca9e98180a0d83478
->>>>>>> c6e37a56f0916c7b55715ef9a092b22b613d0723
 [D_p, w_ee, l_ee, h_ee] = engine_dim_func(P, N);
 
 %% CG VERY ROUGH ESTIMATION
-fus_length = 6.6;   % <------ INPUT
-X_oew = 0.40;        % <------ INPUT Assume position of the OEW cg
+fus_length = 5.2;   % <------ INPUT
+X_oew = 0.5;        % <------ INPUT Assume position of the OEW cg
 X_payload = 0.35;   % <------ INPUT Assume position of the Payload(including passengers) cg
 xc_oewcg = 0.3;     % <------ INPUT
 xc_wcg = 0.4;       % <------ INPUT
 
-wing_x = 0.55;       % <------ INPUT Assume position of the wing cg from the nose
+wing_x = 0.4;       % <------ INPUT Assume position of the wing cg from the nose
 empen_x = 0.8;      % <------ INPUT Assume position of the empennage cg
 fus_x = 0.5;        % <------ INPUT Assume position of the fuselage cg
-nacell_x = 0.01;     % <------ INPUT Assume position of the nacelle cg = same for engines
+nacell_x = 0.4;     % <------ INPUT Assume position of the nacelle cg = same for engines
                     % fixed equipment is the same position as the fuselage
                     % cg
 
 % [x_lemac, most_aft_cg, most_forward_cg] = CG_calc_func(MAC, payload, fus_length, W_fuel_total, MTOW, OEW, X_oew, X_payload, xc_oewcg, xc_wcg)
 [x_lemac, most_aft_cg, most_forward_cg] = CG_calc_func(MAC, payload, fus_length, W_fuel_total,...
-    double(MTOW), double(OEW), X_oew, X_payload, xc_oewcg, xc_wcg, wing_x, empen_x, fus_x, nacell_x);
+    double(MTOW), double(OEW), X_oew, X_payload, xc_oewcg, xc_wcg, wing_x, empen_x, fus_x, nacell_x)
+
+LAMBDA_25 = LAMBDA_0 + (LAMBDA_100 - LAMBDA_0) * 0.25;
 
 % maybe add the input in the wingloading function
 
