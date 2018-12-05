@@ -18,7 +18,7 @@ average_MTOW = mean(MTOW_weights);
 % OEW, W_fuel_used (cruise or all????)
 
 MTOW = average_MTOW; % or choose average MTOW % <------ INPUT
-A = 7.5;                              % <------ INPUT
+A = 8.2;                              % <------ INPUT
 e = 0.75;                             % <------ INPUT
 V_cruise = 180;  % kts                % <------ INPUT
 V_stall = 61;    % kts                % <------ INPUT
@@ -28,12 +28,12 @@ V_stall = 61;    % kts                % <------ INPUT
 %                                       !!!!!!!!
 
 %% Input for wingloading and payload range diagram
-h = 2300;                   % <------ INPUT
+h = 2300;                   % <------ INPUT m
 
 CL_max = 2.2;               % <------ INPUT
 cl_to = 1.9                 % <------ INPUT
 c = 5       % 1.2*V_stall*grad(0.083) = 3.1 minimum . % <------ INPUT
-V_land = 32 % ms From requirements?     % <------ INPUT
+V_land = 1.2*V_stall % ms From requirements?     % <------ INPUT
 
 OEW = summary(1,2);                 % Input from fuel fractions
 W_fuel_used = summary(3,2);         % Input from fuel fractions
@@ -95,7 +95,7 @@ summary_wing = [summary_wing; ["Wing Area", S]]
 MAC = double(summary_wing(9, 2))
 
 %% eng dimensions
-N = 1
+N = 2
 [D_p, w_ee, l_ee, h_ee] = engine_dim_func(P, N);
 
 %% CG VERY ROUGH ESTIMATION
