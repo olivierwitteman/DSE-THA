@@ -19,10 +19,6 @@ average_MTOW = mean(MTOW_weights);
 % OEW, W_fuel_used (cruise or all????)
 
 MTOW = average_MTOW; % or choose average MTOW % <------ INPUT
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> c6e37a56f0916c7b55715ef9a092b22b613d0723
 A = 8.2;                              % <------ INPUT
 e = 0.75;                             % <------ INPUT
 =======
@@ -37,21 +33,12 @@ V_stall = 61;    % kts                % <------ INPUT
 %                                       !!!!!!!!
 
 %% Input for wingloading and payload range diagram
-<<<<<<< HEAD
-h = 2300;                   % <------ INPUT m
-
-CL_max = 2.2;               % <------ INPUT
-cl_to = 1.9                 % <------ INPUT
-c = 5       % 1.2*V_stall*grad(0.083) = 3.1 minimum . % <------ INPUT
-V_land = 1.2*V_stall % ms From requirements?     % <------ INPUT
-=======
 h = 2400;                   % <------ INPUT
 
 CL_max = 2.2;               % <------ INPUT
 cl_to = 1.9;                 % <------ INPUT
 c = 5;       % 1.2*V_stall*grad(0.083) = 3.1 minimum . % <------ INPUT
 V_land = 1.2*32; % ms From requirements?     % <------ INPUT
->>>>>>> c6e37a56f0916c7b55715ef9a092b22b613d0723
 
 OEW = summary(1,2);                 % Input from fuel fractions
 W_fuel_used = summary(3,2);         % Input from fuel fractions
@@ -106,31 +93,19 @@ summary_end = ["MTOW: ", MTOW;
 
 
 %% wing planform BASED ON WING AREA FROM WINGLOADING DIAGRAM
-[summary_wing] = wing_planform_design(V_cruise, A, S, m_cruise, h); % m_cruise 
+[summary_wing] = wing_planform_design(V_cruise, A, S, m_cruise, h); % m_cruise
 
 summary_wing = [summary_wing; ["Wing Area", S]];
 
-<<<<<<< HEAD
-tr = double(summary_wing(3, 2))
-MAC = double(summary_wing(9, 2))
-=======
 tr = summary_wing(3, 2);
 MAC = double(summary_wing(9, 2));
 sweep_LE = summary_wing(6, 2);
 sweep_TE = summary_wing(7, 2);
 sweep_4c = summary_wing(4, 2);
 sweep_2c = summary_wing(5, 2);
->>>>>>> 49c07be9e38ed2104a91403228a10ed08c956bea
 
 %% eng dimensions
-<<<<<<< HEAD
 N = 2
-=======
-<<<<<<< HEAD
-N = 2 %<-------Input
-=======
-N = 1;
->>>>>>> dae35f013eb25c47f567fa3ca9e98180a0d83478
 >>>>>>> c6e37a56f0916c7b55715ef9a092b22b613d0723
 [D_p, w_ee, l_ee, h_ee] = engine_dim_func(P, N);
 
