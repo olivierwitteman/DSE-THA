@@ -92,7 +92,7 @@ summary_end = ["MTOW: ", MTOW;
 
 summary_wing = [summary_wing; ["Wing Area", S]]
 
-tr = summary_wing(3, 2)
+tr = double(summary_wing(3, 2))
 MAC = double(summary_wing(9, 2))
 
 %% eng dimensions
@@ -100,16 +100,16 @@ N = 1
 [D_p, w_ee, l_ee, h_ee] = engine_dim_func(P, N);
 
 %% CG VERY ROUGH ESTIMATION
-fus_length = 5.2;   % <------ INPUT
-X_oew = 0.5;        % <------ INPUT Assume position of the OEW cg
+fus_length = 6.6;   % <------ INPUT
+X_oew = 0.40;        % <------ INPUT Assume position of the OEW cg
 X_payload = 0.35;   % <------ INPUT Assume position of the Payload(including passengers) cg
 xc_oewcg = 0.3;     % <------ INPUT
 xc_wcg = 0.4;       % <------ INPUT
 
-wing_x = 0.4;       % <------ INPUT Assume position of the wing cg from the nose
+wing_x = 0.55;       % <------ INPUT Assume position of the wing cg from the nose
 empen_x = 0.8;      % <------ INPUT Assume position of the empennage cg
 fus_x = 0.5;        % <------ INPUT Assume position of the fuselage cg
-nacell_x = 0.4;     % <------ INPUT Assume position of the nacelle cg = same for engines
+nacell_x = 0.01;     % <------ INPUT Assume position of the nacelle cg = same for engines
                     % fixed equipment is the same position as the fuselage
                     % cg
 
