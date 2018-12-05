@@ -151,8 +151,6 @@ cD = Fast_Cd0 + ADSEE_II_Drag.k_f(A, LAMBDA, CLdes) * (CLdes)^2
 
 L_D = CLdes/cD
 
-<<<<<<< HEAD
-=======
 % %% ADSEE II - Lecture 4
 % P_req = degtorad(60)/1.3;%requirement of roll rate
 %
@@ -179,7 +177,6 @@ L_D = CLdes/cD
 % [b1, Inner_Ail_Chord, Outer_Ail_Chord] = AileronSizing.Iteration(b1_0,b2_0, LAMBDA, theta, b1, b2, c_l_alpha, tau, S_ref, b, total_cD0, c_r, da_max, v, P, P_req, chordratio_ail_total);
 % disp('The total distance from the root to the aileron in [m] from the base of the fuselage'), disp(b1);
 % disp('Inner Aileron Chord:'), disp(Inner_Ail_Chord), disp('Outer Aileron Chord:'), disp(Outer_Ail_Chord);
->>>>>>> c6e37a56f0916c7b55715ef9a092b22b613d0723
 %% ADSEE II - Lecture 4
 c_r = 1.67; % root chord
 c_t = 0.67; %tip chord
@@ -192,33 +189,27 @@ V = 190.; %speed in m/s
 b = 10.51; %wingspan in meters
 
 
-<<<<<<< HEAD
 aileron_l = aielron_22222(c_r, c_t, lambda, theta, c_l_alpha,...
     S_ref, c_d0, V, b);
 
-=======
 % P = AileronSizing.Intergral(lambda, theta, b1, b2, c_l_alpha, tau, S_ref, b, total_cD0, c_r, da_max, v);
 % [b1, Inner_Ail_Chord, Outer_Ail_Chord] = AileronSizing.Iteration(lambda, theta, b1, b2, c_l_alpha, tau, S_ref, b, total_cD0, c_r, da_max, v, P, P_req, chordratio_ail_total);
 % P = AileronSizing.Intergral(lambda, theta, b1, b2, c_l_alpha, tau, S_ref, b, total_cD0, c_r, da_max, v);
 % [b1, Inner_Ail_Chord, Outer_Ail_Chord] = AileronSizing.Iteration(lambda, theta, b1, b2, c_l_alpha, tau, S_ref, b, total_cD0, c_r, da_max, v, P, P_req, chordratio_ail_total);
 % disp('The total aileron size is from the tip of the wing up until: in [m] from the base of the fuselage'), disp(b1);
 % disp('Inner Aileron Chord:'), disp(Inner_Ail_Chord), disp('Inner Aileron Chord:'), disp(Outer_Ail_Chord);
-<<<<<<< HEAD
 %%
 
 W_breakdown = C2W.calculation(W_dg,N_z,N_gear,S_ref,A,tc_avg,lambda,LAMBDA,S_W,L/(D*3.281),W_f,v,rho,S_ht,LAMBDA_ht,A_ht,lambda_h,H_t_over_H_v,S_vt,LAMBDA_vt,A_vt,lambda_vt,L_t,W_press,W_l,L_m,L_n,W_en,N_en,V_t,V_i,N_t,L,b,W_uav,N_p,M)
 W_t = sum(W_breakdown)
-=======
->>>>>>> c6e37a56f0916c7b55715ef9a092b22b613d0723
 
-disp("Final answer")
-disp(aileron_l)
+
+disp(["Final answer: ", num2str(aileron_l)])
+
 %% ADSEE II - Lecture 6 - Drag coefficient estimation
 
-<<<<<<< HEAD
 %W_breakdown = C2W.calculation(W_dg,N_z,N_gear,S_w,A,tc_avg,lambda,LAMBDA,S_f,L_over_D,W_fw,v,rho,S_ht,LAMBDA_ht,A_ht,lambda_h,H_t_over_H_v,S_vt,LAMBDA_vt,A_vt,lambda_vt,L_t,W_press,W_l,L_m,L_n,W_en,N_en,V_t,V_i,N_t,L,b,W_uav,N_p,M)
-=======
+
 W_breakdown = C2W.calculation(W_dg,N_z,N_gear,S_ref,A,tc_avg,lambda,LAMBDA,S_W,L_D,W_f,v,rho,S_ht,LAMBDA_ht,A_ht,lambda_h,H_t_over_H_v,S_vt,LAMBDA_vt,A_vt,lambda_vt,L_t,W_press,W_l,L_m,L_n,W_en,N_en,V_t,V_i,N_t,L,b,W_uav,N_p,M)
 W_t = sum(W_breakdown)
->>>>>>> c6e37a56f0916c7b55715ef9a092b22b613d0723
->>>>>>> f972c489dd3a79bd92b4a58e17adfb0f2e2d000b
+
