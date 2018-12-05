@@ -74,7 +74,7 @@ M_fus_grp = sum(M_fus_grp);   % make the group as values for X_lemac formula
 disp("XXXXXX_fcg")
 disp(X_fcg)
 disp(M_wing_grp)
-disp(M_fus_grp)
+disp(M_fus
 
 
 % X LEMAC CALC
