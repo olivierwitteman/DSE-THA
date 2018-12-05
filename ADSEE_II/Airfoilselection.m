@@ -1,5 +1,5 @@
 function [Cldes, CLdes] = Airfoilselection(LAMBDA, rho, Wfiml, Vinf, WSsc, WSec)
-Ltot = Wfiml;        %Adsee II - Lecture 1 - Slide 48 - Test for Robel
+Ltot = Wfiml;        %Adsee II - Lecture 1 - Slide 48
 Lwing = 1.1*Ltot; 
 CLdes = 1.1/(0.5*rho*Vinf^2)*0.5*(WSsc+WSec); %Adsee II - Lecture 1 - Slide 49
 %Vinf is Vcruise i think
