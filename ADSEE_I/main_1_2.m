@@ -19,7 +19,6 @@ average_MTOW = mean(MTOW_weights);
 % OEW, W_fuel_used (cruise or all????)
 
 MTOW = average_MTOW; % or choose average MTOW % <------ INPUT
-<<<<<<< HEAD
 A = 8.2;                              % <------ INPUT
 e = 0.75;                             % <------ INPUT
 =======
@@ -94,28 +93,20 @@ summary_end = ["MTOW: ", MTOW;
 
 
 %% wing planform BASED ON WING AREA FROM WINGLOADING DIAGRAM
-[summary_wing] = wing_planform_design(V_cruise, A, S, m_cruise, h); % m_cruise 
+[summary_wing] = wing_planform_design(V_cruise, A, S, m_cruise, h); % m_cruise
 
 summary_wing = [summary_wing; ["Wing Area", S]];
 
-<<<<<<< HEAD
-tr = double(summary_wing(3, 2))
-MAC = double(summary_wing(9, 2))
-=======
 tr = summary_wing(3, 2);
 MAC = double(summary_wing(9, 2));
 sweep_LE = summary_wing(6, 2);
 sweep_TE = summary_wing(7, 2);
 sweep_4c = summary_wing(4, 2);
 sweep_2c = summary_wing(5, 2);
->>>>>>> 49c07be9e38ed2104a91403228a10ed08c956bea
 
 %% eng dimensions
-<<<<<<< HEAD
-N = 2 %<-------Input
-=======
-N = 1;
->>>>>>> dae35f013eb25c47f567fa3ca9e98180a0d83478
+N = 2
+>>>>>>> c6e37a56f0916c7b55715ef9a092b22b613d0723
 [D_p, w_ee, l_ee, h_ee] = engine_dim_func(P, N);
 
 %% CG VERY ROUGH ESTIMATION

@@ -83,21 +83,28 @@ classdef AileronSizing
     properties
     end
     methods (Static)
-    function [b1, Inner_Ail_Chord, Outer_Ail_Chord] = Iteration(b1_0,b2_0,LAMBDA, theta, b1, b2, c_l_alpha, tau, S_ref, b, total_cD0, c_r, da_max, v, P, P_req, chordratio_ail_total) 
-        b1 = 0.5*(b1_0 + b2_0)
+    function [b1, Inner_Ail_Chord, Outer_Ail_Chord] = Iteration(LAMBDA, theta, b1, b2, c_l_alpha, tau, S_ref, b, total_cD0, c_r, da_max, v, P, P_req, chordratio_ail_total) 
+        iter = 0
+        b_ail = (b1+b2)/2.;
         while P_req-abs(double(P)) > 0.005
+        iter = iter + 1
             if double(P)>P_req
-                 b1 = 0.5*(b1_0+b1);
+               b1 = b_ail
+                   
             end
             if double(P)<P_req
+<<<<<<< HEAD
+                b_ail = (b_ail + b1)/2.
+=======
                 b1 = 0.5*(b1+b2_0);
+>>>>>>> c6e37a56f0916c7b55715ef9a092b22b613d0723
             end
             b1
             double(P)
             P = AileronSizing.Intergral(LAMBDA, theta, b1, b2, c_l_alpha, tau, S_ref, b, total_cD0, c_r, da_max, v);
-            if b1 < 0.005
-                disp('Aileron cant be implemented')
-                break
+            %if b1 < 0.005
+            %    disp('Aileron cant be implemented')
+            %    break
             end
         end
 
