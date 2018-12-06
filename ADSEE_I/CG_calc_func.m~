@@ -100,14 +100,11 @@ end
 
 disp("X_fcg")
 disp(X_fcg)
-disp("x_w")
-disp(x_w)
 % disp(M_wing_grp)
 % disp(M_fus_grp)
 
 
 % X LEMAC CALC
-%                      !!!!! it was x_w/MAC
 x_lemac = X_fcg + MAC*((x_w/MAC)*M_wing_grp/M_fus_grp - xc_oewcg*(1 + M_wing_grp/M_fus_grp));
 disp("X LEMAC")
 disp(x_lemac)

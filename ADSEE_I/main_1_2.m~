@@ -96,18 +96,22 @@ summary_wing = [summary_wing; ["Wing Area", S]];
 
 
 tr = double(summary_wing(3, 2));
-MAC = double(summary_wing(11, 2));
+MAC = double(summary_wing(9, 2));
 b = double(summary_wing(2,2));
 
-sweep_LE = double(summary_wing(6, 2));
-sweep_TE = double(summary_wing(7, 2));
-sweep_2c = double(summary_wing(5, 2));
-sweep_4c = double(summary_wing(4, 2));
+sweep_LE = summary_wing(6, 2);
+sweep_TE = summary_wing(7, 2);
+sweep_4c = summary_wing(4, 2);
 
 
 
 %% eng dimensions
-N = 2;
+N = 1
+
+
+
+%% eng dimensions
+N = 1;
 [D_p, w_ee, l_ee, h_ee] = engine_dim_func(P, N);
 
 %% CG VERY ROUGH ESTIMATION
@@ -126,29 +130,28 @@ if prop_pos == 2 % fuselage
     fus_x = 0.8;        % <------ INPUT Assume position of the fuselage cg
     nacell_x = 0.14;    % <------ INPUT Assume position of the nacelle cg = same for engines
                         % fixed equipment is the same position as the fuselage
-    propul_x = 0.14     % ADDED WHEN CHANGING STUFF
 end
 
 
 if prop_pos == 1            % wing
     fus_length = 6.6;   % <------ INPUT
-    X_oew = 0.550;       % <------ INPUT Assume position of the OEW cg
+    X_oew = 0.40;       % <------ INPUT Assume position of the OEW cg
     X_payload = 0.5;    % <------ INPUT Assume position of the Payload(including passengers) cg
-    xc_oewcg = 0.25;     % <------ INPUT
+    xc_oewcg = 0.3;     % <------ INPUT
     xc_wcg = 0.4;       % <------ INPUT
 
     wing_x = 0.8;      % <------ INPUT Assume position of the wing cg from the nose
     empen_x = 0.9;      % <------ INPUT Assume position of the empennage cg
-    fus_x = 0.75;        % <------ INPUT Assume position of the fuselage cg
+    fus_x = 0.8;        % <------ INPUT Assume position of the fuselage cg
 %     nacell_x = -0.2;    % <------ INPUT Assume position of the nacelle cg = same for engines
 %                         % fixed equipment is the same position as the fuselage
-    propul_x = -0.1
+    propul_x = -0.2
 end
 
 % [x_lemac, most_aft_cg, most_forward_cg] = CG_calc_func(MAC, payload, fus_length, W_fuel_total, MTOW, OEW, X_oew, X_payload, xc_oewcg, xc_wcg)
 [x_lemac, most_aft_cg, most_forward_cg] = CG_calc_func(MAC, payload, fus_length, W_fuel_total,...
-    double(MTOW), double(OEW), X_oew, X_payload, xc_oewcg, xc_wcg, wing_x, empen_x, fus_x, propul_x, prop_pos);
-                                                                                          %!!!!!!!!
+    double(MTOW), double(OEW), X_oew, X_payload, xc_oewcg, xc_wcg, wing_x, empen_x, fus_x, , prop_pos);
+
 
 %% Horizontal and vertical control surface areas
 
