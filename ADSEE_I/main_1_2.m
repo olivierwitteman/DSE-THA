@@ -21,10 +21,8 @@ average_MTOW = mean(MTOW_weights);
 MTOW = average_MTOW; % or choose average MTOW % <------ INPUT
 A = 8.2;                              % <------ INPUT
 e = 0.75;                             % <------ INPUT
-=======
 A = 7.5;                              % <------ INPUT
 e = 0.7;                             % <------ INPUT
->>>>>>> dae35f013eb25c47f567fa3ca9e98180a0d83478
 V_cruise = 180;  % kts                % <------ INPUT
 V_stall = 61;    % kts                % <------ INPUT
 
@@ -97,27 +95,24 @@ summary_end = ["MTOW: ", MTOW;
 
 summary_wing = [summary_wing; ["Wing Area", S]];
 
-<<<<<<< HEAD
+
 
 tr = double(summary_wing(3, 2));
 MAC = double(summary_wing(9, 2));
 
-=======
->>>>>>> b2be306c439fabf1b2da90c850d673aed36f56eb
+
+
 tr = summary_wing(3, 2);
 MAC = double(summary_wing(9, 2));
 sweep_LE = summary_wing(6, 2);
 sweep_TE = summary_wing(7, 2);
 sweep_4c = summary_wing(4, 2);
 sweep_2c = summary_wing(5, 2);
-<<<<<<< HEAD
 
-=======
->>>>>>> b2be306c439fabf1b2da90c850d673aed36f56eb
 
 %% eng dimensions
-N = 2
->>>>>>> c6e37a56f0916c7b55715ef9a092b22b613d0723
+N = 1
+
 [D_p, w_ee, l_ee, h_ee] = engine_dim_func(P, N);
 
 %% CG VERY ROUGH ESTIMATION
