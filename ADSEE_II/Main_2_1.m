@@ -11,7 +11,7 @@ OEW = double(vars.OEW);
 S_ref = double(vars.S);
 v = double(vars.V_cruise);
 W4W5 = double(vars.W4W5);
-W_f = double(vars.W_fuel_used);
+W_f = double(vars.W_fuel_total);
 taper_ratio = double(vars.tr);
 sweep_c4 = double(vars.sweep_4c);
 sweep_c2 = double(vars.sweep_2c);
@@ -23,12 +23,27 @@ Wfiml = 0.97 * MTOW * 9.81;      % Aircraft weight at fuel intensive mission leg
 WSsc = MTOW * 0.98 * 9.81 / S_ref;      % Wing loading at the start of the cruise
 WSec = W4W5 * WSsc;     % Wing loading at the end of the cruise
 
-% h = 2400m
-rho = 0.966632; % [kg/m^3]
-T = 272.55; % T[K]
-a = sqrt(1.4 * 287.15 * T); % speed of sound
-% v = 92.6; % [m/s], 180kts
-M = v / a;
+
+%%%%%%%% added martin isa
+h = double(vars.h)
+lambda_isa = 0.0065; 
+T_0_isa = 288.15; 
+g_isa = 9.81;
+R_isa = 287.1;
+P0_isa=101.325*10.^3;
+T_isa = T_0_isa - lambda_isa * h;
+P_isa = P0_isa * (T_isa / T_0_isa)^(g_isa / (lambda_isa * R_isa));
+rho = P_isa / (R_isa * T_isa)
+a = sqrt(1.4*R_isa*T_isa); % speed of sound
+M = v/a
+
+
+% % % % h = 2400m
+% % % rho = 0.966632; % [kg/m^3]
+% % % T = 272.55; % T[K]
+% % % a = sqrt(1.4 * 287.15 * T); % speed of sound
+% % % % v = 92.6; % [m/s], 180kts
+% % % M = v / a;
 
 %inputs (page 477-479 Raymer) (everything is in retard units) (lbs,
 %gallons, ft^3, ft^2, inch etc.)
@@ -38,22 +53,22 @@ N_gear = 2; % Find Raymer!!!!
 lambda = taper_ratio; % taper ratio
 
 LAMBDA_ht = sweep_c4; % Sweep at 25% MAC
-A_ht = 4.; % Aspect ratio horizontal tailwing
+A_ht = 4.; % Aspect ratio horizontal tailwing                   ??????
 H_t_over_H_v = 0.; % = 0 for conventional tail, 1 for T-tail
-LAMBDA_vt = LAMBDA_ht; % Sweep at 25% of vertical tail MAC
-A_vt = 2.; % Aspect ratio vertical tail
-lambda_vt = 1.; % taper raio vertical tail
-lambda_h = 1; %Taper ratio horizontal tail
-L_t = 1.; % Tail length, wing quarter MAC to tail quarter MAC
+LAMBDA_vt = LAMBDA_ht; % Sweep at 25% of vertical tail MAC      ??????
+A_vt = 2.; % Aspect ratio vertical tail                         ??????
+lambda_vt = 1.; % taper raio vertical tail                      ??????
+lambda_h = 1; %Taper ratio horizontal tail                      ??????
+L_t = 1.; % Tail length, wing quarter MAC to tail quarter MAC   ??????
 W_press = 0 ;%11.9+(V_pr*P_delta)^0.271; %Weight penalty due to pressurization; PROBABLY ZERO FOR OUR DESIGNS BECAUSE WE DON'T PRESSURIZE OUR CABIN
 W_l = (MTOW - W_f) * 2.2; %Landing design gross weight
-L_m = 12.; %Extended length of main landing gear
-L_n = 12.; %Extended nose gear length (inch)
-W_en = 1. * 2.2; %Engine weight (each) in pounds
-N_en = 1; %Number of engines\
-V_t = W_f / (840 * 3.79); %Total fuel volume in gallons
-V_i = V_t * 1.05; %Integral tanks volume in gallons
-N_t = 1; %Number of fuel tanks
+L_m = 12.; %Extended length of main landing gear                ??????
+L_n = 12.; %Extended nose gear length (inch)                    ??????
+W_en = 100. * 2.2; %Engine weight (each) in pounds              XXXX
+N_en = double(vars.("N")); %Number of engines\                  XXXX
+V_t = W_f / (840 * 3.79); %Total fuel volume in gallons         XXXX
+V_i = V_t * 1.05; %Integral tanks volume in gallons             
+N_t = 1; %Number of fuel tanks                                  ??????
 W_uav = 0.02 * MTOW * 2.2; %Uninstalled avionics weight in pounds
 N_p = 5; %Number of personal onboard
 
