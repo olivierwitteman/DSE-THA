@@ -3,16 +3,16 @@ function [aileron_length] = aileron_22222(c_r, c_t, lambda, theta, c_l_alpha,...
 
 P_req = degtorad(60)/1.3 ;%requirement of roll rate
 
-%Input here your wing  parameters
-c_r = 1.67; % root chord
-c_t = 0.67; %tip chord
-lambda = 0.; % sweep at leading edge in degrees (positive number)
-theta = 10.7773; %sweep at trailing edge in degrees (positive number) (If sweep at leading edge is zero, this equals "atan((c_r-c_t)/(b/2.))"
-c_l_alpha = 0.32; % Airfoil lift curve slope
-S_ref = 12.3; % Wing surface in square meters
-c_d0 = 0.02; % 2D zero lift drag coefficient
-V = 190.; %speed in m/s
-b = 10.51; %wingspan in meters
+% % %Input here your wing  parameters
+% c_r = 1.67; % root chord
+% c_t = 0.67; %tip chord
+% lambda = 0.; % sweep at leading edge in degrees (positive number)
+% theta = 10.7773; %sweep at trailing edge in degrees (positive number) (If sweep at leading edge is zero, this equals "atan((c_r-c_t)/(b/2.))"
+% c_l_alpha = 0.32; % Airfoil lift curve slope
+% S_ref = 12.3; % Wing surface in square meters
+% c_d0 = 0.02; % 2D zero lift drag coefficient
+% V = 190.; %speed in m/s
+% b = 10.51; %wingspan in meters
 %%%
 %b1 = [0:0.5:(b/2-aileron_length)]; %   the length in meters where the aileron starts measured from the wing root
 %b2 = b1+aileron_length ; % end aileron '
@@ -24,7 +24,7 @@ tau = [0.2,0.4,0.6,0.8] ; % Function of ratio of the aileron chord over the wing
             % The aileron should be placed after the rear spar, this
             % determines the maximum chord ratio
 chordratio_ail_total = [0.075, 0.19, 0.41, 0.7];
-da_max = 30. ; %maximum aileron deflection angle in degrees (reference Mohammed Sadraey)
+da_max = 25. ; %maximum aileron deflection angle in degrees (reference Mohammed Sadraey)
 %%%
 
 for j = [1:1:4]
