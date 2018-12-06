@@ -95,24 +95,36 @@ summary_end = ["MTOW: ", MTOW;
 
 summary_wing = [summary_wing; ["Wing Area", S]];
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 2ed46bbbc96f0ed956c69eb32fbfcd4d2ee2d360
 
 tr = double(summary_wing(3, 2));
 MAC = double(summary_wing(9, 2));
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 2ed46bbbc96f0ed956c69eb32fbfcd4d2ee2d360
 tr = summary_wing(3, 2);
 MAC = double(summary_wing(9, 2));
 sweep_LE = summary_wing(6, 2);
 sweep_TE = summary_wing(7, 2);
 sweep_4c = summary_wing(4, 2);
 sweep_2c = summary_wing(5, 2);
+<<<<<<< HEAD
 
 
 %% eng dimensions
 N = 1
 
+=======
+
+%% eng dimensions
+N = 1;
+>>>>>>> 2ed46bbbc96f0ed956c69eb32fbfcd4d2ee2d360
 [D_p, w_ee, l_ee, h_ee] = engine_dim_func(P, N);
 
 %% CG VERY ROUGH ESTIMATION
