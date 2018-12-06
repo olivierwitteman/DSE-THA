@@ -51,7 +51,7 @@ L_m = 12.; %Extended length of main landing gear
 L_n = 12.; %Extended nose gear length (inch)
 W_en = 1. * 2.2; %Engine weight (each) in pounds
 N_en = 1; %Number of engines\
-V_t = W_f / (840 * 3.79); %Total fuel volume in gallons
+V_t = W_f / (0.840 * 3.79) %Total fuel volume in gallons
 V_i = V_t * 1.05; %Integral tanks volume in gallons
 N_t = 1; %Number of fuel tanks
 W_uav = 0.02 * MTOW * 2.2; %Uninstalled avionics weight in pounds
@@ -201,12 +201,6 @@ aileron_l = aielron_22222(c_r, c_t, sweep_LE*180/pi, theta, c_l_alpha,...
 % disp('The total aileron size is from the tip of the wing up until: in [m] from the base of the fuselage'), disp(b1);
 % disp('Inner Aileron Chord:'), disp(Inner_Ail_Chord), disp('Inner Aileron Chord:'), disp(Outer_Ail_Chord);
 %%
-
-% W_dg,N_z,N_gear,S_w,A,t_over_c,lambda,LAMBDA,S_f,L_D,W_fw,V_cruise,rho,S_ht,LAMBDA_ht,A_ht,lambda_h,H_t_over_H_v,S_vt,LAMBDA_vt,A_vt,lambda_vt,L_t,W_press,W_l,L_m,L_n,W_en,N_en,V_t,V_i,N_t,L,B_w,W_uav,N_p,M)
-
-W_breakdown = C2W.calculation(W_dg,N_z,N_gear,S_W,A,tc_avg,lambda,LAMBDA,S_W,L/(D*3.281),W_f,v,rho,S_ht,LAMBDA_ht,A_ht,lambda_h,H_t_over_H_v,S_vt,LAMBDA_vt,A_vt,lambda_vt,L_t,W_press,W_l,L_m,L_n,W_en,N_en,V_t,V_i,N_t,L,b,W_uav,N_p,M)
-W_t = sum(W_breakdown)
-
 
 disp(["Final answer: ", num2str(aileron_l)])
 

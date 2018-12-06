@@ -155,4 +155,4 @@ end
 [S_h, S_v] = control_surf_func(MAC, S, b, fus_length, empen_x, most_aft_cg)
 
 
-save('variables_ADSEE_I.mat', 'A', 'MTOW', 'OEW', 'S', 'V_cruise', 'W4W5', 'W_fuel_used', 'tr', 'sweep_LE', 'sweep_TE','sweep_4c')% 'sweep_2c', 'sweep_4c')
+save('variables_ADSEE_I.mat', 'A', 'MTOW', 'OEW', 'S', 'V_cruise', 'W4W5', 'W_fuel_used', 'tr', 'sweep_LE', 'sweep_TE', 'sweep_2c', 'sweep_4c')
