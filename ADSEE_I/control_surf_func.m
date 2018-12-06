@@ -1,17 +1,8 @@
 function [S_h, S_v] = control_surf_func(MAC, S, b, l_fus, empen_x, x_aft_cg)
 %% Procedure explained from ADSEE I lecture 7 slides 54
-% MAC = 1.5;              % <------ INPUT
-% 
-% S = 15.3;               % <------ INPUT
-% 
-% b = 10;                 % <------ INPUT
-% 
-% l_fus = 6.6;            % <------ INPUT
-% 
-% empen_x = 0.8;          % <------ INPUT
+
 empen_x = empen_x * l_fus
-% 
-% x_aft_cg = 2.7;         % <------ INPUT
+
 
 
 V_h = [0.92, 0.60, 0.71, 0.61, 0.48, 0.7,...

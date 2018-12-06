@@ -36,15 +36,15 @@ cl_to = 1.9;                 % <------ INPUT
 c = 5;       % 1.2*V_stall*grad(0.083) = 3.1 minimum . % <------ INPUT
 V_land = 1.2*32; % ms From requirements?     % <------ INPUT
 
-OEW = summary(1,2);                 % Input from fuel fractions
-W_fuel_used = summary(3,2);         % Input from fuel fractions
-Wl_Wto;                             % Input from fuel fractions
-cd0_clean = Cd0;                    % Input from fuel fractions
-A = double(summary(4,2));           % Input from fuel fractions
-e_clean = double(summary(5,2));     % Input from fuel fractions
-V_stall = double(summary(6, 2));    % Input from fuel fractions
-V_cruise = double(summary(7, 2));   % Input from fuel fractions
-m_cruise = double(summary(8, 2));   % Input from fuel fractions  !!!!!
+OEW = summary(1,2);                  % Input from fuel fractions
+W_fuel_used = summary(3,2);          % Input from fuel fractions
+Wl_Wto;                              % Input from fuel fractions
+cd0_clean = Cd0;                     % Input from fuel fractions
+A = double(summary(4,2));            % Input from fuel fractions
+e_clean = double(summary(5,2));      % Input from fuel fractions
+V_stall = double(summary(6, 2));     % Input from fuel fractions
+V_cruise = double(summary(7, 2));    % Input from fuel fractions
+m_cruise = double(summary(8, 2));    % Input from fuel fractions  !!!!!
 W_fuel_total = double(summary(9, 2));% Input from fuel fractions  !!!!!
 
 
@@ -116,8 +116,8 @@ prop_pos = double(input(prompt_prop_pos));
 
 if prop_pos == 2 % fuselage
     fus_length = 6.6;   % <------ INPUT
-    X_oew = 0.40;        % <------ INPUT Assume position of the OEW cg
-    X_payload = 0.5;   % <------ INPUT Assume position of the Payload(including passengers) cg
+    X_oew = 0.40;       % <------ INPUT Assume position of the OEW cg
+    X_payload = 0.5;    % <------ INPUT Assume position of the Payload(including passengers) cg
     xc_oewcg = 0.3;     % <------ INPUT
     xc_wcg = 0.4;       % <------ INPUT
 
@@ -132,14 +132,14 @@ end
 
 if prop_pos == 1            % wing
     fus_length = 6.6;   % <------ INPUT
-    X_oew = 0.550;       % <------ INPUT Assume position of the OEW cg
+    X_oew = 0.550;      % <------ INPUT Assume position of the OEW cg
     X_payload = 0.5;    % <------ INPUT Assume position of the Payload(including passengers) cg
-    xc_oewcg = 0.25;     % <------ INPUT
+    xc_oewcg = 0.25;    % <------ INPUT
     xc_wcg = 0.4;       % <------ INPUT
 
     wing_x = 0.8;      % <------ INPUT Assume position of the wing cg from the nose
-    empen_x = 0.9;      % <------ INPUT Assume position of the empennage cg
-    fus_x = 0.75;        % <------ INPUT Assume position of the fuselage cg
+    empen_x = 0.9;     % <------ INPUT Assume position of the empennage cg
+    fus_x = 0.75;      % <------ INPUT Assume position of the fuselage cg
 %     nacell_x = -0.2;    % <------ INPUT Assume position of the nacelle cg = same for engines
 %                         % fixed equipment is the same position as the fuselage
     propul_x = -0.1
