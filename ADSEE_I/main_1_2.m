@@ -106,9 +106,7 @@ sweep_4c = double(summary_wing(4, 2));
 
 
 
-%% eng dimensions
-N = 2;
-[D_p, w_ee, l_ee, h_ee] = engine_dim_func(P, N);
+
 
 %% CG VERY ROUGH ESTIMATION
 prompt_prop_pos = 'Where to put the enignes? wing or fuselage . 1/2: ';
@@ -127,6 +125,7 @@ if prop_pos == 2 % fuselage
     nacell_x = 0.14;    % <------ INPUT Assume position of the nacelle cg = same for engines
                         % fixed equipment is the same position as the fuselage
     propul_x = 0.14     % ADDED WHEN CHANGING STUFF
+    N = 1
 end
 
 
@@ -143,16 +142,25 @@ if prop_pos == 1            % wing
 %     nacell_x = -0.2;    % <------ INPUT Assume position of the nacelle cg = same for engines
 %                         % fixed equipment is the same position as the fuselage
     propul_x = -0.1
+    N = 2;
 end
 
 % [x_lemac, most_aft_cg, most_forward_cg] = CG_calc_func(MAC, payload, fus_length, W_fuel_total, MTOW, OEW, X_oew, X_payload, xc_oewcg, xc_wcg)
 [x_lemac, most_aft_cg, most_forward_cg] = CG_calc_func(MAC, payload, fus_length, W_fuel_total,...
     double(MTOW), double(OEW), X_oew, X_payload, xc_oewcg, xc_wcg, wing_x, empen_x, fus_x, propul_x, prop_pos);
                                                                                           %!!!!!!!!
-
+%% eng dimensions
+% N = 1;
+[D_p, w_ee, l_ee, h_ee] = engine_dim_func(P, N);
 %% Horizontal and vertical control surface areas
 
 [S_h, S_v] = control_surf_func(MAC, S, b, fus_length, empen_x, most_aft_cg)
 
 
+<<<<<<< HEAD
 save('variables_ADSEE_I.mat', 'A', 'MTOW', 'OEW', 'S', 'V_cruise', 'W4W5', 'W_fuel_used', 'tr', 'sweep_LE', 'sweep_TE', 'sweep_2c', 'sweep_4c')
+=======
+save('variables_ADSEE_I.mat', 'A', 'MTOW', 'OEW', 'S', 'V_cruise', 'W4W5',...
+    'W_fuel_used', 'tr', 'sweep_LE', 'sweep_TE', "sweep_2c",'sweep_4c',...
+    "h", "S_h", "S_v", "b", "N", "W_fuel_total")% 'sweep_2c', 'sweep_4c')
+>>>>>>> 1a54b1356c2961491a9d876e239c238cfe4b90f3
