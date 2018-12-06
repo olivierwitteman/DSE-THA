@@ -20,7 +20,7 @@ classdef C2W
             W_flightcontrols = 0.053*L^1.536*B_w^0.371*(N_z*W_dg*10^(-4))^0.80;
             W_hydraulics = 0.001*W_dg;
             W_avionics = 2.117*W_uav^0.933
-            W_electrical = 12.57 * (W_fuelsystem + W_avionics);
+            W_electrical = 12.57 * (W_fuelsystem + W_avionics)^0.51;
             W_airco_and_anti_ice = 0.265*W_dg^0.52*N_p^0.68*W_avionics^0.17*M^0.08;
             W_furnishings = 0.0582 * W_dg - 65;
             W_breakdown = [W_wing, W_horizontaltail, W_verticaltail, W_fuselage, W_mainlandinggear, W_noselandinggear, W_installedengines, W_fuelsystem, W_flightcontrols, W_hydraulics, W_avionics, W_electrical, W_airco_and_anti_ice, W_furnishings]/2.2;
