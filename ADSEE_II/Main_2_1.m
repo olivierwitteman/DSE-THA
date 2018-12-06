@@ -17,6 +17,8 @@ sweep_c4 = double(vars.sweep_4c);
 sweep_c2 = double(vars.sweep_2c);
 sweep_LE = double(vars.sweep_LE);
 sweep_TE = double(vars.sweep_TE);
+b = double(vars.b);
+V_stall = double(vars.V_stall);
 
 LAMBDA = sweep_c4;    % Wingsweep at 0.25MAC
 Wfiml = 0.97 * MTOW * 9.81;      % Aircraft weight at fuel intensive mission leg %ADSEEII-LECTURE1-SLIDE48
@@ -35,7 +37,7 @@ T_isa = T_0_isa - lambda_isa * h;
 P_isa = P0_isa * (T_isa / T_0_isa)^(g_isa / (lambda_isa * R_isa));
 rho = P_isa / (R_isa * T_isa)
 a = sqrt(1.4*R_isa*T_isa); % speed of sound
-M = v/a
+M = v/a;
 
 
 % % % % h = 2400m
@@ -64,7 +66,7 @@ W_press = 0 ;%11.9+(V_pr*P_delta)^0.271; %Weight penalty due to pressurization; 
 W_l = (MTOW - W_f) * 2.2; %Landing design gross weight
 L_m = 12.; %Extended length of main landing gear                ??????
 L_n = 12.; %Extended nose gear length (inch)                    ??????
-W_en = 100. * 2.2; %Engine weight (each) in pounds              XXXX
+W_en = 400. * 2.2; %Engine weight (each) in pounds              XXXX change later
 N_en = double(vars.("N")); %Number of engines\                  XXXX
 V_t = W_f / (840 * 3.79); %Total fuel volume in gallons         XXXX
 V_i = V_t * 1.05; %Integral tanks volume in gallons             
@@ -73,18 +75,19 @@ W_uav = 0.02 * MTOW * 2.2; %Uninstalled avionics weight in pounds
 N_p = 5; %Number of personal onboard
 
 % cl = 0.30647;
-clmax = 2.1;
+cl_cruise  = double(vars.("cl_cruise"));
+clmax = double(vars.("CL_max"));                % XXXX
 
 cambered = 0; % 1 for True, 0 for False
-e = 0.75; % default assumed Oswald factor
-c = sqrt(S_ref/A);
-b = S_ref/c;
-S_ht = 0.15*S_ref;
-S_vt = 0.1*S_ref;
-tc_avg = 0.18; % (t/c)_avg is the average thickness to chord
-xc_max = 0.25; % (x/c)_max is the position of maximum thickness
+e = double(vars.("e"))
+c = sqrt(S_ref/A);  %                           ?????? WHICH CHORD IS THIS????
 
-C_f_e = 0.0055; % light AC - single engine
+S_ht = double(vars.("S_h"));
+S_vt = double(vars.("S_v"));
+tc_avg = double(vars.("tc")); % (t/c)_avg is the average thickness to chord
+xc_max = 0.25; % (x/c)_max is the position of maximum thickness         ????????
+
+% C_f_e = 0.0055; % light AC - single engine
 % C_f_e = 0.0045; % light AC - twin engine
 
 S_W = 4 * S_ref; % assumed wetted area
@@ -93,9 +96,9 @@ S_W = 4 * S_ref; % assumed wetted area
 k = 0.634E-5; % smooth paint
 % k = 0.052E-5; % smooth molded composite
 
-L1 = 1; % nosecone length
-L2 = 4; % main fuselage length
-L3 = 2; % tailcone length
+L1 = 1; % nosecone length                               ??????? SHOULD BE DONE WITH DRAWINGS I GUESS?????
+L2 = 4; % main fuselage length                          ??????? SHOULD BE DONE WITH DRAWINGS I GUESS?????
+L3 = 2; % tailcone length                               ??????? SHOULD BE DONE WITH DRAWINGS I GUESS?????
 L = (L1+L2+L3)*3.281 ; %Fuselage structural length in ft for lecture 6 raymer pls dont hate
 A_cs = 3;
 D = sqrt(A_cs/pi); % derived from frontal area (even though fuselage may not be cilindrical)
@@ -105,11 +108,11 @@ mu = 1.7331332E-5; % viscosity of standard air at h=2400m (T=272K)
 
 P_req = deg2rad(60)/1.3; % requirement of roll rate
 
-%Input here your wing  parameters
-c_r = 1.67; % root chord
-c_t = 0.67; %tip chord
+% % % % %Input here your wing  parameters
+% % % % c_r = 1.67; % root chord
+% % % % c_t = 0.67; %tip chord
 
-theta = sweep_TE*180/pi; %sweep at trailing edge in degrees (positive number) (If sweep at leading edge is zero, this equals "atan((c_r-c_t)/(b/2.))"
+% % % % theta = sweep_TE*180/pi; %sweep at trailing edge in degrees (positive number) (If sweep at leading edge is zero, this equals "atan((c_r-c_t)/(b/2.))"
 c_l_alpha = 0.32; % Airfoil lift curve slope
 
 %%%
@@ -170,15 +173,16 @@ L_D = CLdes/cD
 
 
 %% ADSEE II - Lecture 4
-c_r = 1.67; % root chord
-c_t = 0.67; %tip chord
+c_r = double(vars.("cr"));
+c_t = double(vars.("ct"));
 sweep_LE; % sweep at leading edge in degrees (positive number)
-theta = 10.7773; %sweep at trailing edge in degrees (positive number) (If sweep at leading edge is zero, this equals "atan((c_r-c_t)/(b/2.))"
+theta = atan((c_r-c_t)/(b/2.))*180/pi;
+% theta = 10.7773; %sweep at trailing edge in degrees (positive number) (If sweep at leading edge is zero, this equals "atan((c_r-c_t)/(b/2.))"
 c_l_alpha = 0.32; % Airfoil lift curve slope
-S_ref = 12.3; % Wing surface in square meters
-c_d0 = 0.02; % 2D zero lift drag coefficient
-V = 190.; %speed in m/s
-b = 10.51; %wingspan in meters
+S_ref = S_ref; % Wing surface in square meters
+c_d0 = Fast_Cd0; % 2D zero lift drag coefficient        % ???????
+V = 1.2*V_stall; %speed in m/s                          % XXXXXXX
+b = b; %wingspan in meters
 
 
 aileron_l = aielron_22222(c_r, c_t, sweep_LE*180/pi, theta, c_l_alpha,...

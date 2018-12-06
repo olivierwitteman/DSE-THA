@@ -98,10 +98,8 @@ summary_wing = [summary_wing; ["Wing Area", S]];
 tr = double(summary_wing(3, 2));
 MAC = double(summary_wing(11, 2));
 b = double(summary_wing(2,2));
-tc = double(summary_wing(14,2));
-cl_cruise = double(summary_wing(8,2));
-cr = double(summary_wing(9,2));
-ct = double(summary_wing(10,2));
+tc = double(summary_wing(14,2))
+cl_cruise = double(summary_Wing(8,2))
 
 sweep_LE = double(summary_wing(6, 2));
 sweep_TE = double(summary_wing(7, 2));
@@ -164,4 +162,4 @@ end
 save('variables_ADSEE_I.mat', 'A', 'MTOW', 'OEW', 'S', 'V_cruise', 'W4W5',...
     'W_fuel_used', 'tr', 'sweep_LE', 'sweep_TE', "sweep_2c",'sweep_4c',...
     "h", "S_h", "S_v", "b", "N", "W_fuel_total", "CL_max", "Cl_to", "e",...
-    "tc", "cl_cruise", "cr", "ct", "b", "V_stall")
+    "tc", "cl_cruise")% 'sweep_2c', 'sweep_4c')
