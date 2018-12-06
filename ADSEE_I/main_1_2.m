@@ -5,7 +5,7 @@ clear variables;
 %% Read reference aircraft for getting starting MTOW form average weights (Test4Terence)
 filename = 'Reference_Olivier.xlsx';    % reference file with aircraft
 sheet = 1;
-MTOW_weights_set = 'C17:C39'; % where does matlab have to look in the excel
+MTOW_weights_set = 'C17:C40'; % where does matlab have to look in the excel
 MTOW_weights = xlsread(filename,sheet,MTOW_weights_set);
 average_MTOW = mean(MTOW_weights);
 
@@ -36,15 +36,15 @@ cl_to = 1.9;                 % <------ INPUT
 c = 5;       % 1.2*V_stall*grad(0.083) = 3.1 minimum . % <------ INPUT
 V_land = 1.2*32; % ms From requirements?     % <------ INPUT
 
-OEW = summary(1,2);                 % Input from fuel fractions
-W_fuel_used = summary(3,2);         % Input from fuel fractions
-Wl_Wto;                             % Input from fuel fractions
-cd0_clean = Cd0;                    % Input from fuel fractions
-A = double(summary(4,2));           % Input from fuel fractions
-e_clean = double(summary(5,2));     % Input from fuel fractions
-V_stall = double(summary(6, 2));    % Input from fuel fractions
-V_cruise = double(summary(7, 2));   % Input from fuel fractions
-m_cruise = double(summary(8, 2));   % Input from fuel fractions  !!!!!
+OEW = summary(1,2);                  % Input from fuel fractions
+W_fuel_used = summary(3,2);          % Input from fuel fractions
+Wl_Wto;                              % Input from fuel fractions
+cd0_clean = Cd0;                     % Input from fuel fractions
+A = double(summary(4,2));            % Input from fuel fractions
+e_clean = double(summary(5,2));      % Input from fuel fractions
+V_stall = double(summary(6, 2));     % Input from fuel fractions
+V_cruise = double(summary(7, 2));    % Input from fuel fractions
+m_cruise = double(summary(8, 2));    % Input from fuel fractions  !!!!!
 W_fuel_total = double(summary(9, 2));% Input from fuel fractions  !!!!!
 
 
@@ -89,39 +89,70 @@ summary_end = ["MTOW: ", MTOW;
 
 
 %% wing planform BASED ON WING AREA FROM WINGLOADING DIAGRAM
-[summary_wing] = wing_planform_design(V_cruise, A, S, m_cruise, h); % m_cruise 
+[summary_wing] = wing_planform_design(V_cruise, A, S, m_cruise, h); % m_cruise
 
 summary_wing = [summary_wing; ["Wing Area", S]];
 
-tr = summary_wing(3, 2);
-MAC = double(summary_wing(9, 2));
-sweep_LE = summary_wing(6, 2);
-sweep_TE = summary_wing(7, 2);
-sweep_4c = summary_wing(4, 2);
-sweep_2c = summary_wing(5, 2);
+
+
+tr = double(summary_wing(3, 2));
+MAC = double(summary_wing(11, 2));
+b = double(summary_wing(2,2));
+
+sweep_LE = double(summary_wing(6, 2));
+sweep_TE = double(summary_wing(7, 2));
+sweep_2c = double(summary_wing(5, 2));
+sweep_4c = double(summary_wing(4, 2));
+
+
 
 %% eng dimensions
-N = 1;
+N = 2;
 [D_p, w_ee, l_ee, h_ee] = engine_dim_func(P, N);
 
 %% CG VERY ROUGH ESTIMATION
-fus_length = 5.2;   % <------ INPUT
-X_oew = 0.5;        % <------ INPUT Assume position of the OEW cg
-X_payload = 0.35;   % <------ INPUT Assume position of the Payload(including passengers) cg
-xc_oewcg = 0.3;     % <------ INPUT
-xc_wcg = 0.4;       % <------ INPUT
+prompt_prop_pos = 'Where to put the enignes? wing or fuselage . 1/2: ';
+prop_pos = double(input(prompt_prop_pos));
 
-wing_x = 0.4;       % <------ INPUT Assume position of the wing cg from the nose
-empen_x = 0.8;      % <------ INPUT Assume position of the empennage cg
-fus_x = 0.5;        % <------ INPUT Assume position of the fuselage cg
-nacell_x = 0.4;     % <------ INPUT Assume position of the nacelle cg = same for engines
-                    % fixed equipment is the same position as the fuselage
-                    % cg
+if prop_pos == 2 % fuselage
+    fus_length = 6.6;   % <------ INPUT
+    X_oew = 0.40;       % <------ INPUT Assume position of the OEW cg
+    X_payload = 0.5;    % <------ INPUT Assume position of the Payload(including passengers) cg
+    xc_oewcg = 0.3;     % <------ INPUT
+    xc_wcg = 0.4;       % <------ INPUT
+
+    wing_x = 0.8;       % <------ INPUT Assume position of the wing cg from the nose
+    empen_x = 0.9;      % <------ INPUT Assume position of the empennage cg
+    fus_x = 0.8;        % <------ INPUT Assume position of the fuselage cg
+    nacell_x = 0.14;    % <------ INPUT Assume position of the nacelle cg = same for engines
+                        % fixed equipment is the same position as the fuselage
+    propul_x = 0.14     % ADDED WHEN CHANGING STUFF
+end
+
+
+if prop_pos == 1            % wing
+    fus_length = 6.6;   % <------ INPUT
+    X_oew = 0.550;      % <------ INPUT Assume position of the OEW cg
+    X_payload = 0.5;    % <------ INPUT Assume position of the Payload(including passengers) cg
+    xc_oewcg = 0.25;    % <------ INPUT
+    xc_wcg = 0.4;       % <------ INPUT
+
+    wing_x = 0.8;      % <------ INPUT Assume position of the wing cg from the nose
+    empen_x = 0.9;     % <------ INPUT Assume position of the empennage cg
+    fus_x = 0.75;      % <------ INPUT Assume position of the fuselage cg
+%     nacell_x = -0.2;    % <------ INPUT Assume position of the nacelle cg = same for engines
+%                         % fixed equipment is the same position as the fuselage
+    propul_x = -0.1
+end
 
 % [x_lemac, most_aft_cg, most_forward_cg] = CG_calc_func(MAC, payload, fus_length, W_fuel_total, MTOW, OEW, X_oew, X_payload, xc_oewcg, xc_wcg)
 [x_lemac, most_aft_cg, most_forward_cg] = CG_calc_func(MAC, payload, fus_length, W_fuel_total,...
-    double(MTOW), double(OEW), X_oew, X_payload, xc_oewcg, xc_wcg, wing_x, empen_x, fus_x, nacell_x);
+    double(MTOW), double(OEW), X_oew, X_payload, xc_oewcg, xc_wcg, wing_x, empen_x, fus_x, propul_x, prop_pos);
+                                                                                          %!!!!!!!!
 
-% maybe add the input in the wingloading function
+%% Horizontal and vertical control surface areas
 
-save('variables_ADSEE_I.mat', 'A', 'MTOW', 'OEW', 'S', 'V_cruise', 'W4W5', 'W_fuel_used', 'tr', 'sweep_LE', 'sweep_TE', 'sweep_2c', 'sweep_4c')
+[S_h, S_v] = control_surf_func(MAC, S, b, fus_length, empen_x, most_aft_cg)
+
+
+save('variables_ADSEE_I.mat', 'A', 'MTOW', 'OEW', 'S', 'V_cruise', 'W4W5', 'W_fuel_used', 'tr', 'sweep_LE', 'sweep_TE', "sweep_2c",'sweep_4c')% 'sweep_2c', 'sweep_4c')
