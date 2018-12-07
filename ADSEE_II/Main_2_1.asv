@@ -204,8 +204,8 @@ W_t = sum(W_breakdown)
 
 %W_breakdown = [W_wing, W_horizontaltail, W_verticaltail, W_fuselage, W_mainlandinggear, W_noselandinggear, W_installedengines, W_fuelsystem, W_flightcontrols, W_hydraulics, W_avionics, W_electrical, W_airco_and_anti_ice, W_furnishings]/2.2;
 
-FG_OEW_arms = [0 L-0.5 1 1 1 1 1 1 1 1 1 1 1 1]'
+FG_OEW_arms = [0 L-0.5
+    
 
-CG_FG_OEW = (W_breakdown*FG_OEW_arms)/(W_t-W_breakdown(1))
+]
 
-CG_OEW = CG_FG_OEW
