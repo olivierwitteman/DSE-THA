@@ -59,10 +59,7 @@ W_press = 0 ;%11.9+(V_pr*P_delta)^0.271; %Weight penalty due to pressurization; 
 W_l = (MTOW - W_f) * 2.2; %Landing design gross weight
 
 V_t = W_f / (0.840 * 3.79); %Total fuel volume in gallons
-<<<<<<< HEAD
 
-=======
->>>>>>> 3c5fdaab41ac9aad496ff573eedd096fc19f18bb
 L_m = 12.; %Extended length of main landing gear                ??????
 L_n = 12.; %Extended nose gear length (inch)                    ??????
 
@@ -217,7 +214,7 @@ disp(["Final answer: ", num2str(aileron_l)])
 
 W_breakdown = C2W.calculation(W_dg,N_z,N_gear,S_ref*10.7639,A,tc_avg,lambda,LAMBDA,W_f*2.2,L/D,W_f*2.2,v,rho,S_ht,LAMBDA_ht,A_ht,lambda_h,H_t_over_H_v,S_vt,LAMBDA_vt,A_vt,lambda_vt,L_t,W_press,W_l,L_m,L_n,W_en,N_en,V_t,V_i,N_t,L,b,W_uav,N_p,M)
 
-<<<<<<< HEAD
+
 %W_breakdown = [W_wing, W_horizontaltail, W_verticaltail, W_fuselage, W_mainlandinggear, W_noselandinggear, W_installedengines, W_fuelsystem, W_flightcontrols, W_hydraulics, W_avionics, W_electrical, W_airco_and_anti_ice, W_furnishings]/2.2;
 
 FG_OEW_arms = [0 L-0.5 1 1 1 1 1 1 1 1 1 1 1 1]'
@@ -225,6 +222,6 @@ FG_OEW_arms = [0 L-0.5 1 1 1 1 1 1 1 1 1 1 1 1]'
 CG_FG_OEW = (W_breakdown*FG_OEW_arms)/(W_t-W_breakdown(1))
 
 CG_OEW = CG_FG_OEW
-=======
+
 W_total = sum(W_breakdown)
->>>>>>> 3c5fdaab41ac9aad496ff573eedd096fc19f18bb
+
