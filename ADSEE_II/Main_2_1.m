@@ -27,7 +27,7 @@ WSec = W4W5 * WSsc;     % Wing loading at the end of the cruise
 
 
 %%%%%%%% added martin isa
-h = double(vars.h)
+h = double(vars.h);
 lambda_isa = 0.0065; 
 T_0_isa = 288.15; 
 g_isa = 9.81;
@@ -35,7 +35,7 @@ R_isa = 287.1;
 P0_isa=101.325*10.^3;
 T_isa = T_0_isa - lambda_isa * h;
 P_isa = P0_isa * (T_isa / T_0_isa)^(g_isa / (lambda_isa * R_isa));
-rho = P_isa / (R_isa * T_isa)
+rho = P_isa / (R_isa * T_isa);
 a = sqrt(1.4*R_isa*T_isa); % speed of sound
 M = v/a;
 
@@ -72,12 +72,17 @@ N_en = 1; %Number of engines\
 V_t = W_f / (0.840 * 3.79) %Total fuel volume in gallons
 V_i = V_t * 1.05; %Integral tanks volume in gallons
 N_t = 1; %Number of fuel tanks
+<<<<<<< HEAD
 
+=======
+=======
+V_t = W_f / (0.840 * 3.79); %Total fuel volume in gallons
+>>>>>>> 82a87269b58aa2582c7594432169c78ef076c636
+>>>>>>> a86314cda9448b17bbf0cf6ef1b4103b8f4e5cd5
 L_m = 12.; %Extended length of main landing gear                ??????
 L_n = 12.; %Extended nose gear length (inch)                    ??????
-W_en = 400. * 2.2; %Engine weight (each) in pounds              XXXX change later
+W_en = 200. * 2.2; %Engine weight (each) in pounds              XXXX
 N_en = double(vars.("N")); %Number of engines\                  XXXX
-V_t = W_f / (840 * 3.79); %Total fuel volume in gallons         XXXX
 V_i = V_t * 1.05; %Integral tanks volume in gallons             
 N_t = 1; %Number of fuel tanks                                  ??????
 W_uav = 0.02 * MTOW * 2.2; %Uninstalled avionics weight in pounds
@@ -113,7 +118,6 @@ A_cs = 3;
 D = sqrt(A_cs/pi); % derived from frontal area (even though fuselage may not be cilindrical)
 
 mu = 1.7331332E-5; % viscosity of standard air at h=2400m (T=272K)
-
 
 P_req = deg2rad(60)/1.3; % requirement of roll rate
 
