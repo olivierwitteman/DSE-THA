@@ -64,7 +64,6 @@ lambda_h = 1; %Taper ratio horizontal tail                      ??????
 L_t = 1.; % Tail length, wing quarter MAC to tail quarter MAC   ??????
 W_press = 0 ;%11.9+(V_pr*P_delta)^0.271; %Weight penalty due to pressurization; PROBABLY ZERO FOR OUR DESIGNS BECAUSE WE DON'T PRESSURIZE OUR CABIN
 W_l = (MTOW - W_f) * 2.2; %Landing design gross weight
-<<<<<<< HEAD
 L_m = 12.; %Extended length of main landing gear
 L_n = 12.; %Extended nose gear length (inch)
 W_en = 1. * 2.2; %Engine weight (each) in pounds
@@ -72,7 +71,6 @@ N_en = 1; %Number of engines\
 V_t = W_f / (0.840 * 3.79) %Total fuel volume in gallons
 V_i = V_t * 1.05; %Integral tanks volume in gallons
 N_t = 1; %Number of fuel tanks
-=======
 L_m = 12.; %Extended length of main landing gear                ??????
 L_n = 12.; %Extended nose gear length (inch)                    ??????
 W_en = 400. * 2.2; %Engine weight (each) in pounds              XXXX change later
@@ -80,7 +78,6 @@ N_en = double(vars.("N")); %Number of engines\                  XXXX
 V_t = W_f / (840 * 3.79); %Total fuel volume in gallons         XXXX
 V_i = V_t * 1.05; %Integral tanks volume in gallons             
 N_t = 1; %Number of fuel tanks                                  ??????
->>>>>>> 1a54b1356c2961491a9d876e239c238cfe4b90f3
 W_uav = 0.02 * MTOW * 2.2; %Uninstalled avionics weight in pounds
 N_p = 5; %Number of personal onboard
 
