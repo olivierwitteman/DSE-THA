@@ -47,7 +47,6 @@ V_cruise = double(summary(7, 2));    % Input from fuel fractions
 m_cruise = double(summary(8, 2));    % Input from fuel fractions  !!!!!
 W_fuel_total = double(summary(9, 2));% Input from fuel fractions  !!!!!
 
-
 Wing_Loading_Func(h,A,e_clean,cd0_clean, CL_max,Cl_to ,c, Wl_Wto, V_land, V_stall, V_cruise)
 
 W4W5;                               % Input from fuel fractions
@@ -102,6 +101,7 @@ tc = double(summary_wing(14,2));
 cl_cruise = double(summary_wing(8,2));
 cr = double(summary_wing(9,2));
 ct = double(summary_wing(10,2));
+M_cruise = double(summary_wing(1, 2));
 
 sweep_LE = double(summary_wing(6, 2));
 sweep_TE = double(summary_wing(7, 2));
@@ -171,7 +171,7 @@ save('variables_ADSEE_I.mat', 'A', 'MTOW', 'OEW', 'S', 'V_cruise', 'W4W5',...
     'W_fuel_used', 'tr', 'sweep_LE', 'sweep_TE', "sweep_2c",'sweep_4c',...
     "h", "S_h", "S_v", "b", "N", "W_fuel_total", "CL_max", "Cl_to", "e",...
     "tc", "cl_cruise", "cr", "ct", "b", "V_stall",...
-    "h", "S_h", "S_v", "b", "N", "W_fuel_total")
+    "h", "S_h", "S_v", "b", "N", "W_fuel_total", "M_cruise", "MAC")
 
 
 

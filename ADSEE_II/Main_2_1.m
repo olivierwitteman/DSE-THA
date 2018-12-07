@@ -28,8 +28,8 @@ WSec = W4W5 * WSsc;     % Wing loading at the end of the cruise
 
 %%%%%%%% added martin isa
 h = double(vars.h);
-lambda_isa = 0.0065; 
-T_0_isa = 288.15; 
+lambda_isa = 0.0065;
+T_0_isa = 288.15;
 g_isa = 9.81;
 R_isa = 287.1;
 P0_isa=101.325*10.^3;
@@ -78,8 +78,8 @@ V_t = W_f / (0.840 * 3.79); %Total fuel volume in gallons
 L_m = 12.; %Extended length of main landing gear                ??????
 L_n = 12.; %Extended nose gear length (inch)                    ??????
 W_en = 200. * 2.2; %Engine weight (each) in pounds              XXXX
-N_en = double(vars.("N")); %Number of engines\                  XXXX
-V_i = V_t * 1.05; %Integral tanks volume in gallons             
+N_en = double(vars.("N")); %Number of engines                  XXXX
+V_i = V_t * 1.05; %Integral tanks volume in gallons
 N_t = 1; %Number of fuel tanks                                  ??????
 W_uav = 0.02 * MTOW * 2.2; %Uninstalled avionics weight in pounds
 N_p = 5; %Number of personal onboard
@@ -209,4 +209,3 @@ disp(["Final answer: ", num2str(aileron_l)])
 
 W_breakdown = C2W.calculation(W_dg,N_z,N_gear,S_ref*10.7639,A,tc_avg,lambda,LAMBDA,W_f*2.2,L/D,W_f*2.2,v,rho,S_ht,LAMBDA_ht,A_ht,lambda_h,H_t_over_H_v,S_vt,LAMBDA_vt,A_vt,lambda_vt,L_t,W_press,W_l,L_m,L_n,W_en,N_en,V_t,V_i,N_t,L,b,W_uav,N_p,M)
 W_t = sum(W_breakdown)
-
