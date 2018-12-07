@@ -21,10 +21,7 @@ average_MTOW = mean(MTOW_weights);
 MTOW = average_MTOW; % or choose average MTOW % <------ INPUT
 A = 8.2;                              % <------ INPUT
 e = 0.75;                             % <------ INPUT
-=======
-A = 7.5;                              % <------ INPUT
-e = 0.7;                             % <------ INPUT
->>>>>>> dae35f013eb25c47f567fa3ca9e98180a0d83478
+
 V_cruise = 180;  % kts                % <------ INPUT
 V_stall = 61;    % kts                % <------ INPUT
 
@@ -56,7 +53,7 @@ Wing_Loading_Func(h,A,e_clean,cd0_clean, CL_max,cl_to ,c, Wl_Wto, V_land, V_stal
 
 W4W5;                               % Input from fuel fractions
 payload = 363;                      % from requirements
-percent_emptiness_payload = 0.5;    % Input : how empty the payload is
+percent_emptiness_payload = 00.5;    % Input : how empty the payload is
 
 PR_func(MTOW, OEW, W_fuel_used, payload, LD_cruise, W4W5, percent_emptiness_payload);
 % maybe change W_fuel_used to W_fuel_total
@@ -71,7 +68,7 @@ S = MTOW*9.81/WS; % mˆ2
 
 prompt_WP = 'What WP did you choose: ';
 WP = double(input(prompt_WP))
-P = MTOW*9.81/WP;   % Watts
+P = MTOW*9.81/WP   % Watts
 
 %% Progress summary
 summary_end = ["MTOW: ", MTOW;
@@ -106,15 +103,15 @@ sweep_2c = summary_wing(5, 2);
 
 %% eng dimensions
 N = 2
->>>>>>> c6e37a56f0916c7b55715ef9a092b22b613d0723
+
 [D_p, w_ee, l_ee, h_ee] = engine_dim_func(P, N);
 
 %% CG VERY ROUGH ESTIMATION
 fus_length = 6.6;   % <------ INPUT
-X_oew = 0.40;        % <------ INPUT Assume position of the OEW cg
+X_oew = 0.40;        % <------ INPUT Assume pos5ition of the OEW cg
 X_payload = 0.35;   % <------ INPUT Assume position of the Payload(including passengers) cg
 xc_oewcg = 0.3;     % <------ INPUT
-xc_wcg = 0.4;       % <------ INPUT
+xc_wcg = 0.4;       % <------ INPUT5
 
 wing_x = 0.55;       % <------ INPUT Assume position of the wing cg from the nose
 empen_x = 0.8;      % <------ INPUT Assume position of the empennage cg
