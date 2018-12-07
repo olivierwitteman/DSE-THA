@@ -68,15 +68,15 @@ W_l = (MTOW - W_f) * 2.2; %Landing design gross weight
 V_t = W_f / (0.840 * 3.79); %Total fuel volume in gallons
 L_m = 12.; %Extended length of main landing gear                ??????
 L_n = 12.; %Extended nose gear length (inch)                    ??????
-<<<<<<< HEAD
+
 W_en = 200. * 2.2; %Engine weight (each) in pounds              XXXX
 N_en = double(vars.("N")); %Number of engines                  XXXX
 V_i = V_t * 1.05; %Integral tanks volume in gallons
-=======
+
 W_en = 345. * 2.2; %Engine weight (each) in pounds              XXXX
 N_en = double(vars.("N")); %Number of engines\                  XXXX
 V_i = V_t * 1.05; %Integral tanks volume in gallons             
->>>>>>> 07ac26228c5f4b5e7bae2b70cbaf392e9fe6beff
+
 N_t = 1; %Number of fuel tanks                                  ??????
 W_uav = 0.03 * MTOW * 2.2; %Uninstalled avionics weight in pounds
 N_p = 5; %Number of personal onboard
@@ -178,7 +178,7 @@ cD = Fast_Cd0 + ADSEE_II_Drag.k_f(A, LAMBDA, CLdes) * (CLdes)^2
 L_D = CLdes/cD
 
 
-<<<<<<< HEAD
+
 % %% ADSEE II - Lecture 4
 % P_req = degtorad(60)/1.3;%requirement of roll rate
 %
@@ -206,8 +206,7 @@ L_D = CLdes/cD
 % disp('The total distance from the root to the aileron in [m] from the base of the fuselage'), disp(b1);
 % disp('Inner Aileron Chord:'), disp(Inner_Ail_Chord), disp('Outer Aileron Chord:'), disp(Outer_Ail_Chord);
 
-=======
->>>>>>> 8260041c6fb0a52962de860b0f99f43299d6f78d
+
 %% ADSEE II - Lecture 4
 c_r = double(vars.("cr"));
 c_t = double(vars.("ct"));
@@ -220,7 +219,6 @@ c_d0 = Fast_Cd0; % 2D zero lift drag coefficient        % ???????
 V = 1.2*V_stall; %speed in m/s                          % XXXXXXX
 b = b; %wingspan in meters
 
-<<<<<<< HEAD
 aileron_l = aielron_22222(c_r, c_t, lambda, theta, c_l_alpha,...
     S_ref, c_d0, V, b);
 
@@ -239,20 +237,17 @@ aileron_l = aielron_22222(c_r, c_t, sweep_LE*180/pi, theta, c_l_alpha,...
 % disp('The total aileron size is from the tip of the wing up until: in [m] from the base of the fuselage'), disp(b1);
 % disp('Inner Aileron Chord:'), disp(Inner_Ail_Chord), disp('Inner Aileron Chord:'), disp(Outer_Ail_Chord);
 %%
->>>>>>> 8260041c6fb0a52962de860b0f99f43299d6f78d
 
 disp(["Final answer: ", num2str(aileron_l)])
 
 %% ADSEE II - Lecture 6 - Class II Weights
 
-<<<<<<< HEAD
 
 %W_breakdown = C2W.calculation(W_dg,N_z,N_gear,S_w,A,tc_avg,lambda,LAMBDA,S_f,L_over_D,W_fw,v,rho,S_ht,LAMBDA_ht,A_ht,lambda_h,H_t_over_H_v,S_vt,LAMBDA_vt,A_vt,lambda_vt,L_t,W_press,W_l,L_m,L_n,W_en,N_en,V_t,V_i,N_t,L,b,W_uav,N_p,M)
 
 W_breakdown = C2W.calculation(W_dg,N_z,N_gear,S_ref,A,tc_avg,lambda,LAMBDA,S_W,L_D,W_f,v,rho,S_ht,LAMBDA_ht,A_ht,lambda_h,H_t_over_H_v,S_vt,LAMBDA_vt,A_vt,lambda_vt,L_t,W_press,W_l,L_m,L_n,W_en,N_en,V_t,V_i,N_t,L,b,W_uav,N_p,M)
-=======
+
 %W_breakdown = C2W.calculation(W_dg,N_z,N_gear,S_w,A,tc_avg,lambda,LAMBDA,S_f,L_over_D,W_fw,v,rho,S_ht,LAMBDA_ht,A_ht,lambda_h,H_t_over_H_v,S_vt,LAMBDA_vt,A_vt,lambda_vt,L_t,W_press,W_l,L_m,L_n,W_en,N_en,V_t,V_i,N_t,L,b,W_uav,N_p,M)
 
 W_breakdown = C2W.calculation(W_dg,N_z,N_gear,S_ref*10.7639,A,tc_avg,lambda,LAMBDA,W_f*2.2,L/D,W_f*2.2,v,rho,S_ht,LAMBDA_ht,A_ht,lambda_h,H_t_over_H_v,S_vt,LAMBDA_vt,A_vt,lambda_vt,L_t,W_press,W_l,L_m,L_n,W_en,N_en,V_t,V_i,N_t,L,b,W_uav,N_p,M)
->>>>>>> 8260041c6fb0a52962de860b0f99f43299d6f78d
-W_t = sum(W_breakdown)
+
