@@ -161,11 +161,17 @@ end
 [S_h, S_v] = control_surf_func(MAC, S, b, fus_length, empen_x, most_aft_cg)
 
 
-save('variables_ADSEE_I.mat', 'A', 'MTOW', 'OEW', 'S', 'V_cruise', 'W4W5', 'W_fuel_used', 'tr', 'sweep_LE', 'sweep_TE', 'sweep_2c', 'sweep_4c')
+
+% save('variables_ADSEE_I.mat', 'A', 'MTOW', 'OEW', 'S', 'V_cruise', 'W4W5', 'W_fuel_used', 'tr', 'sweep_LE', 'sweep_TE', 'sweep_2c', 'sweep_4c')
+% =======
+% save('variables_ADSEE_I.mat', 'A', 'MTOW', 'OEW', 'S', 'V_cruise', 'W4W5', 'W_fuel_used', 'tr', 'sweep_LE', 'sweep_TE', 'sweep_2c', 'sweep_4c')
+% >>>>>>> 82a87269b58aa2582c7594432169c78ef076c636
 
 save('variables_ADSEE_I.mat', 'A', 'MTOW', 'OEW', 'S', 'V_cruise', 'W4W5',...
     'W_fuel_used', 'tr', 'sweep_LE', 'sweep_TE', "sweep_2c",'sweep_4c',...
     "h", "S_h", "S_v", "b", "N", "W_fuel_total", "CL_max", "Cl_to", "e",...
     "tc", "cl_cruise", "cr", "ct", "b", "V_stall",...
     "h", "S_h", "S_v", "b", "N", "W_fuel_total")
+
+
 
