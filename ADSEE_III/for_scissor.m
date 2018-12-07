@@ -1,5 +1,6 @@
-% clear all
-clear all
+clc
+clear variables
+
 vars = load('../ADSEE_I/variables_ADSEE_I.mat');
 % Weights based on engine selection and preliminary design (might change) 
 OEW = double(vars.OEW)*9.81;  %operational empty weight [N] <---- INPUT
@@ -162,7 +163,7 @@ x_lemac = [1: 0.01: 3];
 cg_mat = zeros(length(x_lemac),2);
 counter = 1
 for i  = x_lemac
-    l_fus = 6.6
+    l_fus = 6.6;
     lbs_to_kg = 0.45359237;
     mass_pax=175;                    %lbs                       INPUT (fixed)
     mass_pax = mass_pax*lbs_to_kg;
