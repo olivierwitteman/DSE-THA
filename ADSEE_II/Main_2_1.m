@@ -172,7 +172,10 @@ c_t = double(vars.("ct"));
 sweep_LE; % sweep at leading edge in degrees (positive number)
 theta = atan((c_r-c_t)/(b/2.))*180/pi;
 % theta = 10.7773; %sweep at trailing edge in degrees (positive number) (If sweep at leading edge is zero, this equals "atan((c_r-c_t)/(b/2.))"
-c_l_alpha = 0.32; % Airfoil lift curve slope
+
+prompt_dclda = 'What is your lift curve slope: default is 0.32  ';
+c_l_alpha = double(input(prompt_dclda));
+c_l_alpha = 0.32; % Airfoil lift curve slope  <------- INPUT FROM BOOK
 S_ref = S_ref; % Wing surface in square meters
 c_d0 = Fast_Cd0; % 2D zero lift drag coefficient        % ???????
 V = 1.2*V_stall; %speed in m/s                          % XXXXXXX
