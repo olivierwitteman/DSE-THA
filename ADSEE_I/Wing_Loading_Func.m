@@ -7,8 +7,7 @@ rho_0 = 1.225;
 
 %% sizing for stall
 % Cl_max so for all flaps and HLDs
-    
-WS_stall = 0.5*rho_0*V_stall*V_stall*Cl_max     
+WS_stall = 0.5*rho_0*V_stall*V_stall*Cl_max;     
 
 f2 = figure; %%%%%%%%%%%%%
 plot([WS_stall, WS_stall], [0, 2], "magenta",'LineWidth',thick);

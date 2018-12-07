@@ -1,48 +1,52 @@
 % clear all
+clear all
+vars = load('../ADSEE_I/variables_ADSEE_I.mat');
 % Weights based on engine selection and preliminary design (might change) 
-OEW = 1300*9.81;  %operational empty weight [N]
-MTOW = 1900*9.81; %maximum take-off weight [N]
-Payload  = 350*9.81; %total payload [N]
-Fuel = MTOW - OEW - Payload; %fuel weight [N]
+OEW = double(vars.OEW)*9.81;  %operational empty weight [N] <---- INPUT
+MTOW = double(vars.MTOW)*9.81; %maximum take-off weight [N] <---- INPUT
+Payload  = 363*9.81; %total payload [N]
+% % % % % % % Fuel = MTOW - OEW - Payload; %fuel weight [N] .     <---- INPUT
+Fuel = double(vars.W_fuel_total)*9.81;          % <---- INPUT
 %Dimensions and parameters (fixed) 
-b = 16.0; %span [m]
-S = 17.0816; %reference surface area [m^2]
-A = 7.5;   %aspect ratio [-]
-M = 0.27; %mach number at cruise [-]
+b = double(vars.b); %span [m]
+S = double(vars.S); %reference surface area [m^2]
+A = double(vars.S);   %aspect ratio [-]
+M = double(vars.M_cruise); %mach number at cruise [-]
 beta=sqrt(1-M^2);
-bf = 1.5; %fuselage width [m]
-hf = 1.5; %fuselage height [m]
-bh = 4.0; %horizontal tail span [m]
-Sh = 2.726; %horizontal tail area [m^2]
-Sv = 1.32;  %vertical tail area [m^2]
-Cr = 1.466; %main wing root chord [m]
-Ct = 0.6693; %main wing tip chord [m]
-Cr_h = 0.8; %horizontal tail root chord [m] 
-Ct_h = 0.563; %horizontal tail tip chord [m]
-lfn = 2.059; %distance from nose to leading edge of root chord [m]
+bf = 1.5; %fuselage width [m]                   ?????? <---- INPUT
+hf = 1.7; %fuselage height [m]                  ?????? <---- INPUT
+bh = 6.0; %horizontal tail span [m]             ?????? <---- INPUT
+Sh = double(vars.S_h); %horizontal tail area [m^2]
+Sv = double(vars.S_v);  %vertical tail area [m^2]
+Cr = double(vars.cr); %main wing root chord [m]
+Ct = double(vars.ct); %main wing tip chord [m]
+Cr_h = 0.2 * Cr; %horizontal tail root chord [m]   ??????
+Ct_h = 0.4 * Cr_h; %horizontal tail tip chord [m]  ??????
+lfn = 2.059; %distance from nose to leading edge of root chord [m] ?????????????????????????????????????????????????
 cg = S/b; %average constant chord [m]
-ln = 2.425; %distance from engine to quater chord mac [m]
-bn = 0.9; %width of nacelles (engines) [m]
+ln = 2.425; %distance from engine to quater chord mac [m] .   ?????????????????????????????????????????????????
+bn = 0.9; %width of nacelles (engines) [m] ????
 lambda_h = Ct_h/Cr_h; %taper ratio of horizontal tail [-]
 lambda = Ct/Cr; %taper ratio of main wing [-]
 Ah = bh^2/Sh; %aspect ratio of horizontal tail [-] 
 Snet = S-bf*((Cr+1.35)/2); %net area (excluding the eclosed wing area in the fuselage) [m^2]
 eta = 0.95; %airfoil efficiency factor [-]
-lf = 7.75; % total length of fuselage [m]
-l_press = 5.0; % length of pressurized area (assumed) [m]
+lf = 6.6; % total length of fuselage [m] .  <-----  INPUT
+l_press = 5.0; % length of pressurized area (assumed) [m] ???????
 %-------------------------------------------------------------------------
 % Calculate wing sweep angle
-sweep_LE = 5.68*pi/180; %sweep at leading edge [rad] %needs to be changed
+sweep_LE = double(vars.sweep_LE)*pi/180; %sweep at leading edge [rad] %needs to be changed
 sweep_14 = atan(tan(sweep_LE) + (Cr/(2*b))*(lambda -1)); %sweep at quater chord [rad]
 sweep_12 = atan(tan(sweep_LE) - (4/A)*(0.5*((1-lambda)/(1+lambda)))); %sweep at half chord [rad]
 %-------------------------------------------------------------------------
 % Calculate horizontal tail sweep angle
-sweep_LE_h = 6.27*pi/180; %sweep at leading edge [rad] %needs to be changed
+sweep_LE_h = double(vars.sweep_LE)*pi/180; %sweep at leading edge [rad] %needs to be changed
 sweep_14_h = atan(tan(sweep_LE_h) + (Cr_h/(2*bh))*(lambda_h - 1)); %sweep at quater chord [rad]
 sweep_12_h = atan(tan(sweep_LE_h) - (4/Ah)*(0.5*((1-lambda_h)/(1+lambda_h)))); %sweep at half chord [rad]
 %-------------------------------------------------------------------------
 % Calculate wing mean aerodynamic chord (mac)
 mac = (2/3)*Cr*( (1 + lambda + lambda^2)/(1+lambda)); % mean aerodynamic chord [m]
+mac = double(vars.MAC); %%%%% from class I
 y_mac = (b/6)*((1 + 2*lambda)/(1 + lambda)); %y location of mac [m]
 x_mac = y_mac*tan(sweep_LE);          %x location of mac [m] 
 x_datum = 2.059 ;                  % measured from planform for given geometry (from nose to wing) [m]
@@ -62,7 +66,7 @@ x_Fuel = x_lemac + 0.5*mac;         % CG of fuel [m]
 
 %% scissor plot
 %%% Variables Stability (CRUISE CONFIGURATION *- deg Aoa, - deg Incidence, V = m/s)
-SM = 0.15;
+SM = 0.05;
 %stability margin for safety given as percentage/100
 CLa_w = (2*pi*A)/(2 + sqrt(4+(A/eta)^2*(1 +(tan(sweep_12)^2/beta^2)) )) ; 
 % dCl/dalpha using DATCOM method [1/rad]
@@ -140,11 +144,128 @@ Sh_S_C = ((Cm_ac/CL_A_h) + (x_cg_c)-(x_ac_c)) / ((CL_h/CL_A_h)*(lh/mac)*Vh_V^2);
 
 %-------------------------------------------------------------------------
 
-% plots
+% % % % plots
+% % % figure
+% % % plot(x_cg_c,Sh_S,x_cg_c,Sh_S_NS,x_cg_c,Sh_S_C)
+% % % % title('Scissors-plot: Stability & Controllability Curve')
+% % % xlabel('x_{cg}/c [%]')
+% % % ylabel('S_h/S [-]')
+% % % axis([-1 1 -0.5 0.6])
+% % % % legend('Stability','Neutral Stability','Controllability')
+% % % hold on
+
+
+%% POTATO PLOT
+MAC = mac
+x_lemac = [1: 0.01: 3];
+
+cg_mat = zeros(length(x_lemac),2);
+counter = 1
+for i  = x_lemac
+    l_fus = 6.6
+    lbs_to_kg = 0.45359237;
+    mass_pax=175;                    %lbs                       INPUT (fixed)
+    mass_pax = mass_pax*lbs_to_kg;
+
+    mass_bags = 25;                    %lbs                       INPUT (fixed)
+    mass_bags = mass_bags * lbs_to_kg;
+
+    mass_fuel=250;                   %lbs                       INPUT
+    mass_fuel = mass_fuel * lbs_to_kg;
+
+    W_OEW=2900;                      %lbs                       INPUT   
+    W_OEW = W_OEW * lbs_to_kg;
+
+    cg_OEW=3.7;                     %c.g. Position@OEW          INPUT 
+    % cg_OEW = 2.5177;    % 30% of mac
+    cg_OEW = 1.6049+0.20;
+    % cg_OEW = 4;
+    % cg_OEW = cg_OEW - x_lemac
+
+    seat_pilot=2 ;                  %c.g. Position Pilot        INPUT 
+    seat_row1=4  ;                  %c.g. Position Row 1        INPUT 
+    seat_row2=6  ;                  %c.g. Position Row 2        INPUT 
+    location_cargo=2.5;             %c.g. Position Baggage      INPUT
+    location_fuel=5;                %c.g. Position Fuel         INPUT
+    location_fue = cg_OEW + 0.10*l_fus;
+
+    %cargo
+    W_OEW_cargo=W_OEW+4*mass_bags;
+    cg_OEW_cargo=((cg_OEW*W_OEW)+(location_cargo*4*mass_bags))/(W_OEW_cargo);
+
+
+
+    %back to front
+    W_OEW_1pax=1*mass_pax+W_OEW_cargo;
+    W_OEW_2pax=2*mass_pax+W_OEW_cargo;
+    W_OEW_3pax=3*mass_pax+W_OEW_cargo;
+    W_OEW_4pax=4*mass_pax+W_OEW_cargo;
+
+    cg_btf_1=((cg_OEW_cargo*W_OEW_cargo)+(seat_row2*mass_pax))/(W_OEW_1pax);
+    cg_btf_2=((cg_btf_1*W_OEW_1pax)+(seat_row2*mass_pax))/(W_OEW_2pax);
+    cg_btf_3=((cg_btf_2*W_OEW_2pax)+(seat_row1*mass_pax))/(W_OEW_3pax);
+    cg_btf_4=((cg_btf_3*W_OEW_3pax)+(seat_row1*mass_pax))/(W_OEW_4pax);
+
+
+    %front to back
+    cg_ftb_1=((cg_OEW_cargo*W_OEW_cargo)+(seat_row1*mass_pax))/(W_OEW_1pax);
+    cg_ftb_2=((cg_ftb_1*W_OEW_1pax)+(seat_row1*mass_pax))/(W_OEW_2pax);
+    cg_ftb_3=((cg_ftb_2*W_OEW_2pax)+(seat_row2*mass_pax))/(W_OEW_3pax);
+    cg_ftb_4=((cg_ftb_3*W_OEW_3pax)+(seat_row2*mass_pax))/(W_OEW_4pax);
+
+
+    %include fuel
+
+    cg_nofuel=cg_btf_4;
+    cg_fuel=((cg_nofuel*W_OEW_4pax)+(location_fuel*mass_fuel))/(mass_fuel+W_OEW_4pax);
+
+
+    %% graph
+    % figure
+    % line([([cg_OEW,cg_OEW_cargo]- x_lemac)/MAC],[W_OEW,W_OEW_cargo],'Color','green');
+    % line([([cg_OEW_cargo,cg_btf_1,cg_btf_2,cg_btf_3,cg_btf_4]-x_lemac)/MAC],[W_OEW_cargo,W_OEW_1pax,W_OEW_2pax,W_OEW_3pax,W_OEW_4pax],'Color','blue');
+    % line([([cg_OEW_cargo,cg_ftb_1,cg_ftb_2,cg_ftb_3,cg_ftb_4]-x_lemac)/MAC],[W_OEW_cargo,W_OEW_1pax,W_OEW_2pax,W_OEW_3pax,W_OEW_4pax],'Color','red');
+    % line([([cg_nofuel,cg_fuel]-x_lemac)/MAC],[W_OEW_4pax, W_OEW_4pax+mass_fuel],'Color','black');
+
+    
+    
+%     figure
+%     line([([cg_OEW,cg_OEW_cargo]- x_lemac)/i],[[W_OEW,W_OEW_cargo]],'Color','green');
+%     line([([cg_OEW_cargo,cg_btf_1,cg_btf_2,cg_btf_3,cg_btf_4]-x_lemac)/i],[W_OEW_cargo,W_OEW_1pax,W_OEW_2pax,W_OEW_3pax,W_OEW_4pax],'Color','blue');
+%     line([([cg_OEW_cargo,cg_ftb_1,cg_ftb_2,cg_ftb_3,cg_ftb_4]-x_lemac)/i],[W_OEW_cargo,W_OEW_1pax,W_OEW_2pax,W_OEW_3pax,W_OEW_4pax],'Color','red');
+%     line([([cg_nofuel,cg_fuel]-x_lemac)/i],[W_OEW_4pax, W_OEW_4pax+mass_fuel],'Color','black');
+
+
+
+
+
+%     title('Potato Plot')
+%     ylabel('mass [kg]')
+%     xlabel('c.g. position from nose [m]')
+%     legend('Cargo','Back to Front','Front to Back','Fuel')
+
+    cg_max=max([cg_OEW,cg_OEW_cargo,cg_OEW_cargo,cg_btf_1,cg_btf_2,cg_btf_3,cg_btf_4,cg_OEW_cargo,cg_btf_1,cg_btf_2,cg_btf_3,cg_btf_4,cg_fuel])
+    cg_min=min([cg_OEW,cg_OEW_cargo,cg_OEW_cargo,cg_btf_1,cg_btf_2,cg_btf_3,cg_btf_4,cg_OEW_cargo,cg_btf_1,cg_btf_2,cg_btf_3,cg_btf_4,cg_fuel])
+
+    cg_max = (cg_max - i)/MAC;
+    cg_min = (cg_min - i)/MAC;
+    cg_mat(counter, 1) = cg_min;
+    cg_mat(counter, 2) = cg_max;
+    
+    counter = counter + 1;
+    %%SCISSOR PLOT
+end
+
 figure
+plot(x_lemac/l_fus, [cg_mat(:,1), cg_mat(:,2)])
+
+hold on
 plot(x_cg_c,Sh_S,x_cg_c,Sh_S_NS,x_cg_c,Sh_S_C)
-title('Scissors-plot: Stability & Controllability Curve')
-xlabel('x_{cg}/c [%]')
-ylabel('S_h/S [-]')
-axis([-1 1 -0.5 0.6])
-legend('Stability','Neutral Stability','Controllability')
+xlabel("xc/mac")
+ylim([0, 0.99])
+% title('Scissors-plot: Stability & Controllability Curve')
+% xlabel('x_{cg}/c [%]')
+% ylabel('S_h/S [-]')
+% axis([-1 1 -0.5 0.6])
+% legend('Stability','Neutral Stability','Controllability')
+hold on
