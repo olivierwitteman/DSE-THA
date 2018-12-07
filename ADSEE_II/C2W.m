@@ -16,7 +16,11 @@ classdef C2W
             W_mainlandinggear = 0.095*(N_l*W_l)^0.768*(L_m/12)^0.409;
             W_noselandinggear = 0.125*(N_l*W_l)^0.566*(L_n/12)^0.845;
             W_installedengines = 2.575 * W_en^(0.922) * N_en;
-            W_fuelsystem = 2.49 * V_t^(0.726) * (1/(1+V_i/V_t))^(0.363) * N_t^(0.242) * N_en^(0.157)
+            V_t
+            V_i
+            N_t
+            N_en
+            W_fuelsystem = 2.49 * V_t^(0.726) * (1/(1 + V_i/V_t))^(0.363) * N_t^(0.242) * N_en^(0.157)
             W_flightcontrols = 0.053 * L^(1.536) * B_w^(0.371) * (N_z * W_dg * 10E-4)^(0.8);
             W_hydraulics = 0.001*W_dg;
             W_avionics = 2.117*W_uav^0.933;
