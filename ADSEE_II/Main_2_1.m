@@ -48,10 +48,10 @@ N_gear = 2.5; % Find Raymer!!!!
 lambda = taper_ratio; % taper ratio
 
 LAMBDA_ht = sweep_c4; % Sweep at 25% MAC
-A_ht = 4.; % Aspect ratio horizontal tailwing                   ??????
+A_ht = double(vars.A_h); % Aspect ratio horizontal tailwing                   ??????
 H_t_over_H_v = 0.; % = 0 for conventional tail, 1 for T-tail
 LAMBDA_vt = LAMBDA_ht; % Sweep at 25% of vertical tail MAC      ??????
-A_vt = 2.; % Aspect ratio vertical tail                         ??????
+A_vt = double(vars.A_v); % Aspect ratio vertical tail                         ??????
 lambda_vt = 1.; % taper raio vertical tail                      ??????
 lambda_h = 1; %Taper ratio horizontal tail                      ??????
 L_t = 1.; % Tail length, wing quarter MAC to tail quarter MAC   ??????
