@@ -40,13 +40,6 @@ a = sqrt(1.4*R_isa*T_isa); % speed of sound
 M = v/a;
 
 
-% % % % h = 2400m
-% % % rho = 0.966632; % [kg/m^3]
-% % % T = 272.55; % T[K]
-% % % a = sqrt(1.4 * 287.15 * T); % speed of sound
-% % % % v = 92.6; % [m/s], 180kts
-% % % M = v / a;
-
 %inputs (page 477-479 Raymer) (everything is in retard units) (lbs,
 %gallons, ft^3, ft^2, inch etc.)
 W_dg = MTOW * 0.9 * 2.2; % Design gross weight
