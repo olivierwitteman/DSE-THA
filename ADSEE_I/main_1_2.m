@@ -193,11 +193,6 @@ S_v = SF_S*S_v;
 A_h = 4;    % <----- INPUT   [3, 5] slide 68 lecture 7 ADSEE 1
 A_v = 1.5;  % <----- INPUT   [1, 2] slide 68 lecture 7 ADSEE 1
 
-<<<<<<< HEAD
-
-
-=======
->>>>>>> 07ac26228c5f4b5e7bae2b70cbaf392e9fe6beff
 save('variables_ADSEE_I.mat', 'A', 'MTOW', 'OEW', 'S', 'V_cruise', 'W4W5',...
     'W_fuel_used', 'tr', 'sweep_LE', 'sweep_TE', "sweep_2c",'sweep_4c',...
     "h", "S_h", "S_v", "b", "N", "W_fuel_total", "CL_max", "Cl_to", "e",...
