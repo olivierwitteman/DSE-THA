@@ -104,16 +104,11 @@ mu = 1.7331332E-5; % viscosity of standard air at h=2400m (T=272K)
 
 P_req = deg2rad(60)/1.3; % requirement of roll rate
 
-% % % % %Input here your wing  parameters
-% % % % c_r = 1.67; % root chord
-% % % % c_t = 0.67; %tip chord
 
 % % % % theta = sweep_TE*180/pi; %sweep at trailing edge in degrees (positive number) (If sweep at leading edge is zero, this equals "atan((c_r-c_t)/(b/2.))"
 c_l_alpha = 0.32; % Airfoil lift curve slope
 
-%%%
-%b1 = [0:0.5:(b/2-aileron_length)]; %   the length in meters where the aileron starts measured from the wing root
-%b2 = b1+aileron_length ; % end aileron '
+
 %%%Aileron geometry input (DO NOT CHANGE)!%%%
 aileron_length = [0:0.05:b/2]; % aileron length in meters
 tau = 0.6 ; % Function of ratio of the aileron chord over the wing chord (aileron effectiveness) (See slide 10 of ADSEE-II lecture 4 of 2016 for the graph, or look in aircraft design by Mohammed Sadraey)
