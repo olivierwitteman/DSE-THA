@@ -65,7 +65,24 @@ L_t = 1.; % Tail length, wing quarter MAC to tail quarter MAC   ??????
 W_press = 0 ;%11.9+(V_pr*P_delta)^0.271; %Weight penalty due to pressurization; PROBABLY ZERO FOR OUR DESIGNS BECAUSE WE DON'T PRESSURIZE OUR CABIN
 W_l = (MTOW - W_f) * 2.2; %Landing design gross weight
 
+<<<<<<< HEAD
 V_t = W_f / (0.840 * 3.79); %Total fuel volume in gallons
+=======
+L_m = 12.; %Extended length of main landing gear
+L_n = 12.; %Extended nose gear length (inch)
+W_en = 1. * 2.2; %Engine weight (each) in pounds
+N_en = 1; %Number of engines\
+V_t = W_f / (0.840 * 3.79) %Total fuel volume in gallons
+V_i = V_t * 1.05; %Integral tanks volume in gallons
+N_t = 1; %Number of fuel tanks
+<<<<<<< HEAD
+
+=======
+=======
+V_t = W_f / (0.840 * 3.79); %Total fuel volume in gallons
+>>>>>>> 82a87269b58aa2582c7594432169c78ef076c636
+>>>>>>> a86314cda9448b17bbf0cf6ef1b4103b8f4e5cd5
+>>>>>>> 62943ecae1ff4a5e6e42825633fb69bb299610e0
 L_m = 12.; %Extended length of main landing gear                ??????
 L_n = 12.; %Extended nose gear length (inch)                    ??????
 W_en = 200. * 2.2; %Engine weight (each) in pounds              XXXX
@@ -194,7 +211,7 @@ aileron_l = aielron_22222(c_r, c_t, sweep_LE*180/pi, theta, c_l_alpha,...
 
 disp(["Final answer: ", num2str(aileron_l)])
 
-%% ADSEE II - Lecture 6 - Drag coefficient estimation
+%% ADSEE II - Lecture 6 - Class II Weights
 
 %W_breakdown = C2W.calculation(W_dg,N_z,N_gear,S_w,A,tc_avg,lambda,LAMBDA,S_f,L_over_D,W_fw,v,rho,S_ht,LAMBDA_ht,A_ht,lambda_h,H_t_over_H_v,S_vt,LAMBDA_vt,A_vt,lambda_vt,L_t,W_press,W_l,L_m,L_n,W_en,N_en,V_t,V_i,N_t,L,b,W_uav,N_p,M)
 

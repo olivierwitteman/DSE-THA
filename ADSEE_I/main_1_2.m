@@ -162,16 +162,23 @@ end
 
 
 
+<<<<<<< HEAD
+=======
 % save('variables_ADSEE_I.mat', 'A', 'MTOW', 'OEW', 'S', 'V_cruise', 'W4W5', 'W_fuel_used', 'tr', 'sweep_LE', 'sweep_TE', 'sweep_2c', 'sweep_4c')
 % =======
 % save('variables_ADSEE_I.mat', 'A', 'MTOW', 'OEW', 'S', 'V_cruise', 'W4W5', 'W_fuel_used', 'tr', 'sweep_LE', 'sweep_TE', 'sweep_2c', 'sweep_4c')
 % >>>>>>> 82a87269b58aa2582c7594432169c78ef076c636
 
+>>>>>>> a86314cda9448b17bbf0cf6ef1b4103b8f4e5cd5
 save('variables_ADSEE_I.mat', 'A', 'MTOW', 'OEW', 'S', 'V_cruise', 'W4W5',...
     'W_fuel_used', 'tr', 'sweep_LE', 'sweep_TE', "sweep_2c",'sweep_4c',...
     "h", "S_h", "S_v", "b", "N", "W_fuel_total", "CL_max", "Cl_to", "e",...
     "tc", "cl_cruise", "cr", "ct", "b", "V_stall",...
+<<<<<<< HEAD
+    "h", "S_h", "S_v", "b", "N", "W_fuel_total")% 'sweep_2c', 'sweep_4c')
+=======
     "h", "S_h", "S_v", "b", "N", "W_fuel_total")
 
 
+>>>>>>> a86314cda9448b17bbf0cf6ef1b4103b8f4e5cd5
 
