@@ -19,8 +19,8 @@ average_MTOW = mean(MTOW_weights);
 % OEW, W_fuel_used (cruise or all????)
 
 MTOW = average_MTOW; % or choose average MTOW % <------ INPUT
-A = 7.5;                              % <------ INPUT
-e = 0.7;                             % <------ INPUT
+A = 8.2;                              % <------ INPUT
+e = 0.75;                             % <------ INPUT
 V_cruise = 180;  % kts                % <------ INPUT
 V_stall = 61;    % kts                % <------ INPUT
 
@@ -47,12 +47,11 @@ V_cruise = double(summary(7, 2));    % Input from fuel fractions
 m_cruise = double(summary(8, 2));    % Input from fuel fractions  !!!!!
 W_fuel_total = double(summary(9, 2));% Input from fuel fractions  !!!!!
 
-
 Wing_Loading_Func(h,A,e_clean,cd0_clean, CL_max,Cl_to ,c, Wl_Wto, V_land, V_stall, V_cruise)
 
 W4W5;                               % Input from fuel fractions
 payload = 363;                      % from requirements
-percent_emptiness_payload = 0.5;    % Input : how empty the payload is
+percent_emptiness_payload = 00.5;    % Input : how empty the payload is
 
 PR_func(MTOW, OEW, W_fuel_used, payload, LD_cruise, W4W5, percent_emptiness_payload);
 % maybe change W_fuel_used to W_fuel_total
@@ -67,7 +66,7 @@ S = MTOW*9.81/WS; % mˆ2
 
 prompt_WP = 'What WP did you choose: ';
 WP = double(input(prompt_WP))
-P = MTOW*9.81/WP;   % Watts
+P = MTOW*9.81/WP   % Watts
 
 %% Progress summary
 summary_end = ["MTOW: ", MTOW;
@@ -94,6 +93,24 @@ summary_end = ["MTOW: ", MTOW;
 summary_wing = [summary_wing; ["Wing Area", S]];
 
 
+%% eng dimensions
+N = 2
+
+[D_p, w_ee, l_ee, h_ee] = engine_dim_func(P, N);
+
+%% CG VERY ROUGH ESTIMATION
+fus_length = 6.6;   % <------ INPUT
+X_oew = 0.40;        % <------ INPUT Assume pos5ition of the OEW cg
+X_payload = 0.35;   % <------ INPUT Assume position of the Payload(including passengers) cg
+xc_oewcg = 0.3;     % <------ INPUT
+xc_wcg = 0.4;       % <------ INPUT5
+
+wing_x = 0.55;       % <------ INPUT Assume position of the wing cg from the nose
+empen_x = 0.8;      % <------ INPUT Assume position of the empennage cg
+fus_x = 0.5;        % <------ INPUT Assume position of the fuselage cg
+nacell_x = 0.01;     % <------ INPUT Assume position of the nacelle cg = same for engines
+                    % fixed equipment is the same position as the fuselage
+                    % cg
 
 tr = double(summary_wing(3, 2));
 MAC = double(summary_wing(11, 2));
@@ -102,6 +119,7 @@ tc = double(summary_wing(14,2));
 cl_cruise = double(summary_wing(8,2));
 cr = double(summary_wing(9,2));
 ct = double(summary_wing(10,2));
+M_cruise = double(summary_wing(1, 2));
 
 sweep_LE = double(summary_wing(6, 2));
 sweep_TE = double(summary_wing(7, 2));
@@ -149,6 +167,7 @@ if prop_pos == 1            % wing
     N = 2;
 end
 
+
 % [x_lemac, most_aft_cg, most_forward_cg] = CG_calc_func(MAC, payload, fus_length, W_fuel_total, MTOW, OEW, X_oew, X_payload, xc_oewcg, xc_wcg)
 [x_lemac, most_aft_cg, most_forward_cg] = CG_calc_func(MAC, payload, fus_length, W_fuel_total,...
     double(MTOW), double(OEW), X_oew, X_payload, xc_oewcg, xc_wcg, wing_x, empen_x, fus_x, propul_x, prop_pos);
@@ -163,10 +182,13 @@ SF_S = 1.2
 S_h = SF_S*S_h;
 S_v = SF_S*S_v;
 
+A_h = 4;    % <----- INPUT   [3, 5] slide 68 lecture 7 ADSEE 1
+A_v = 1.5;  % <----- INPUT   [1, 2] slide 68 lecture 7 ADSEE 1
 
 save('variables_ADSEE_I.mat', 'A', 'MTOW', 'OEW', 'S', 'V_cruise', 'W4W5',...
     'W_fuel_used', 'tr', 'sweep_LE', 'sweep_TE', "sweep_2c",'sweep_4c',...
     "h", "S_h", "S_v", "b", "N", "W_fuel_total", "CL_max", "Cl_to", "e",...
     "tc", "cl_cruise", "cr", "ct", "b", "V_stall",...
-    "h", "S_h", "S_v", "b", "N", "W_fuel_total")
+    "h", "S_h", "S_v", "b", "N", "W_fuel_total", "M_cruise", "MAC",...
+    "A_h", "A_v")
 
