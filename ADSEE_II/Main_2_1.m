@@ -78,14 +78,7 @@ V_i = V_t * 1.05; %Integral tanks volume in gallons
 N_t = 1; %Number of fuel tanks
 
 V_t = W_f / (0.840 * 3.79); %Total fuel volume in gallons
-<<<<<<< HEAD
 
-=======
->>>>>>> 82a87269b58aa2582c7594432169c78ef076c636
->>>>>>> a86314cda9448b17bbf0cf6ef1b4103b8f4e5cd5
->>>>>>> 62943ecae1ff4a5e6e42825633fb69bb299610e0
->>>>>>> 2016362b8471ae7c7104fc20d355b00348429bd7
->>>>>>> 737fd715571639a3215bae84df2ccbf276ed745a
 L_m = 12.; %Extended length of main landing gear                ??????
 L_n = 12.; %Extended nose gear length (inch)                    ??????
 W_en = 345. * 2.2; %Engine weight (each) in pounds              XXXX
