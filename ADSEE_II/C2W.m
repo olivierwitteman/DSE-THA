@@ -10,8 +10,8 @@ classdef C2W
             q = 0.02088547 * 0.5 * rho * V_cruise^2;
             N_l = 1.5*N_gear;
             W_wing = 0.036*S_w^(0.758) * W_fw^(0.0035) * (A/(cos(LAMBDA))^2.)^(0.6) * q^(0.006) * lambda^(0.04) * (100*t_over_c/cos(LAMBDA))^(-0.3) * (N_z*W_dg)^0.49;
-            W_horizontaltail = 0.016*(N_z*W_dg)^(0.414) * q^(0.168) * S_ht^(0.896) * (100 * t_over_c / cos(LAMBDA))^(-0.12) * (A_ht/(cos(LAMBDA_ht))^2)^(0.043) * lambda_h^(-0.02);
-            W_verticaltail = 0.073*(1+0.2*H_t_over_H_v)*(N_z*W_dg)^0.376*q^0.122*S_vt^0.873*(100*t_over_c/cos(LAMBDA_vt))^-0.49*(A_vt/(cos(LAMBDA_vt))^2)^0.357*lambda_vt^0.039;
+            W_horizontaltail = 0.016*(N_z*W_dg)^(0.414) * q^(0.168) * (10.76 * S_ht)^(0.896) * (100 * t_over_c / cos(LAMBDA))^(-0.12) * (A_ht/(cos(LAMBDA_ht))^2)^(0.043) * lambda_h^(-0.02);
+            W_verticaltail = 0.073*(1+0.2*H_t_over_H_v)*(N_z*W_dg)^0.376*q^0.122*(10.76 * S_vt)^0.873*(100*t_over_c/cos(LAMBDA_vt))^-0.49*(A_vt/(cos(LAMBDA_vt))^2)^0.357*lambda_vt^0.039;
             W_fuselage =0.052*S_f^1.086*(N_z*W_dg)^0.177*L_t^-0.051*L_D^-0.072*q^0.241+W_press;
             W_mainlandinggear = 0.095*(N_l*W_l)^0.768*(L_m/12)^0.409;
             W_noselandinggear = 0.125*(N_l*W_l)^0.566*(L_n/12)^0.845;
