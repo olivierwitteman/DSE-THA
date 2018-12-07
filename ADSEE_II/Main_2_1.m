@@ -7,7 +7,7 @@ vars = load('../ADSEE_I/variables_ADSEE_I.mat');
 
 A = double(vars.A);
 MTOW = double(vars.MTOW);
-OEW = double(vars.OEW);
+OEW = double(vars.OEW)
 S_ref = double(vars.S);
 v = double(vars.V_cruise);
 W4W5 = double(vars.W4W5);
@@ -51,7 +51,7 @@ M = v/a;
 %gallons, ft^3, ft^2, inch etc.)
 W_dg = MTOW * 0.9 * 2.2; % Design gross weight
 N_z = 4.4; % Load factor
-N_gear = 2; % Find Raymer!!!!
+N_gear = 2.5; % Find Raymer!!!!
 lambda = taper_ratio; % taper ratio
 
 LAMBDA_ht = sweep_c4; % Sweep at 25% MAC
@@ -64,24 +64,21 @@ lambda_h = 1; %Taper ratio horizontal tail                      ??????
 L_t = 1.; % Tail length, wing quarter MAC to tail quarter MAC   ??????
 W_press = 0 ;%11.9+(V_pr*P_delta)^0.271; %Weight penalty due to pressurization; PROBABLY ZERO FOR OUR DESIGNS BECAUSE WE DON'T PRESSURIZE OUR CABIN
 W_l = (MTOW - W_f) * 2.2; %Landing design gross weight
-<<<<<<< HEAD
-L_m = 12.; %Extended length of main landing gear
-L_n = 12.; %Extended nose gear length (inch)
-W_en = 1. * 2.2; %Engine weight (each) in pounds
-N_en = 1; %Number of engines\
-V_t = W_f / (0.840 * 3.79) %Total fuel volume in gallons
-V_i = V_t * 1.05; %Integral tanks volume in gallons
-N_t = 1; %Number of fuel tanks
-=======
+
 V_t = W_f / (0.840 * 3.79); %Total fuel volume in gallons
->>>>>>> 82a87269b58aa2582c7594432169c78ef076c636
 L_m = 12.; %Extended length of main landing gear                ??????
 L_n = 12.; %Extended nose gear length (inch)                    ??????
+<<<<<<< HEAD
 W_en = 200. * 2.2; %Engine weight (each) in pounds              XXXX
 N_en = double(vars.("N")); %Number of engines                  XXXX
 V_i = V_t * 1.05; %Integral tanks volume in gallons
+=======
+W_en = 345. * 2.2; %Engine weight (each) in pounds              XXXX
+N_en = double(vars.("N")); %Number of engines\                  XXXX
+V_i = V_t * 1.05; %Integral tanks volume in gallons             
+>>>>>>> 07ac26228c5f4b5e7bae2b70cbaf392e9fe6beff
 N_t = 1; %Number of fuel tanks                                  ??????
-W_uav = 0.02 * MTOW * 2.2; %Uninstalled avionics weight in pounds
+W_uav = 0.03 * MTOW * 2.2; %Uninstalled avionics weight in pounds
 N_p = 5; %Number of personal onboard
 
 % cl = 0.30647;
@@ -181,6 +178,36 @@ cD = Fast_Cd0 + ADSEE_II_Drag.k_f(A, LAMBDA, CLdes) * (CLdes)^2
 L_D = CLdes/cD
 
 
+<<<<<<< HEAD
+% %% ADSEE II - Lecture 4
+% P_req = degtorad(60)/1.3;%requirement of roll rate
+%
+% %Input here your wing  parameters
+% c_r = 1.67; % root chord
+% c_t = 0.67; %tip chord
+% theta = 10.7773; %sweep at trailing edge in degrees (positive number) (If sweep at leading edge is zero, this equals "atan((c_r-c_t)/(b/2.))"
+% c_l_alpha = 0.32; % Airfoil lift curve slope
+%
+% %%%Aileron geometry input (DO NOT CHANGE)!%%%
+% tau = 0.6 ; % Function of ratio of the aileron chord over the wing chord (aileron effectiveness) (See slide 10 of ADSEE-II lecture 4 of 2016 for the graph, or look in aircraft design by Mohammed Sadraey)
+%             % The aileron should be placed after the rear spar, this
+%             % determines the maximum chord ratio
+% chordratio_ail_total = 0.41;
+% %chordratio_ail_total = [0.075, 0.19, 0.41, 0.7];
+% %tau = [0.2, 0.4, 0.6, 0.8];
+% da_max = 30. ; %maximum aileron deflection angle in degrees (reference Mohammed Sadraey)
+%
+% b1_0 = 0.
+% b2_0 = b/2.
+% b2 = b/2;
+% b1 = b2/2;
+% P = AileronSizing.Intergral(LAMBDA, theta, b1, b2, c_l_alpha, tau, S_ref, b, total_cD0, c_r, da_max, v);
+% [b1, Inner_Ail_Chord, Outer_Ail_Chord] = AileronSizing.Iteration(b1_0,b2_0, LAMBDA, theta, b1, b2, c_l_alpha, tau, S_ref, b, total_cD0, c_r, da_max, v, P, P_req, chordratio_ail_total);
+% disp('The total distance from the root to the aileron in [m] from the base of the fuselage'), disp(b1);
+% disp('Inner Aileron Chord:'), disp(Inner_Ail_Chord), disp('Outer Aileron Chord:'), disp(Outer_Ail_Chord);
+
+=======
+>>>>>>> 8260041c6fb0a52962de860b0f99f43299d6f78d
 %% ADSEE II - Lecture 4
 c_r = double(vars.("cr"));
 c_t = double(vars.("ct"));
@@ -193,6 +220,18 @@ c_d0 = Fast_Cd0; % 2D zero lift drag coefficient        % ???????
 V = 1.2*V_stall; %speed in m/s                          % XXXXXXX
 b = b; %wingspan in meters
 
+<<<<<<< HEAD
+aileron_l = aielron_22222(c_r, c_t, lambda, theta, c_l_alpha,...
+    S_ref, c_d0, V, b);
+
+
+% P = AileronSizing.Intergral(lambda, theta, b1, b2, c_l_alpha, tau, S_ref, b, total_cD0, c_r, da_max, v);
+% [b1, Inner_Ail_Chord, Outer_Ail_Chord] = AileronSizing.Iteration(lambda, theta, b1, b2, c_l_alpha, tau, S_ref, b, total_cD0, c_r, da_max, v, P, P_req, chordratio_ail_total);
+% P = AileronSizing.Intergral(lambda, theta, b1, b2, c_l_alpha, tau, S_ref, b, total_cD0, c_r, da_max, v);
+% [b1, Inner_Ail_Chord, Outer_Ail_Chord] = AileronSizing.Iteration(lambda, theta, b1, b2, c_l_alpha, tau, S_ref, b, total_cD0, c_r, da_max, v, P, P_req, chordratio_ail_total);
+% disp('The total aileron size is from the tip of the wing up until: in [m] from the base of the fuselage'), disp(b1);
+% disp('Inner Aileron Chord:'), disp(Inner_Ail_Chord), disp('Inner Aileron Chord:'), disp(Outer_Ail_Chord);
+=======
 
 aileron_l = aielron_22222(c_r, c_t, sweep_LE*180/pi, theta, c_l_alpha,...
     S_ref, c_d0, V, b);
@@ -200,12 +239,20 @@ aileron_l = aielron_22222(c_r, c_t, sweep_LE*180/pi, theta, c_l_alpha,...
 % disp('The total aileron size is from the tip of the wing up until: in [m] from the base of the fuselage'), disp(b1);
 % disp('Inner Aileron Chord:'), disp(Inner_Ail_Chord), disp('Inner Aileron Chord:'), disp(Outer_Ail_Chord);
 %%
+>>>>>>> 8260041c6fb0a52962de860b0f99f43299d6f78d
 
 disp(["Final answer: ", num2str(aileron_l)])
 
-%% ADSEE II - Lecture 6 - Drag coefficient estimation
+%% ADSEE II - Lecture 6 - Class II Weights
+
+<<<<<<< HEAD
 
 %W_breakdown = C2W.calculation(W_dg,N_z,N_gear,S_w,A,tc_avg,lambda,LAMBDA,S_f,L_over_D,W_fw,v,rho,S_ht,LAMBDA_ht,A_ht,lambda_h,H_t_over_H_v,S_vt,LAMBDA_vt,A_vt,lambda_vt,L_t,W_press,W_l,L_m,L_n,W_en,N_en,V_t,V_i,N_t,L,b,W_uav,N_p,M)
 
+W_breakdown = C2W.calculation(W_dg,N_z,N_gear,S_ref,A,tc_avg,lambda,LAMBDA,S_W,L_D,W_f,v,rho,S_ht,LAMBDA_ht,A_ht,lambda_h,H_t_over_H_v,S_vt,LAMBDA_vt,A_vt,lambda_vt,L_t,W_press,W_l,L_m,L_n,W_en,N_en,V_t,V_i,N_t,L,b,W_uav,N_p,M)
+=======
+%W_breakdown = C2W.calculation(W_dg,N_z,N_gear,S_w,A,tc_avg,lambda,LAMBDA,S_f,L_over_D,W_fw,v,rho,S_ht,LAMBDA_ht,A_ht,lambda_h,H_t_over_H_v,S_vt,LAMBDA_vt,A_vt,lambda_vt,L_t,W_press,W_l,L_m,L_n,W_en,N_en,V_t,V_i,N_t,L,b,W_uav,N_p,M)
+
 W_breakdown = C2W.calculation(W_dg,N_z,N_gear,S_ref*10.7639,A,tc_avg,lambda,LAMBDA,W_f*2.2,L/D,W_f*2.2,v,rho,S_ht,LAMBDA_ht,A_ht,lambda_h,H_t_over_H_v,S_vt,LAMBDA_vt,A_vt,lambda_vt,L_t,W_press,W_l,L_m,L_n,W_en,N_en,V_t,V_i,N_t,L,b,W_uav,N_p,M)
+>>>>>>> 8260041c6fb0a52962de860b0f99f43299d6f78d
 W_t = sum(W_breakdown)
