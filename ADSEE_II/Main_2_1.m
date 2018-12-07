@@ -179,32 +179,6 @@ L_D = CLdes/cD
 
 
 
-% %% ADSEE II - Lecture 4
-% P_req = degtorad(60)/1.3;%requirement of roll rate
-%
-% %Input here your wing  parameters
-% c_r = 1.67; % root chord
-% c_t = 0.67; %tip chord
-% theta = 10.7773; %sweep at trailing edge in degrees (positive number) (If sweep at leading edge is zero, this equals "atan((c_r-c_t)/(b/2.))"
-% c_l_alpha = 0.32; % Airfoil lift curve slope
-%
-% %%%Aileron geometry input (DO NOT CHANGE)!%%%
-% tau = 0.6 ; % Function of ratio of the aileron chord over the wing chord (aileron effectiveness) (See slide 10 of ADSEE-II lecture 4 of 2016 for the graph, or look in aircraft design by Mohammed Sadraey)
-%             % The aileron should be placed after the rear spar, this
-%             % determines the maximum chord ratio
-% chordratio_ail_total = 0.41;
-% %chordratio_ail_total = [0.075, 0.19, 0.41, 0.7];
-% %tau = [0.2, 0.4, 0.6, 0.8];
-% da_max = 30. ; %maximum aileron deflection angle in degrees (reference Mohammed Sadraey)
-%
-% b1_0 = 0.
-% b2_0 = b/2.
-% b2 = b/2;
-% b1 = b2/2;
-% P = AileronSizing.Intergral(LAMBDA, theta, b1, b2, c_l_alpha, tau, S_ref, b, total_cD0, c_r, da_max, v);
-% [b1, Inner_Ail_Chord, Outer_Ail_Chord] = AileronSizing.Iteration(b1_0,b2_0, LAMBDA, theta, b1, b2, c_l_alpha, tau, S_ref, b, total_cD0, c_r, da_max, v, P, P_req, chordratio_ail_total);
-% disp('The total distance from the root to the aileron in [m] from the base of the fuselage'), disp(b1);
-% disp('Inner Aileron Chord:'), disp(Inner_Ail_Chord), disp('Outer Aileron Chord:'), disp(Outer_Ail_Chord);
 
 
 %% ADSEE II - Lecture 4
@@ -245,9 +219,10 @@ disp(["Final answer: ", num2str(aileron_l)])
 
 %W_breakdown = C2W.calculation(W_dg,N_z,N_gear,S_w,A,tc_avg,lambda,LAMBDA,S_f,L_over_D,W_fw,v,rho,S_ht,LAMBDA_ht,A_ht,lambda_h,H_t_over_H_v,S_vt,LAMBDA_vt,A_vt,lambda_vt,L_t,W_press,W_l,L_m,L_n,W_en,N_en,V_t,V_i,N_t,L,b,W_uav,N_p,M)
 
-W_breakdown = C2W.calculation(W_dg,N_z,N_gear,S_ref,A,tc_avg,lambda,LAMBDA,S_W,L_D,W_f,v,rho,S_ht,LAMBDA_ht,A_ht,lambda_h,H_t_over_H_v,S_vt,LAMBDA_vt,A_vt,lambda_vt,L_t,W_press,W_l,L_m,L_n,W_en,N_en,V_t,V_i,N_t,L,b,W_uav,N_p,M)
+% W_breakdown = C2W.calculation(W_dg,N_z,N_gear,S_ref,A,tc_avg,lambda,LAMBDA,S_W,L_D,W_f,v,rho,S_ht,LAMBDA_ht,A_ht,lambda_h,H_t_over_H_v,S_vt,LAMBDA_vt,A_vt,lambda_vt,L_t,W_press,W_l,L_m,L_n,W_en,N_en,V_t,V_i,N_t,L,b,W_uav,N_p,M)
 
 %W_breakdown = C2W.calculation(W_dg,N_z,N_gear,S_w,A,tc_avg,lambda,LAMBDA,S_f,L_over_D,W_fw,v,rho,S_ht,LAMBDA_ht,A_ht,lambda_h,H_t_over_H_v,S_vt,LAMBDA_vt,A_vt,lambda_vt,L_t,W_press,W_l,L_m,L_n,W_en,N_en,V_t,V_i,N_t,L,b,W_uav,N_p,M)
 
 W_breakdown = C2W.calculation(W_dg,N_z,N_gear,S_ref*10.7639,A,tc_avg,lambda,LAMBDA,W_f*2.2,L/D,W_f*2.2,v,rho,S_ht,LAMBDA_ht,A_ht,lambda_h,H_t_over_H_v,S_vt,LAMBDA_vt,A_vt,lambda_vt,L_t,W_press,W_l,L_m,L_n,W_en,N_en,V_t,V_i,N_t,L,b,W_uav,N_p,M)
 
+W_total = sum(W_breakdown)
