@@ -31,8 +31,8 @@ V_stall = 61;    % kts                % <------ INPUT
 %% Input for wingloading and payload range diagram
 h = 2400;                   % <------ INPUT
 
-CL_max = 2.2;               % <------ INPUT
-Cl_to = 1.9;                 % <------ INPUT
+CL_max = 1.9;               % <------ INPUT
+Cl_to = 1.75;                 % <------ INPUT
 c = 5;       % 1.2*V_stall*grad(0.083) = 3.1 minimum . % <------ INPUT
 V_land = 1.2*32; % ms From requirements?     % <------ INPUT
 
