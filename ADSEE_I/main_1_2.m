@@ -163,15 +163,34 @@ SF_S = 1.2
 S_h = SF_S*S_h;
 S_v = SF_S*S_v;
 
-% save('variables_ADSEE_I.mat', 'A', 'MTOW', 'OEW', 'S', 'V_cruise', 'W4W5', 'W_fuel_used', 'tr', 'sweep_LE', 'sweep_TE', 'sweep_2c', 'sweep_4c')
-% =======
-% save('variables_ADSEE_I.mat', 'A', 'MTOW', 'OEW', 'S', 'V_cruise', 'W4W5', 'W_fuel_used', 'tr', 'sweep_LE', 'sweep_TE', 'sweep_2c', 'sweep_4c')
-% >>>>>>> 82a87269b58aa2582c7594432169c78ef076c636
+<<<<<<< HEAD
+=======
 
+
+
+>>>>>>> 737fd715571639a3215bae84df2ccbf276ed745a
+% save('variables_ADSEE_I.mat', 'A', 'MTOW', 'OEW', 'S', 'V_cruise', 'W4W5', 'W_fuel_used', 'tr', 'sweep_LE', 'sweep_TE', 'sweep_2c', 'sweep_4c')
+
+% save('variables_ADSEE_I.mat', 'A', 'MTOW', 'OEW', 'S', 'V_cruise', 'W4W5', 'W_fuel_used', 'tr', 'sweep_LE', 'sweep_TE', 'sweep_2c', 'sweep_4c')
+
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 737fd715571639a3215bae84df2ccbf276ed745a
 save('variables_ADSEE_I.mat', 'A', 'MTOW', 'OEW', 'S', 'V_cruise', 'W4W5',...
     'W_fuel_used', 'tr', 'sweep_LE', 'sweep_TE', "sweep_2c",'sweep_4c',...
     "h", "S_h", "S_v", "b", "N", "W_fuel_total", "CL_max", "Cl_to", "e",...
     "tc", "cl_cruise", "cr", "ct", "b", "V_stall",...
+<<<<<<< HEAD
     "h", "S_h", "S_v", "b", "N", "W_fuel_total")
 
 
+=======
+    "h", "S_h", "S_v", "b", "N", "W_fuel_total")% 'sweep_2c', 'sweep_4c')
+
+
+
+
+
+>>>>>>> 737fd715571639a3215bae84df2ccbf276ed745a
