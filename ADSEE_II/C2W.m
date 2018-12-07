@@ -15,11 +15,11 @@ classdef C2W
             W_fuselage =0.052*S_f^1.086*(N_z*W_dg)^0.177*L_t^-0.051*L_D^-0.072*q^0.241+W_press;
             W_mainlandinggear = 0.095*(N_l*W_l)^0.768*(L_m/12)^0.409;
             W_noselandinggear = 0.125*(N_l*W_l)^0.566*(L_n/12)^0.845;
-            W_installedengines = 2.575*W_en^0.922*N_en;
-            W_fuelsystem = 2.49*V_t^0.726*(1/(1+V_i/V_t))^0.363*N_t^0.242*N_en^0.157
-            W_flightcontrols = 0.053*L^1.536*B_w^0.371*(N_z*W_dg*10^(-4))^0.80;
+            W_installedengines = 2.575 * W_en^(0.922) * N_en;
+            W_fuelsystem = 2.49 * V_t^(0.726) * (1/(1 + V_i/V_t))^(0.363) * N_t^(0.242) * N_en^(0.157);
+            W_flightcontrols = 0.053 * L^(1.536) * B_w^(0.371) * (N_z * W_dg * 10E-4)^(0.8);
             W_hydraulics = 0.001*W_dg;
-            W_avionics = 2.117*W_uav^0.933
+            W_avionics = 2.117*W_uav^0.933;
             W_electrical = 12.57 * (W_fuelsystem + W_avionics)^0.51;
             W_airco_and_anti_ice = 0.265*W_dg^0.52*N_p^0.68*W_avionics^0.17*M^0.08;
             W_furnishings = 0.0582 * W_dg - 65;
