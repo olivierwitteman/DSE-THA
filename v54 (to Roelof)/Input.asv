@@ -4,7 +4,7 @@
 a.AR = 20;                                      % Wing aspect ratio [-]
 a.Lambda = 0;                                   % Half-chord sweep angle of wing [deg]
 a.TR = 0.4;                                     % Taper ratio of wing [-]
-a.tc = 0.18;                                     % Thickness-to-chord ratio of root section [-]
+a.tc = 0.15;                                     % Thickness-to-chord ratio of root section [-]
 a.nUlt = 4.4;                                   % Ultimate load factor [-]
 
 % maximum lift coefficient (no propulsive interaction assumed)
@@ -130,7 +130,7 @@ p.ct.Gamma = 0;                                 % Thrust vectoring in top-of-cli
 m.cr.h = 2400;                                 % Cruise altitude [m]
 m.cr.M = 0.2797;                                  % Cruise Mach number [-]
 m.cr.f = 0.78;                                  % Cruise weight fraction W/MTOW [-]
-m.cr.t = 0.4;                                     % Cruise throttle setting P/P_max [-] (see note at end)
+m.cr.t = 1;                                     % Cruise throttle setting P/P_max [-] (see note at end)
 m.cr.phi = 0;                                   % Cruise supplied power ratio [-]
 m.cr.Phi = 0.5;                                 % Cruise shaft power ratio [-]
 
@@ -140,7 +140,7 @@ m.L.f = 0.7;                                    % Landing weight fraction W/MTOW
 m.L.vs = 31.4;                                  % Stall speed requirement in landing conditions [m/s]
 m.L.vApp = 1.23;                                % Stall margin during approach/landing, vApp/vs [-] (see Patterson 2017)
 m.L.vAppIso = 1.05;                             % Stall margin of isolated wing during approach/landing, vApp/vsIso [-]
-m.L.t = 0.4;                                      % Landing throttle setting P/P_max [-] (see note at end)
+m.L.t = 1;                                      % Landing throttle setting P/P_max [-] (see note at end)
 m.L.phi = 0.2;                                  % Landing supplied power ratio [-]
 m.L.Phi = 0.5;                                    % Landing shaft power ratio [-]
 
@@ -185,7 +185,7 @@ m.ct.f = 1;                                     % Start-of-climb weight fraction
 m.ct.M = 0.2797;                                  % Mach at top-of-climb (shoud be equal to cruise Mach) [-]
 m.ct.G = 0.01;                                  % Top-of-climb climb gradient [-] (based on MA observances)
 m.ct.dVdt = 0.05;                               % Top-of-climb acceleration [m/s2]
-m.ct.t = 0.8;                                   % Top-of-climb throttle setting P/P_max [-] (see note at end)
+m.ct.t = 1.0;                                   % Top-of-climb throttle setting P/P_max [-] (see note at end)
 m.ct.phi = 0.15;                                % Top-of-climb supplied power ratio [-]
 m.ct.Phi = 0.5;                                 % Top-of-climb shaft power ratio [-]
 
@@ -214,32 +214,32 @@ MA_in.DOH_miss0 = 0.1;                          % Degree-of-hybridization, Ebat/
 % Climb (all parameters must be specified; SEP is computed)
 MA_in.cl.xi = [0.6 0.8];
 MA_in.cl.phi = [0.1 0.1];
-MA_in.cl.Phi = [0.1 0.1];
+MA_in.cl.Phi = [0.5 0.5];
 
 % Cruise (level flight is specified, so one DOF must be kept free)
 MA_in.cr.xi = [NaN NaN];
 MA_in.cr.phi = [0 0]; 
-MA_in.cr.Phi = [0.1 0.1];
+MA_in.cr.Phi = [0.5 0.5];
 
 % Descent (all parameters must be specified; SEP is computed)
 MA_in.de.xi = [0.01 0.01];
 MA_in.de.phi = [-0.2 -0.2];
-MA_in.de.Phi = [0.1 0.1];
+MA_in.de.Phi = [0.5 0.5];
 
 % Diversion climb (all parameters must be specified; SEP is computed)
 MA_in.Dcl.xi = [0.8 0.9];
 MA_in.Dcl.phi = [0.1 0.05];
-MA_in.Dcl.Phi = [0.1 0.1];
+MA_in.Dcl.Phi = [0.5 0.5];
 
 % Diversion cruise (level flight is specified, so one DOF must be kept free)
 MA_in.Dcr.xi = [NaN NaN];
 MA_in.Dcr.phi = [0 0]; 
-MA_in.Dcr.Phi = [0.1 0.1]; 
+MA_in.Dcr.Phi = [0.5 0.5]; 
 
 % Diversion descent (all parameters must be specified; SEP is computed)
 MA_in.Dde.xi = [0.01 0.01]; 
 MA_in.Dde.phi = [-0.1 -0.1]; 
-MA_in.Dde.Phi = [0.1 0.1]; 
+MA_in.Dde.Phi = [0.5 0.5]; 
 
 
 %% Constants
