@@ -4,7 +4,7 @@
 a.AR = 8.2;                                      % Wing aspect ratio [-]
 a.Lambda = 0;                                   % Half-chord sweep angle of wing [deg]
 a.TR = 0.4;                                     % Taper ratio of wing [-]
-a.tc = 0.18;                                     % Thickness-to-chord ratio of root section [-]
+a.tc = 0.2;                                     % Thickness-to-chord ratio of root section [-]
 a.nUlt = 4.4;                                   % Ultimate load factor [-]
 
 % maximum lift coefficient (no propulsive interaction assumed)
@@ -60,11 +60,11 @@ a.ct.CLmax = CLmax_clean;                         % Top-of-climb maximum lift co
 % Propulsion system layout
 p.config = 'parallel';                      % Powertrain architecture ('conventional', 'turboelectric', 'serial',
                                                 %   'parallel', 'PTE', 'SPPH', 'e-1', 'e-2', or 'dual-e')
-p.b_dp = 0;                                   % Fraction of wing span occupied by DP system [-]
-p.dy = 0;                                    % Spacing between adjacent DP propulsors, as fraction of propulsor diameter [-]
+p.b_dp = 0.21;                                   % Fraction of wing span occupied by DP system [-]
+p.dy = 0.2;                                    % Spacing between adjacent DP propulsors, as fraction of propulsor diameter [-]
 p.N1 = 2;                                       % Number of chains in primary powertrain [-]
 p.N2 = 0;                                       % Number of chains in secondary powertrain[-]
-p.DP = 0;                                       % Which PS has an effect on wing performance? (1 = primary, 2 = secondary, 0 = none)
+p.DP = 1;                                       % Which PS has an effect on wing performance? (1 = primary, 2 = secondary, 0 = none)
 p.xp = -0.2;                                    % Axial position of propellers as a fraction of chord
                                                 % xp < 0: tractor
                                                 % 0 < xp < 1: OTW
@@ -150,15 +150,15 @@ m.TO.f = 1.0;                                   % TO weight fraction W/MTOW [-]
 m.TO.s = 762;                                  % TO runway length [m]
 m.TO.t = 1.0;                                   % TO throttle setting P/P_max [-] (see note at end)
 m.TO.phi = 0.1;                                 % TO supplied power ratio [-]
-m.TO.Phi = 0;                                   % TO shaft power ratio [-]
+m.TO.Phi = 1;                                   % TO shaft power ratio [-]
 
 % OEI Balked landing
 m.bL.G = 0.027;                                 % OEI balked landing climb gradient [-] (CS25.121d)
 m.bL.f = 0.9;                                   % Max landing weight (MLW) as a fraction of MTOW [-]
 m.bL.vMargin = 1.4;                             % Stall margin in balked-landing conditions
 m.bL.t = 1;                                     % Balked landing throttle setting P/P_max [-] (see note at end)
-m.bL.phi = 0.1;                                 % Balked landing supplied power ratio [-]
-m.bL.Phi = 0;                                   % Balked landing shaft power ratio [-]
+m.bL.phi = 0.10;                                 % Balked landing supplied power ratio [-]
+m.bL.Phi = 1;                                   % Balked landing shaft power ratio [-]
 
 % OEI ceiling
 m.cI.h = 2400;                                  % OEI ceiling [m]
@@ -166,8 +166,8 @@ m.cI.f = 0.98;                                  % OEI-ceiling weight fraction W/
 m.cI.c = 0.5;                                   % Ceiling climb rate [m/s] (also used for cruise ceiling and cruise speed!)
 m.cI.vMargin = 1.25;                            % Stall margin in OEI-ceiling conditions (also used for cruise ceiling) CHECK!
 m.cI.t = 0.8;                                   % OEI-ceiling throttle setting P/P_max [-] (see note at end)
-m.cI.phi = 0.1;                                 % OEI-ceiling landing supplied power ratio [-]
-m.cI.Phi = 0;                                   % OEI-ceiling landing shaft power ratio [-]
+m.cI.phi = 0.2;                                 % OEI-ceiling landing supplied power ratio [-]
+m.cI.Phi = 1;                                   % OEI-ceiling landing shaft power ratio [-]
 
 % Start-of-climb
 m.cl.h = 0;                                     % Altitude for start-of-climb constraint [m]
@@ -176,7 +176,7 @@ m.cl.v = 60;                                   % Velocity at start-of-climb (sho
 m.cl.G = 0.1;                                   % Start-of-climb climb gradient [-] (based on MA observances)
 m.cl.dVdt = 0.5;                                % Start-of-climb acceleration [m/s2]
 m.cl.t = 1.0;                                   % Start-of-climb throttle setting P/P_max [-] (see note at end)
-m.cl.phi = 0.15;                                % Start-of-climb supplied power ratio [-]
+m.cl.phi = 0.1;                                % Start-of-climb supplied power ratio [-]
 m.cl.Phi = 0.5;                                   % Start-of-climb shaft power ratio [-]
 
 % Top-of-climb
@@ -188,7 +188,6 @@ m.ct.dVdt = 0.05;                               % Top-of-climb acceleration [m/s
 m.ct.t = 0.8;                                   % Top-of-climb throttle setting P/P_max [-] (see note at end)
 m.ct.phi = 0.1;                                % Top-of-climb supplied power ratio [-]
 m.ct.Phi = 0;                                 % Top-of-climb shaft power ratio [-]
-
 
 %% Mission Analysis input
 
@@ -212,14 +211,14 @@ MA_in.DOH_miss0 = 0.1;                          % Degree-of-hybridization, Ebat/
 % interpolation is carried out versus altitude, and for cruise, versus 
 % range flown.
 % Climb (all parameters must be specified; SEP is computed)
-MA_in.cl.xi = [0.6 0.8];
+MA_in.cl.xi = [0.1 0.1];
 MA_in.cl.phi = [0.1 0.1];
 MA_in.cl.Phi = [0 0];
 
 % Cruise (level flight is specified, so one DOF must be kept free)
 MA_in.cr.xi = [NaN NaN];
-MA_in.cr.phi = [0 0]; 
-MA_in.cr.Phi = [0 0];
+MA_in.cr.phi = [0.1 0.1]; 
+MA_in.cr.Phi = [0.5 0.5];
 
 % Descent (all parameters must be specified; SEP is computed)
 MA_in.de.xi = [0.01 0.01];
