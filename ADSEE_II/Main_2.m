@@ -60,8 +60,8 @@ W_l = (MTOW - W_f) * 2.2; %Landing design gross weight
 
 V_t = W_f / (0.840 * 3.79); %Total fuel volume in gallons
 
-L_m = 12.; %Extended length of main landing gear                ??????
-L_n = 12.; %Extended nose gear length (inch)                    ??????
+L_m = 15.; %Extended length of main landing gear                ??????
+L_n = 15.; %Extended nose gear length (inch)                    ??????
 
 
 W_en = 345. * 2.2; %Engine weight (each) in pounds              <---- INPUT
@@ -178,7 +178,7 @@ prompt_dclda = 'What is your lift curve slope: default is 0.32  ';
 c_l_alpha = double(input(prompt_dclda));
 c_l_alpha = 0.32; % Airfoil lift curve slope  <------- INPUT FROM BOOK
 S_ref = S_ref; % Wing surface in square meters
-c_d0 = Fast_Cd0; % 2D zero lift drag coefficient        % ???????
+c_d0 = Fast_Cd0; % 2D zero lift drag coefficient        
 V = 1.2*V_stall; %speed in m/s                          % XXXXXXX
 b = b; %wingspan in meters
 
