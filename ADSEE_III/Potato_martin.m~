@@ -213,5 +213,5 @@ ylabel('mass [kg]')
 xlabel('x position as % of MAC')
 legend('Window','OEW to ZFW','WIndow','Isle','Isle','Payload to RM','')
 
-xyz = "Martin's potato done";
+xyz = "Martin's potato done"
 end
