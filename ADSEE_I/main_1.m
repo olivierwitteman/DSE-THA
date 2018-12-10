@@ -164,7 +164,7 @@ if prop_pos == 1            % wing
     fus_x = 0.75;      % <------ INPUT Assume position of the fuselage cg
 %     nacell_x = -0.2;    % <------ INPUT Assume position of the nacelle cg = same for engines
 %                         % fixed equipment is the same position as the fuselage
-    propul_x = -0.1
+    propul_x = -0.1     % <--- INPUT in front of the wing
     N = 2;
 end
 
