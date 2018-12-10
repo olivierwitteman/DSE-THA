@@ -6,8 +6,8 @@ format shortG
 filename = 'Reference_Olivier.xlsx';
 sheet = 1;
 
-OEW_weights_set = 'B17:B39'; % where does matlab have to look in the excel
-MTOW_weights_set = 'C17:C39'; % where does matlab have to look in the excel
+OEW_weights_set = 'B17:B40'; % where does matlab have to look in the excel
+MTOW_weights_set = 'C17:C40'; % where does matlab have to look in the excel
 OEW_weights = xlsread(filename,sheet,OEW_weights_set);
 MTOW_weights = xlsread(filename,sheet,MTOW_weights_set);
 

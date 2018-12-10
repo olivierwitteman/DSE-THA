@@ -1,14 +1,13 @@
-function [] = Wing_Loading_Func(h,A,e_clean,cd0_clean, Cl_max, cl_to ,c, Wl_Wto, V_land, V_stall, V_cruise)
+function [] = Wing_Loading_Func(h, A ,e_clean,cd0_clean, Cl_max, cl_to ,c, Wl_Wto, V_land, V_stall, V_cruise)
 clc;
 % The goal is to pick a point at the top right corner. This will give
 % information on what S, A, Cl and W/P you need.
-thick = 6;
+thick = 5;
 rho_0 = 1.225;
 
 %% sizing for stall
 % Cl_max so for all flaps and HLDs
-    
-WS_stall = 0.5*rho_0*V_stall*V_stall*Cl_max     
+WS_stall = 0.5*rho_0*V_stall*V_stall*Cl_max;     
 
 f2 = figure; %%%%%%%%%%%%%
 plot([WS_stall, WS_stall], [0, 2], "magenta",'LineWidth',thick);
@@ -106,18 +105,18 @@ end
 scatter([9.81*112, 9.81*125], [9.81/130, 9.81/150]);
 
 %% Legend code, if you change your Cls, Cds or A just change the values here as well
-set(gca, "FontSize", 60)
+set(gca, "FontSize", 20)
 ylim([0, 0.2])
-xlabel("W/S [N/m^2]",'FontSize', 40)
-ylabel("W/P [N/W]",'FontSize', 40)
+xlabel("W/S [N/m^2]",'FontSize', 20)
+ylabel("W/P [N/W]",'FontSize', 20)
 
 
 legend({'Stall land. config.'...
-    ,'Cl_{to} = 1.9'...
-    ,'Cl_{la} = 2.2'...
-    ,'V_{cruise} at A = 8'...
-    ,'c at A = 8'...
-    ,'c/V at A = 8'...
+    ,'Cl_{to} = ' + string(cl_to)...
+    ,'Cl_{la} = ' + string(Cl_max)...
+    ,'V_{cruise} at A = ' + string(A)...
+    ,'c at A = ' + string(A)...
+    ,'c/V at A = ' + string(A)...
 },'Location','northeast', 'FontSize', 16)
 end
 

@@ -42,7 +42,7 @@ sweep_c2_deg = sweep_c2*180/pi;
 
 
 % thickeness to chord
-cl_cruise = m_cruise*9.81*2*1./(rho_isa*V_cruise*V_cruise*S)
+cl_cruise = m_cruise*9.81*2*1./(rho_isa*V_cruise*V_cruise*S);
 tc = 0.18;
 
 % MAC
@@ -52,19 +52,24 @@ MAC_pos = b./2 *(cr - MAC)./(cr - ct);
 % dihedral
 dihedral = 3 - sweep_c4/10;
 
+dsweep_dc = sweep_c4 - sweep_c2;
+sweep_LE = dsweep_dc + sweep_c4;
+sweep_TE = sweep_c4 - 3 * dsweep_dc;
 
 summary_wing = ["M_cruise",M_cruise;
-    "Span",b;
-    "Taper",taper;
-    "Sweep c_4: ",sweep_c4;
-    "Sweep c_2: ",sweep_c2_deg;
-    "Cl cruise: ",cl_cruise;
-    "c root",cr;
-    "c tip",ct;
-    "MAC: ",MAC;
-    "MAC position",MAC_pos;
+    "Span", b;
+    "Taper", taper;
+    "Sweep c_4 (rad): ", sweep_c4;
+    "Sweep c_2 (rad): ", sweep_c2;
+    "Sweep LE (rad): ", sweep_LE;
+    "Sweep TE (rad): ", sweep_TE;
+    "Cl cruise: ", cl_cruise;
+    "c root", cr;
+    "c tip", ct;
+    "MAC: ", MAC;
+    "MAC position", MAC_pos;
     "Dihedral", dihedral;
-    "t/c",tc;
+    "t/c", tc;
     ];
 
 % f4 = figure;

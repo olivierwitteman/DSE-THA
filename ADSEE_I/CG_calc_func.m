@@ -1,17 +1,36 @@
-function [x_lemac, most_aft_cg, most_forward_cg] = CG_calc_func(MAC, payload, fus_length, m_fuel, MTOW, OEW, X_oew, X_payload, xc_oewcg, xc_wcg, wing_x, empen_x, fus_x, nacell_x)
+function [x_lemac, most_aft_cg, most_forward_cg] = CG_calc_func(MAC, payload, fus_length, m_fuel, MTOW, OEW, X_oew, X_payload, xc_oewcg, xc_wcg, wing_x, empen_x, fus_x, nacell_x, prop_pos)
 % IT doesn not work good for wing mounted engines, but should be fine :D
+
+% prompt_prop_pos = 'Where to put the enignes? wing or fuselage . 1/2: ';
+% prop_pos = double(input(prompt_prop_pos));
+
+
 
 % fractions for each subsystem based on roskam V page 131 SINGLE ENGINE
 % PROPELLER
-strucutre_grp = 0.3216;
-power_plant_grp = 0.22425;
-fixed_eq_grp = 0.11475;
-empty_weight_grp = 0.6258;
-wing_grp = 0.1074;
-empen_grp = 0.025;
-fus_grp = 0.1128;
-nacelle_grp = 0.01525;
+if prop_pos == 2    % fuselage
+    strucutre_grp = 0.3216;
+    power_plant_grp = 0.22425;
+    fixed_eq_grp = 0.11475;
+    empty_weight_grp = 0.6258;
+    wing_grp = 0.1074;
+    empen_grp = 0.025;
+    fus_grp = 0.1128;
+    nacelle_grp = 0.01525;
+end
 
+% fractuins for each subsystem basen on roskam V page 133 ROSKAM TWIN
+% ENGINE
+if prop_pos == 1    % wing
+    strucutre_grp = 0.2848;
+    power_plant_grp = 0.2312+0.0212;
+    fixed_eq_grp = 0.118;
+    empty_weight_grp = 0.638;
+    wing_grp = 0.0964;
+    empen_grp = 0.0212;
+    fus_grp = 0.073;
+    nacelle_grp = 0.0364;
+end
 
 % mass fractions matrix
 mass_fractions_subsyst = [wing_grp, empen_grp...
@@ -20,13 +39,13 @@ mass_fractions_subsyst = [wing_grp, empen_grp...
 
 
 % dist form nose
-wing_x = wing_x*fus_length;     % <---- INPUT from func input
+%wing_x = wing_x*fus_length;     % <---- INPUT from func input
 
-empen_x = empen_x*fus_length;   % <---- INPUT from func input
+%empen_x = empen_x*fus_length;   % <---- INPUT from func input
 
-fus_x = fus_x*fus_length;       % <---- INPUT from func input
+%fus_x = fus_x*fus_length;       % <---- INPUT from func input
 
-nacell_x = nacell_x*fus_length; % <---- INPUT from func input
+%nacell_x = nacell_x*fus_length; % <---- INPUT from func input
 
 propul_x = nacell_x;            % <---- INPUT from func input
 
@@ -46,37 +65,52 @@ dist_subsyst = [wing_x,
 moment = mass_fractions_subsyst .* dist_subsyst.';
 
 
-prompt_prop_pos = 'Where to put the enignes? wing or fuselage . 1/2: ';
-prop_pos = double(input(prompt_prop_pos));
+% prompt_prop_pos = 'Where to put the enignes? wing or fuselage . 1/2: ';
+% prop_pos = double(input(prompt_prop_pos));
 
 if prop_pos == 2    % fuselage
     M_fus_grp = [empen_grp, fus_grp, nacelle_grp, power_plant_grp, fixed_eq_grp];
     X_f = [empen_x, fus_x, nacell_x, propul_x, fixed_x];
-    X_fcg = sum(M_fus_grp .* X_f)/(sum(M_fus_grp)); % moments formula
+    X_fcg =(empen_grp*empen_x+fus_grp*fus_x+nacelle_grp*nacell_x+power_plant_grp*propul_x+fixed_eq_grp*fixed_x)*fus_length/(sum(M_fus_grp)); % moments formula
     
     M_wing_grp = wing_grp;
-    X_wg = wing_x ;              
+    X_wg = wing_x ;
+    x_w = X_wg
+    
+    M_wing_grp = sum(M_wing_grp); % make the group as values for X_lemac formula
+    M_fus_grp = sum(M_fus_grp);   % make the group as values for X_lemac formula
 end
 
 if prop_pos == 1    % wing
     M_fus_grp = [empen_grp, fus_grp, fixed_eq_grp]
-    X_f = [empen_x, fus_x, fixed_eq_grp];           
+    X_f = [empen_x, fus_x, fixed_x];           
     X_fcg = sum(M_fus_grp .* X_f)/(sum(M_fus_grp));
     
     
-    X_wg = [wing_x, propul_x, nacell_x];         
-    M_wing_grp = [wing_grp , power_plant_grp , nacelle_grp];
-    X_wg = sum(M_wing_grp.*X_wg)/(sum(M_wing_grp)); % moments formula
+    X_wg = [wing_x, propul_x];         
+    M_wing_grp = [wing_grp , power_plant_grp];
+    X_wg = (wing_x*wing_grp+propul_x*power_plant_grp)*MAC/(sum(M_wing_grp)); % moments formula
+    x_w= wing_x+propul_x
+    
+    M_wing_grp = sum(M_wing_grp); % make the group as values for X_lemac formula
+    M_fus_grp = sum(M_fus_grp);   % make the group as values for X_lemac formula
 end
-M_wing_grp = sum(M_wing_grp); % make the group as values for X_lemac formula
-M_fus_grp = sum(M_fus_grp);   % make the group as values for X_lemac formula
+% M_wing_grp = sum(M_wing_grp); % make the group as values for X_lemac formula
+% M_fus_grp = sum(M_fus_grp);   % make the group as values for X_lemac formula
 
-
+disp("X_fcg")
+disp(X_fcg)
+disp("x_w")
+disp(x_w)
+% disp(M_wing_grp)
+% disp(M_fus_grp)
 
 
 % X LEMAC CALC
-x_lemac = X_fcg + MAC*(xc_oewcg*M_wing_grp/M_fus_grp - xc_oewcg*(1 + M_wing_grp/M_fus_grp));
-
+%                      !!!!! it was x_w/MAC
+x_lemac = X_fcg + MAC*((x_w/MAC)*M_wing_grp/M_fus_grp - xc_oewcg*(1 + M_wing_grp/M_fus_grp));
+disp("X LEMAC")
+disp(x_lemac)
 
 X_oew = fus_length * X_oew; % . in the middle for now % <---- INPUT from func input
 
@@ -84,7 +118,7 @@ X_payload = fus_length * X_payload;    % <---- INPUT from func input
 
 X_fuel = x_lemac + 0.05 * fus_length;  % < --- INPUT 5% of fuselage aft from the X_lemac
 
-
+% change to xlemac + 0.15*mac
 
 
 

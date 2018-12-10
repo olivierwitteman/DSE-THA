@@ -1,0 +1,18 @@
+naca 0012
+
+
+oper
+re 1e+06
+mach 0.2
+visc
+pacc
+
+
+alfa 0
+dump XFOILATTEMPT_a00.000_dump.dat
+cpwr XFOILATTEMPT_a00.000_cpwr.dat
+pwrt
+XFOILATTEMPT_pwrt.dat
+plis
+
+quit

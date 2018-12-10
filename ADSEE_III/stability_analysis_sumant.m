@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 clear all
 % Weights based on engine selection and preliminary design (might change)
 
@@ -6,6 +7,12 @@ OEW = vars.OEW;  %operational empty weight [N]
 MTOW = vars.MTOW; %maximum take-off weight [N]
 W4W5 = vars.W4W5;
 W_f = vars.W_fuel_used;
+=======
+% clear all
+% Weights based on engine selection and preliminary design (might change) 
+OEW = 1300*9.81;  %operational empty weight [N]
+MTOW = 1900*9.81; %maximum take-off weight [N]
+>>>>>>> ebcc779766d0f4bca992baeb7ab880d6a799cb77
 Payload  = 350*9.81; %total payload [N]
 %Dimensions and parameters (fixed) 
 S = vars.S; %reference surface area [m^2]

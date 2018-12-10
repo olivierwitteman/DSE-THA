@@ -1,8 +1,16 @@
 %%POTATO PLOT
+lbs_to_kg = 0.45359237;
 mass_pax=175;                    %lbs                       INPUT (fixed)
+mass_pax = mass_pax*lbs_to_kg;
+
 mass_bags=25;                    %lbs                       INPUT (fixed)
+mass_bags = mass_bags * lbs_to_kg;
+
 mass_fuel=250;                   %lbs                       INPUT
-W_OEW=2900;                      %lbs                       INPUT                            
+mass_fuel = mass_fuel * lbs_to_kg;
+
+W_OEW=2900;                      %lbs                       INPUT   
+W_OEW = W_OEW * lbs_to_kg;
     
 cg_OEW=3.7;                     %c.g. Position@OEW          INPUT 
 
@@ -47,8 +55,8 @@ cg_fuel=((cg_nofuel*W_OEW_4pax)+(location_fuel*mass_fuel))/(mass_fuel+W_OEW_4pax
 line([cg_nofuel,cg_fuel],[W_OEW_4pax, W_OEW_4pax+mass_fuel],'Color','black');
 
 title('Potato Plot')
-ylabel('mass [lbs]')
-xlabel('c.g. position from nose [ft]')
+ylabel('mass [kg]')
+xlabel('c.g. position from nose [m]')
 legend('Cargo','Back to Front','Front to Back','Fuel')
 
 cg_max=max([cg_OEW,cg_OEW_cargo,cg_OEW_cargo,cg_btf_1,cg_btf_2,cg_btf_3,cg_btf_4,cg_OEW_cargo,cg_btf_1,cg_btf_2,cg_btf_3,cg_btf_4,cg_fuel])
