@@ -1,10 +1,7 @@
 function xyz = for_scissor()
 
-% clc
-% clear variables
-
 vars = load('../ADSEE_I/variables_ADSEE_I.mat');
-% Weights based on engine selection and preliminary design (might change) 
+% Weights based on engine selection and preliminary design (might change)
 OEW = double(vars.OEW)*9.81;  %operational empty weight [N] <---- INPUT
 MTOW = double(vars.MTOW)*9.81; %maximum take-off weight [N] <---- INPUT
 Payload  = 363*9.81; %total payload [N]
@@ -176,8 +173,8 @@ for i  = x_lemac
     mass_fuel=250;                   %lbs                       INPUT
     mass_fuel = mass_fuel * lbs_to_kg;
 
-    W_OEW=2900;                      %lbs                       INPUT   
-    W_OEW = W_OEW * lbs_to_kg;
+    W_OEW= OEW;                      %lbs                       INPUT   
+
 
     cg_OEW=3.7;                     %c.g. Position@OEW          INPUT 
     % cg_OEW = 2.5177;    % 30% of mac
