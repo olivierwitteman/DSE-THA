@@ -19,14 +19,14 @@ average_MTOW = mean(MTOW_weights);
 % OEW, W_fuel_used (cruise or all????)
 
 MTOW = average_MTOW; % or choose average MTOW % <------ INPUT
-<<<<<<< HEAD
+%<<<<<<< HEAD
 A = 8.2;                              % <------ INPUT
 e = 0.75;                             % <------ INPUT
 
-=======
+%=======
 A = 7.5;                              % <------ INPUT
 e = 0.7;                             % <------ INPUT
->>>>>>> 8260041c6fb0a52962de860b0f99f43299d6f78d
+%>>>>>>> 8260041c6fb0a52962de860b0f99f43299d6f78d
 V_cruise = 180;  % kts                % <------ INPUT
 V_stall = 61;    % kts                % <------ INPUT
 
@@ -100,7 +100,7 @@ summary_end = ["MTOW: ", MTOW;
 summary_wing = [summary_wing; ["Wing Area", S]];
 
 
-<<<<<<< HEAD
+%<<<<<<< HEAD
 %% eng dimensions
 N = 2
 
@@ -119,7 +119,7 @@ fus_x = 0.5;        % <------ INPUT Assume position of the fuselage cg
 nacell_x = 0.01;     % <------ INPUT Assume position of the nacelle cg = same for engines
                     % fixed equipment is the same position as the fuselage
                     % cg
-=======
+%=======
 
 tr = double(summary_wing(3, 2));
 MAC = double(summary_wing(11, 2));
@@ -174,7 +174,7 @@ if prop_pos == 1            % wing
     propul_x = -0.1
     N = 2;
 end
->>>>>>> 8260041c6fb0a52962de860b0f99f43299d6f78d
+%>>>>>>> 8260041c6fb0a52962de860b0f99f43299d6f78d
 
 % [x_lemac, most_aft_cg, most_forward_cg] = CG_calc_func(MAC, payload, fus_length, W_fuel_total, MTOW, OEW, X_oew, X_payload, xc_oewcg, xc_wcg)
 [x_lemac, most_aft_cg, most_forward_cg] = CG_calc_func(MAC, payload, fus_length, W_fuel_total,...
