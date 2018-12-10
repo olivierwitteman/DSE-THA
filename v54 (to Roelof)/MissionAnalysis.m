@@ -230,7 +230,6 @@ while err > s.errmax
     R_Dclimb = max(MA.Dcl.R)-min(MA.Dcl.R);
     R_Ddescent = max(MA.Dde.R)-min(MA.Dde.R);
     R_Dcruise = MA_in.R_div - R_Dclimb - R_Ddescent;
-    disp(R_Dcruise)
     if R_Dcruise < 0
         error(['Diversion climb and descent require more than the '...
                 'specified diversion range'])

@@ -6,6 +6,7 @@ clear variables;
 vars = load('../ADSEE_I/variables_ADSEE_I.mat');
 
 A = double(vars.A);
+MAC = double(vars.MAC);
 MTOW = double(vars.MTOW);
 OEW = double(vars.OEW)
 S_ref = double(vars.S);
@@ -18,6 +19,8 @@ sweep_c2 = double(vars.sweep_2c);
 sweep_LE = double(vars.sweep_LE);
 sweep_TE = double(vars.sweep_TE);
 b = double(vars.b);
+b_h = double(vars.b_h);
+b_v = double(vars.b_v);
 V_stall = double(vars.V_stall);
 
 LAMBDA = sweep_c4;    % Wingsweep at 0.25MAC
@@ -54,7 +57,7 @@ LAMBDA_vt = LAMBDA_ht; % Sweep at 25% of vertical tail MAC      ??????
 A_vt = double(vars.A_v); % Aspect ratio vertical tail                         ??????
 lambda_vt = 1.; % taper raio vertical tail                      ??????
 lambda_h = 1; %Taper ratio horizontal tail                      ??????
-L_t = 4.; % Tail length, wing quarter MAC to tail quarter MAC   ??????
+L_t = 4*3.2808; % Tail length, wing quarter MAC to tail quarter MAC in ft   ??????
 W_press = 0 ;%11.9+(V_pr*P_delta)^0.271; %Weight penalty due to pressurization; PROBABLY ZERO FOR OUR DESIGNS BECAUSE WE DON'T PRESSURIZE OUR CABIN
 W_l = (MTOW - W_f) * 2.2; %Landing design gross weight
 
@@ -82,24 +85,51 @@ c = sqrt(S_ref/A);  %                           ?????? WHICH CHORD IS THIS????
 
 S_ht = double(vars.("S_h"));
 S_vt = double(vars.("S_v"));
+MAC_ht = b_h/A_ht;
+MAC_vt = b_v/A_vt;
+
 tc_avg = double(vars.("tc")); % (t/c)_avg is the average thickness to chord
 xc_max = 0.25; % (x/c)_max is the position of maximum thickness         ????????
 
 % C_f_e = 0.0055; % light AC - single engine
 % C_f_e = 0.0045; % light AC - twin engine
 
-S_W = 4 * S_ref; % assumed wetted area
-
 % k = 0.152E-5; % polished sheet metal
 k = 0.634E-5; % smooth paint
 % k = 0.052E-5; % smooth molded composite
 
+<<<<<<< HEAD
+L1 = 1.4; % nosecone length                               ??????? SHOULD BE DONE WITH DRAWINGS I GUESS?????
+L2 = 3.57; % main fuselage length                          ??????? SHOULD BE DONE WITH DRAWINGS I GUESS?????
+L3 = 8-L1-L2; % tailcone length                               ??????? SHOULD BE DONE WITH DRAWINGS I GUESS?????
+L = (L1+L2+L3)*3.281 ; %Fuselage structural length in ft for lecture 6 raymer pls dont hate
+A_cs = 2.9;
+D = sqrt(A_cs/pi) % derived from frontal area (even though fuselage may not be cilindrical)
+=======
+<<<<<<< HEAD
 L1 = 1; % nosecone length                               ??????? SHOULD BE DONE WITH DRAWINGS I GUESS?????
 L2 = 4; % main fuselage length                          ??????? SHOULD BE DONE WITH DRAWINGS I GUESS?????
 L3 = 2; % tailcone length                               ??????? SHOULD BE DONE WITH DRAWINGS I GUESS?????
+L = (L1+L2+L3)*3.2808 ; %Fuselage structural length in ft for lecture 6 raymer pls dont hate
+=======
+L1_pos = 'L1:  ';
+L1 = double(input(L1_pos));
+
+L2_pos = 'L2:  ';
+L2 = double(input(L2_pos));
+
+L3_pos = 'L3:  ';
+L3 = double(input(L3_pos));
+
+
+% L1 = 1; % nosecone length                               ??????? SHOULD BE DONE WITH DRAWINGS I GUESS?????
+% L2 = 4; % main fuselage length                          ??????? SHOULD BE DONE WITH DRAWINGS I GUESS?????
+% L3 = 2; % tailcone length                               ??????? SHOULD BE DONE WITH DRAWINGS I GUESS?????
 L = (L1+L2+L3)*3.281 ; %Fuselage structural length in ft for lecture 6 raymer pls dont hate
+>>>>>>> a1b11d34cf80e7d01163640ddcc9f1ed29a90162
 A_cs = 3;
 D = sqrt(A_cs/pi); % derived from frontal area (even though fuselage may not be cilindrical)
+>>>>>>> c728499c063d69e9ac81948fa61d84284c363109
 
 mu = 1.7331332E-5; % viscosity of standard air at h=2400m (T=272K)
 
@@ -136,7 +166,7 @@ b1 = b2/2;
 Component = ['Wing', 'Fuselage multi-engine', 'Fuselage single-engine', 'Nacelles', 'Tail (hor + ver)', 'misc'];
 C_D_Cs = [0.007, 0.08, 0.11, 0.06, 0.008, 0.15];
 % Change these according to component name (defined above)
-A_Cs = [15, 0, 3.0, 0.1, 0.3];
+A_Cs = [15, 0, 3.0, 0, 0.3];
 Fast_Cd0 = ADSEE_II_Drag.fast_sum_C_D_0(C_D_Cs, A_Cs, S_ref)
 
 S_w = ADSEE_II_Drag.S_wet_c(S_ref, S_ht, S_vt, D, L1, L2, L3);
@@ -158,13 +188,9 @@ misc = ADSEE_II_Drag.cD_misc0(0.034, A_cs, L2*D*0.1, v, a, 0.6, 1., 0, 0.1*S_ref
 total_cD0 = cd0_c + misc
 
 % cD = total_cD0 + ADSEE_II_Drag.k_f(A, LAMBDA, CLdes) * (CLdes)^2
-
 cD = Fast_Cd0 + ADSEE_II_Drag.k_f(A, LAMBDA, CLdes) * (CLdes)^2
 
 L_D = CLdes/cD
-
-
-
 
 
 %% ADSEE II - Lecture 4
@@ -205,20 +231,29 @@ disp(["Final answer: ", num2str(aileron_l)])
 
 %% ADSEE II - Lecture 6 - Class II Weights
 
-
-%W_breakdown = C2W.calculation(W_dg,N_z,N_gear,S_w,A,tc_avg,lambda,LAMBDA,S_f,L_over_D,W_fw,v,rho,S_ht,LAMBDA_ht,A_ht,lambda_h,H_t_over_H_v,S_vt,LAMBDA_vt,A_vt,lambda_vt,L_t,W_press,W_l,L_m,L_n,W_en,N_en,V_t,V_i,N_t,L,b,W_uav,N_p,M)
-
-% W_breakdown = C2W.calculation(W_dg,N_z,N_gear,S_ref,A,tc_avg,lambda,LAMBDA,S_W,L_D,W_f,v,rho,S_ht,LAMBDA_ht,A_ht,lambda_h,H_t_over_H_v,S_vt,LAMBDA_vt,A_vt,lambda_vt,L_t,W_press,W_l,L_m,L_n,W_en,N_en,V_t,V_i,N_t,L,b,W_uav,N_p,M)
-
-%W_breakdown = C2W.calculation(W_dg,N_z,N_gear,S_w,A,tc_avg,lambda,LAMBDA,S_f,L_over_D,W_fw,v,rho,S_ht,LAMBDA_ht,A_ht,lambda_h,H_t_over_H_v,S_vt,LAMBDA_vt,A_vt,lambda_vt,L_t,W_press,W_l,L_m,L_n,W_en,N_en,V_t,V_i,N_t,L,b,W_uav,N_p,M)
-
 W_breakdown = C2W.calculation(W_dg,N_z,N_gear,S_ref*10.7639,A,tc_avg,lambda,LAMBDA,W_f*2.2,L/D,W_f*2.2,v,rho,S_ht,LAMBDA_ht,A_ht,lambda_h,H_t_over_H_v,S_vt,LAMBDA_vt,A_vt,lambda_vt,L_t,W_press,W_l,L_m,L_n,W_en,N_en,V_t,V_i,N_t,L,b,W_uav,N_p,M)
 
+%The variables in the matrix W_breakdown are given below
 %W_breakdown = [W_wing, W_horizontaltail, W_verticaltail, W_fuselage, W_mainlandinggear, W_noselandinggear, W_installedengines, W_fuelsystem, W_flightcontrols, W_hydraulics, W_avionics, W_electrical, W_airco_and_anti_ice, W_furnishings]/2.2;
 
-FG_OEW_arms = [Xlemac+0.4*MAC Xlemac+0.25*MAC+L_t+0.15*MAC_lt Xlemac+0.25*MAC+L_t+0.15*MAC_ht 0.4*L Xlemac+0.3*MAC 0.15*L 0.15*L_OR_Xlemac+0.25*MAC 0 0.5*L 0.5*L 0.3*L 0.3*L Xlemac+0.4*MAC 0.4*L] %Still put in if/or statement and define variables.
 W_total = sum(W_breakdown)
-CG_OEW = Xlemac +0.13*MAC
-CG_OEW = (W_breakdown*FG_OEW_arms)/(W_total)
 
+enginelocation = menu('Are the engines wing mounted(1) or front-fuselage mounted(2)?', '1','2'); 
+%Here two different paths are taken to taken xlemac for different wing
+%positions
+
+%% CG Calculation
+L = L/3.2808; %Changing L to meters for the upcoming calculation
+L_t = L_t/3.2808 %Changint L_t to meters
+    if enginelocation == 1
+        syms Xlemac
+        eqn1 = Xlemac + 0.13*MAC == (W_breakdown*([Xlemac+0.4*MAC, Xlemac+0.25*MAC+L_t+0.15*MAC_ht, Xlemac+0.25*MAC+L_t+0.15*MAC_vt, 0.4*L, Xlemac+0.3*MAC, 0.15*L, 0.15*L, Xlemac+0.4*MAC, 0.5*L, 0.5*L, 0.3*L, 0.3*L, Xlemac+0.4*MAC, 0.4*L].'))/(W_total);
+        XLEMACSOLVED = double(solve(eqn1, Xlemac))
+    elseif enginelocation == 2
+        syms Xlemac 
+        eqn1 = Xlemac + 0.13*MAC == (W_breakdown*([Xlemac+0.4*MAC, Xlemac+0.25*MAC+L_t+0.15*MAC_ht, Xlemac+0.25*MAC+L_t+0.15*MAC_vt, 0.4*L, Xlemac+0.3*MAC, 0.15*L, Xlemac+0.25*MAC, Xlemac+0.4*MAC, 0.5*L, 0.5*L, 0.3*L, 0.3*L, Xlemac+0.4*MAC, 0.4*L].'))/(W_total);
+        XLEMACSOLVED = double(solve(eqn1, Xlemac))
+    end
+ L = L*3.2808; %Changing L back to feet
+ L_t=L_t*3.2808; %Changing L_t back to feet
 
