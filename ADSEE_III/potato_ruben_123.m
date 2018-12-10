@@ -1,5 +1,8 @@
+function xyz = potato_ruben_123()
 %% POTATO PLOT
-MAC = mac
+
+vars = load('../ADSEE_I/variables_ADSEE_I.mat');
+MAC = double(vars.MAC)
 x_lemac = [1: 0.01: 4];
 
 cg_mat = zeros(length(x_lemac),2);
@@ -59,9 +62,8 @@ cg_ftb_4=((cg_ftb_3*W_OEW_3pax)+(seat_row2*mass_pax))/(W_OEW_4pax);
 
 
 %include fuel
-
-% cg_nofuel=cg_btf_4;
-% cg_fuel=((cg_nofuel*W_OEW_4pax)+(location_fuel*mass_fuel))/(mass_fuel+W_OEW_4pax);
+cg_nofuel=cg_btf_4;
+cg_fuel=((cg_nofuel*W_OEW_4pax)+(location_fuel*mass_fuel))/(mass_fuel+W_OEW_4pax);
 
 
 %% graph
@@ -74,10 +76,10 @@ cg_ftb_4=((cg_ftb_3*W_OEW_3pax)+(seat_row2*mass_pax))/(W_OEW_4pax);
 
 
 figure
-line([([cg_OEW,cg_OEW_cargo]- x_lemac)/i],[[W_OEW,W_OEW_cargo]],'Color','green');
-line([([cg_OEW_cargo,cg_btf_1,cg_btf_2,cg_btf_3,cg_btf_4]-x_lemac)/i],[W_OEW_cargo,W_OEW_1pax,W_OEW_2pax,W_OEW_3pax,W_OEW_4pax],'Color','blue');
-line([([cg_OEW_cargo,cg_ftb_1,cg_ftb_2,cg_ftb_3,cg_ftb_4]-x_lemac)/i],[W_OEW_cargo,W_OEW_1pax,W_OEW_2pax,W_OEW_3pax,W_OEW_4pax],'Color','red');
-line([([cg_nofuel,cg_fuel]-x_lemac)/i],[W_OEW_4pax, W_OEW_4pax+mass_fuel],'Color','black');
+line([([cg_OEW,cg_OEW_cargo] - x_lemac)/x_lemac],[[W_OEW,W_OEW_cargo]],'Color','green');
+line([([cg_OEW_cargo,cg_btf_1,cg_btf_2,cg_btf_3,cg_btf_4]-x_lemac)/x_lemac],[W_OEW_cargo,W_OEW_1pax,W_OEW_2pax,W_OEW_3pax,W_OEW_4pax],'Color','blue');
+line([([cg_OEW_cargo,cg_ftb_1,cg_ftb_2,cg_ftb_3,cg_ftb_4]-x_lemac)/x_lemac],[W_OEW_cargo,W_OEW_1pax,W_OEW_2pax,W_OEW_3pax,W_OEW_4pax],'Color','red');
+line([([cg_nofuel,cg_fuel]-x_lemac)/x_lemac],[W_OEW_4pax, W_OEW_4pax+mass_fuel],'Color','black');
 
 
 
@@ -112,3 +114,5 @@ counter = counter + 1;
 % % axis([-1 1 -0.5 0.6])
 % % legend('Stability','Neutral Stability','Controllability')
 % hold on
+xyz = "Ruben's potato finished";
+end

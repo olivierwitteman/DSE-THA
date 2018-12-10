@@ -1,4 +1,6 @@
-clc; clear all
+function xyz = Potato_martin()
+
+clc; clear variables
 mass_passenger=94.56;    %kg INPUT
 mass_cargo=1000;         %kg INPUT
 mass_fuel=4000;          %kg INPUT
@@ -210,3 +212,6 @@ title('Potato Diagram')
 ylabel('mass [kg]')
 xlabel('x position as % of MAC')
 legend('Window','OEW to ZFW','WIndow','Isle','Isle','Payload to RM','')
+
+xyz = "Martin's potato done";
+end

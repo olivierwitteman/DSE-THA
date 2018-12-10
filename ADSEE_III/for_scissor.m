@@ -1,5 +1,7 @@
-clc
-clear variables
+function xyz = for_scissor()
+
+% clc
+% clear variables
 
 vars = load('../ADSEE_I/variables_ADSEE_I.mat');
 % Weights based on engine selection and preliminary design (might change) 
@@ -270,3 +272,6 @@ ylim([0, 0.99])
 % axis([-1 1 -0.5 0.6])
 % legend('Stability','Neutral Stability','Controllability')
 hold on
+
+xyz = 'Scissor done';
+end

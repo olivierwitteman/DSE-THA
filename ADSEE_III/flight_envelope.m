@@ -1,4 +1,6 @@
-clc; clear all
+function xyz = flight_envelope()
+
+% clc; clear variables
 
 %Maneuver and Gust Diagrams 
 
@@ -124,10 +126,5 @@ x1 = V_D-1; %x location of text for dive speed
 y1 = ng_d+0.5; %y location of text for dive speed
 txt1 = 'U_{d} = 7.62 [m/s]'; % for dive speed
 text(x1,y1,txt1) % for dive speed
-
-
-
-
-
-
-
+xyz = 'Flight envelope done';
+end
