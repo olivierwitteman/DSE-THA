@@ -22,7 +22,7 @@ MTOW_median = median(MTOW_weights)
 
 MTOW = average_MTOW; % or choose average MTOW % <------ INPUT
 
-MTOW = 1750
+MTOW = 1750;
 A = 8.5;                              % <------ INPUT
 e = 0.75;                             % <------ INPUT
 
@@ -105,18 +105,18 @@ summary_wing = [summary_wing; ["Wing Area", S]];
 % [D_p, w_ee, l_ee, h_ee] = engine_dim_func(P, N);
 
 %% CG VERY ROUGH ESTIMATION
-fus_length = 6.6;   % <------ INPUT
-X_oew = 0.40;        % <------ INPUT Assume pos5ition of the OEW cg
-X_payload = 0.35;   % <------ INPUT Assume position of the Payload(including passengers) cg
-xc_oewcg = 0.3;     % <------ INPUT
-xc_wcg = 0.4;       % <------ INPUT5
-
-wing_x = 0.55;       % <------ INPUT Assume position of the wing cg from the nose
-empen_x = 0.8;      % <------ INPUT Assume position of the empennage cg
-fus_x = 0.5;        % <------ INPUT Assume position of the fuselage cg
-nacell_x = 0.01;     % <------ INPUT Assume position of the nacelle cg = same for engines
-                    % fixed equipment is the same position as the fuselage
-                    % cg
+% % % % fus_length = 6.6;   % <------ INPUT
+% % % % X_oew = 0.40;        % <------ INPUT Assume pos5ition of the OEW cg
+% % % % X_payload = 0.35;   % <------ INPUT Assume position of the Payload(including passengers) cg
+% % % % xc_oewcg = 0.3;     % <------ INPUT
+% % % % xc_wcg = 0.4;       % <------ INPUT5
+% % % % 
+% % % % wing_x = 0.55;       % <------ INPUT Assume position of the wing cg from the nose
+% % % % empen_x = 0.8;      % <------ INPUT Assume position of the empennage cg
+% % % % fus_x = 0.5;        % <------ INPUT Assume position of the fuselage cg
+% % % % nacell_x = 0.01;     % <------ INPUT Assume position of the nacelle cg = same for engines
+% % % %                     % fixed equipment is the same position as the fuselage
+% % % %                     % cg
 
 
 tr = double(summary_wing(3, 2));
@@ -187,8 +187,8 @@ most_forward_cg = most_forward_cg;      % <---- CHANGE iF it is too bullshit
 [D_p, w_ee, l_ee, h_ee] = engine_dim_func(P, N);
 %% Horizontal and vertical control surface areas
 
-SF_S = 1.2
-[S_h, S_v] = control_surf_func(MAC, S, b, fus_length, empen_x, most_aft_cg)
+SF_S = 1.0;
+[S_h, S_v] = control_surf_func(MAC, S, b, fus_length, empen_x, most_aft_cg);
 S_h = SF_S*S_h;
 S_v = SF_S*S_v;
 
