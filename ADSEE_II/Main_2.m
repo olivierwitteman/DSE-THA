@@ -66,7 +66,7 @@ L_n = 12.; %Extended nose gear length (inch)                    ??????
 
 W_en = 345. * 2.2; %Engine weight (each) in pounds              <---- INPUT
 N_en = double(vars.("N")); %Number of engines\                  XXXX
-V_i = V_t * 1.05; %Integral tanks volume in gallons             
+V_i = V_t * 1.05; %Integral tanks volume in gallons
 
 N_t = 1; %Number of fuel tanks                                  ??????
 W_uav = 0.03 * MTOW * 2.2; %Uninstalled avionics weight in pounds
