@@ -189,8 +189,8 @@ S_v = SF_S*S_v;
 A_h = 4;    % <----- INPUT   [3, 5] slide 68 lecture 7 ADSEE 1
 A_v = 1.5;  % <----- INPUT   [1, 2] slide 68 lecture 7 ADSEE 1
 
-b_h = sqrt(A_h * S_h)
-b_v = sqrt(A_v * S_v)
+b_h = sqrt(A_h * S_h);
+b_v = sqrt(A_v * S_v);
 
 
 
