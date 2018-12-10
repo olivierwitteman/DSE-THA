@@ -173,6 +173,9 @@ end
 [x_lemac, most_aft_cg, most_forward_cg] = CG_calc_func(MAC, payload, fus_length, W_fuel_total,...
     double(MTOW), double(OEW), X_oew, X_payload, xc_oewcg, xc_wcg, wing_x, empen_x, fus_x, propul_x, prop_pos);
                                                                                           %!!!!!!!!
+                                                                                          
+most_aft_cg = most_aft_cg;              % <---- change IF it is too bullshit
+most_forward_cg = most_forward_cg;      % <---- CHANGE iF it is too bullshit
 %% eng dimensions
 % N = 1;
 [D_p, w_ee, l_ee, h_ee] = engine_dim_func(P, N);
