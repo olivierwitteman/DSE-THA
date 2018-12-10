@@ -88,18 +88,16 @@ xc_max = 0.25; % (x/c)_max is the position of maximum thickness         ????????
 % C_f_e = 0.0055; % light AC - single engine
 % C_f_e = 0.0045; % light AC - twin engine
 
-S_W = 4 * S_ref; % assumed wetted area
-
 % k = 0.152E-5; % polished sheet metal
 k = 0.634E-5; % smooth paint
 % k = 0.052E-5; % smooth molded composite
 
-L1 = 1; % nosecone length                               ??????? SHOULD BE DONE WITH DRAWINGS I GUESS?????
-L2 = 4; % main fuselage length                          ??????? SHOULD BE DONE WITH DRAWINGS I GUESS?????
-L3 = 2; % tailcone length                               ??????? SHOULD BE DONE WITH DRAWINGS I GUESS?????
+L1 = 1.4; % nosecone length                               ??????? SHOULD BE DONE WITH DRAWINGS I GUESS?????
+L2 = 3.57; % main fuselage length                          ??????? SHOULD BE DONE WITH DRAWINGS I GUESS?????
+L3 = 8-L1-L2; % tailcone length                               ??????? SHOULD BE DONE WITH DRAWINGS I GUESS?????
 L = (L1+L2+L3)*3.281 ; %Fuselage structural length in ft for lecture 6 raymer pls dont hate
-A_cs = 3;
-D = sqrt(A_cs/pi); % derived from frontal area (even though fuselage may not be cilindrical)
+A_cs = 2.9;
+D = sqrt(A_cs/pi) % derived from frontal area (even though fuselage may not be cilindrical)
 
 mu = 1.7331332E-5; % viscosity of standard air at h=2400m (T=272K)
 
@@ -136,7 +134,7 @@ b1 = b2/2;
 Component = ['Wing', 'Fuselage multi-engine', 'Fuselage single-engine', 'Nacelles', 'Tail (hor + ver)', 'misc'];
 C_D_Cs = [0.007, 0.08, 0.11, 0.06, 0.008, 0.15];
 % Change these according to component name (defined above)
-A_Cs = [15, 0, 3.0, 0.1, 0.3];
+A_Cs = [15, 0, 3.0, 0, 0.3];
 Fast_Cd0 = ADSEE_II_Drag.fast_sum_C_D_0(C_D_Cs, A_Cs, S_ref)
 
 S_w = ADSEE_II_Drag.S_wet_c(S_ref, S_ht, S_vt, D, L1, L2, L3);
@@ -158,13 +156,9 @@ misc = ADSEE_II_Drag.cD_misc0(0.034, A_cs, L2*D*0.1, v, a, 0.6, 1., 0, 0.1*S_ref
 total_cD0 = cd0_c + misc
 
 % cD = total_cD0 + ADSEE_II_Drag.k_f(A, LAMBDA, CLdes) * (CLdes)^2
-
 cD = Fast_Cd0 + ADSEE_II_Drag.k_f(A, LAMBDA, CLdes) * (CLdes)^2
 
 L_D = CLdes/cD
-
-
-
 
 
 %% ADSEE II - Lecture 4

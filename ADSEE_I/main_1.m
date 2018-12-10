@@ -20,37 +20,39 @@ average_MTOW = mean(MTOW_weights);
 
 MTOW = average_MTOW; % or choose average MTOW % <------ INPUT
 
-MTOW = 1750
-A = 8.5;                              % <------ INPUT
+% MTOW = 1750
+A = 10;                              % <------ INPUT
 e = 0.75;                             % <------ INPUT
 
 V_cruise = 180;  % kts                % <------ INPUT
 V_stall = 61;    % kts                % <------ INPUT
 
 
-[summary, Wl_Wto, Cd0, LD_cruise, W4W5, m_cruise] = Fuel_Frac(MTOW, A, e, V_cruise, V_stall); % Reference aircraft and fuel fractions
+[summary, Wl_Wto, Cd0, LD_cruise, W4W5, m_cruise, V_stall] = Fuel_Frac(MTOW, A, e, V_cruise, V_stall); % Reference aircraft and fuel fractions
 %                                       !!!!!!!!
 
 %% Input for wingloading and payload range diagram
 h = 2400;                   % <------ INPUT
+g = 9.80665;
+rho = 1.225;
 
-CL_max = 1.9;               % <------ INPUT
-Cl_to = 1.75;               % <------ INPUT
+CL_to = 1.7; % <------ INPUT
+CL_max = 1.9; % <------ INPUT
 c = 5;       % 1.2*V_stall*grad(0.083) = 3.1 minimum . % <------ INPUT
 V_land = 1.2*32; % ms From requirements?     % <------ INPUT
 
-OEW = summary(1,2);                  % Input from fuel fractions
-W_fuel_used = summary(3,2);          % Input from fuel fractions
-Wl_Wto;                              % Input from fuel fractions
-cd0_clean = Cd0;                     % Input from fuel fractions
-A = double(summary(4,2));            % Input from fuel fractions
-e_clean = double(summary(5,2));      % Input from fuel fractions
-V_stall = double(summary(6, 2));     % Input from fuel fractions
-V_cruise = double(summary(7, 2));    % Input from fuel fractions
-m_cruise = double(summary(8, 2));    % Input from fuel fractions  !!!!!
-W_fuel_total = double(summary(9, 2));% Input from fuel fractions  !!!!!
+OEW = summary(1,2);                   % Input from fuel fractions
+W_fuel_used = summary(3,2);           % Input from fuel fractions
+Wl_Wto;                               % Input from fuel fractions
+cd0_clean = Cd0;                      % Input from fuel fractions
+A = double(summary(4,2));             % Input from fuel fractions
+e_clean = double(summary(5,2));       % Input from fuel fractions
+V_stall = double(summary(6, 2));      % Input from fuel fractions
+V_cruise = double(summary(7, 2));     % Input from fuel fractions
+m_cruise = double(summary(8, 2));     % Input from fuel fractions  !!!!!
+W_fuel_total = double(summary(9, 2)); % Input from fuel fractions  !!!!!
 
-Wing_Loading_Func(h,A,e_clean,cd0_clean, CL_max,Cl_to ,c, Wl_Wto, V_land, V_stall, V_cruise)
+Wing_Loading_Func(h,A,e_clean,cd0_clean, CL_max,CL_to ,c, Wl_Wto, V_land, V_stall, V_cruise)
 
 W4W5;                               % Input from fuel fractions
 payload = 363;                      % from requirements
@@ -80,7 +82,7 @@ summary_end = ["MTOW: ", MTOW;
      "e: ", e;
      "LD_cruise: ", LD_cruise;
      "Cl_max: ", CL_max;
-     "Cl_to: ", Cl_to;
+     "CL_to: ", CL_to;
      "V_cruise: ", V_cruise;
      "V_stall: ", V_stall;
      "V_land: ", V_land;
@@ -196,11 +198,12 @@ A_v = 1.5;  % <----- INPUT   [1, 2] slide 68 lecture 7 ADSEE 1
 b_h = sqrt(A_h * S_h)
 b_v = sqrt(A_v * S_v)
 
-
+CL_to_end = MTOW*g/(0.5*rho*S*(V_stall*1.2)^2);
+CL_max_end = CL_to * 1.1^2;              
 
 save('variables_ADSEE_I.mat', 'A', 'MTOW', 'OEW', 'S', 'V_cruise', 'W4W5',...
     'W_fuel_used', 'tr', 'sweep_LE', 'sweep_TE', "sweep_2c",'sweep_4c',...
-    "h", "S_h", "S_v", "b", "N", "W_fuel_total", "CL_max", "Cl_to", "e",...
+    "h", "S_h", "S_v", "b", "N", "W_fuel_total", "CL_max", "CL_to", "e",...
     "tc", "cl_cruise", "cr", "ct", "b", "V_stall",...
     "h", "S_h", "S_v", "b", "N", "W_fuel_total", "M_cruise", "MAC",...
     "A_h", "A_v", "b_h", "b_v")
