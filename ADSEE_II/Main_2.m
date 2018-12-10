@@ -57,7 +57,7 @@ LAMBDA_vt = LAMBDA_ht; % Sweep at 25% of vertical tail MAC      ??????
 A_vt = double(vars.A_v); % Aspect ratio vertical tail                         ??????
 lambda_vt = 1.; % taper raio vertical tail                      ??????
 lambda_h = 1; %Taper ratio horizontal tail                      ??????
-L_t = 4.; % Tail length, wing quarter MAC to tail quarter MAC   ??????
+L_t = 4*3.2808; % Tail length, wing quarter MAC to tail quarter MAC in ft   ??????
 W_press = 0 ;%11.9+(V_pr*P_delta)^0.271; %Weight penalty due to pressurization; PROBABLY ZERO FOR OUR DESIGNS BECAUSE WE DON'T PRESSURIZE OUR CABIN
 W_l = (MTOW - W_f) * 2.2; %Landing design gross weight
 
@@ -103,7 +103,7 @@ k = 0.634E-5; % smooth paint
 L1 = 1; % nosecone length                               ??????? SHOULD BE DONE WITH DRAWINGS I GUESS?????
 L2 = 4; % main fuselage length                          ??????? SHOULD BE DONE WITH DRAWINGS I GUESS?????
 L3 = 2; % tailcone length                               ??????? SHOULD BE DONE WITH DRAWINGS I GUESS?????
-L = (L1+L2+L3)*3.281 ; %Fuselage structural length in ft for lecture 6 raymer pls dont hate
+L = (L1+L2+L3)*3.2808 ; %Fuselage structural length in ft for lecture 6 raymer pls dont hate
 A_cs = 3;
 D = sqrt(A_cs/pi); % derived from frontal area (even though fuselage may not be cilindrical)
 
@@ -218,15 +218,22 @@ W_breakdown = C2W.calculation(W_dg,N_z,N_gear,S_ref*10.7639,A,tc_avg,lambda,LAMB
 
 W_total = sum(W_breakdown)
 
-enginelocation = menu('Are the engines wing mounted(1) or front-fuselage mounted(2)?', '1','2');
+enginelocation = menu('Are the engines wing mounted(1) or front-fuselage mounted(2)?', '1','2'); 
+%Here two different paths are taken to taken xlemac for different wing
+%positions
+
+%% CG Calculation
+L = L/3.2808; %Changing L to meters for the upcoming calculation
+L_t = L_t/3.2808 %Changint L_t to meters
     if enginelocation == 1
         syms Xlemac
         eqn1 = Xlemac + 0.13*MAC == (W_breakdown*([Xlemac+0.4*MAC, Xlemac+0.25*MAC+L_t+0.15*MAC_ht, Xlemac+0.25*MAC+L_t+0.15*MAC_vt, 0.4*L, Xlemac+0.3*MAC, 0.15*L, 0.15*L, Xlemac+0.4*MAC, 0.5*L, 0.5*L, 0.3*L, 0.3*L, Xlemac+0.4*MAC, 0.4*L].'))/(W_total);
-        XLEMACSOLVED = double(solve(eqn1, Xlemac))/3.281
+        XLEMACSOLVED = double(solve(eqn1, Xlemac))
     elseif enginelocation == 2
         syms Xlemac 
         eqn1 = Xlemac + 0.13*MAC == (W_breakdown*([Xlemac+0.4*MAC, Xlemac+0.25*MAC+L_t+0.15*MAC_ht, Xlemac+0.25*MAC+L_t+0.15*MAC_vt, 0.4*L, Xlemac+0.3*MAC, 0.15*L, Xlemac+0.25*MAC, Xlemac+0.4*MAC, 0.5*L, 0.5*L, 0.3*L, 0.3*L, Xlemac+0.4*MAC, 0.4*L].'))/(W_total);
-        XLEMACSOLVED = double(solve(eqn1, Xlemac))/3.281
+        XLEMACSOLVED = double(solve(eqn1, Xlemac))
     end
-    
+ L = L*3.2808; %Changing L back to feet
+ L_t=L_t*3.2808; %Changing L_t back to feet
 
