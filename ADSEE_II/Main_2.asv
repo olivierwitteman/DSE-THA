@@ -221,12 +221,12 @@ W_total = sum(W_breakdown)
 enginelocation = menu('Are the engines wing mounted(1) or front-fuselage mounted(2)?', '1','2');
     if enginelocation == 1
         syms Xlemac
-        eqn1 = Xlemac + 0.13*MAC == (W_breakdown*([Xlemac+0.4*MAC, Xlemac+0.25*MAC+L_t+0.15*MAC_ht, Xlemac+0.25*MAC+L_t+0.15*MAC_vt, 0.4*L, Xlemac+0.3*MAC, 0.15*L, 0.15*L, Xlemac+0.4*MAC, 0.5*L, 0.5*L, 0.3*L, 0.3*L, Xlemac+0.4*MAC, 0.4*L].'))/(W_total);
-        XLEMACSOLVED = double(solve(eqn1, Xlemac))/3.281
+        eqn1 = Xlemac + 0.13*MAC == (W_breakdown*([Xlemac+0.4*MAC, Xlemac+0.25*MAC+L_t+0.15*MAC_ht, Xlemac+0.25*MAC+L_t+0.15*MAC_vt, 0.4*L, Xlemac+0.3*MAC, 0.15*L, 0.15*L, Xlemac+0.4*MAC, 0.5*L, 0.5*L, 0.3*L, 0.3*L, Xlemac+0.4*MAC, 0.4*L]))/(W_total);
+        Xsolve()
     elseif enginelocation == 2
         syms Xlemac 
-        eqn1 = Xlemac + 0.13*MAC == (W_breakdown*([Xlemac+0.4*MAC, Xlemac+0.25*MAC+L_t+0.15*MAC_ht, Xlemac+0.25*MAC+L_t+0.15*MAC_vt, 0.4*L, Xlemac+0.3*MAC, 0.15*L, Xlemac+0.25*MAC, Xlemac+0.4*MAC, 0.5*L, 0.5*L, 0.3*L, 0.3*L, Xlemac+0.4*MAC, 0.4*L].'))/(W_total);
-        XLEMACSOLVED = double(solve(eqn1, Xlemac))/3.281
+        eqn1 = Xlemac + 0.13*MAC == (W_breakdown*([Xlemac+0.4*MAC, Xlemac+0.25*MAC+L_t+0.15*MAC_ht, Xlemac+0.25*MAC+L_t+0.15*MAC_vt, 0.4*L, Xlemac+0.3*MAC, 0.15*L, Xlemac+0.25*MAC, Xlemac+0.4*MAC, 0.5*L, 0.5*L, 0.3*L, 0.3*L, Xlemac+0.4*MAC, 0.4*L]))/(W_total);
+
     end
     
 
