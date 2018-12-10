@@ -160,7 +160,7 @@ Sh_S_C = ((Cm_ac/CL_A_h) + (x_cg_c)-(x_ac_c)) / ((CL_h/CL_A_h)*(lh/mac)*Vh_V^2);
 
 %% POTATO PLOT
 MAC = mac
-x_lemac = [1: 0.01: 3];
+x_lemac = [1: 0.01: 4];
 
 cg_mat = zeros(length(x_lemac),2);
 counter = 1
@@ -181,8 +181,8 @@ for i  = x_lemac
 
     cg_OEW=3.7;                     %c.g. Position@OEW          INPUT 
     % cg_OEW = 2.5177;    % 30% of mac
-    cg_OEW = 1.6049+0.20;
-    % cg_OEW = 4;
+%     cg_OEW = 1.6049+0.20;
+    cg_OEW = 1.5;
     % cg_OEW = cg_OEW - x_lemac
 
     seat_pilot=2 ;                  %c.g. Position Pilot        INPUT 
