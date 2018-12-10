@@ -66,7 +66,7 @@ L_n = 12.; %Extended nose gear length (inch)                    ??????
 
 W_en = 345. * 2.2; %Engine weight (each) in pounds              <---- INPUT
 N_en = double(vars.("N")); %Number of engines\                  XXXX
-V_i = V_t * 1.05; %Integral tanks volume in gallons             
+V_i = V_t * 1.05; %Integral tanks volume in gallons
 
 N_t = 1; %Number of fuel tanks                                  ??????
 W_uav = 0.03 * MTOW * 2.2; %Uninstalled avionics weight in pounds
@@ -77,7 +77,7 @@ cl_cruise  = double(vars.("cl_cruise"));
 clmax = double(vars.("CL_max"));                % XXXX
 
 cambered = 0; % 1 for True, 0 for False
-e = double(vars.("e"))
+e = double(vars.("e"));
 c = sqrt(S_ref/A);  %                           ?????? WHICH CHORD IS THIS????
 
 S_ht = double(vars.("S_h"));
@@ -214,7 +214,6 @@ disp(["Final answer: ", num2str(aileron_l)])
 
 W_breakdown = C2W.calculation(W_dg,N_z,N_gear,S_ref*10.7639,A,tc_avg,lambda,LAMBDA,W_f*2.2,L/D,W_f*2.2,v,rho,S_ht,LAMBDA_ht,A_ht,lambda_h,H_t_over_H_v,S_vt,LAMBDA_vt,A_vt,lambda_vt,L_t,W_press,W_l,L_m,L_n,W_en,N_en,V_t,V_i,N_t,L,b,W_uav,N_p,M)
 
-
 %W_breakdown = [W_wing, W_horizontaltail, W_verticaltail, W_fuselage, W_mainlandinggear, W_noselandinggear, W_installedengines, W_fuelsystem, W_flightcontrols, W_hydraulics, W_avionics, W_electrical, W_airco_and_anti_ice, W_furnishings]/2.2;
 
 FG_OEW_arms = [Xlemac+0.4*MAC Xlemac+0.25*MAC+L_t+0.15*MAC_lt Xlemac+0.25*MAC+L_t+0.15*MAC_ht 0.4*L Xlemac+0.3*MAC 0.15*L 0.15*L_OR_Xlemac+0.25*MAC 0 0.5*L 0.5*L 0.3*L 0.3*L Xlemac+0.4*MAC 0.4*L] %Still put in if/or statement and define variables.
@@ -224,5 +223,3 @@ CG_FG_OEW = (W_breakdown*FG_OEW_arms)/(W_t-W_breakdown(1))
 CG_OEW = CG_FG_OEW
 
 W_total = sum(W_breakdown)
-
-
