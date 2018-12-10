@@ -1,8 +1,7 @@
-clc
-clear variables
+function xyz = for_scissor()
 
 vars = load('../ADSEE_I/variables_ADSEE_I.mat');
-% Weights based on engine selection and preliminary design (might change) 
+% Weights based on engine selection and preliminary design (might change)
 OEW = double(vars.OEW)*9.81;  %operational empty weight [N] <---- INPUT
 MTOW = double(vars.MTOW)*9.81; %maximum take-off weight [N] <---- INPUT
 Payload  = 363*9.81; %total payload [N]
@@ -14,9 +13,9 @@ S = double(vars.S); %reference surface area [m^2]
 A = double(vars.S);   %aspect ratio [-]
 M = double(vars.M_cruise); %mach number at cruise [-]
 beta=sqrt(1-M^2);
-bf = 1.5; %fuselage width [m]                   ?????? <---- INPUT
-hf = 1.7; %fuselage height [m]                  ?????? <---- INPUT
-bh = 6.0; %horizontal tail span [m]             ?????? <---- INPUT
+bf = 1.5; %fuselage width [m]                   ?????? <----   INPUT
+hf = 1.7; %fuselage height [m]                  ?????? <----   INPUT
+bh = 6.0; %horizontal tail span [m]             ?????? <----   INPUT
 lf = 6.6; % total length of fuselage [m] .      ?????? <-----  INPUT
 Sh = double(vars.S_h); %horizontal tail area [m^2]
 Sv = double(vars.S_v);  %vertical tail area [m^2]
@@ -158,7 +157,7 @@ Sh_S_C = ((Cm_ac/CL_A_h) + (x_cg_c)-(x_ac_c)) / ((CL_h/CL_A_h)*(lh/mac)*Vh_V^2);
 
 %% POTATO PLOT
 MAC = mac
-x_lemac = [1: 0.01: 3];
+x_lemac = [1: 0.01: 4];
 
 cg_mat = zeros(length(x_lemac),2);
 counter = 1
@@ -174,13 +173,13 @@ for i  = x_lemac
     mass_fuel=250;                   %lbs                       INPUT
     mass_fuel = mass_fuel * lbs_to_kg;
 
-    W_OEW=2900;                      %lbs                       INPUT   
-    W_OEW = W_OEW * lbs_to_kg;
+    W_OEW= OEW;                      %lbs                       INPUT   
+
 
     cg_OEW=3.7;                     %c.g. Position@OEW          INPUT 
     % cg_OEW = 2.5177;    % 30% of mac
-    cg_OEW = 1.6049+0.20;
-    % cg_OEW = 4;
+%     cg_OEW = 1.6049+0.20;
+    cg_OEW = 1.5;
     % cg_OEW = cg_OEW - x_lemac
 
     seat_pilot=2 ;                  %c.g. Position Pilot        INPUT 
@@ -270,3 +269,6 @@ ylim([0, 0.99])
 % axis([-1 1 -0.5 0.6])
 % legend('Stability','Neutral Stability','Controllability')
 hold on
+
+xyz = 'Scissor done';
+end

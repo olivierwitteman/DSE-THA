@@ -1,4 +1,4 @@
-function [weights, Wl_Wto, Cd0, LD_cruise, W4W5, m_cruise, V_stall] = Fuel_Frac(chosen_MTOW, A, e, V_cruise, V_stall)
+function [weights, Wl_Wto, Cd0, LD_cruise, W4W5, m_cruise] = Fuel_Frac(chosen_MTOW, A, e, V_cruise, V_stall)
 %% Implement Oliview code for weight estimation
 clc;
 % chosen_MTOW = 1835 % taken from the average of reference aircraft
