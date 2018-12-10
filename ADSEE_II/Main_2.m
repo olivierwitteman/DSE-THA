@@ -60,8 +60,8 @@ W_l = (MTOW - W_f) * 2.2; %Landing design gross weight
 
 V_t = W_f / (0.840 * 3.79); %Total fuel volume in gallons
 
-L_m = 12.; %Extended length of main landing gear                ??????
-L_n = 12.; %Extended nose gear length (inch)                    ??????
+L_m = 15.; %Extended length of main landing gear                ??????
+L_n = 15.; %Extended nose gear length (inch)                    ??????
 
 
 W_en = 345. * 2.2; %Engine weight (each) in pounds              <---- INPUT
@@ -178,7 +178,7 @@ prompt_dclda = 'What is your lift curve slope: default is 0.32  ';
 c_l_alpha = double(input(prompt_dclda));
 c_l_alpha = 0.32; % Airfoil lift curve slope  <------- INPUT FROM BOOK
 S_ref = S_ref; % Wing surface in square meters
-c_d0 = Fast_Cd0; % 2D zero lift drag coefficient        % ???????
+c_d0 = Fast_Cd0; % 2D zero lift drag coefficient        
 V = 1.2*V_stall; %speed in m/s                          % XXXXXXX
 b = b; %wingspan in meters
 
@@ -217,9 +217,8 @@ W_breakdown = C2W.calculation(W_dg,N_z,N_gear,S_ref*10.7639,A,tc_avg,lambda,LAMB
 %W_breakdown = [W_wing, W_horizontaltail, W_verticaltail, W_fuselage, W_mainlandinggear, W_noselandinggear, W_installedengines, W_fuelsystem, W_flightcontrols, W_hydraulics, W_avionics, W_electrical, W_airco_and_anti_ice, W_furnishings]/2.2;
 
 FG_OEW_arms = [Xlemac+0.4*MAC Xlemac+0.25*MAC+L_t+0.15*MAC_lt Xlemac+0.25*MAC+L_t+0.15*MAC_ht 0.4*L Xlemac+0.3*MAC 0.15*L 0.15*L_OR_Xlemac+0.25*MAC 0 0.5*L 0.5*L 0.3*L 0.3*L Xlemac+0.4*MAC 0.4*L] %Still put in if/or statement and define variables.
-
-CG_FG_OEW = (W_breakdown*FG_OEW_arms)/(W_t-W_breakdown(1))
-
-CG_OEW = CG_FG_OEW
-
 W_total = sum(W_breakdown)
+CG_OEW = Xlemac +0.13*MAC
+CG_OEW = (W_breakdown*FG_OEW_arms)/(W_total)
+
+

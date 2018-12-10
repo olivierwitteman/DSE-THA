@@ -1,5 +1,7 @@
-clc
-clear variables
+function xyz = for_scissor()
+
+% clc
+% clear variables
 
 vars = load('../ADSEE_I/variables_ADSEE_I.mat');
 % Weights based on engine selection and preliminary design (might change) 
@@ -17,6 +19,7 @@ beta=sqrt(1-M^2);
 bf = 1.5; %fuselage width [m]                   ?????? <---- INPUT
 hf = 1.7; %fuselage height [m]                  ?????? <---- INPUT
 bh = 6.0; %horizontal tail span [m]             ?????? <---- INPUT
+lf = 6.6; % total length of fuselage [m] .      ?????? <-----  INPUT
 Sh = double(vars.S_h); %horizontal tail area [m^2]
 Sv = double(vars.S_v);  %vertical tail area [m^2]
 Cr = double(vars.cr); %main wing root chord [m]
@@ -26,22 +29,21 @@ Ct_h = 0.4 * Cr_h; %horizontal tail tip chord [m]  ??????
 lfn = 2.059; %distance from nose to leading edge of root chord [m] ?????????????????????????????????????????????????
 cg = S/b; %average constant chord [m]
 ln = 2.425; %distance from engine to quater chord mac [m] .   ?????????????????????????????????????????????????
-bn = 0.9; %width of nacelles (engines) [m] ????
+bn = 0.0; %width of nacelles (engines) [m]                   
 lambda_h = Ct_h/Cr_h; %taper ratio of horizontal tail [-]
 lambda = Ct/Cr; %taper ratio of main wing [-]
 Ah = bh^2/Sh; %aspect ratio of horizontal tail [-] 
 Snet = S-bf*((Cr+1.35)/2); %net area (excluding the eclosed wing area in the fuselage) [m^2]
 eta = 0.95; %airfoil efficiency factor [-]
-lf = 6.6; % total length of fuselage [m] .  <-----  INPUT
-l_press = 5.0; % length of pressurized area (assumed) [m] ???????
+l_press = 0; % length of pressurized area (assumed) [m] 
 %-------------------------------------------------------------------------
 % Calculate wing sweep angle
-sweep_LE = double(vars.sweep_LE)*pi/180; %sweep at leading edge [rad] %needs to be changed
+sweep_LE = double(vars.sweep_LE)%*pi/180; %sweep at leading edge [rad] %needs to be changed
 sweep_14 = atan(tan(sweep_LE) + (Cr/(2*b))*(lambda -1)); %sweep at quater chord [rad]
 sweep_12 = atan(tan(sweep_LE) - (4/A)*(0.5*((1-lambda)/(1+lambda)))); %sweep at half chord [rad]
 %-------------------------------------------------------------------------
 % Calculate horizontal tail sweep angle
-sweep_LE_h = double(vars.sweep_LE)*pi/180; %sweep at leading edge [rad] %needs to be changed
+sweep_LE_h = double(vars.sweep_LE)%*pi/180; %sweep at leading edge [rad] %needs to be changed
 sweep_14_h = atan(tan(sweep_LE_h) + (Cr_h/(2*bh))*(lambda_h - 1)); %sweep at quater chord [rad]
 sweep_12_h = atan(tan(sweep_LE_h) - (4/Ah)*(0.5*((1-lambda_h)/(1+lambda_h)))); %sweep at half chord [rad]
 %-------------------------------------------------------------------------
@@ -50,19 +52,19 @@ mac = (2/3)*Cr*( (1 + lambda + lambda^2)/(1+lambda)); % mean aerodynamic chord [
 mac = double(vars.MAC); %%%%% from class I
 y_mac = (b/6)*((1 + 2*lambda)/(1 + lambda)); %y location of mac [m]
 x_mac = y_mac*tan(sweep_LE);          %x location of mac [m] 
-x_datum = 2.059 ;                  % measured from planform for given geometry (from nose to wing) [m]
+x_datum = 2.059 ;                  % <----- INPUT    measured from planform for given geometry (from nose to wing) [m] ??????? ASK SUMANT
 %--------------------------------------------------------------------------
 %Calculate horizontal tail mean aerodynamic chord
 mac_h = (2/3)*Cr_h*( (1 + lambda_h + lambda_h^2)/(1+lambda_h)); % mean aerodynamic chord of the horizontal tail [m] 
 y_mac_h = (bh/6)*((1 + 2*lambda_h)/(1 + lambda_h)); % y location of mac of horizontal tail [m]
 x_mac_h = y_mac_h*tan(sweep_LE_h); %x location of mac of horizontal tail [m] 
-x_datum_h =6.9 ;                  % measured from planform for given geometry (from nose to horizontal tail) [m]
+x_datum_h =6.9 ;                  % <------ INPUT     measured from planform for given geometry (from nose to horizontal tail) [m]
 %--------------------------------------------------------------------------
-lh = x_datum_h + x_mac_h + 0.25*mac_h - (x_datum + x_mac + 0.25*mac); %distance between aerodynamic center of main wing and horizontal tail [m] 
+lh = x_datum_h + x_mac_h + 0.25*mac_h - (x_datum + x_mac + 0.25*mac); % ??????? distance between aerodynamic center of main wing and horizontal tail [m] 
 x_lemac = x_datum + x_mac;          % x location of leading edge mean aerodynamic chord [m]
-x_OEW = x_lemac + 0.375*mac;        % assumed CG of operational empty weight [m]
-x_Cargo = 4.0;                       % assumed CG of cargo in meters [m]
-x_Fuel = x_lemac + 0.5*mac;         % CG of fuel [m]
+x_OEW = x_lemac + 0.375*mac;        % ?????? assumed CG of operational empty weight [m]
+x_Cargo = 4.0;                       % ?????  assumed CG of cargo in meters [m]
+x_Fuel = x_lemac + 0.5*mac;         % ?????? CG of fuel [m]
 %--------------------------------------------------------------------------
 
 %% scissor plot
@@ -158,7 +160,7 @@ Sh_S_C = ((Cm_ac/CL_A_h) + (x_cg_c)-(x_ac_c)) / ((CL_h/CL_A_h)*(lh/mac)*Vh_V^2);
 
 %% POTATO PLOT
 MAC = mac
-x_lemac = [1: 0.01: 3];
+x_lemac = [1: 0.01: 4];
 
 cg_mat = zeros(length(x_lemac),2);
 counter = 1
@@ -179,8 +181,8 @@ for i  = x_lemac
 
     cg_OEW=3.7;                     %c.g. Position@OEW          INPUT 
     % cg_OEW = 2.5177;    % 30% of mac
-    cg_OEW = 1.6049+0.20;
-    % cg_OEW = 4;
+%     cg_OEW = 1.6049+0.20;
+    cg_OEW = 1.5;
     % cg_OEW = cg_OEW - x_lemac
 
     seat_pilot=2 ;                  %c.g. Position Pilot        INPUT 
@@ -270,3 +272,6 @@ ylim([0, 0.99])
 % axis([-1 1 -0.5 0.6])
 % legend('Stability','Neutral Stability','Controllability')
 hold on
+
+xyz = 'Scissor done';
+end

@@ -4,8 +4,9 @@ clear variables;
 % Inputs
 
 vars1 = load('../ADSEE_I/variables_ADSEE_I.mat');
-vars2 = load('../ADSEE_II/variables_ADSEE_II.mat');
-
 % vars2 = load('../ADSEE_II/variables_ADSEE_II.mat');
 
-sa = Stability_Analysis;
+% for_scissor()
+% flight_envelope()
+% Potato_martin() Do not use Martin's potatoes
+potato_ruben_123()

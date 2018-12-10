@@ -1,30 +1,45 @@
+<<<<<<< HEAD
+clear all
+% Weights based on engine selection and preliminary design (might change)
+
+vars = load('../ADSEE_I/variables_ADSEE_I.mat');
+OEW = vars.OEW;  %operational empty weight [N]
+MTOW = vars.MTOW; %maximum take-off weight [N]
+W4W5 = vars.W4W5;
+W_f = vars.W_fuel_used;
+=======
 % clear all
 % Weights based on engine selection and preliminary design (might change) 
 OEW = 1300*9.81;  %operational empty weight [N]
 MTOW = 1900*9.81; %maximum take-off weight [N]
+>>>>>>> ebcc779766d0f4bca992baeb7ab880d6a799cb77
 Payload  = 350*9.81; %total payload [N]
-Fuel = MTOW - OEW - Payload; %fuel weight [N]
 %Dimensions and parameters (fixed) 
-b = 16.0; %span [m]
-S = 17.0816; %reference surface area [m^2]
-A = 7.5;   %aspect ratio [-]
-M = 0.27; %mach number at cruise [-]
+S = vars.S; %reference surface area [m^2]
+A = vars.A;   %aspect ratio [-]
+b = sqrt(S*A) %span [m]
+cg = S/b; %average constant chord [m]
+lambda = vars.double(tr) %taper ratio of main wing [-]
+Cr = 2*S/((1+lambda).*b); %main wing root chord [m]
+Ct = lambda*Cr; %main wing tip chord [m]
+v = vars.V_cruise; %cruise velocity% h = 2400m
+rho = 0.966632; % [kg/m^3]
+T = 272.55; % T[K]
+a = sqrt(1.4*287.15*T); % speed of sound % v = 92.6; % [m/s], 180kts
+M = v/a; %mach number at cruise [-]
 beta=sqrt(1-M^2);
-bf = 1.5; %fuselage width [m]
-hf = 1.5; %fuselage height [m]
-bh = 4.0; %horizontal tail span [m]
-Sh = 2.726; %horizontal tail area [m^2]
-Sv = 1.32;  %vertical tail area [m^2]
-Cr = 1.466; %main wing root chord [m]
-Ct = 0.6693; %main wing tip chord [m]
+bf = 1.5; %fuselage width [m] assumption
+hf = 1.5; %fuselage height [m]assumption
+bh = 4.0; %horizontal tail span [m]assumption
+Sh = 2.726; %horizontal tail area [m^2]assumption
+Sv = 1.32;  %vertical tail area [m^2]assumption
+
 Cr_h = 0.8; %horizontal tail root chord [m] 
 Ct_h = 0.563; %horizontal tail tip chord [m]
 lfn = 2.059; %distance from nose to leading edge of root chord [m]
-cg = S/b; %average constant chord [m]
 ln = 2.425; %distance from engine to quater chord mac [m]
 bn = 0.9; %width of nacelles (engines) [m]
 lambda_h = Ct_h/Cr_h; %taper ratio of horizontal tail [-]
-lambda = Ct/Cr; %taper ratio of main wing [-]
 Ah = bh^2/Sh; %aspect ratio of horizontal tail [-] 
 Snet = S-bf*((Cr+1.35)/2); %net area (excluding the eclosed wing area in the fuselage) [m^2]
 eta = 0.95; %airfoil efficiency factor [-]
@@ -84,7 +99,7 @@ m_tv = 2*zh/b; % distance factor between horizontal tail and vortex shed plane o
 r = 2*lh/b; % distance factor quarter chord main wing and tail [-]
 
 %ADDITION FOR PROPELLER 
-rho= 0.736; % density at given altitude [kg/m^3]
+rho = 0.966632; % density at given altitude [kg/m^3]
 Pbr= 132; %shaft horse power of one engine 132HP = 99000W (Rotax 915)
 Cl= 0.645 ;%lift coefficient at given altitude for AoA = 0 with incidence -2 deg!
 phi= asin(m_tv/r)*180/pi; %angle between r and m_tv
