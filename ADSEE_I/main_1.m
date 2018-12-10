@@ -8,6 +8,8 @@ sheet = 1;
 MTOW_weights_set = 'C17:C40'; % where does matlab have to look in the excel
 MTOW_weights = xlsread(filename,sheet,MTOW_weights_set);
 average_MTOW = mean(MTOW_weights);
+MTOW_median = median(MTOW_weights)
+
 
 
 %% General input and input for Fuel fractions
