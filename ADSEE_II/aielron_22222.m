@@ -37,6 +37,7 @@ for j = [1:1:4]
         ail_vol = int(cy*y^2,[0 b/2]);
         C_l_p = -4.*(c_l_alpha+c_d0)/(S_ref*b)*ail_vol;
         P = -C_l_dda/C_l_p*degtorad(da_max)*(2*V/b);
+%         P = round(P, 2)
         %disp(double(P));
         if P>=P_req
             disp('For tau ='),disp(tau(j)),disp('The turn rate equals:'),disp(double(P)), disp('The minimum (horizontal) aileron length should be (in meters):'), disp(aileron_length(counter)),disp('The aileron length itself (inside the wing, induced by sweep) should be at least (in meters):'), disp(aileron_length(counter)/cos(degtorad(theta))) ,disp('The aileron inner chord equals (meters):'), disp((c_r - b1(i)*(tan(degtorad(lambda))+tan(degtorad(theta))))*chordratio_ail_total(j)), disp('The aileron outer chord equals (meters):'), disp((c_r - b2(i)*(tan(degtorad(lambda))+tan(degtorad(theta))))*chordratio_ail_total(j))
