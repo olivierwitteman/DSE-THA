@@ -57,6 +57,8 @@ x_mac_h = y_mac_h*tan(sweep_LE_h); %x location of mac of horizontal tail [m]
 x_datum_h =7.6 ;                  % <------ INPUT     measured from planform for given geometry (from nose to horizontal tail) [m]
 %--------------------------------------------------------------------------
 lh = x_datum_h + x_mac_h + 0.25*mac_h - (x_datum + x_mac + 0.25*mac); % ??????? distance between aerodynamic center of main wing and horizontal tail [m] 
+lh = lh + 1 % <----- INPUT ???????????????????
+
 x_lemac = x_datum + x_mac;          % x location of leading edge mean aerodynamic chord [m] ???????????
 x_lemac = 5.2;
 
@@ -188,9 +190,9 @@ for i  = x_lemac
 %     cg_OEW = 1.5;
     % cg_OEW = cg_OEW - x_lemac
 
-    seat_pilot=2 ;                    %c.g. Position Pilot   <----- INPUT 
-    seat_row1=4  ;                    %c.g. Position Row 1   <----- INPUT 
-    seat_row2=6  ;                    %c.g. Position Row 2   <----- INPUT 
+    seat_pilot=1.7 ;                    %c.g. Position Pilot   <----- INPUT 
+    seat_row1=3.6  ;                    %c.g. Position Row 1   <----- INPUT 
+    seat_row2=4.6  ;                    %c.g. Position Row 2   <----- INPUT 
     location_cargo = 2.5;             %c.g. Position Baggage <----- INPUT
     location_fuel = 5;                %c.g. Position Fuel    <----- INPUT
     location_fuel = cg_OEW + 0.10*l_fus;
@@ -251,8 +253,8 @@ for i  = x_lemac
 %     xlabel('c.g. position from nose [m]')
 %     legend('Cargo','Back to Front','Front to Back','Fuel')
 
-    cg_max=max([cg_OEW,cg_OEW_cargo,cg_OEW_cargo,cg_btf_1,cg_btf_2,cg_btf_3,cg_btf_4,cg_OEW_cargo,cg_btf_1,cg_btf_2,cg_btf_3,cg_btf_4,cg_fuel])
-    cg_min=min([cg_OEW,cg_OEW_cargo,cg_OEW_cargo,cg_btf_1,cg_btf_2,cg_btf_3,cg_btf_4,cg_OEW_cargo,cg_btf_1,cg_btf_2,cg_btf_3,cg_btf_4,cg_fuel])
+    cg_max=max([cg_OEW,cg_OEW_cargo,cg_OEW_cargo,cg_btf_1,cg_btf_2,cg_btf_3,cg_btf_4,cg_OEW_cargo,cg_btf_1,cg_btf_2,cg_btf_3,cg_btf_4,cg_fuel]);
+    cg_min=min([cg_OEW,cg_OEW_cargo,cg_OEW_cargo,cg_btf_1,cg_btf_2,cg_btf_3,cg_btf_4,cg_OEW_cargo,cg_btf_1,cg_btf_2,cg_btf_3,cg_btf_4,cg_fuel]);
 
     cg_max = (cg_max - i)/MAC;
     cg_min = (cg_min - i)/MAC;
@@ -281,4 +283,12 @@ ylabel("x_{LEMAC}/L_{FUS}")
 % axis([-1 1 -0.5 0.6])
 % % legend('Stability','Neutral Stability','Controllability')
 % hold on
+
+
+figure
+x_lemac = 5.2;
+line([([cg_OEW,cg_OEW_cargo]- x_lemac)/MAC],[[W_OEW,W_OEW_cargo]],'Color','green');
+line([([cg_OEW_cargo,cg_btf_1,cg_btf_2,cg_btf_3,cg_btf_4]-x_lemac)/MAC],[W_OEW_cargo,W_OEW_1pax,W_OEW_2pax,W_OEW_3pax,W_OEW_4pax],'Color','blue');
+line([([cg_OEW_cargo,cg_ftb_1,cg_ftb_2,cg_ftb_3,cg_ftb_4]-x_lemac)/MAC],[W_OEW_cargo,W_OEW_1pax,W_OEW_2pax,W_OEW_3pax,W_OEW_4pax],'Color','red');
+line([([cg_nofuel,cg_fuel]-x_lemac)/MAC],[W_OEW_4pax, W_OEW_4pax+mass_fuel],'Color','black');
 
