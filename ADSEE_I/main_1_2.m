@@ -19,7 +19,8 @@ average_MTOW = mean(MTOW_weights);
 % OEW, W_fuel_used (cruise or all????)
 
 MTOW = average_MTOW; % or choose average MTOW % <------ INPUT
-A = 8.2;                              % <------ INPUT
+MTOW = 1750
+A = 8.5;                              % <------ INPUT
 e = 0.75;                             % <------ INPUT
 V_cruise = 180;  % kts                % <------ INPUT
 V_stall = 61;    % kts                % <------ INPUT
@@ -32,7 +33,7 @@ V_stall = 61;    % kts                % <------ INPUT
 h = 2400;                   % <------ INPUT
 
 CL_max = 1.9;               % <------ INPUT
-Cl_to = 1.75;                 % <------ INPUT
+Cl_to = 1.75;               % <------ INPUT
 c = 5;       % 1.2*V_stall*grad(0.083) = 3.1 minimum . % <------ INPUT
 V_land = 1.2*32; % ms From requirements?     % <------ INPUT
 
@@ -94,9 +95,9 @@ summary_wing = [summary_wing; ["Wing Area", S]];
 
 
 %% eng dimensions
-N = 2
-
-[D_p, w_ee, l_ee, h_ee] = engine_dim_func(P, N);
+% N = 1
+% 
+% [D_p, w_ee, l_ee, h_ee] = engine_dim_func(P, N);
 
 %% CG VERY ROUGH ESTIMATION
 fus_length = 6.6;   % <------ INPUT
@@ -184,6 +185,9 @@ S_v = SF_S*S_v;
 
 A_h = 4;    % <----- INPUT   [3, 5] slide 68 lecture 7 ADSEE 1
 A_v = 1.5;  % <----- INPUT   [1, 2] slide 68 lecture 7 ADSEE 1
+
+b_h = sqrt(A_h * S_h)
+b_v = sqrt(A_v * S_v)
 
 save('variables_ADSEE_I.mat', 'A', 'MTOW', 'OEW', 'S', 'V_cruise', 'W4W5',...
     'W_fuel_used', 'tr', 'sweep_LE', 'sweep_TE', "sweep_2c",'sweep_4c',...

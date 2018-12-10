@@ -2,7 +2,7 @@ function [] = Wing_Loading_Func(h, A ,e_clean,cd0_clean, Cl_max, cl_to ,c, Wl_Wt
 clc;
 % The goal is to pick a point at the top right corner. This will give
 % information on what S, A, Cl and W/P you need.
-thick = 1;
+thick = 5;
 rho_0 = 1.225;
 
 %% sizing for stall
