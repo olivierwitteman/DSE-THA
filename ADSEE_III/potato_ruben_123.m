@@ -75,7 +75,7 @@ cg_max=max([cg_OEW,cg_OEW_cargo,cg_OEW_cargo,cg_btf_1,cg_btf_2,cg_btf_3,cg_btf_4
 cg_min=min([cg_OEW,cg_OEW_cargo,cg_OEW_cargo,cg_btf_1,cg_btf_2,cg_btf_3,cg_btf_4,cg_OEW_cargo,cg_btf_1,cg_btf_2,cg_btf_3,cg_btf_4,cg_fuel])
 
 xyz = "Ruben's potato finished";
-xlabel('x_{cg}/c [%]')
-ylabel('S_h/S [-]')
+xlabel('x_{cg}/MAC [%]')
+ylabel('Mass [kg]')
 legend("Cargo", "Back to front", "Front to back", "Fuel")
 end
