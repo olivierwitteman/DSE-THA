@@ -19,20 +19,11 @@ average_MTOW = mean(MTOW_weights);
 % OEW, W_fuel_used (cruise or all????)
 
 MTOW = average_MTOW; % or choose average MTOW % <------ INPUT
-<<<<<<< HEAD:ADSEE_I/main_1_2.m
-%<<<<<<< HEAD
-A = 8.2;                              % <------ INPUT
-e = 0.75;                             % <------ INPUT
 
-%=======
-A = 7.5;                              % <------ INPUT
-e = 0.7;                             % <------ INPUT
-%>>>>>>> 8260041c6fb0a52962de860b0f99f43299d6f78d
-=======
 MTOW = 1750
 A = 8.5;                              % <------ INPUT
 e = 0.75;                             % <------ INPUT
->>>>>>> c0501e7261ff39b98ae4c50469cf6b035e61b621:ADSEE_I/main_1.m
+
 V_cruise = 180;  % kts                % <------ INPUT
 V_stall = 61;    % kts                % <------ INPUT
 
@@ -105,10 +96,7 @@ summary_end = ["MTOW: ", MTOW;
 summary_wing = [summary_wing; ["Wing Area", S]];
 
 
-<<<<<<< HEAD:ADSEE_I/main_1_2.m
-%<<<<<<< HEAD
-=======
->>>>>>> c0501e7261ff39b98ae4c50469cf6b035e61b621:ADSEE_I/main_1.m
+
 %% eng dimensions
 % N = 1
 % 
@@ -127,10 +115,7 @@ fus_x = 0.5;        % <------ INPUT Assume position of the fuselage cg
 nacell_x = 0.01;     % <------ INPUT Assume position of the nacelle cg = same for engines
                     % fixed equipment is the same position as the fuselage
                     % cg
-<<<<<<< HEAD:ADSEE_I/main_1_2.m
-%=======
-=======
->>>>>>> c0501e7261ff39b98ae4c50469cf6b035e61b621:ADSEE_I/main_1.m
+
 
 tr = double(summary_wing(3, 2));
 MAC = double(summary_wing(11, 2));
@@ -186,11 +171,7 @@ if prop_pos == 1            % wing
     propul_x = -0.1     % <--- INPUT in front of the wing
     N = 2;
 end
-<<<<<<< HEAD:ADSEE_I/main_1_2.m
-%>>>>>>> 8260041c6fb0a52962de860b0f99f43299d6f78d
-=======
 
->>>>>>> c0501e7261ff39b98ae4c50469cf6b035e61b621:ADSEE_I/main_1.m
 
 % [x_lemac, most_aft_cg, most_forward_cg] = CG_calc_func(MAC, payload, fus_length, W_fuel_total, MTOW, OEW, X_oew, X_payload, xc_oewcg, xc_wcg)
 [x_lemac, most_aft_cg, most_forward_cg] = CG_calc_func(MAC, payload, fus_length, W_fuel_total,...
