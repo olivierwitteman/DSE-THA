@@ -37,7 +37,6 @@ disp(abs(newMTOW-MTOW))
 while abs(newMTOW-MTOW)>0.1
     MTOW=newMTOW
     M_batt=1.2* M_batt_ratio*MTOW;
-    OEW=OEW   +M_batt+Payload
     newMTOW=OEW+Payload+M_batt
    
 end  
