@@ -206,11 +206,11 @@ c_l_alpha = double(input(prompt_dclda));
 c_l_alpha = 0.32; % Airfoil lift curve slope  <------- INPUT FROM BOOK
 S_ref = S_ref; % Wing surface in square meters
 c_d0 = Fast_Cd0; % 2D zero lift drag coefficient        
-V = 1.2*V_stall; %speed in m/s                          % XXXXXXX
+%V = 1.2*V_stall; %speed in m/s                          % XXXXXXX
 b = b; %wingspan in meters
 
-%aileron_l = AileronNEW(c_r, c_t, sweep_LE, sweep_TE, c_l_alpha,...
- %   S_ref, c_d0, V_stall, b);
+aileron_l = AileronNEW(c_r, c_t, sweep_LE, sweep_TE, c_l_alpha,...
+   S_ref, c_d0, V_stall, b);
 
 
 % P = AileronSizing.Intergral(lambda, theta, b1, b2, c_l_alpha, tau, S_ref, b, total_cD0, c_r, da_max, v);
@@ -222,9 +222,6 @@ b = b; %wingspan in meters
 
 % disp('The total aileron size is from the tip of the wing up until: in [m] from the base of the fuselage'), disp(b1);
 % disp('Inner Aileron Chord:'), disp(Inner_Ail_Chord), disp('Inner Aileron Chord:'), disp(Outer_Ail_Chord);
-%%
-
-%disp(["Final answer: for aileron", num2str(aileron_l)])
 
 %% ADSEE II - Lecture 6 - Class II Weights
 W_battery_hybrid = 200;  %just some values for code testing
