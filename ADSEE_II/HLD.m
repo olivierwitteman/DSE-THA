@@ -1,6 +1,6 @@
 function [Delta_Clmax_HLD] = HLD(LE, TE , c_ac_c)
 Delta_Clmax_TE=0;
-
+disp('HLD')
 if strcmp(TE,'plain_split')
     Delta_Clmax_TE=0.9;
 end

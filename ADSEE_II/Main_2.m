@@ -98,38 +98,33 @@ xc_max = 0.25; % (x/c)_max is the position of maximum thickness         ????????
 k = 0.634E-5; % smooth paint
 % k = 0.052E-5; % smooth molded composite
 
-<<<<<<< HEAD
+
 L1 = 1.4; % nosecone length                               ??????? SHOULD BE DONE WITH DRAWINGS I GUESS?????
 L2 = 3.57; % main fuselage length                          ??????? SHOULD BE DONE WITH DRAWINGS I GUESS?????
 L3 = 8-L1-L2; % tailcone length                               ??????? SHOULD BE DONE WITH DRAWINGS I GUESS?????
 L = (L1+L2+L3)*3.281 ; %Fuselage structural length in ft for lecture 6 raymer pls dont hate
 A_cs = 2.9;
 D = sqrt(A_cs/pi) % derived from frontal area (even though fuselage may not be cilindrical)
-=======
-<<<<<<< HEAD
-L1 = 1; % nosecone length                               ??????? SHOULD BE DONE WITH DRAWINGS I GUESS?????
-L2 = 4; % main fuselage length                          ??????? SHOULD BE DONE WITH DRAWINGS I GUESS?????
-L3 = 2; % tailcone length                               ??????? SHOULD BE DONE WITH DRAWINGS I GUESS?????
-L = (L1+L2+L3)*3.2808 ; %Fuselage structural length in ft for lecture 6 raymer pls dont hate
-=======
-L1_pos = 'L1:  ';
-L1 = double(input(L1_pos));
 
-L2_pos = 'L2:  ';
-L2 = double(input(L2_pos));
 
-L3_pos = 'L3:  ';
-L3 = double(input(L3_pos));
+%L1_pos = 'L1:  ';
+%L1 = double(input(L1_pos));
+
+%L2_pos = 'L2:  ';
+%L2 = double(input(L2_pos));
+
+%L3_pos = 'L3:  ';
+%L3 = double(input(L3_pos));
 
 
 % L1 = 1; % nosecone length                               ??????? SHOULD BE DONE WITH DRAWINGS I GUESS?????
 % L2 = 4; % main fuselage length                          ??????? SHOULD BE DONE WITH DRAWINGS I GUESS?????
 % L3 = 2; % tailcone length                               ??????? SHOULD BE DONE WITH DRAWINGS I GUESS?????
 L = (L1+L2+L3)*3.281 ; %Fuselage structural length in ft for lecture 6 raymer pls dont hate
->>>>>>> a1b11d34cf80e7d01163640ddcc9f1ed29a90162
+
 A_cs = 3;
 D = sqrt(A_cs/pi); % derived from frontal area (even though fuselage may not be cilindrical)
->>>>>>> c728499c063d69e9ac81948fa61d84284c363109
+
 
 mu = 1.7331332E-5; % viscosity of standard air at h=2400m (T=272K)
 
@@ -208,8 +203,8 @@ c_d0 = Fast_Cd0; % 2D zero lift drag coefficient
 V = 1.2*V_stall; %speed in m/s                          % XXXXXXX
 b = b; %wingspan in meters
 
-aileron_l = aielron_22222(c_r, c_t, lambda, theta, c_l_alpha,...
-    S_ref, c_d0, V, b);
+aileron_l = AileronNEW(c_r, c_t, lambda, theta, c_l_alpha,...
+    S_ref, c_d0, V_stall, b);
 
 
 % P = AileronSizing.Intergral(lambda, theta, b1, b2, c_l_alpha, tau, S_ref, b, total_cD0, c_r, da_max, v);
@@ -218,10 +213,6 @@ aileron_l = aielron_22222(c_r, c_t, lambda, theta, c_l_alpha,...
 % [b1, Inner_Ail_Chord, Outer_Ail_Chord] = AileronSizing.Iteration(lambda, theta, b1, b2, c_l_alpha, tau, S_ref, b, total_cD0, c_r, da_max, v, P, P_req, chordratio_ail_total);
 % disp('The total aileron size is from the tip of the wing up until: in [m] from the base of the fuselage'), disp(b1);
 % disp('Inner Aileron Chord:'), disp(Inner_Ail_Chord), disp('Inner Aileron Chord:'), disp(Outer_Ail_Chord);
-
-
-aileron_l = aielron_22222(c_r, c_t, sweep_LE*180/pi, theta, c_l_alpha,...
-    S_ref, c_d0, V, b);
 
 % disp('The total aileron size is from the tip of the wing up until: in [m] from the base of the fuselage'), disp(b1);
 % disp('Inner Aileron Chord:'), disp(Inner_Ail_Chord), disp('Inner Aileron Chord:'), disp(Outer_Ail_Chord);
