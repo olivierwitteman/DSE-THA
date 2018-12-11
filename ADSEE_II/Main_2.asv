@@ -24,7 +24,7 @@ b_v = double(vars.b_v);
 V_stall = double(vars.V_stall);
 
 LAMBDA = sweep_c4;    % Wingsweep at 0.25MAC
-Wfiml = 0.97 * MTOW * 9.81;      % Aircraft weight at fuel intensive mission leg %ADSEEII-LECTURE1-SLIDE48
+Wfiml = 0.97 * MTOW * 9.81;      % Aircraft weight at fuel intensive mission leg %ADSEEII-LECTURE1-SLIDE48 !!!!! ELECTRIC = 1
 WSsc = MTOW * 0.98 * 9.81 / S_ref;      % Wing loading at the start of the cruise
 WSec = W4W5 * WSsc;     % Wing loading at the end of the cruise
 
@@ -126,15 +126,8 @@ L2 = double(input(L2_pos));
 L3_pos = 'L3:  ';   % tailcone length
 L3 = double(input(L3_pos));
 
-
-% L1 = 1; % nosecone length                               ??????? SHOULD BE DONE WITH DRAWINGS I GUESS?????
-% L2 = 4; % main fuselage length                          ??????? SHOULD BE DONE WITH DRAWINGS I GUESS?????
-% L3 = 2; % tailcone length                               ??????? SHOULD BE DONE WITH DRAWINGS I GUESS?????
 L = (L1+L2+L3)*3.281 ; %Fuselage structural length in ft for lecture 6 raymer pls dont hate
 
-
-A_cs = 3;
-D = sqrt(A_cs/pi); % derived from frontal area (even though fuselage may not be cilindrical)
 
 A_cs = 3;
 D = sqrt(A_cs/pi); % derived from frontal area (even though fuselage may not be cilindrical)
@@ -248,7 +241,7 @@ W_total = sum(W_breakdown);
 W_totalHYB = sum(W_breakdownHYB);
 W_totalELEC = sum(W_breakdownELEC);
 
-config = menu('Do you want the results for Design 1 (Hybrid), Design 2 (Fuel) or Design (3)?', '1','2','3'); 
+config = menu('Do you want the results for Design 1 (Hybrid), Design 2 (Fuel) or Design 3 (Electric)?', '1','2','3'); 
 %Here two different paths are taken to taken xlemac for different wing
 %positions
 

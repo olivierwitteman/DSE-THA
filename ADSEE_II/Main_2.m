@@ -107,8 +107,6 @@ A_cs = 2.9;
 D = sqrt(A_cs/pi) % derived from frontal area (even though fuselage may not be cilindrical)
 
 
-<<<<<<< HEAD
-=======
 %L1_pos = 'L1:  ';
 %L1 = double(input(L1_pos));
 
@@ -118,7 +116,6 @@ D = sqrt(A_cs/pi) % derived from frontal area (even though fuselage may not be c
 %L3_pos = 'L3:  ';
 %L3 = double(input(L3_pos));
 
->>>>>>> 40294b4d7271e29e1454df91c9debfdf9ced8530
 
 L1_pos = 'L1:  ';   % nosecone length
 L1 = double(input(L1_pos));
@@ -130,10 +127,6 @@ L3_pos = 'L3:  ';   % tailcone length
 L3 = double(input(L3_pos));
 
 L = (L1+L2+L3)*3.281 ; %Fuselage structural length in ft for lecture 6 raymer pls dont hate
-<<<<<<< HEAD
-=======
-
->>>>>>> 40294b4d7271e29e1454df91c9debfdf9ced8530
 
 
 A_cs = 3;
@@ -248,7 +241,7 @@ W_total = sum(W_breakdown);
 W_totalHYB = sum(W_breakdownHYB);
 W_totalELEC = sum(W_breakdownELEC);
 
-config = menu('Do you want the results for Design 1 (Hybrid), Design 2 (Fuel) or Design (3)?', '1','2','3'); 
+config = menu('Do you want the results for Design 1 (Hybrid), Design 2 (Fuel) or Design 3 (Electric)?', '1','2','3'); 
 %Here two different paths are taken to taken xlemac for different wing
 %positions
 
