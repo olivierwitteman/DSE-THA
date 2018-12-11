@@ -214,7 +214,7 @@ aileron_l = aielron_22222(c_r, c_t, sweep_LE*180/pi, theta, c_l_alpha,...
 % disp('Inner Aileron Chord:'), disp(Inner_Ail_Chord), disp('Inner Aileron Chord:'), disp(Outer_Ail_Chord);
 %%
 
-disp(["Final answer: ", num2str(aileron_l)])
+disp(["Final answer: for aileron", num2str(aileron_l)])
 
 %% ADSEE II - Lecture 6 - Class II Weights
 
