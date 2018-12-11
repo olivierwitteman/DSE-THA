@@ -4,11 +4,6 @@
 <<<<<<< HEAD
 a.AR = 8.2;                                      % Wing aspect ratio [-]
 a.Lambda = 0;                                   % Half-chord sweep angle of wing [deg]
-=======
-
-a.AR = 8.2;                                      % Wing aspect ratio [-]
-a.Lambda = -0.571;                                   % Half-chord sweep angle of wing [deg]
->>>>>>> d06beb9f874a04d53c13ec6378ea9b88d31e1d55
 a.TR = 0.4;                                     % Taper ratio of wing [-]
 a.tc = 0.2;                                     % Thickness-to-chord ratio of root section [-]
 a.nUlt = 4.4;                                   % Ultimate load factor [-]
@@ -65,22 +60,14 @@ a.ct.CLmax = CLmax_clean;                         % Top-of-climb maximum lift co
 
 % Propulsion system layout
 p.config = 'parallel';                      % Powertrain architecture ('conventional', 'turboelectric', 'serial',
-                                                %   'parallel', 'PTE', 'SPPH', 'e-1', 'e-2', or 'dual-e')
-<<<<<<< HEAD
+                                                %   'parallel', 'PTE', 'SPPH', 'e-1', 'e-2', or 'dual-e'
+                                                
 p.b_dp = 0.21;                                   % Fraction of wing span occupied by DP system [-]
 p.dy = 0.2;                                    % Spacing between adjacent DP propulsors, as fraction of propulsor diameter [-]
 p.N1 = 2;                                       % Number of chains in primary powertrain [-]
 p.N2 = 0;                                       % Number of chains in secondary powertrain[-]
 p.DP = 1;                                       % Which PS has an effect on wing performance? (1 = primary, 2 = secondary, 0 = none)
 p.xp = -0.2;                                    % Axial position of propellers as a fraction of chord
-=======
-p.b_dp = 0.3;                                   % Fraction of wing span occupied by DP system [-]
-p.dy = 0;                                    % Spacing between adjacent DP propulsors, as fraction of propulsor diameter [-]
-p.N1 = 2;                                       % Number of chains in primary powertrain [-]
-p.N2 = 0;                                       % Number of chains in secondary powertrain[-]
-p.DP = 0;                                       % Which PS has an effect on wing performance? (1 = primary, 2 = secondary, 0 = none)
-p.xp = 0;                                    % Axial position of propellers as a fraction of chord
->>>>>>> d06beb9f874a04d53c13ec6378ea9b88d31e1d55
                                                 % xp < 0: tractor
                                                 % 0 < xp < 1: OTW
                                                 % xp > 1: pusher
@@ -144,7 +131,6 @@ p.ct.Gamma = 0;                                 % Thrust vectoring in top-of-cli
 % Cruise
 m.cr.h = 2400;                                 % Cruise altitude [m]
 m.cr.M = 0.2797;                                  % Cruise Mach number [-]
-<<<<<<< HEAD
 m.cr.f = 0.78;                                  % Cruise weight fraction W/MTOW [-]
 m.cr.t = 0.4;                                     % Cruise throttle setting P/P_max [-] (see note at end)
 m.cr.phi = 0.1;                                   % Cruise supplied power ratio [-]
@@ -161,29 +147,16 @@ m.L.f = 0.7;                                    % Landing weight fraction W/MTOW
 m.L.vs = 31.4;                                  % Stall speed requirement in landing conditions [m/s]
 m.L.vApp = 1.23;                                % Stall margin during approach/landing, vApp/vs [-] (see Patterson 2017)
 m.L.vAppIso = 1.05;                             % Stall margin of isolated wing during approach/landing, vApp/vsIso [-]
-<<<<<<< HEAD
-m.L.t = 0.4;                                      % Landing throttle setting P/P_max [-] (see note at end)
+m.L.t = 0.4;                                    % Landing throttle setting P/P_max [-] (see note at end)
 m.L.phi = 0.1;                                  % Landing supplied power ratio [-]
-=======
-m.L.t = 1;                                      % Landing throttle setting P/P_max [-] (see note at end)
-m.L.phi = 0;                                  % Landing supplied power ratio [-]
->>>>>>> d06beb9f874a04d53c13ec6378ea9b88d31e1d55
-m.L.Phi = 0;                                    % Landing shaft power ratio [-]
-
+                                 
 % Take off
 m.TO.h = 0;                                     % TO altitude [m]
 m.TO.f = 1;                                   % TO weight fraction W/MTOW [-]
 m.TO.s = 762;                                  % TO runway length [m]
-<<<<<<< HEAD
-m.TO.t = 1.0;                                   % TO throttle setting P/P_max [-] (see note at end)
-m.TO.phi = 0.1;                                 % TO supplied power ratio [-]
-m.TO.Phi = 1;                                   % TO shaft power ratio [-]
-=======
 m.TO.t = 1;                                   % TO throttle setting P/P_max [-] (see note at end)
 m.TO.phi = 0.05;                                 % TO supplied power ratio [-]
 m.TO.Phi = 0;                                   % TO shaft power ratio [-]
-
->>>>>>> d06beb9f874a04d53c13ec6378ea9b88d31e1d55
 
 % OEI Balked landing
 m.bL.G = 0.027;                                 % OEI balked landing climb gradient [-] (CS25.121d)
@@ -300,13 +273,6 @@ MA_in.Dcr.Phi = [0 0];
 MA_in.Dde.xi = [0.01 0.01]; 
 MA_in.Dde.phi = [0 0]; 
 MA_in.Dcr.Phi = [0 0]; 
-
-
-% Diversion descent (all parameters must be specified; SEP is computed)
-MA_in.Dde.xi = [0.01 0.01]; 
-MA_in.Dde.phi = [0 0]; 
-MA_in.Dde.Phi = [0 0]; 
-
 
 %% Constants
 
