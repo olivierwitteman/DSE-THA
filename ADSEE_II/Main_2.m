@@ -99,6 +99,7 @@ k = 0.634E-5; % smooth paint
 % k = 0.052E-5; % smooth molded composite
 
 
+<<<<<<< HEAD
 L1 = 1.4; % nosecone length                               ??????? SHOULD BE DONE WITH DRAWINGS I GUESS?????
 L2 = 3.57; % main fuselage length                          ??????? SHOULD BE DONE WITH DRAWINGS I GUESS?????
 L3 = 8-L1-L2; % tailcone length                               ??????? SHOULD BE DONE WITH DRAWINGS I GUESS?????
@@ -115,16 +116,33 @@ D = sqrt(A_cs/pi) % derived from frontal area (even though fuselage may not be c
 
 %L3_pos = 'L3:  ';
 %L3 = double(input(L3_pos));
+=======
+
+
+L1_pos = 'L1:  ';   % nosecone length
+L1 = double(input(L1_pos));
+
+L2_pos = 'L2:  ';   % main fuselage length
+L2 = double(input(L2_pos));
+
+L3_pos = 'L3:  ';   % tailcone length
+L3 = double(input(L3_pos));
+>>>>>>> dbe25e65aaafef936030741e33151fd9ca0f45f9
 
 
 % L1 = 1; % nosecone length                               ??????? SHOULD BE DONE WITH DRAWINGS I GUESS?????
 % L2 = 4; % main fuselage length                          ??????? SHOULD BE DONE WITH DRAWINGS I GUESS?????
 % L3 = 2; % tailcone length                               ??????? SHOULD BE DONE WITH DRAWINGS I GUESS?????
 L = (L1+L2+L3)*3.281 ; %Fuselage structural length in ft for lecture 6 raymer pls dont hate
+<<<<<<< HEAD
 
 A_cs = 3;
 D = sqrt(A_cs/pi); % derived from frontal area (even though fuselage may not be cilindrical)
 
+=======
+A_cs = 3;
+D = sqrt(A_cs/pi); % derived from frontal area (even though fuselage may not be cilindrical)
+>>>>>>> dbe25e65aaafef936030741e33151fd9ca0f45f9
 
 mu = 1.7331332E-5; % viscosity of standard air at h=2400m (T=272K)
 
@@ -218,7 +236,7 @@ aileron_l = AileronNEW(c_r, c_t, lambda, theta, c_l_alpha,...
 % disp('Inner Aileron Chord:'), disp(Inner_Ail_Chord), disp('Inner Aileron Chord:'), disp(Outer_Ail_Chord);
 %%
 
-disp(["Final answer: ", num2str(aileron_l)])
+disp(["Final answer: for aileron", num2str(aileron_l)])
 
 %% ADSEE II - Lecture 6 - Class II Weights
 
