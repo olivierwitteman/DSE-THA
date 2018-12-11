@@ -1,5 +1,6 @@
 
 vars = load('../ADSEE_I/variables_ADSEE_I.mat');
+thick = 2;
 % Weights based on engine selection and preliminary design (might change)
 OEW = double(vars.OEW)*9.81;  %operational empty weight [N] <---- INPUT
 MTOW = double(vars.MTOW)*9.81; %maximum take-off weight [N] <---- INPUT
@@ -153,7 +154,7 @@ figure
 yyaxis right
 % plots
 % figure
-plot(x_cg_c,Sh_S,x_cg_c,Sh_S_NS,x_cg_c,Sh_S_C)
+plot(x_cg_c,Sh_S,x_cg_c,Sh_S_NS,x_cg_c,Sh_S_C, "LineWidth", thick)
 % title('Scissors-plot: Stability & Controllability Curve')
 % xlabel('x_{cg}/MAC [%]')
 ylabel('S_h/S [-]')
@@ -266,7 +267,7 @@ end
 
 % figure
 yyaxis left
-plot([cg_mat(:,1), cg_mat(:,2)], x_lemac/l_fus)
+plot([cg_mat(:,1), cg_mat(:,2)], x_lemac/l_fus, "LineWidth", thick)
 
 hold on
 % plot(x_cg_c,Sh_S,x_cg_c,Sh_S_NS,x_cg_c,Sh_S_C)
@@ -278,7 +279,7 @@ ylabel("x_{LEMAC}/L_{FUS}")
 % % figure
 % plot(x_cg_c,Sh_S,x_cg_c,Sh_S_NS,x_cg_c,Sh_S_C)
 % % title('Scissors-plot: Stability & Controllability Curve')
-% % xlabel('x_{cg}/MAC [%]')
+% % xlabel('x_{cg}/MAC  [%]')
 % ylabel('S_h/S [-]')
 % axis([-1 1 -0.5 0.6])
 % % legend('Stability','Neutral Stability','Controllability')
