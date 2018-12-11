@@ -5,22 +5,22 @@ clear variables;
 
 vars = load('../ADSEE_I/variables_ADSEE_I.mat');
 
-A = double(vars.A);               % <---- CHANGE FOR ELECTRIC/HYBRID
-MAC = double(vars.MAC);           % <---- CHANGE FOR ELECTRIC/HYBRID
-MTOW = double(vars.MTOW);         % <---- CHANGE FOR ELECTRIC/HYBRID
-OEW = double(vars.OEW)            % <---- CHANGE FOR ELECTRIC/HYBRID
-S_ref = double(vars.S);           % <---- CHANGE FOR ELECTRIC/HYBRID
-v = double(vars.V_cruise);        % <---- CHANGE FOR ELECTRIC/HYBRID
-W4W5 = double(vars.W4W5);         % <---- CHANGE FOR ELECTRIC/HYBRID
-W_f = double(vars.W_fuel_total);  % <---- CHANGE FOR ELECTRIC/HYBRID
-taper_ratio = double(vars.tr);    % <---- CHANGE FOR ELECTRIC/HYBRID
-sweep_c4 = double(vars.sweep_4c); % <---- CHANGE FOR ELECTRIC/HYBRID
-sweep_c2 = double(vars.sweep_2c); % <---- CHANGE FOR ELECTRIC/HYBRID
-sweep_LE = double(vars.sweep_LE); % <---- CHANGE FOR ELECTRIC/HYBRID
-sweep_TE = double(vars.sweep_TE); % <---- CHANGE FOR ELECTRIC/HYBRID
-b = double(vars.b);               % <---- CHANGE FOR ELECTRIC/HYBRID
-b_h = double(vars.b_h);           % <---- CHANGE FOR ELECTRIC/HYBRID
-b_v = double(vars.b_v);           % <---- CHANGE FOR ELECTRIC/HYBRID
+A = double(vars.A);               % < CHANGE FOR ELECTRIC/HYBRID
+MAC = double(vars.MAC);
+MTOW = double(vars.MTOW);
+OEW = double(vars.OEW)
+S_ref = double(vars.S);
+v = double(vars.V_cruise);
+W4W5 = double(vars.W4W5);
+W_f = double(vars.W_fuel_total);
+taper_ratio = double(vars.tr);
+sweep_c4 = double(vars.sweep_4c);
+sweep_c2 = double(vars.sweep_2c);
+sweep_LE = double(vars.sweep_LE);
+sweep_TE = double(vars.sweep_TE);
+b = double(vars.b);
+b_h = double(vars.b_h);
+b_v = double(vars.b_v);
 V_stall = double(vars.V_stall);
 
 LAMBDA = sweep_c4;    % Wingsweep at 0.25MAC
