@@ -98,27 +98,16 @@ xc_max = 0.25; % (x/c)_max is the position of maximum thickness         ????????
 k = 0.634E-5; % smooth paint
 % k = 0.052E-5; % smooth molded composite
 
-<<<<<<< HEAD
-L1 = 1.4; % nosecone length                               ??????? SHOULD BE DONE WITH DRAWINGS I GUESS?????
-L2 = 3.57; % main fuselage length                          ??????? SHOULD BE DONE WITH DRAWINGS I GUESS?????
-L3 = 8-L1-L2; % tailcone length                               ??????? SHOULD BE DONE WITH DRAWINGS I GUESS?????
-L = (L1+L2+L3)*3.281 ; %Fuselage structural length in ft for lecture 6 raymer pls dont hate
-A_cs = 2.9;
-D = sqrt(A_cs/pi) % derived from frontal area (even though fuselage may not be cilindrical)
-=======
-<<<<<<< HEAD
-L1 = 1; % nosecone length                               ??????? SHOULD BE DONE WITH DRAWINGS I GUESS?????
-L2 = 4; % main fuselage length                          ??????? SHOULD BE DONE WITH DRAWINGS I GUESS?????
-L3 = 2; % tailcone length                               ??????? SHOULD BE DONE WITH DRAWINGS I GUESS?????
-L = (L1+L2+L3)*3.2808 ; %Fuselage structural length in ft for lecture 6 raymer pls dont hate
-=======
-L1_pos = 'L1:  ';
+
+
+
+L1_pos = 'L1:  ';   % nosecone length
 L1 = double(input(L1_pos));
 
-L2_pos = 'L2:  ';
+L2_pos = 'L2:  ';   % main fuselage length
 L2 = double(input(L2_pos));
 
-L3_pos = 'L3:  ';
+L3_pos = 'L3:  ';   % tailcone length
 L3 = double(input(L3_pos));
 
 
@@ -126,10 +115,8 @@ L3 = double(input(L3_pos));
 % L2 = 4; % main fuselage length                          ??????? SHOULD BE DONE WITH DRAWINGS I GUESS?????
 % L3 = 2; % tailcone length                               ??????? SHOULD BE DONE WITH DRAWINGS I GUESS?????
 L = (L1+L2+L3)*3.281 ; %Fuselage structural length in ft for lecture 6 raymer pls dont hate
->>>>>>> a1b11d34cf80e7d01163640ddcc9f1ed29a90162
 A_cs = 3;
 D = sqrt(A_cs/pi); % derived from frontal area (even though fuselage may not be cilindrical)
->>>>>>> c728499c063d69e9ac81948fa61d84284c363109
 
 mu = 1.7331332E-5; % viscosity of standard air at h=2400m (T=272K)
 
