@@ -53,11 +53,11 @@ lambda = taper_ratio; % taper ratio
 LAMBDA_ht = sweep_c4; % Sweep at 25% MAC
 A_ht = double(vars.A_h); % Aspect ratio horizontal tailwing                   ??????
 H_t_over_H_v = 0.; % = 0 for conventional tail, 1 for T-tail
-LAMBDA_vt = LAMBDA_ht; % Sweep at 25% of vertical tail MAC      ??????
+LAMBDA_vt = LAMBDA_ht; % Sweep at 25% of vertical tail MAC                    ??????
 A_vt = double(vars.A_v); % Aspect ratio vertical tail                         ??????
-lambda_vt = 1.; % taper raio vertical tail                      ??????
-lambda_h = 1; %Taper ratio horizontal tail                      ??????
-L_t = 4*3.2808; % Tail length, wing quarter MAC to tail quarter MAC in ft   ??????
+lambda_vt = 1.; % taper raio vertical tail                                    ??????
+lambda_h = 1; %Taper ratio horizontal tail                                    ??????
+L_t = 3.9*3.2808; % Tail length, wing quarter MAC to tail quarter MAC in ft   ??????
 W_press = 0 ;%11.9+(V_pr*P_delta)^0.271; %Weight penalty due to pressurization; PROBABLY ZERO FOR OUR DESIGNS BECAUSE WE DON'T PRESSURIZE OUR CABIN
 W_l = (MTOW - W_f) * 2.2; %Landing design gross weight
 
