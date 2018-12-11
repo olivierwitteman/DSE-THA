@@ -59,7 +59,7 @@ x_datum_h =7.6 ;                  % <------ INPUT     measured from planform for
 %--------------------------------------------------------------------------
 lh = x_datum_h + x_mac_h + 0.25*mac_h - (x_datum + x_mac + 0.25*mac); % ??????? distance between aerodynamic center of main wing and horizontal tail [m] 
 x_lemac = x_datum + x_mac;          % x location of leading edge mean aerodynamic chord [m]
-x_OEW = x_lemac + 0.375*mac;        % ?????? assumed CG of operational empty weight [m]
+x_OEW = x_lemac + 0.375*mac;        % ?????? assumed CG of operational empty weight [m] >>>>>>>>> HAS TO BE SAME
 x_Cargo = 3.7;                       % ?????  assumed CG of cargo in meters [m]
 x_Fuel = x_lemac + 0.5*mac;         % ?????? CG of fuel [m]
 %--------------------------------------------------------------------------
@@ -144,131 +144,15 @@ Sh_S_C = ((Cm_ac/CL_A_h) + (x_cg_c)-(x_ac_c)) / ((CL_h/CL_A_h)*(lh/mac)*Vh_V^2);
 
 %-------------------------------------------------------------------------
 
-% % % % plots
-% % % figure
-% % % plot(x_cg_c,Sh_S,x_cg_c,Sh_S_NS,x_cg_c,Sh_S_C)
-% % % % title('Scissors-plot: Stability & Controllability Curve')
-% % % xlabel('x_{cg}/MAC [%]')
-% % % ylabel('S_h/S [-]')
-% % % axis([-1 1 -0.5 0.6])
-% % % % legend('Stability','Neutral Stability','Controllability')
-% % % hold on
-
-
-%% POTATO PLOT
-MAC = mac
-x_lemac = [1: 0.01: 4];
-
-cg_mat = zeros(length(x_lemac),2);
-counter = 1
-for i  = x_lemac
-    l_fus = 6.6;
-    lbs_to_kg = 0.45359237;
-    mass_pax=175;                    %lbs                       INPUT (fixed)
-    mass_pax = mass_pax*lbs_to_kg;
-
-    mass_bags = 25;                    %lbs                       INPUT (fixed)
-    mass_bags = mass_bags * lbs_to_kg;
-
-    mass_fuel=250;                   %lbs                       INPUT
-    mass_fuel = mass_fuel * lbs_to_kg;
-
-    W_OEW= OEW;                      %lbs                       INPUT   
-
-
-    cg_OEW=3.7;                     %c.g. Position@OEW          INPUT 
-    % cg_OEW = 2.5177;    % 30% of mac
-%     cg_OEW = 1.6049+0.20;
-    cg_OEW = 1.5;
-    % cg_OEW = cg_OEW - x_lemac
-
-    seat_pilot=2 ;                  %c.g. Position Pilot        INPUT 
-    seat_row1=4  ;                  %c.g. Position Row 1        INPUT 
-    seat_row2=6  ;                  %c.g. Position Row 2        INPUT 
-    location_cargo=2.5;             %c.g. Position Baggage      INPUT
-    location_fuel=5;                %c.g. Position Fuel         INPUT
-    location_fue = cg_OEW + 0.10*l_fus;
-
-    %cargo
-    W_OEW_cargo=W_OEW+4*mass_bags;
-    cg_OEW_cargo=((cg_OEW*W_OEW)+(location_cargo*4*mass_bags))/(W_OEW_cargo);
-
-
-
-    %back to front
-    W_OEW_1pax=1*mass_pax+W_OEW_cargo;
-    W_OEW_2pax=2*mass_pax+W_OEW_cargo;
-    W_OEW_3pax=3*mass_pax+W_OEW_cargo;
-    W_OEW_4pax=4*mass_pax+W_OEW_cargo;
-
-    cg_btf_1=((cg_OEW_cargo*W_OEW_cargo)+(seat_row2*mass_pax))/(W_OEW_1pax);
-    cg_btf_2=((cg_btf_1*W_OEW_1pax)+(seat_row2*mass_pax))/(W_OEW_2pax);
-    cg_btf_3=((cg_btf_2*W_OEW_2pax)+(seat_row1*mass_pax))/(W_OEW_3pax);
-    cg_btf_4=((cg_btf_3*W_OEW_3pax)+(seat_row1*mass_pax))/(W_OEW_4pax);
-
-
-    %front to back
-    cg_ftb_1=((cg_OEW_cargo*W_OEW_cargo)+(seat_row1*mass_pax))/(W_OEW_1pax);
-    cg_ftb_2=((cg_ftb_1*W_OEW_1pax)+(seat_row1*mass_pax))/(W_OEW_2pax);
-    cg_ftb_3=((cg_ftb_2*W_OEW_2pax)+(seat_row2*mass_pax))/(W_OEW_3pax);
-    cg_ftb_4=((cg_ftb_3*W_OEW_3pax)+(seat_row2*mass_pax))/(W_OEW_4pax);
-
-
-    %include fuel
-
-    cg_nofuel=cg_btf_4;
-    cg_fuel=((cg_nofuel*W_OEW_4pax)+(location_fuel*mass_fuel))/(mass_fuel+W_OEW_4pax);
-
-
-    %% graph
-    % figure
-    % line([([cg_OEW,cg_OEW_cargo]- x_lemac)/MAC],[W_OEW,W_OEW_cargo],'Color','green');
-    % line([([cg_OEW_cargo,cg_btf_1,cg_btf_2,cg_btf_3,cg_btf_4]-x_lemac)/MAC],[W_OEW_cargo,W_OEW_1pax,W_OEW_2pax,W_OEW_3pax,W_OEW_4pax],'Color','blue');
-    % line([([cg_OEW_cargo,cg_ftb_1,cg_ftb_2,cg_ftb_3,cg_ftb_4]-x_lemac)/MAC],[W_OEW_cargo,W_OEW_1pax,W_OEW_2pax,W_OEW_3pax,W_OEW_4pax],'Color','red');
-    % line([([cg_nofuel,cg_fuel]-x_lemac)/MAC],[W_OEW_4pax, W_OEW_4pax+mass_fuel],'Color','black');
-
-    
-    
-%     figure
-%     line([([cg_OEW,cg_OEW_cargo]- x_lemac)/i],[[W_OEW,W_OEW_cargo]],'Color','green');
-%     line([([cg_OEW_cargo,cg_btf_1,cg_btf_2,cg_btf_3,cg_btf_4]-x_lemac)/i],[W_OEW_cargo,W_OEW_1pax,W_OEW_2pax,W_OEW_3pax,W_OEW_4pax],'Color','blue');
-%     line([([cg_OEW_cargo,cg_ftb_1,cg_ftb_2,cg_ftb_3,cg_ftb_4]-x_lemac)/i],[W_OEW_cargo,W_OEW_1pax,W_OEW_2pax,W_OEW_3pax,W_OEW_4pax],'Color','red');
-%     line([([cg_nofuel,cg_fuel]-x_lemac)/i],[W_OEW_4pax, W_OEW_4pax+mass_fuel],'Color','black');
-
-
-
-
-
-%     title('Potato Plot')
-%     ylabel('mass [kg]')
-%     xlabel('c.g. position from nose [m]')
-%     legend('Cargo','Back to Front','Front to Back','Fuel')
-
-    cg_max=max([cg_OEW,cg_OEW_cargo,cg_OEW_cargo,cg_btf_1,cg_btf_2,cg_btf_3,cg_btf_4,cg_OEW_cargo,cg_btf_1,cg_btf_2,cg_btf_3,cg_btf_4,cg_fuel])
-    cg_min=min([cg_OEW,cg_OEW_cargo,cg_OEW_cargo,cg_btf_1,cg_btf_2,cg_btf_3,cg_btf_4,cg_OEW_cargo,cg_btf_1,cg_btf_2,cg_btf_3,cg_btf_4,cg_fuel])
-
-    cg_max = (cg_max - i)/MAC;
-    cg_min = (cg_min - i)/MAC;
-    cg_mat(counter, 1) = cg_min;
-    cg_mat(counter, 2) = cg_max;
-    
-    counter = counter + 1;
-    %%SCISSOR PLOT
-end
-
+% plots
 figure
-plot(x_lemac/l_fus, [cg_mat(:,1), cg_mat(:,2)])
-
-hold on
 plot(x_cg_c,Sh_S,x_cg_c,Sh_S_NS,x_cg_c,Sh_S_C)
-xlabel("xc/mac")
-% ylim([0, 0.99])
 % title('Scissors-plot: Stability & Controllability Curve')
-% xlabel('x_{cg}/c [%]')
-% ylabel('S_h/S [-]')
-% axis([-1 1 -0.5 0.6])
+xlabel('x_{cg}/MAC [%]')
+ylabel('S_h/S [-]')
+axis([-1 1 -0.5 0.6])
 % legend('Stability','Neutral Stability','Controllability')
 hold on
 
-xyz = 'Scissor done';
+
 end

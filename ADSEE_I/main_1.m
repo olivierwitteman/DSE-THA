@@ -22,13 +22,11 @@ MTOW_median = median(MTOW_weights)
 
 MTOW = average_MTOW; % or choose average MTOW % <------ INPUT
 
-<<<<<<< HEAD
+
 % MTOW = 1750
 A = 10;                              % <------ INPUT
-=======
 MTOW = 1750;
 A = 8.5;                              % <------ INPUT
->>>>>>> c728499c063d69e9ac81948fa61d84284c363109
 e = 0.75;                             % <------ INPUT
 
 V_cruise = 180;  % kts                % <------ INPUT
