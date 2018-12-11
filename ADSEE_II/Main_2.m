@@ -5,26 +5,26 @@ clear variables;
 
 vars = load('../ADSEE_I/variables_ADSEE_I.mat');
 
-A = double(vars.A);
-MAC = double(vars.MAC);
-MTOW = double(vars.MTOW);
-OEW = double(vars.OEW)
-S_ref = double(vars.S);
-v = double(vars.V_cruise);
-W4W5 = double(vars.W4W5);
-W_f = double(vars.W_fuel_total);
-taper_ratio = double(vars.tr);
-sweep_c4 = double(vars.sweep_4c);
-sweep_c2 = double(vars.sweep_2c);
-sweep_LE = double(vars.sweep_LE);
-sweep_TE = double(vars.sweep_TE);
-b = double(vars.b);
-b_h = double(vars.b_h);
-b_v = double(vars.b_v);
+A = double(vars.A);               % <---- CHANGE FOR ELECTRIC/HYBRID
+MAC = double(vars.MAC);           % <---- CHANGE FOR ELECTRIC/HYBRID
+MTOW = double(vars.MTOW);         % <---- CHANGE FOR ELECTRIC/HYBRID
+OEW = double(vars.OEW)            % <---- CHANGE FOR ELECTRIC/HYBRID
+S_ref = double(vars.S);           % <---- CHANGE FOR ELECTRIC/HYBRID
+v = double(vars.V_cruise);        % <---- CHANGE FOR ELECTRIC/HYBRID
+W4W5 = double(vars.W4W5);         % <---- CHANGE FOR ELECTRIC/HYBRID
+W_f = double(vars.W_fuel_total);  % <---- CHANGE FOR ELECTRIC/HYBRID
+taper_ratio = double(vars.tr);    % <---- CHANGE FOR ELECTRIC/HYBRID
+sweep_c4 = double(vars.sweep_4c); % <---- CHANGE FOR ELECTRIC/HYBRID
+sweep_c2 = double(vars.sweep_2c); % <---- CHANGE FOR ELECTRIC/HYBRID
+sweep_LE = double(vars.sweep_LE); % <---- CHANGE FOR ELECTRIC/HYBRID
+sweep_TE = double(vars.sweep_TE); % <---- CHANGE FOR ELECTRIC/HYBRID
+b = double(vars.b);               % <---- CHANGE FOR ELECTRIC/HYBRID
+b_h = double(vars.b_h);           % <---- CHANGE FOR ELECTRIC/HYBRID
+b_v = double(vars.b_v);           % <---- CHANGE FOR ELECTRIC/HYBRID
 V_stall = double(vars.V_stall);
 
 LAMBDA = sweep_c4;    % Wingsweep at 0.25MAC
-Wfiml = 0.97 * MTOW * 9.81;      % Aircraft weight at fuel intensive mission leg %ADSEEII-LECTURE1-SLIDE48
+Wfiml = 0.97 * MTOW * 9.81;      % Aircraft weight at fuel intensive mission leg %ADSEEII-LECTURE1-SLIDE48 !!!!! ELECTRIC = 1
 WSsc = MTOW * 0.98 * 9.81 / S_ref;      % Wing loading at the start of the cruise
 WSec = W4W5 * WSsc;     % Wing loading at the end of the cruise
 
@@ -53,11 +53,11 @@ lambda = taper_ratio; % taper ratio
 LAMBDA_ht = sweep_c4; % Sweep at 25% MAC
 A_ht = double(vars.A_h); % Aspect ratio horizontal tailwing                   ??????
 H_t_over_H_v = 0.; % = 0 for conventional tail, 1 for T-tail
-LAMBDA_vt = LAMBDA_ht; % Sweep at 25% of vertical tail MAC      ??????
+LAMBDA_vt = LAMBDA_ht; % Sweep at 25% of vertical tail MAC                    ??????
 A_vt = double(vars.A_v); % Aspect ratio vertical tail                         ??????
-lambda_vt = 1.; % taper raio vertical tail                      ??????
-lambda_h = 1; %Taper ratio horizontal tail                      ??????
-L_t = 4*3.2808; % Tail length, wing quarter MAC to tail quarter MAC in ft   ??????
+lambda_vt = 1.; % taper raio vertical tail                                    ??????
+lambda_h = 1; %Taper ratio horizontal tail                                    ??????
+L_t = 3.9*3.2808; % Tail length, wing quarter MAC to tail quarter MAC in ft   ??????
 W_press = 0 ;%11.9+(V_pr*P_delta)^0.271; %Weight penalty due to pressurization; PROBABLY ZERO FOR OUR DESIGNS BECAUSE WE DON'T PRESSURIZE OUR CABIN
 W_l = (MTOW - W_f) * 2.2; %Landing design gross weight
 
@@ -68,7 +68,7 @@ L_n = 15.; %Extended nose gear length (inch)                    ??????
 
 
 W_en = 345. * 2.2; %Engine weight (each) in pounds              <---- INPUT
-N_en = double(vars.("N")); %Number of engines\                  XXXX
+N_en = double(vars.("N")); %Number of engines\                  XXXX   <---- INPUT
 V_i = V_t * 1.05; %Integral tanks volume in gallons
 
 N_t = 1; %Number of fuel tanks                                  ??????
@@ -98,7 +98,23 @@ xc_max = 0.25; % (x/c)_max is the position of maximum thickness         ????????
 k = 0.634E-5; % smooth paint
 % k = 0.052E-5; % smooth molded composite
 
+% 
+% L1 = 1.4; % nosecone length                               ??????? SHOULD BE DONE WITH DRAWINGS I GUESS?????
+% L2 = 3.57; % main fuselage length                          ??????? SHOULD BE DONE WITH DRAWINGS I GUESS?????
+% L3 = 8-L1-L2; % tailcone length                               ??????? SHOULD BE DONE WITH DRAWINGS I GUESS?????
+% L = (L1+L2+L3)*3.281 ; %Fuselage structural length in ft for lecture 6 raymer pls dont hate
+% A_cs = 2.9;
+% D = sqrt(A_cs/pi) % derived from frontal area (even though fuselage may not be cilindrical)
 
+
+%L1_pos = 'L1:  ';
+%L1 = double(input(L1_pos));
+
+%L2_pos = 'L2:  ';
+%L2 = double(input(L2_pos));
+
+%L3_pos = 'L3:  ';
+%L3 = double(input(L3_pos));
 
 
 L1_pos = 'L1:  ';   % nosecone length
@@ -110,11 +126,9 @@ L2 = double(input(L2_pos));
 L3_pos = 'L3:  ';   % tailcone length
 L3 = double(input(L3_pos));
 
-
-% L1 = 1; % nosecone length                               ??????? SHOULD BE DONE WITH DRAWINGS I GUESS?????
-% L2 = 4; % main fuselage length                          ??????? SHOULD BE DONE WITH DRAWINGS I GUESS?????
-% L3 = 2; % tailcone length                               ??????? SHOULD BE DONE WITH DRAWINGS I GUESS?????
 L = (L1+L2+L3)*3.281 ; %Fuselage structural length in ft for lecture 6 raymer pls dont hate
+
+
 A_cs = 3;
 D = sqrt(A_cs/pi); % derived from frontal area (even though fuselage may not be cilindrical)
 
@@ -135,7 +149,7 @@ tau = 0.6 ; % Function of ratio of the aileron chord over the wing chord (ailero
 chordratio_ail_total = 0.41;
 %chordratio_ail_total = [0.075, 0.19, 0.41, 0.7];
 %tau = [0.2, 0.4, 0.6, 0.8];
-da_max = 30. ; %maximum aileron deflection angle in degrees (reference Mohammed Sadraey)
+%da_max = 30. ; %maximum aileron deflection angle in degrees (reference Mohammed Sadraey)
 
 b2 = b/2;
 b1 = b2/2;
@@ -184,7 +198,7 @@ L_D = CLdes/cD
 c_r = double(vars.("cr"));
 c_t = double(vars.("ct"));
 sweep_LE; % sweep at leading edge in degrees (positive number)
-theta = atan((c_r-c_t)/(b/2.))*180/pi;
+%theta = atan((c_r-c_t)/(b/2.))*180/pi;
 % theta = 10.7773; %sweep at trailing edge in degrees (positive number) (If sweep at leading edge is zero, this equals "atan((c_r-c_t)/(b/2.))"
 
 prompt_dclda = 'What is your lift curve slope: default is 0.32  ';
@@ -195,8 +209,8 @@ c_d0 = Fast_Cd0; % 2D zero lift drag coefficient
 V = 1.2*V_stall; %speed in m/s                          % XXXXXXX
 b = b; %wingspan in meters
 
-aileron_l = aielron_22222(c_r, c_t, lambda, theta, c_l_alpha,...
-    S_ref, c_d0, V, b);
+%aileron_l = AileronNEW(c_r, c_t, sweep_LE, sweep_TE, c_l_alpha,...
+ %   S_ref, c_d0, V_stall, b);
 
 
 % P = AileronSizing.Intergral(lambda, theta, b1, b2, c_l_alpha, tau, S_ref, b, total_cD0, c_r, da_max, v);
@@ -205,42 +219,61 @@ aileron_l = aielron_22222(c_r, c_t, lambda, theta, c_l_alpha,...
 % [b1, Inner_Ail_Chord, Outer_Ail_Chord] = AileronSizing.Iteration(lambda, theta, b1, b2, c_l_alpha, tau, S_ref, b, total_cD0, c_r, da_max, v, P, P_req, chordratio_ail_total);
 % disp('The total aileron size is from the tip of the wing up until: in [m] from the base of the fuselage'), disp(b1);
 % disp('Inner Aileron Chord:'), disp(Inner_Ail_Chord), disp('Inner Aileron Chord:'), disp(Outer_Ail_Chord);
-
-
-aileron_l = aielron_22222(c_r, c_t, sweep_LE*180/pi, theta, c_l_alpha,...
-    S_ref, c_d0, V, b);
 
 % disp('The total aileron size is from the tip of the wing up until: in [m] from the base of the fuselage'), disp(b1);
 % disp('Inner Aileron Chord:'), disp(Inner_Ail_Chord), disp('Inner Aileron Chord:'), disp(Outer_Ail_Chord);
 %%
 
-disp(["Final answer: for aileron", num2str(aileron_l)])
+%disp(["Final answer: for aileron", num2str(aileron_l)])
 
 %% ADSEE II - Lecture 6 - Class II Weights
+W_battery_hybrid = 200;  %just some values for code testing
+W_battery_electric = 800; %just some values for code testing
+
 
 W_breakdown = C2W.calculation(W_dg,N_z,N_gear,S_ref*10.7639,A,tc_avg,lambda,LAMBDA,W_f*2.2,L/D,W_f*2.2,v,rho,S_ht,LAMBDA_ht,A_ht,lambda_h,H_t_over_H_v,S_vt,LAMBDA_vt,A_vt,lambda_vt,L_t,W_press,W_l,L_m,L_n,W_en,N_en,V_t,V_i,N_t,L,b,W_uav,N_p,M)
-
+W_breakdownHYB = W_breakdown + [0 0 0 0 0 0 0 W_battery_hybrid 0 0 0 0 0 0];
+W_breakdownELEC = W_breakdown + [0 0 0 0 0 0 0 W_battery_electric 0 0 0 0 0 0];
 %The variables in the matrix W_breakdown are given below
 %W_breakdown = [W_wing, W_horizontaltail, W_verticaltail, W_fuselage, W_mainlandinggear, W_noselandinggear, W_installedengines, W_fuelsystem, W_flightcontrols, W_hydraulics, W_avionics, W_electrical, W_airco_and_anti_ice, W_furnishings]/2.2;
 
-W_total = sum(W_breakdown)
+W_total = sum(W_breakdown);
+W_totalHYB = sum(W_breakdownHYB);
+W_totalELEC = sum(W_breakdownELEC);
 
-enginelocation = menu('Are the engines wing mounted(1) or front-fuselage mounted(2)?', '1','2'); 
+config = menu('Do you want the results for Design 1 (Hybrid), Design 2 (Fuel) or Design 3 (Electric)?', '1','2','3'); 
 %Here two different paths are taken to taken xlemac for different wing
 %positions
 
-%% CG Calculation
+%% CG Calculation (With Questions go to Pieter)
 L = L/3.2808; %Changing L to meters for the upcoming calculation
 L_t = L_t/3.2808 %Changint L_t to meters
-    if enginelocation == 1
-        syms Xlemac
-        eqn1 = Xlemac + 0.13*MAC == (W_breakdown*([Xlemac+0.4*MAC, Xlemac+0.25*MAC+L_t+0.15*MAC_ht, Xlemac+0.25*MAC+L_t+0.15*MAC_vt, 0.4*L, Xlemac+0.3*MAC, 0.15*L, 0.15*L, Xlemac+0.4*MAC, 0.5*L, 0.5*L, 0.3*L, 0.3*L, Xlemac+0.4*MAC, 0.4*L].'))/(W_total);
+
+CG_OEW_MAC = 0.13;
+syms Xlemac
+OEWDES1_ARMS = [Xlemac+0.4*MAC,Xlemac+0.25*MAC+L_t+0.15*MAC_ht,Xlemac+0.25*MAC+L_t+0.15*MAC_vt,0.4*L,...
+    Xlemac+0.3*MAC,0.15*L, Xlemac+0.25*MAC,Xlemac+0.4*MAC,0.5*L,0.5*L,0.3*L,0.3*L,Xlemac+0.4*MAC,0.4*L].';
+    %14x1 matrix with arms of aircraft design 1 (fuel + battery + wing mounted engines)
+    %W_breakdown = [W_wing, W_horizontaltail, W_verticaltail, W_fuselage, W_mainlandinggear, W_noselandinggear, 
+    %W_installedengines, W_fuelsystem, W_flightcontrols, W_hydraulics, W_avionics, W_electrical, W_airco_and_anti_ice,
+    %W_furnishings]/2.2;
+
+OEWDES2_ARMS = [Xlemac+0.4*MAC,Xlemac+0.25*MAC+L_t+0.15*MAC_ht,Xlemac+0.25*MAC+L_t+0.15*MAC_vt,0.4*L,...
+    Xlemac+0.3*MAC,0.15*L,Xlemac+0.25*MAC,Xlemac+0.4*MAC,0.5*L,0.5*L,0.3*L,0.3*L,Xlemac+0.4*MAC,0.4*L].';
+    %14x1 matrix with arms of aircraft design 2 (fuel + front fuselage mounted engine)
+OEWDES3_ARMS = [Xlemac+0.4*MAC,Xlemac+0.25*MAC+L_t+0.15*MAC_ht,Xlemac+0.25*MAC+L_t+0.15*MAC_vt,0.4*L,...
+    Xlemac+0.3*MAC,0.15*L,Xlemac+0.25*MAC,Xlemac+0.4*MAC,0.5*L,0.5*L,0.3*L,0.3*L,Xlemac+0.4*MAC,0.4*L].';
+    if config == 1
+        eqn1 = Xlemac + CG_OEW_MAC*MAC == W_breakdownHYB*OEWDES1_ARMS/W_totalHYB;
         XLEMACSOLVED = double(solve(eqn1, Xlemac))
-    elseif enginelocation == 2
-        syms Xlemac 
-        eqn1 = Xlemac + 0.13*MAC == (W_breakdown*([Xlemac+0.4*MAC, Xlemac+0.25*MAC+L_t+0.15*MAC_ht, Xlemac+0.25*MAC+L_t+0.15*MAC_vt, 0.4*L, Xlemac+0.3*MAC, 0.15*L, Xlemac+0.25*MAC, Xlemac+0.4*MAC, 0.5*L, 0.5*L, 0.3*L, 0.3*L, Xlemac+0.4*MAC, 0.4*L].'))/(W_total);
-        XLEMACSOLVED = double(solve(eqn1, Xlemac))
+    elseif config == 2
+        eqn2 = Xlemac + CG_OEW_MAC*MAC == W_breakdown*OEWDES2_ARMS/W_total;
+        XLEMACSOLVED = double(solve(eqn2, Xlemac))
+    elseif config == 3
+        eqn3 = Xlemac + CG_OEW_MAC*MAC == W_breakdownELEC*OEWDES2_ARMS/W_totalELEC;
+        XLEMACSOLVED = double(solve(eqn3, Xlemac))
     end
  L = L*3.2808; %Changing L back to feet
  L_t=L_t*3.2808; %Changing L_t back to feet
-
+ 
+ CG_OEW = double(XLEMACSOLVED + CG_OEW_MAC*MAC)

@@ -27,7 +27,7 @@ chordratio_ail_total = [0.075, 0.19, 0.41, 0.7];
 da_max = 25. ; %maximum aileron deflection angle in degrees (reference Mohammed Sadraey)
 %%%
 
-for j = [1:1:4]
+    for j = [1:1:4]
     counter = 1;
     for i = [1:1:length(aileron_length)]
         syms y;
@@ -39,14 +39,13 @@ for j = [1:1:4]
         P = -C_l_dda/C_l_p*degtorad(da_max)*(2*V/b);
         if P>=P_req
             disp('For tau ='),disp(tau(j)),disp('The turn rate equals:'),disp(double(P)), disp('The minimum (horizontal) aileron length should be (in meters):'), disp(aileron_length(counter)),disp('The aileron length itself (inside the wing, induced by sweep) should be at least (in meters):'), disp(aileron_length(counter)/cos(degtorad(theta))) ,disp('The aileron inner chord equals (meters):'), disp((c_r - b1(i)*(tan(degtorad(lambda))+tan(degtorad(theta))))*chordratio_ail_total(j)), disp('The aileron outer chord equals (meters):'), disp((c_r - b2(i)*(tan(degtorad(lambda))+tan(degtorad(theta))))*chordratio_ail_total(j))
-            aileron_length = aileron_length(counter)
             break
         end
         counter= counter + 1; 
         
     end
 
-end
+    end
 %P.S. this code doesn't include differentiable ailerons, nor does it take
 %into account the twist of the wing (which on its place reduces the lift
 %and thus rolling moment) caused by the deflection of the aileron (aileron reversal).

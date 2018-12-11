@@ -31,9 +31,9 @@ eta_i= 0.95; %efficiency of the inverter
 eta_m =0.9 ;%efficiency of motor
 eta_prop=0.95; %effeciency of propellor
 eta_total =eta_i*eta_m*eta_prop; % total efficiency
-cb=680000;  %specific density  in J/kg
+cb=610000;  %specific density  in J/kg
 V_cruise = 180;  % kts                % <------ INPUT
-V_stall = 61;    % kts                % <------ INPUT
+V_stall = 61; 5   % kts                % <------ INPUT
 Payload = 800+180 ;  %lbs                  % <-------INPUT
 Payload =  Payload*0.45359237
 %OEW=MTOW-Payload;
@@ -62,7 +62,7 @@ Wing_Loading_Func(h,A,e_clean,cd0_clean, CL_max,cl_to ,c, V_land, V_stall, V_cru
 payload = 363;                      % from requirements
 percent_emptiness_payload = 0.5;    % Input : how empty the payload is
 
-PR_func(MTOW, OEW, payload, LD_cruise, percent_emptiness_payload, M_batt, eta_total, Payload);
+PR_func(MTOW, OEW, payload, LD_cruise, percent_emptiness_payload, M_batt, eta_total, Payload, cb);
 % maybe change W_fuel_used to W_fuel_total
 
 

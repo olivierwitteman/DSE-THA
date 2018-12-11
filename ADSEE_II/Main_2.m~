@@ -5,7 +5,7 @@ clear variables;
 
 vars = load('../ADSEE_I/variables_ADSEE_I.mat');
 
-A = double(vars.A);
+A = double(vars.A);               % < CHANGE FOR ELECTRIC/HYBRID
 MAC = double(vars.MAC);
 MTOW = double(vars.MTOW);
 OEW = double(vars.OEW)
@@ -53,11 +53,11 @@ lambda = taper_ratio; % taper ratio
 LAMBDA_ht = sweep_c4; % Sweep at 25% MAC
 A_ht = double(vars.A_h); % Aspect ratio horizontal tailwing                   ??????
 H_t_over_H_v = 0.; % = 0 for conventional tail, 1 for T-tail
-LAMBDA_vt = LAMBDA_ht; % Sweep at 25% of vertical tail MAC      ??????
+LAMBDA_vt = LAMBDA_ht; % Sweep at 25% of vertical tail MAC                    ??????
 A_vt = double(vars.A_v); % Aspect ratio vertical tail                         ??????
-lambda_vt = 1.; % taper raio vertical tail                      ??????
-lambda_h = 1; %Taper ratio horizontal tail                      ??????
-L_t = 4*3.2808; % Tail length, wing quarter MAC to tail quarter MAC in ft   ??????
+lambda_vt = 1.; % taper raio vertical tail                                    ??????
+lambda_h = 1; %Taper ratio horizontal tail                                    ??????
+L_t = 3.9*3.2808; % Tail length, wing quarter MAC to tail quarter MAC in ft   ??????
 W_press = 0 ;%11.9+(V_pr*P_delta)^0.271; %Weight penalty due to pressurization; PROBABLY ZERO FOR OUR DESIGNS BECAUSE WE DON'T PRESSURIZE OUR CABIN
 W_l = (MTOW - W_f) * 2.2; %Landing design gross weight
 
@@ -68,7 +68,7 @@ L_n = 15.; %Extended nose gear length (inch)                    ??????
 
 
 W_en = 345. * 2.2; %Engine weight (each) in pounds              <---- INPUT
-N_en = double(vars.("N")); %Number of engines\                  XXXX
+N_en = double(vars.("N")); %Number of engines\                  XXXX   <---- INPUT
 V_i = V_t * 1.05; %Integral tanks volume in gallons
 
 N_t = 1; %Number of fuel tanks                                  ??????
@@ -98,13 +98,13 @@ xc_max = 0.25; % (x/c)_max is the position of maximum thickness         ????????
 k = 0.634E-5; % smooth paint
 % k = 0.052E-5; % smooth molded composite
 
-
-L1 = 1.4; % nosecone length                               ??????? SHOULD BE DONE WITH DRAWINGS I GUESS?????
-L2 = 3.57; % main fuselage length                          ??????? SHOULD BE DONE WITH DRAWINGS I GUESS?????
-L3 = 8-L1-L2; % tailcone length                               ??????? SHOULD BE DONE WITH DRAWINGS I GUESS?????
-L = (L1+L2+L3)*3.281 ; %Fuselage structural length in ft for lecture 6 raymer pls dont hate
-A_cs = 2.9;
-D = sqrt(A_cs/pi) % derived from frontal area (even though fuselage may not be cilindrical)
+% 
+% L1 = 1.4; % nosecone length                               ??????? SHOULD BE DONE WITH DRAWINGS I GUESS?????
+% L2 = 3.57; % main fuselage length                          ??????? SHOULD BE DONE WITH DRAWINGS I GUESS?????
+% L3 = 8-L1-L2; % tailcone length                               ??????? SHOULD BE DONE WITH DRAWINGS I GUESS?????
+% L = (L1+L2+L3)*3.281 ; %Fuselage structural length in ft for lecture 6 raymer pls dont hate
+% A_cs = 2.9;
+% D = sqrt(A_cs/pi) % derived from frontal area (even though fuselage may not be cilindrical)
 
 
 %L1_pos = 'L1:  ';

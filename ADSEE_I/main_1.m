@@ -22,13 +22,11 @@ MTOW_median = median(MTOW_weights)
 
 MTOW = average_MTOW; % or choose average MTOW % <------ INPUT
 
-<<<<<<< HEAD
-% MTOW = 1750
-A = 10;                              % <------ INPUT
-=======
+
+
+
 MTOW = 1750;
 A = 8.5;                              % <------ INPUT
->>>>>>> c728499c063d69e9ac81948fa61d84284c363109
 e = 0.75;                             % <------ INPUT
 
 V_cruise = 180;  % kts                % <------ INPUT
@@ -64,6 +62,7 @@ Wing_Loading_Func(h,A,e_clean,cd0_clean, CL_max,CL_to ,c, Wl_Wto, V_land, V_stal
 W4W5;                               % Input from fuel fractions
 payload = 363;                      % from requirements
 percent_emptiness_payload = 00.5;    % Input : how empty the payload is
+
 
 PR_func(MTOW, OEW, W_fuel_used, payload, LD_cruise, W4W5, percent_emptiness_payload);
 % maybe change W_fuel_used to W_fuel_total
@@ -149,16 +148,16 @@ prompt_prop_pos = 'Where to put the enignes? wing or fuselage . 1/2: ';
 prop_pos = double(input(prompt_prop_pos));
 
 if prop_pos == 2 % fuselage
-    fus_length = 6.6;   % <------ INPUT
+    fus_length = 7.5;   % <------ INPUT
     X_oew = 0.40;       % <------ INPUT Assume position of the OEW cg
-    X_payload = 0.5;    % <------ INPUT Assume position of the Payload(including passengers) cg
+    X_payload = 0.7;    % <------ INPUT Assume position of the Payload(including passengers) cg
     xc_oewcg = 0.3;     % <------ INPUT
     xc_wcg = 0.4;       % <------ INPUT
 
     wing_x = 0.8;       % <------ INPUT Assume position of the wing cg from the nose
     empen_x = 0.9;      % <------ INPUT Assume position of the empennage cg
-    fus_x = 0.8;        % <------ INPUT Assume position of the fuselage cg
-    nacell_x = 0.14;    % <------ INPUT Assume position of the nacelle cg = same for engines
+    fus_x = 0.6;        % <------ INPUT Assume position of the fuselage cg
+    nacell_x = 0.14*0;    % <------ INPUT Assume position of the nacelle cg = same for engines
                         % fixed equipment is the same position as the fuselage
     propul_x = 0.14     % ADDED WHEN CHANGING STUFF
     N = 1
@@ -199,8 +198,8 @@ SF_S = 1.0;
 S_h = SF_S*S_h;
 S_v = SF_S*S_v;
 
-A_h = 4;    % <----- INPUT   [3, 5] slide 68 lecture 7 ADSEE 1
-A_v = 1.5;  % <----- INPUT   [1, 2] slide 68 lecture 7 ADSEE 1
+A_h = 5.6;    % <----- INPUT   [3, 5] slide 68 lecture 7 ADSEE 1
+A_v = 1.84;  % <----- INPUT   [1, 2] slide 68 lecture 7 ADSEE 1
 
 b_h = sqrt(A_h * S_h);
 b_v = sqrt(A_v * S_v);
