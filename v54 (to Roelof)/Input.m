@@ -2,26 +2,26 @@
 
 % General
 
-a.AR = 8.2;                                      % Wing aspect ratio [-]
-a.Lambda = -0.571;                                   % Half-chord sweep angle of wing [deg]
+a.AR = 10;                                     % Wing aspect ratio [-]
+a.Lambda = 0;                              % Half-chord sweep angle of wing [deg]
 a.TR = 0.4;                                     % Taper ratio of wing [-]
 a.tc = 0.2;                                     % Thickness-to-chord ratio of root section [-]
 a.nUlt = 4.4;                                   % Ultimate load factor [-]
 
 % maximum lift coefficient (no propulsive interaction assumed)
-CLmax_clean=1.6;
-CLmax_TO=2.1;
-CLmax_L=2.1;
+CLmax_clean=1.8;    %slide lecture 3
+CLmax_TO=2;     %slide lecture 3
+CLmax_L=2.5;    %slide lecture 3
 
 % Oswald factor (no propulsive interaction assumed)
-e_clean=0.75;
-e_TO=0.75;
-e_L=0.75;
+e_clean=0.78;  %slide lecture 3
+e_TO=0.83;     %slide lecture 3
+e_L=0.88;      %slide lecture 3
 
 % zero-lift drag coefficient (no propulsive interaction assumed)
-CD0_clean=0.027;
-CD0_TO=0.027;
-CD0_L=0.027;
+CD0_clean=0.028;%slide lecture 3
+CD0_TO=0.0380;%slide lecture 3
+CD0_L=0.0730; %slide lecture 3
 
 % Cruise
 a.cr.CD0 = CD0_clean;                         % Cruise zero-lift drag coefficient [-]
@@ -66,7 +66,7 @@ p.dy = 0;                                    % Spacing between adjacent DP propu
 p.N1 = 2;                                       % Number of chains in primary powertrain [-]
 p.N2 = 0;                                       % Number of chains in secondary powertrain[-]
 p.DP = 0;                                       % Which PS has an effect on wing performance? (1 = primary, 2 = secondary, 0 = none)
-p.xp = 0;                                    % Axial position of propellers as a fraction of chord
+p.xp = 1.1;                                    % Axial position of propellers as a fraction of chord
                                                 % xp < 0: tractor
                                                 % 0 < xp < 1: OTW
                                                 % xp > 1: pusher
@@ -77,7 +77,7 @@ p.eta_EM2 = 0.95;                               % Conversion efficiency of elect
 p.eta_PM = 0.95;                                % Conversion efficiency of PMAD
 p.eta_GB = 0.95;                                % Transmission efficiency of gearboxes
 p.eta_GT = 0.35;                                % Conversion (thermal) efficiency of gas turbine
-p.SE.bat = 610000;                               % Battery specific energy [J/kg] 
+p.SE.bat = 1.8e6;                               % Battery specific energy [J/kg] 
 p.SE.f = 42.8e6;                                % Fuel specific energy [J/kg]
 p.SP.EM = 7.5e3;                                % Electrical machine specific power [W/kg]
 p.SP.bat = 5000;                                 % Battery pack specific power [W/kg]
@@ -95,7 +95,7 @@ p.L.etap2 = 0.7;                                % Secondary propulsors' propulsi
 p.L.Gamma = 0;                                  % Thrust vectoring in landing configuration [deg]
 
 % Take off
-p.TO.etap1 = 0.8;                              % Primary propulsors' propulsive efficiency in TO conditions (of ISOLATED propulsors) [-]
+p.TO.etap1 = 0.65;                              % Primary propulsors' propulsive efficiency in TO conditions (of ISOLATED propulsors) [-]
 p.TO.etap2 = 0.70;                              % Secondary propulsors' propulsive efficiency in TO conditions (of ISOLATED propulsors) [-]
 p.TO.Gamma = 0;                                 % Thrust vectoring in TO configuration [deg]
 
@@ -115,7 +115,7 @@ p.cl.etap2 = 0.7;                              % Secondary propulsors' propulsiv
 p.cl.Gamma = 0;                                 % Thrust vectoring in start-of-climb configuration [deg]
 
 % Top-of-climb
-p.ct.etap1 = 0.8;                               % Primary propulsors' propulsive efficiency in top-of-climb conditions (of ISOLATED propulsors) [-]
+p.ct.etap1 = 0.65;                               % Primary propulsors' propulsive efficiency in top-of-climb conditions (of ISOLATED propulsors) [-]
 p.ct.etap2 = 0.7;                               % Secondary propulsors' propulsive efficiency in top-of-climb conditions (of ISOLATED propulsors) [-]
 p.ct.Gamma = 0;                                 % Thrust vectoring in top-of-climb configuration [deg]
 
@@ -137,11 +137,11 @@ m.cr.Phi = 0;                                 % Cruise shaft power ratio [-]
 
 % Landing
 m.L.h = 0;                                      % Landing altitude [m]
-m.L.f = 0.7;                                    % Landing weight fraction W/MTOW [-]
-m.L.vs = 31.4;                                  % Stall speed requirement in landing conditions [m/s]
+m.L.f = 0.95;                                    % Landing weight fraction W/MTOW [-]
+m.L.vs = 31.6;                                  % Stall speed requirement in landing conditions [m/s]
 m.L.vApp = 1.23;                                % Stall margin during approach/landing, vApp/vs [-] (see Patterson 2017)
 m.L.vAppIso = 1.05;                             % Stall margin of isolated wing during approach/landing, vApp/vsIso [-]
-m.L.t = 1;                                      % Landing throttle setting P/P_max [-] (see note at end)
+m.L.t = 0.01;                                      % Landing throttle setting P/P_max [-] (see note at end)
 m.L.phi = 0;                                  % Landing supplied power ratio [-]
 m.L.Phi = 0;                                    % Landing shaft power ratio [-]
 
@@ -150,13 +150,13 @@ m.TO.h = 0;                                     % TO altitude [m]
 m.TO.f = 1;                                   % TO weight fraction W/MTOW [-]
 m.TO.s = 762;                                  % TO runway length [m]
 m.TO.t = 1;                                   % TO throttle setting P/P_max [-] (see note at end)
-m.TO.phi = 0.05;                                 % TO supplied power ratio [-]
+m.TO.phi = 0.03;                                 % TO supplied power ratio [-]
 m.TO.Phi = 0;                                   % TO shaft power ratio [-]
 
 
 % OEI Balked landing
 m.bL.G = 0.027;                                 % OEI balked landing climb gradient [-] (CS25.121d)
-m.bL.f = 0.9;                                   % Max landing weight (MLW) as a fraction of MTOW [-]
+m.bL.f = 1;                                   % Max landing weight (MLW) as a fraction of MTOW [-]
 m.bL.vMargin = 1.4;                             % Stall margin in balked-landing conditions
 m.bL.t = 1;                                     % Balked landing throttle setting P/P_max [-] (see note at end)
 m.bL.phi = 0.05;                                 % Balked landing supplied power ratio [-]
@@ -180,7 +180,7 @@ m.cl.v = 60;                                   % Velocity at start-of-climb (sho
 m.cl.G = 0.1;                                   % Start-of-climb climb gradient [-] (based on MA observances)
 m.cl.dVdt = 0.5;                                % Start-of-climb acceleration [m/s2]
 m.cl.t = 1;                                   % Start-of-climb throttle setting P/P_max [-] (see note at end)
-m.cl.phi = 0.1;                                % Start-of-climb supplied power ratio [-]
+m.cl.phi = 0.05;                                % Start-of-climb supplied power ratio [-]
 m.cl.Phi = 0;                                   % Start-of-climb shaft power ratio [-]
 
 % Top-of-climb
