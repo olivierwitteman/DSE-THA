@@ -1,4 +1,4 @@
-function [] = PR_func(MTOW, OEW , A_payload, L_D, percent_emptiness_payload , M_batt, eta_total, Payload)
+function [] = PR_func(MTOW, OEW , A_payload, L_D, percent_emptiness_payload , M_batt, eta_total, Payload, cb)
 %% Input . group 3
 g = 9.81;
 % MTOW = 1736; %kg <------ INPUT 
@@ -8,7 +8,7 @@ g = 9.81;
 
 % range calculations for propeller aircraft
 np = 0.8;   % assumed from class 1 weight estimation excel
-cb= 950000;   % assumed from class 1 weight estimation excel
+   % assumed from class 1 weight estimation excel
 
 % w4w5A = 1./(0.966); % assumed from class 1 weight estimation excel  <------ INPUT
   % <------ INPUT
