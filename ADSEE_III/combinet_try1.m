@@ -1,4 +1,4 @@
-
+clear all
 vars = load('../ADSEE_I/variables_ADSEE_I.mat');
 thick = 2;
 % Weights based on engine selection and preliminary design (might change)
@@ -15,20 +15,23 @@ beta=sqrt(1-M^2);
 bf = 1.7; %fuselage width [m]                   ?????? <----   INPUT
 hf = 1.65; %fuselage height [m]                  ?????? <----   INPUT
 bh = 4; %horizontal tail span [m]             ?????? <----   INPUT
+
 lf = 7.5; % total length of fuselage [m] .      ?????? <-----  INPUT
 Sh = double(vars.S_h); %horizontal tail area [m^2]
 Sh = 2.4;
 
+
 Sv = double(vars.S_v);  %vertical tail area [m^2]
 Sv = 1.65;
+
 
 Cr = double(vars.cr); %main wing root chord [m]
 Ct = double(vars.ct); %main wing tip chord [m]
 Cr_h = 0.4 * Cr; %horizontal tail root chord [m]   ??????????????????????
-Cr_h = 1.05
 
-Ct_h = 0.1 * Cr_h; %horizontal tail tip chord [m]  ??????????????????????
-Ct_h = 0.5;
+
+Ct_h = 0.2 * Cr_h; %horizontal tail tip chord [m]  ??????????????????????
+
 
 lfn = 2.2; %distance from nose to leading edge of root chord [m] ?????????????????????????????????????????????????
 
@@ -97,7 +100,7 @@ CLa_w = (2*pi*A)/(2 + sqrt(4+(A/eta)^2*(1 +(tan(sweep_12)^2/beta^2)) )) ;
 
 %for main wing
 CLa_h = (2*pi*Ah)/(2+ sqrt(4 + (Ah/eta)^2 *(1+(tan(sweep_12_h)^2/beta^2)) ));
-%CLa_h = 2.0; %(for verification)
+% CLa_h = 2.0; %(for verification)
 % dCl/dalpha using DATCOM method [1/rad]
 %compressibility ignored due to low speeds
 
@@ -135,10 +138,10 @@ Vh_V = sqrt(0.85); %flow velocity ratio between H-tail and main wing [-]
 
 %% controllability
 
-CL_A_h = 1.04;% lift coefficient of wing+fuselage (without tail, landing configuration), from Data sheet given by Martin
+CL_A_h = 1.04 + 0.3;% lift coefficient of wing+fuselage (without tail, landing configuration), from Data sheet given by Martin
 % lecture 4 slide 37
 
-dCl_max = 1.7; % change from zero to Clmax
+dCl_max = 2.0; % change from zero to Clmax
 CL_h = -0.35*Ah;% for fixed
 
 CL_0 = 0.8563; % 
@@ -155,7 +158,7 @@ Cm0 = -0.216; %  (for main wing) [-]
 
          %Cm_ac = Cmac_w + Cmac_fus + Cmac_nac; %total moment coefficient at aerodynamic center
          
-Cm_ac = -0.02; %From data sheet provided by Martin (ac assumed to be within +-10% of the neutral point)
+Cm_ac = -0.082; %From data sheet provided by Martin (ac assumed to be within +-10% of the neutral point)
 %------------------------------------------------------------------------
 
 x_cg_c = (-1:0.01:1);
@@ -192,6 +195,7 @@ x_lemac = [1: 0.01: 5];
 
 cg_mat = zeros(length(x_lemac),2);
 counter = 1
+cg_OEW = 2.9 - 0.9
 for i  = x_lemac
     lf = 7.6;                                      % <----- INPUT m 
     lbs_to_kg = 0.45359237;
@@ -206,11 +210,19 @@ for i  = x_lemac
     W_OEW = OEW;                                   %kg  <----- INPUT   
 
 
-    cg_OEW=2.9;                     %c.g. Position@OEW  <----- INPUT ????????????????????????????????
+%     cg_OEW=2.9 - 2.9 +counter*0.01 + 0.7*0;                     %c.g. Position@OEW  <----- INPUT ????????????????????????????????
 %     cg_OEW = 2.5177;    % 30% of mac
 %     cg_OEW = 1.6049+0.20;
 %     cg_OEW = 1.5;
     % cg_OEW = cg_OEW - x_lemac
+%     cg_OEW = 1.0 - 0.01*counter*lf
+%     cg_OEW = 1 + 0.01*counter*lf
+%     cg_OEW = 1 + i*0.01*counter
+
+%     cg_OEW = cg_OEW*1.001
+    cg_OEW = cg_OEW + 0.001*lf
+    cg_OEW = 2.9
+   
 
     seat_pilot=2.2 ;                    %c.g. Position Pilot   <----- INPUT 
     seat_row1=2.7  ;                    %c.g. Position Row 1   <----- INPUT 
@@ -288,7 +300,7 @@ end
 
 % figure
 yyaxis left
-plot([cg_mat(:,1), cg_mat(:,2)], x_lemac/l_fus, "LineWidth", thick)
+plot([cg_mat(:,1), cg_mat(:,2)], x_lemac/lf, "LineWidth", thick)
 
 hold on
 % plot(x_cg_c,Sh_S,x_cg_c,Sh_S_NS,x_cg_c,Sh_S_C)

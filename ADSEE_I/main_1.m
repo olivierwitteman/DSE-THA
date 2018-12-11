@@ -150,7 +150,7 @@ prop_pos = double(input(prompt_prop_pos));
 if prop_pos == 2 % fuselage
     fus_length = 7.5;   % <------ INPUT
     X_oew = 0.40;       % <------ INPUT Assume position of the OEW cg
-    X_payload = 0.7;    % <------ INPUT Assume position of the Payload(including passengers) cg
+    X_payload = 0.667;    % <------ INPUT Assume position of the Payload(including passengers) cg
     xc_oewcg = 0.3;     % <------ INPUT
     xc_wcg = 0.4;       % <------ INPUT
 
