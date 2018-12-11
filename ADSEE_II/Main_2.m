@@ -98,13 +98,13 @@ xc_max = 0.25; % (x/c)_max is the position of maximum thickness         ????????
 k = 0.634E-5; % smooth paint
 % k = 0.052E-5; % smooth molded composite
 
-
-L1 = 1.4; % nosecone length                               ??????? SHOULD BE DONE WITH DRAWINGS I GUESS?????
-L2 = 3.57; % main fuselage length                          ??????? SHOULD BE DONE WITH DRAWINGS I GUESS?????
-L3 = 8-L1-L2; % tailcone length                               ??????? SHOULD BE DONE WITH DRAWINGS I GUESS?????
-L = (L1+L2+L3)*3.281 ; %Fuselage structural length in ft for lecture 6 raymer pls dont hate
-A_cs = 2.9;
-D = sqrt(A_cs/pi) % derived from frontal area (even though fuselage may not be cilindrical)
+% 
+% L1 = 1.4; % nosecone length                               ??????? SHOULD BE DONE WITH DRAWINGS I GUESS?????
+% L2 = 3.57; % main fuselage length                          ??????? SHOULD BE DONE WITH DRAWINGS I GUESS?????
+% L3 = 8-L1-L2; % tailcone length                               ??????? SHOULD BE DONE WITH DRAWINGS I GUESS?????
+% L = (L1+L2+L3)*3.281 ; %Fuselage structural length in ft for lecture 6 raymer pls dont hate
+% A_cs = 2.9;
+% D = sqrt(A_cs/pi) % derived from frontal area (even though fuselage may not be cilindrical)
 
 
 %L1_pos = 'L1:  ';
