@@ -24,7 +24,7 @@ b_v = double(vars.b_v);
 V_stall = double(vars.V_stall);
 
 LAMBDA = sweep_c4;    % Wingsweep at 0.25MAC
-Wfiml = 0.97 * MTOW * 9.81;      % Aircraft weight at fuel intensive mission leg %ADSEEII-LECTURE1-SLIDE48
+Wfiml = 0.97 * MTOW * 9.81;      % Aircraft weight at fuel intensive mission leg %ADSEEII-LECTURE1-SLIDE48 !!!!! ELECTRIC = 1
 WSsc = MTOW * 0.98 * 9.81 / S_ref;      % Wing loading at the start of the cruise
 WSec = W4W5 * WSsc;     % Wing loading at the end of the cruise
 
@@ -99,7 +99,6 @@ k = 0.634E-5; % smooth paint
 % k = 0.052E-5; % smooth molded composite
 
 
-<<<<<<< HEAD
 L1 = 1.4; % nosecone length                               ??????? SHOULD BE DONE WITH DRAWINGS I GUESS?????
 L2 = 3.57; % main fuselage length                          ??????? SHOULD BE DONE WITH DRAWINGS I GUESS?????
 L3 = 8-L1-L2; % tailcone length                               ??????? SHOULD BE DONE WITH DRAWINGS I GUESS?????
@@ -107,16 +106,6 @@ L = (L1+L2+L3)*3.281 ; %Fuselage structural length in ft for lecture 6 raymer pl
 A_cs = 2.9;
 D = sqrt(A_cs/pi) % derived from frontal area (even though fuselage may not be cilindrical)
 
-
-%L1_pos = 'L1:  ';
-%L1 = double(input(L1_pos));
-
-%L2_pos = 'L2:  ';
-%L2 = double(input(L2_pos));
-
-%L3_pos = 'L3:  ';
-%L3 = double(input(L3_pos));
-=======
 
 
 L1_pos = 'L1:  ';   % nosecone length
@@ -127,22 +116,12 @@ L2 = double(input(L2_pos));
 
 L3_pos = 'L3:  ';   % tailcone length
 L3 = double(input(L3_pos));
->>>>>>> dbe25e65aaafef936030741e33151fd9ca0f45f9
 
-
-% L1 = 1; % nosecone length                               ??????? SHOULD BE DONE WITH DRAWINGS I GUESS?????
-% L2 = 4; % main fuselage length                          ??????? SHOULD BE DONE WITH DRAWINGS I GUESS?????
-% L3 = 2; % tailcone length                               ??????? SHOULD BE DONE WITH DRAWINGS I GUESS?????
 L = (L1+L2+L3)*3.281 ; %Fuselage structural length in ft for lecture 6 raymer pls dont hate
-<<<<<<< HEAD
+
 
 A_cs = 3;
 D = sqrt(A_cs/pi); % derived from frontal area (even though fuselage may not be cilindrical)
-
-=======
-A_cs = 3;
-D = sqrt(A_cs/pi); % derived from frontal area (even though fuselage may not be cilindrical)
->>>>>>> dbe25e65aaafef936030741e33151fd9ca0f45f9
 
 mu = 1.7331332E-5; % viscosity of standard air at h=2400m (T=272K)
 
