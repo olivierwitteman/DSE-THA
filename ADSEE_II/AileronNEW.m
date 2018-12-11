@@ -1,13 +1,13 @@
-function [aileron_length] = AileronNEW(c_r, c_t, sweep_LE, theta, c_l_alpha,...
+function [aileron_length] = AileronNEW(c_r, c_t, sweep_LE, sweep_TE, c_l_alpha,...
     S_ref, c_d0, V_stall, b)
 disp('AileronNEW')
-P_req = degtorad(60)/1.3 ;%requirement of roll rate
+P_req = degtorad((60)/1.3) ;%requirement of roll rate
 
 % % %Input here your wing  parameters
 % c_r = 1.67; % root chord
 % c_t = 0.67; %tip chord
 % sweep_LE = 0.; % sweep at leading edge in degrees (positive number)
-% theta = 10.7773; %sweep at trailing edge in degrees (positive number) (If sweep at leading edge is zero, this equals "atan((c_r-c_t)/(b/2.))"
+% abs(sweep_TE) = 10.7773; %sweep at trailing edge in degrees (positive number) (If sweep at leading edge is zero, this equals "atan((c_r-c_t)/(b/2.))"
 % c_l_alpha = 0.32; % Airfoil lift curve slope
 % S_ref = 12.3; % Wing surface in square meters
 % c_d0 = 0.02; % 2D zero lift drag coefficient
@@ -26,22 +26,30 @@ tau = [0.5] ; % Function of ratio of the aileron chord over the wing chord (aile
 chordratio_ail_total = [0.286];
 da_max = 25; %maximum aileron deflection angle in degrees (reference Mohammed Sadraey)
 i=1
-V_stall = 190
+
+%V_stall = 190
 while i < length(aileron_length)
 b1 = b/2-aileron_length; %   the length in meters where the aileron starts measured from the wing root
 b2 = b1+aileron_length;  
     
 syms y;
-cy = (c_r - y*(tan(sweep_LE)+tan(degtorad(theta))));
+cy = (c_r - y*(tan(sweep_LE)+tan(abs(sweep_TE))));
 ail_sur = int(y*cy,[b1(i) b2(i)]);
 C_l_dda = 2.*c_l_alpha*tau(1)/(S_ref*b)*ail_sur; %Derative of the rolling moment coefficient w.r.t. aileron deflection
 ail_vol = int(cy*y^2,[0 b/2]);
 C_l_p = -4.*(c_l_alpha+c_d0)/(S_ref*b)*ail_vol;
 P = -C_l_dda/C_l_p*degtorad(da_max)*(2*V_stall/b);
+disp(double(P))
 
 if P>=P_req
     disp('GELUKT')
-    disp('For tau ='),disp(tau(1)),disp('The turn rate equals:'),disp(double(P)), disp('The minimum (horizontal) aileron length should be (in meters):'), disp(aileron_length(counter)),disp('The aileron length itself (inside the wing, induced by sweep) should be at least (in meters):'), disp(aileron_length(counter)/cos(degtorad(theta))) ,disp('The aileron inner chord equals (meters):'), disp((c_r - b1(i)*(tan(sweep_LE)+tan(degtorad(theta))))*chordratio_ail_total(1)), disp('The aileron outer chord equals (meters):'), disp((c_r - b2(i)*(tan(sweep_LE)+tan(degtorad(theta))))*chordratio_ail_total(1))
+    disp('For tau ='),disp(tau(1)),disp('The turn rate equals:'),disp(double(P)), ...
+        disp('The minimum (horizontal) aileron length should be (in meters):'), disp(aileron_length(i)),...
+        disp('The aileron length itself (inside the wing, induced by sweep) should be at least (in meters):'), ...
+        disp(aileron_length(i)/cos(abs(sweep_TE))) ,disp('The aileron inner chord equals (meters):'), ...
+        disp((c_r - b1(i)*(tan(sweep_LE)+tan(abs(sweep_TE))))*chordratio_ail_total(1)), ...
+        disp('The aileron outer chord equals (meters):'), ...
+        disp((c_r - b2(i)*(tan(sweep_LE)+tan(abs(sweep_TE))))*chordratio_ail_total(1))
     break
 else i = i+1        
 end

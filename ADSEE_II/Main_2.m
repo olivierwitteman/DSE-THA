@@ -99,7 +99,6 @@ k = 0.634E-5; % smooth paint
 % k = 0.052E-5; % smooth molded composite
 
 
-<<<<<<< HEAD
 L1 = 1.4; % nosecone length                               ??????? SHOULD BE DONE WITH DRAWINGS I GUESS?????
 L2 = 3.57; % main fuselage length                          ??????? SHOULD BE DONE WITH DRAWINGS I GUESS?????
 L3 = 8-L1-L2; % tailcone length                               ??????? SHOULD BE DONE WITH DRAWINGS I GUESS?????
@@ -116,7 +115,6 @@ D = sqrt(A_cs/pi) % derived from frontal area (even though fuselage may not be c
 
 %L3_pos = 'L3:  ';
 %L3 = double(input(L3_pos));
-=======
 
 
 L1_pos = 'L1:  ';   % nosecone length
@@ -127,22 +125,19 @@ L2 = double(input(L2_pos));
 
 L3_pos = 'L3:  ';   % tailcone length
 L3 = double(input(L3_pos));
->>>>>>> dbe25e65aaafef936030741e33151fd9ca0f45f9
 
 
 % L1 = 1; % nosecone length                               ??????? SHOULD BE DONE WITH DRAWINGS I GUESS?????
 % L2 = 4; % main fuselage length                          ??????? SHOULD BE DONE WITH DRAWINGS I GUESS?????
 % L3 = 2; % tailcone length                               ??????? SHOULD BE DONE WITH DRAWINGS I GUESS?????
 L = (L1+L2+L3)*3.281 ; %Fuselage structural length in ft for lecture 6 raymer pls dont hate
-<<<<<<< HEAD
+
 
 A_cs = 3;
 D = sqrt(A_cs/pi); % derived from frontal area (even though fuselage may not be cilindrical)
 
-=======
 A_cs = 3;
 D = sqrt(A_cs/pi); % derived from frontal area (even though fuselage may not be cilindrical)
->>>>>>> dbe25e65aaafef936030741e33151fd9ca0f45f9
 
 mu = 1.7331332E-5; % viscosity of standard air at h=2400m (T=272K)
 
@@ -161,7 +156,7 @@ tau = 0.6 ; % Function of ratio of the aileron chord over the wing chord (ailero
 chordratio_ail_total = 0.41;
 %chordratio_ail_total = [0.075, 0.19, 0.41, 0.7];
 %tau = [0.2, 0.4, 0.6, 0.8];
-da_max = 30. ; %maximum aileron deflection angle in degrees (reference Mohammed Sadraey)
+%da_max = 30. ; %maximum aileron deflection angle in degrees (reference Mohammed Sadraey)
 
 b2 = b/2;
 b1 = b2/2;
@@ -210,7 +205,7 @@ L_D = CLdes/cD
 c_r = double(vars.("cr"));
 c_t = double(vars.("ct"));
 sweep_LE; % sweep at leading edge in degrees (positive number)
-theta = atan((c_r-c_t)/(b/2.))*180/pi;
+%theta = atan((c_r-c_t)/(b/2.))*180/pi;
 % theta = 10.7773; %sweep at trailing edge in degrees (positive number) (If sweep at leading edge is zero, this equals "atan((c_r-c_t)/(b/2.))"
 
 prompt_dclda = 'What is your lift curve slope: default is 0.32  ';
@@ -221,7 +216,7 @@ c_d0 = Fast_Cd0; % 2D zero lift drag coefficient
 V = 1.2*V_stall; %speed in m/s                          % XXXXXXX
 b = b; %wingspan in meters
 
-aileron_l = AileronNEW(c_r, c_t, lambda, theta, c_l_alpha,...
+aileron_l = AileronNEW(c_r, c_t, sweep_LE, sweep_TE, c_l_alpha,...
     S_ref, c_d0, V_stall, b);
 
 
