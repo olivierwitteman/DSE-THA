@@ -23,8 +23,8 @@ MTOW_median = median(MTOW_weights)
 MTOW = average_MTOW; % or choose average MTOW % <------ INPUT
 
 
-
-
+% MTOW = 1750
+A = 10;                              % <------ INPUT
 MTOW = 1750;
 A = 8.5;                              % <------ INPUT
 e = 0.75;                             % <------ INPUT
@@ -164,11 +164,13 @@ end
 
 
 if prop_pos == 1            % wing
-    fus_length = 6.6;   % <------ INPUT
+    fus_length = 6
+    .6;   % <------ INPUT
     X_oew = 0.550;      % <------ INPUT Assume position of the OEW cg
     X_payload = 0.5;    % <------ INPUT Assume position of the Payload(including passengers) cg
     xc_oewcg = 0.25;    % <------ INPUT
-    xc_wcg = 0.4;       % <------ INPUT
+    xc_wcg = 0.4;       % <------ INPUT.
+    0
 
     wing_x = 0.8;      % <------ INPUT Assume position of the wing cg from the nose
     empen_x = 0.9;     % <------ INPUT Assume position of the empennage cg

@@ -5,22 +5,22 @@ clear variables;
 
 vars = load('../ADSEE_I/variables_ADSEE_I.mat');
 
-A = double(vars.A);               % <---- CHANGE FOR ELECTRIC/HYBRID
-MAC = double(vars.MAC);           % <---- CHANGE FOR ELECTRIC/HYBRID
-MTOW = double(vars.MTOW);         % <---- CHANGE FOR ELECTRIC/HYBRID
-OEW = double(vars.OEW)            % <---- CHANGE FOR ELECTRIC/HYBRID
-S_ref = double(vars.S);           % <---- CHANGE FOR ELECTRIC/HYBRID
-v = double(vars.V_cruise);        % <---- CHANGE FOR ELECTRIC/HYBRID
-W4W5 = double(vars.W4W5);         % <---- CHANGE FOR ELECTRIC/HYBRID
-W_f = double(vars.W_fuel_total);  % <---- CHANGE FOR ELECTRIC/HYBRID
-taper_ratio = double(vars.tr);    % <---- CHANGE FOR ELECTRIC/HYBRID
-sweep_c4 = double(vars.sweep_4c); % <---- CHANGE FOR ELECTRIC/HYBRID
-sweep_c2 = double(vars.sweep_2c); % <---- CHANGE FOR ELECTRIC/HYBRID
-sweep_LE = double(vars.sweep_LE); % <---- CHANGE FOR ELECTRIC/HYBRID
-sweep_TE = double(vars.sweep_TE); % <---- CHANGE FOR ELECTRIC/HYBRID
-b = double(vars.b);               % <---- CHANGE FOR ELECTRIC/HYBRID
-b_h = double(vars.b_h);           % <---- CHANGE FOR ELECTRIC/HYBRID
-b_v = double(vars.b_v);           % <---- CHANGE FOR ELECTRIC/HYBRID
+A = double(vars.A);
+MAC = double(vars.MAC);
+MTOW = double(vars.MTOW);
+OEW = double(vars.OEW)
+S_ref = double(vars.S);
+v = double(vars.V_cruise);
+W4W5 = double(vars.W4W5);
+W_f = double(vars.W_fuel_total);
+taper_ratio = double(vars.tr);
+sweep_c4 = double(vars.sweep_4c);
+sweep_c2 = double(vars.sweep_2c);
+sweep_LE = double(vars.sweep_LE);
+sweep_TE = double(vars.sweep_TE);
+b = double(vars.b);
+b_h = double(vars.b_h);
+b_v = double(vars.b_v);
 V_stall = double(vars.V_stall);
 
 LAMBDA = sweep_c4;    % Wingsweep at 0.25MAC
@@ -53,11 +53,11 @@ lambda = taper_ratio; % taper ratio
 LAMBDA_ht = sweep_c4; % Sweep at 25% MAC
 A_ht = double(vars.A_h); % Aspect ratio horizontal tailwing                   ??????
 H_t_over_H_v = 0.; % = 0 for conventional tail, 1 for T-tail
-LAMBDA_vt = LAMBDA_ht; % Sweep at 25% of vertical tail MAC                    ??????
+LAMBDA_vt = LAMBDA_ht; % Sweep at 25% of vertical tail MAC      ??????
 A_vt = double(vars.A_v); % Aspect ratio vertical tail                         ??????
-lambda_vt = 1.; % taper raio vertical tail                                    ??????
-lambda_h = 1; %Taper ratio horizontal tail                                    ??????
-L_t = 3.9*3.2808; % Tail length, wing quarter MAC to tail quarter MAC in ft   ??????
+lambda_vt = 1.; % taper raio vertical tail                      ??????
+lambda_h = 1; %Taper ratio horizontal tail                      ??????
+L_t = 4*3.2808; % Tail length, wing quarter MAC to tail quarter MAC in ft   ??????
 W_press = 0 ;%11.9+(V_pr*P_delta)^0.271; %Weight penalty due to pressurization; PROBABLY ZERO FOR OUR DESIGNS BECAUSE WE DON'T PRESSURIZE OUR CABIN
 W_l = (MTOW - W_f) * 2.2; %Landing design gross weight
 
@@ -68,7 +68,7 @@ L_n = 15.; %Extended nose gear length (inch)                    ??????
 
 
 W_en = 345. * 2.2; %Engine weight (each) in pounds              <---- INPUT
-N_en = double(vars.("N")); %Number of engines\                  XXXX   <---- INPUT
+N_en = double(vars.("N")); %Number of engines\                  XXXX
 V_i = V_t * 1.05; %Integral tanks volume in gallons
 
 N_t = 1; %Number of fuel tanks                                  ??????
@@ -98,13 +98,13 @@ xc_max = 0.25; % (x/c)_max is the position of maximum thickness         ????????
 k = 0.634E-5; % smooth paint
 % k = 0.052E-5; % smooth molded composite
 
-% 
-% L1 = 1.4; % nosecone length                               ??????? SHOULD BE DONE WITH DRAWINGS I GUESS?????
-% L2 = 3.57; % main fuselage length                          ??????? SHOULD BE DONE WITH DRAWINGS I GUESS?????
-% L3 = 8-L1-L2; % tailcone length                               ??????? SHOULD BE DONE WITH DRAWINGS I GUESS?????
-% L = (L1+L2+L3)*3.281 ; %Fuselage structural length in ft for lecture 6 raymer pls dont hate
-% A_cs = 2.9;
-% D = sqrt(A_cs/pi) % derived from frontal area (even though fuselage may not be cilindrical)
+
+L1 = 1.4; % nosecone length                               ??????? SHOULD BE DONE WITH DRAWINGS I GUESS?????
+L2 = 3.57; % main fuselage length                          ??????? SHOULD BE DONE WITH DRAWINGS I GUESS?????
+L3 = 8-L1-L2; % tailcone length                               ??????? SHOULD BE DONE WITH DRAWINGS I GUESS?????
+L = (L1+L2+L3)*3.281 ; %Fuselage structural length in ft for lecture 6 raymer pls dont hate
+A_cs = 2.9;
+D = sqrt(A_cs/pi) % derived from frontal area (even though fuselage may not be cilindrical)
 
 
 %L1_pos = 'L1:  ';
@@ -206,11 +206,11 @@ c_l_alpha = double(input(prompt_dclda));
 c_l_alpha = 0.32; % Airfoil lift curve slope  <------- INPUT FROM BOOK
 S_ref = S_ref; % Wing surface in square meters
 c_d0 = Fast_Cd0; % 2D zero lift drag coefficient        
-%V = 1.2*V_stall; %speed in m/s                          % XXXXXXX
+V = 1.2*V_stall; %speed in m/s                          % XXXXXXX
 b = b; %wingspan in meters
 
-aileron_l = AileronNEW(c_r, c_t, sweep_LE, sweep_TE, c_l_alpha,...
-   S_ref, c_d0, V_stall, b);
+%aileron_l = AileronNEW(c_r, c_t, sweep_LE, sweep_TE, c_l_alpha,...
+ %   S_ref, c_d0, V_stall, b);
 
 
 % P = AileronSizing.Intergral(lambda, theta, b1, b2, c_l_alpha, tau, S_ref, b, total_cD0, c_r, da_max, v);
@@ -222,6 +222,9 @@ aileron_l = AileronNEW(c_r, c_t, sweep_LE, sweep_TE, c_l_alpha,...
 
 % disp('The total aileron size is from the tip of the wing up until: in [m] from the base of the fuselage'), disp(b1);
 % disp('Inner Aileron Chord:'), disp(Inner_Ail_Chord), disp('Inner Aileron Chord:'), disp(Outer_Ail_Chord);
+%%
+
+%disp(["Final answer: for aileron", num2str(aileron_l)])
 
 %% ADSEE II - Lecture 6 - Class II Weights
 W_battery_hybrid = 200;  %just some values for code testing
