@@ -24,7 +24,7 @@ b_v = double(vars.b_v);
 V_stall = double(vars.V_stall);
 
 LAMBDA = sweep_c4;    % Wingsweep at 0.25MAC
-Wfiml = 0.97 * MTOW * 9.81;      % Aircraft weight at fuel intensive mission leg %ADSEEII-LECTURE1-SLIDE48
+Wfiml = 0.97 * MTOW * 9.81;      % Aircraft weight at fuel intensive mission leg %ADSEEII-LECTURE1-SLIDE48 !!!!! ELECTRIC = 1
 WSsc = MTOW * 0.98 * 9.81 / S_ref;      % Wing loading at the start of the cruise
 WSec = W4W5 * WSsc;     % Wing loading at the end of the cruise
 
@@ -107,6 +107,8 @@ A_cs = 2.9;
 D = sqrt(A_cs/pi) % derived from frontal area (even though fuselage may not be cilindrical)
 
 
+<<<<<<< HEAD
+=======
 %L1_pos = 'L1:  ';
 %L1 = double(input(L1_pos));
 
@@ -116,6 +118,7 @@ D = sqrt(A_cs/pi) % derived from frontal area (even though fuselage may not be c
 %L3_pos = 'L3:  ';
 %L3 = double(input(L3_pos));
 
+>>>>>>> 40294b4d7271e29e1454df91c9debfdf9ced8530
 
 L1_pos = 'L1:  ';   % nosecone length
 L1 = double(input(L1_pos));
@@ -126,15 +129,12 @@ L2 = double(input(L2_pos));
 L3_pos = 'L3:  ';   % tailcone length
 L3 = double(input(L3_pos));
 
-
-% L1 = 1; % nosecone length                               ??????? SHOULD BE DONE WITH DRAWINGS I GUESS?????
-% L2 = 4; % main fuselage length                          ??????? SHOULD BE DONE WITH DRAWINGS I GUESS?????
-% L3 = 2; % tailcone length                               ??????? SHOULD BE DONE WITH DRAWINGS I GUESS?????
 L = (L1+L2+L3)*3.281 ; %Fuselage structural length in ft for lecture 6 raymer pls dont hate
+<<<<<<< HEAD
+=======
 
+>>>>>>> 40294b4d7271e29e1454df91c9debfdf9ced8530
 
-A_cs = 3;
-D = sqrt(A_cs/pi); % derived from frontal area (even though fuselage may not be cilindrical)
 
 A_cs = 3;
 D = sqrt(A_cs/pi); % derived from frontal area (even though fuselage may not be cilindrical)

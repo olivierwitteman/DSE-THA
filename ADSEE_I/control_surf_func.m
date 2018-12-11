@@ -4,7 +4,6 @@ function [S_h, S_v] = control_surf_func(MAC, S, b, l_fus, empen_x, x_aft_cg)
 empen_x = empen_x * l_fus
 
 
-
 V_h = [0.92, 0.60, 0.71, 0.61, 0.48, 0.7,...
     0.61, 0.76, 0.49, 0.83, 0.63];                    % from slides (source Roskam)
 V_h = mean(V_h);
