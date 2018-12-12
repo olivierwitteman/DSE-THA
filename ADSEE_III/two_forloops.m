@@ -175,7 +175,7 @@ CL_A_h = 1.04 + 0.3;% lift coefficient of wing+fuselage (without tail, landing c
 % lecture 4 slide 37
 
 dCl_max = 2.0; % change from zero to Clmax
-CL_h = -0.35*Ah;% for fixed
+CL_h = -0.35*Ah^(1/3);% for fixed
 
 CL_0 = 0.8563; % 
 Cm0 = -0.216; %  (for main wing) [-]

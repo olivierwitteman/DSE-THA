@@ -231,6 +231,7 @@ for i  = x_lemac
     location_fuel = 2.63;                %c.g. Position Fuel    <----- INPUT
 %     location_fuel = cg_OEW + 0.10*l_fus;
 %     location_feul = x_Fuel;
+    location_fuel  = i + 0.4*MAC
 
     %cargo
     W_OEW_cargo = W_OEW+4*mass_bags;
