@@ -262,15 +262,15 @@ OEWDES3_ARMS = [Xlemac+0.4*MAC,Xlemac+0.25*MAC+L_t+0.15*MAC_ht,Xlemac+0.25*MAC+L
     Xlemac+0.3*MAC,0.15*L,Xlemac+0.25*MAC,Xlemac+0.4*MAC,0.5*L,0.5*L,0.3*L,0.3*L,Xlemac+0.4*MAC,0.4*L].';
     if config == 1
         eqn1 = Xlemac + CG_OEW_MAC*MAC == W_breakdownHYB*OEWDES1_ARMS/W_totalHYB;
-        XLEMACSOLVED = double(solve(eqn1, Xlemac))
+        XLEMAC = double(solve(eqn1, Xlemac))
     elseif config == 2
         eqn2 = Xlemac + CG_OEW_MAC*MAC == W_breakdown*OEWDES2_ARMS/W_total;
-        XLEMACSOLVED = double(solve(eqn2, Xlemac))
+        XLEMAC = double(solve(eqn2, Xlemac))
     elseif config == 3
         eqn3 = Xlemac + CG_OEW_MAC*MAC == W_breakdownELEC*OEWDES2_ARMS/W_totalELEC;
-        XLEMACSOLVED = double(solve(eqn3, Xlemac))
+        XLEMAC = double(solve(eqn3, Xlemac))
     end
  L = L*3.2808; %Changing L back to feet
  L_t=L_t*3.2808; %Changing L_t back to feet
  
- CG_OEW = double(XLEMACSOLVED + CG_OEW_MAC*MAC)
+ CG_OEW = double(XLEMAC + CG_OEW_MAC*MAC)
