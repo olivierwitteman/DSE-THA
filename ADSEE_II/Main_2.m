@@ -230,7 +230,7 @@ W_battery_electric = 800; %just some values for code testing
 
 W_breakdown = C2W.calculation(W_dg,N_z,N_gear,S_ref*10.7639,A,tc_avg,lambda,LAMBDA,W_f*2.2,L/D,W_f*2.2,v,rho,S_ht,LAMBDA_ht,A_ht,lambda_h,H_t_over_H_v,S_vt,LAMBDA_vt,A_vt,lambda_vt,L_t,W_press,W_l,L_m,L_n,W_en,N_en,V_t,V_i,N_t,L,b,W_uav,N_p,M)
 W_breakdownHYB = W_breakdown + [0 0 0 0 0 0 0 W_battery_hybrid 0 0 0 0 0 0];
-W_breakdownELEC = W_breakdown + [0 0 0 0 0 0 0 W_battery_electric 0 0 0 0 0 0];
+W_breakdownELEC = W_breakdown + [0 0 0 0 0 0 0 W_battery_electric-W_breakdown(8) 0 0 0 0 0 0];
 %The variables in the matrix W_breakdown are given below
 %W_breakdown = [W_wing, W_horizontaltail, W_verticaltail, W_fuselage, W_mainlandinggear, W_noselandinggear, W_installedengines, W_fuelsystem, W_flightcontrols, W_hydraulics, W_avionics, W_electrical, W_airco_and_anti_ice, W_furnishings]/2.2;
 
