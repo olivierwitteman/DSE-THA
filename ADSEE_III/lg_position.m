@@ -1,14 +1,12 @@
 clc;
 
-l_plane = 7.5;
-tailcone_length = 3;
-
-
 perc_mac = 0.4; % 40% of mac
-most_aft_cg = 3.33;
 
-x_lemac = 2.95;
-MAC = 1.41;
+l_plane = 7.5;       % <---- INPUT
+tailcone_length = 3; % <---- INPUT
+most_aft_cg = 3.33;  % <---- INPUT
+x_lemac = 2.95;      % <---- INPUT
+MAC = 1.41;          % <---- INPUT
 
 l_gear_n = x_lemac + perc_mac*MAC;
 
