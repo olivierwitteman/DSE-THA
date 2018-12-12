@@ -237,26 +237,20 @@ x_ac_c = transpose(x_ac_c)
 
 
 % Stability Curve
-Sh_s_mat = zeros(301,1);
-Sh_s_c_mat = zeros(301,1);
-Sh_s_ns_mat = zeros(301,1);
+Sh_s_mat = zeros(301,1)
+Sh_s_
 
 for i = 1:1:301
-    Sh_S = ((x_cg_c(i)) + SM - (x_ac_c(i)))/((CLa_h/CLa_A_h)*(1-de_da(i))*(lh(i)/mac)*Vh_V^2);
+    Sh_S = ((x_cg_c(i)) + SM - (x_ac_c(i)))/((CLa_h/CLa_A_h)*(1-de_da(i))*(lh/mac)*Vh_V^2);
     Sh_s_mat(i,1) = Sh_S
     
-    Sh_S_NS = ((x_cg_c(i)) - (x_ac_c(i)))/((CLa_h/CLa_A_h)*(1-de_da(i))*(lh(i)/mac)*Vh_V^2 );
-    Sh_s_ns_mat(i, 1) = Sh_S_NS;
-    
-    Sh_S_C = ((Cm_ac/CL_A_h) + (x_cg_c(i))-(x_ac_c(i))) / ((CL_h/CL_A_h)*(lh(i)/mac)*Vh_V^2);
-    Sh_s_c_mat(i, 1) = Sh_S_C 
 end
 
-% % Neutral Stability Curve (including stability margin)
-% Sh_S_NS = ((x_cg_c) - (x_ac_c))/((CLa_h/CLa_A_h)*(1-de_da)*(lh/mac)*Vh_V^2 );
-% 
-% % Controllablity Curve
-% Sh_S_C = ((Cm_ac/CL_A_h) + (x_cg_c)-(x_ac_c)) / ((CL_h/CL_A_h)*(lh/mac)*Vh_V^2);
+% Neutral Stability Curve (including stability margin)
+Sh_S_NS = ((x_cg_c) - (x_ac_c))/((CLa_h/CLa_A_h)*(1-de_da)*(lh/mac)*Vh_V^2 );
+
+% Controllablity Curve
+Sh_S_C = ((Cm_ac/CL_A_h) + (x_cg_c)-(x_ac_c)) / ((CL_h/CL_A_h)*(lh/mac)*Vh_V^2);
 
 %-------------------------------------------------------------------------
 
@@ -264,12 +258,7 @@ figure
 yyaxis right
 % plots
 % figure
-plot(x_cg_c, Sh_s_mat)
-hold on
-plot(x_cg_c, Sh_s_ns_mat)
-plot(x_cg_c, Sh_s_c_mat)
-
-% plot(x_cg_c,Sh_S,x_cg_c,Sh_S_NS,x_cg_c,Sh_S_C, "LineWidth", thick)
+plot(x_cg_c,Sh_S,x_cg_c,Sh_S_NS,x_cg_c,Sh_S_C, "LineWidth", thick)
 % title('Scissors-plot: Stability & Controllability Curve')
 % xlabel('x_{cg}/MAC [%]')
 ylabel('S_h/S [-]')
@@ -312,7 +301,7 @@ for i  = x_lemac
 
 %     cg_OEW = cg_OEW*1.001
     cg_OEW = cg_OEW + 0.001*lf
-    cg_OEW = 2.9 + 6*0.2
+    cg_OEW = 2.9
    
 
     seat_pilot=2.2 ;                    %c.g. Position Pilot   <----- INPUT 
