@@ -78,16 +78,16 @@ lh = lh + 1 % <----- INPUT ???????????????????
 lh = 3.8; % !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 x_lemac = x_datum + x_mac;          % x location of leading edge mean aerodynamic chord [m] ???????????
-x_lemac = 2.2;
+x_lemac = 3.25;
 
 x_OEW = x_lemac + 0.375*mac;        % ?????? assumed CG of operational empty weight [m] >>>>>>>>> HAS TO BE SAME
-x_OEW = (2.9 - x_lemac)/mac
+x_OEW = (3.4 - x_lemac)/mac
 
 
-x_Cargo = 2.5;                       % ?????  assumed CG of cargo in meters [m]
+x_Cargo = 5.5;                       % ?????  assumed CG of cargo in meters [m]
 
 x_Fuel = x_lemac + 0.5*mac;         % ?????? CG of fuel [m]
-x_Fuel = 2.63;
+% x_Fuel = 2.63;
 %--------------------------------------------------------------------------
 
 %% scissor plot

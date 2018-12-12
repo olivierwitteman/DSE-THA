@@ -332,20 +332,7 @@ xlabel("x_{cg}/MAC")
 ylabel("Mass [kg]")
 legend("Cargo", "Front to back", "Back to fron", "Fuel")
 
-prompt_for_cg = 'What is the forward cg position: ';
-cg_foward = double(input(prompt_for_cg))
-
-
-prompt_aft_cg = 'What is the aft cg position: ';
-cg_aft = double(input(prompt_aft_cg))
-
-prompt_lemac = 'What is the lemac position: ';
-lemac_pos = double(input(prompt_lemac))
-
-
-prompt_surface = 'What is your area ratio: ';
-Sh_ratio = double(input(prompt_surface))
-
-Sh_2 = Sh_ratio * double(vars.S)
+prompt_cg = 'What wing loading did you choose: ';
+WS = double(input(prompt_WS))
 
 

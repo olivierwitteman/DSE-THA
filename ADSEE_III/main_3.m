@@ -1,5 +1,5 @@
 clc;
-clear variables;
+% clear variables;
 %% ADSEE III / SEAD
 % Inputs
 
