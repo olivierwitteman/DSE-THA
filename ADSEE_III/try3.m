@@ -65,7 +65,6 @@ mac = (2/3)*Cr*( (1 + lambda + lambda^2)/(1+lambda)); % mean aerodynamic chord [
 mac = double(vars.MAC); %%%%% from class I
 y_mac = (b/6)*((1 + 2*lambda)/(1 + lambda)); %y location of mac [m]
 x_mac = y_mac*tan(sweep_LE);          %x location of mac [m] 
-
 x_datum = 2.7 ;                  % <----- INPUT    measured from planform for given geometry (from nose to wing) [m] ??????? ASK SUMANT
 %--------------------------------------------------------------------------
 %Calculate horizontal tail mean aerodynamic chord
@@ -76,30 +75,19 @@ x_datum_h =7.6 ;                  % <------ INPUT     measured from planform for
 %--------------------------------------------------------------------------
 lh = x_datum_h + x_mac_h + 0.25*mac_h - (x_datum + x_mac + 0.25*mac); % ??????? distance between aerodynamic center of main wing and horizontal tail [m] 
 lh = lh + 1 % <----- INPUT ???????????????????
-
+lh = 3.8; % !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 x_lemac = x_datum + x_mac;          % x location of leading edge mean aerodynamic chord [m] ???????????
-x_lemac = 2.2;
-x_lemac = [1:0.01:4]
+x_lemac = 3.25;
 
 x_OEW = x_lemac + 0.375*mac;        % ?????? assumed CG of operational empty weight [m] >>>>>>>>> HAS TO BE SAME
-x_OEW = (2.9 - x_lemac)/mac
+x_OEW = (3.4 - x_lemac)/mac
 
 
-x_Cargo = 2.5;                      % ?????? assumed CG of cargo in meters [m]
+x_Cargo = 5.5;                       % ?????  assumed CG of cargo in meters [m]
 
 x_Fuel = x_lemac + 0.5*mac;         % ?????? CG of fuel [m]
 % x_Fuel = 2.63;
-
-
-lh = 3.8; % !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-lh = (0.9*lf - x_lemac)/mac
-
-lfn = 2.2; %distance from nose to leading edge of root chord [m] ?????????????????????????????????????????????????
-lfn = x_lemac
-
-ln = 2.34; %distance from engine to quater chord mac [m] .   ?????????????????????????????????????????????????
-ln = lfn - 0.7
 %--------------------------------------------------------------------------
 
 %% scissor plot
@@ -124,12 +112,6 @@ CLa_A_h = CLa_w*(1+(2.15*bf/b))*(Snet/S) + ((pi/2)*(bf^2/S));
 zh = 0.600 + 0.4881 ;%vertical distance between wing and tail root chord taken from current geometry [m]
 m_tv = 2*zh/b; % distance factor between horizontal tail and vortex shed plane of main wing [-]
 r = 2*lh/b; % distance factor quarter chord main wing and tail [-]
-r = lh
-r = r.'
-
-% linspace 1
-% for loop 2
-% overwrite
 
 %ADDITION FOR PROPELLER 
 rho= 0.736; % density at given altitude [kg/m^3]
@@ -137,106 +119,68 @@ Pbr= 132; %shaft horse power of one engine 132HP = 99000W (Rotax 915)
 Cl= 0.645 ;%lift coefficient at given altitude for AoA = 0 with incidence -2 deg!
 phi= asin(m_tv/r)*180/pi; %angle between r and m_tv
 
-% delta_s_de_da = 6.5*((rho*Pbr^2*S^3+Cl^3)/(lh^4*MTOW^3))^(0.25)*(sin(6*phi))^(2.5); %downwash propeller factor
-delta_s_de_da = 0
+delta_s_de_da = 6.5*((rho*Pbr^2*S^3+Cl^3)/(lh^4*MTOW^3))^(0.25)*(sin(6*phi))^(2.5); %downwash propeller factor
 
-result_mat = zeros(4, length(r));
-%counter = 1;
-for i = 1:1:length(r)
-    ked = ((0.1121+0.1265*sweep_14+0.1766*sweep_14^2) / r(i)^2 ) + 0.1024/r(i) + 2;  %downwash corrective coefficient 
-    ked0 = 0.1124/r(i)^2 + 0.1024/r(i) + 2; %downwash corrective coefficient 
-    de_da = delta_s_de_da*0 + (ked/ked0)*( (r(i)/(r(i)^2 + m_tv^2))*(0.4876/sqrt(r(i)^2 + 0.6319 + m_tv^2))+...        
-        (1+(r(i)^2/(r(i)^2 + 0.7915+5.0734*m_tv^2))^0.3113)*(1-sqrt(m_tv^2/(1+m_tv^2))))...
-        *(CLa_w/(pi*A)); %total downwash with added delta_s controbution for propeller !!!!!! delta_s_de_da 000
-    
-    kn = -4.0;% for an engine positioned in front of the lemac/nose propeller
-    x_ac_w = 0.25; %aerodynamic center of wing (assumed at 0.4mac)
-    x_ac_c = x_ac_w - ((1.8/CLa_A_h)*(bf*hf*lfn/(S*mac))) +...
-        ((0.273/(1+lambda))*((bf*cg*(b-bf))/(mac^2*(b+2.15*bf))))*tan(sweep_14) +...
-        2*kn*((bn^2*ln)/(S*mac*CLa_A_h)); %total aircraft aerodynamic center
-
-    Vh_V = sqrt(0.85); %flow velocity ratio between H-tail and main wing [-]
-    
-    
-    result_mat(1,i) = ked;
-    result_mat(2,i) = ked0;
-    result_mat(3,i) = de_da;
-    result_mat(4,i) = x_ac_c(i);
-    
-
-end
+ked = ((0.1121+0.1265*sweep_14+0.1766*sweep_14^2) / r^2 ) + 0.1024/r + 2;  %downwash corrective coefficient 
+ked0 = 0.1124/r^2 + 0.1024/r + 2; %downwash corrective coefficient 
+de_da = delta_s_de_da*0 + (ked/ked0)*( (r/(r^2 + m_tv^2))*(0.4876/sqrt(r^2 + 0.6319 + m_tv^2))+...
+    (1+(r^2/(r^2 + 0.7915+5.0734*m_tv^2))^0.3113)*(1-sqrt(m_tv^2/(1+m_tv^2))))...
+    *(CLa_w/(pi*A)); %total downwash with added delta_s controbution for propeller !!!!!! delta_s_de_da 000
 
 
+kn = -4.0;% for an engine positioned in front of the lemac/nose propeller
+x_ac_w = 0.25; %aerodynamic center of wing (assumed at 0.4mac)
+x_ac_c = x_ac_w - ((1.8/CLa_A_h)*(bf*hf*lfn/(S*mac))) +...
+    ((0.273/(1+lambda))*((bf*cg*(b-bf))/(mac^2*(b+2.15*bf))))*tan(sweep_14) +...
+    2*kn*((bn^2*ln)/(S*mac*CLa_A_h)); %total aircraft aerodynamic center
 
+Vh_V = sqrt(0.85); %flow velocity ratio between H-tail and main wing [-]
 
 %% controllability
 
-CL_A_h = 1.04 + 0.3;% lift coefficient of wing+fuselage (without tail, landing configuration), from Data sheet given by Martin
+CL_A_h = 1.03;% lift coefficient of wing+fuselage (without tail, landing configuration)
 % lecture 4 slide 37
 
 dCl_max = 2.0; % change from zero to Clmax
-CL_h = -0.35*Ah;% for fixed
+CL_h = -1.0;% for fixed
 
 CL_0 = 0.8563; % 
 Cm0 = -0.216; %  (for main wing) [-]
 
-         %Cmac_w = Cm0*((A*cos(sweep_14)^2)/(A+2*cos(sweep_14))); %pitching moment coefficient at aerodynamic center 
-%for wing
+mu_1=0.17; % accounts for the effect of the camber increase associated with the deflection angle of the flaps
+mu_2=0.5;%represent the 2D effect lift contribution generated by the high lift devices
+mu_3=0.55;% accounts for the effect of sweep angle
+cf_c= 1.33-0.1; %extended chord due to flaps and normal chord length
+S_wf_S=1.33-0.1; %ratio between flapped wing area and reference wing area 
+C_L= 1.9; %aircraft lift at landing
 
-         %Cmac_nac = 0.2; %assumed pitching moment coefficient at aerodynamic center (please estimate correctly when engine data available)
+Cmac_w = Cm0*((A*cos(sweep_14)^2)/(A+2*cos(sweep_14))); %pitching moment coefficient at aerodynamic center 
+                                        %for wing
+
+Cmac_nac = 0.2; %assumed pitching moment coefficient at aerodynamic center (please estimate correctly when engine data available)
 %for nacelle
 
-         %Cmac_fus = -1.8*(1-(2.5*bf/lf))*((pi*bf*hf*lf)/(4*S*mac))*(CL_0/CLa_A_h); %pitching moment coefficient at aerodynamic center 
-%for fuselage
+Cmac_fus = -1.8*(1-(2.5*bf/lf))*((pi*bf*hf*lf)/(4*S*mac))*(CL_0/CLa_A_h); %pitching moment coefficient at aerodynamic center 
+% for fuselage
+dCl_max = 0.3;
+Delta_f_Cmac=mu_2*(-mu_1*dCl_max*cf_c-[C_L+dCl_max*(1-S_wf_S)]*cf_c/8*(cf_c-1))+0.7*A/(1+2/A)*mu_3*dCl_max*tan(2.8)
 
-         %Cm_ac = Cmac_w + Cmac_fus + Cmac_nac; %total moment coefficient at aerodynamic center
+%
+Cm_ac = Cmac_w + Cmac_fus + Cmac_nac +Delta_f_Cmac %total moment coefficient at aerodynamic center
          
-Cm_ac = -0.082; %From data sheet provided by Martin (ac assumed to be within +-10% of the neutral point)
+% Cm_ac = -0.082; %(ac assumed to be within +-10% of the neutral point)
 %------------------------------------------------------------------------
 
-% x_cg_c = (-1:0.01:1); % 201 length
-x_cg_c = linspace(-1,1,301)
-x_cg_c = x_cg_c.'
-
-
-result_mat(1,i) = ked;
-result_mat(2,i) = ked0;
-result_mat(3,i) = de_da;
-result_mat(4,i) = x_ac_c(i);
-
-ked = result_mat(1, :)
-ked0 = result_mat(2, :)
-de_da = result_mat(3, :)
-x_ac_c = result_mat(4, :)
-
-ked = ked.'
-ked0 = ked0.'
-de_da = de_da.'
-x_ac_c = transpose(x_ac_c)
-
-
+x_cg_c = (-1:0.01:1);
 
 % Stability Curve
-Sh_s_mat = zeros(301,1);
-Sh_s_c_mat = zeros(301,1);
-Sh_s_ns_mat = zeros(301,1);
+Sh_S = ((x_cg_c) + SM - (x_ac_c))/((CLa_h/CLa_A_h)*(1-de_da)*(lh/mac)*Vh_V^2);
 
-for i = 1:1:301
-    Sh_S = ((x_cg_c(i)) + SM - (x_ac_c(i)))/((CLa_h/CLa_A_h)*(1-de_da(i))*(lh(i)/mac)*Vh_V^2);
-    Sh_s_mat(i,1) = Sh_S
-    
-    Sh_S_NS = ((x_cg_c(i)) - (x_ac_c(i)))/((CLa_h/CLa_A_h)*(1-de_da(i))*(lh(i)/mac)*Vh_V^2 );
-    Sh_s_ns_mat(i, 1) = Sh_S_NS;
-    
-    Sh_S_C = ((Cm_ac/CL_A_h) + (x_cg_c(i))-(x_ac_c(i))) / ((CL_h/CL_A_h)*(lh(i)/mac)*Vh_V^2);
-    Sh_s_c_mat(i, 1) = Sh_S_C 
-end
+% Neutral Stability Curve (including stability margin)
+Sh_S_NS = ((x_cg_c) - (x_ac_c))/((CLa_h/CLa_A_h)*(1-de_da)*(lh/mac)*Vh_V^2 );
 
-% % Neutral Stability Curve (including stability margin)
-% Sh_S_NS = ((x_cg_c) - (x_ac_c))/((CLa_h/CLa_A_h)*(1-de_da)*(lh/mac)*Vh_V^2 );
-% 
-% % Controllablity Curve
-% Sh_S_C = ((Cm_ac/CL_A_h) + (x_cg_c)-(x_ac_c)) / ((CL_h/CL_A_h)*(lh/mac)*Vh_V^2);
+% Controllablity Curve
+Sh_S_C = ((Cm_ac/CL_A_h) + (x_cg_c)-(x_ac_c)) / ((CL_h/CL_A_h)*(lh/mac)*Vh_V^2);
 
 %-------------------------------------------------------------------------
 
@@ -244,15 +188,10 @@ figure
 yyaxis right
 % plots
 % figure
-plot(x_cg_c, Sh_s_mat)
-hold on
-plot(x_cg_c, Sh_s_ns_mat)
-plot(x_cg_c, Sh_s_c_mat)
-
-% plot(x_cg_c,Sh_S,x_cg_c,Sh_S_NS,x_cg_c,Sh_S_C, "LineWidth", thick)
+plot(x_cg_c,Sh_S,x_cg_c,Sh_S_NS,x_cg_c,Sh_S_C, "LineWidth", thick)
 % title('Scissors-plot: Stability & Controllability Curve')
 % xlabel('x_{cg}/MAC [%]')
-ylabel('S_h/S [-]')
+ylabel('S_h/S [-]', "FontSize", 30)
 axis([-1 1 -0.5 0.6])
 % legend('Stability','Neutral Stability','Controllability')
 hold on
@@ -266,9 +205,9 @@ x_lemac = [1: 0.01: 5];
 
 cg_mat = zeros(length(x_lemac),2);
 counter = 1
-cg_OEW = 2.9 - 0.9
+cg_OEW = 2.9 - 0.9;
 for i  = x_lemac
-    lf = 7.6;                                      % <----- INPUT m 
+    lf = 7.5;                                      % <----- INPUT m 
     lbs_to_kg = 0.45359237;
     mass_pax=175;                    %lbs               <----- INPUT (fixed)
     mass_pax = mass_pax*lbs_to_kg;
@@ -291,8 +230,8 @@ for i  = x_lemac
 %     cg_OEW = 1 + i*0.01*counter
 
 %     cg_OEW = cg_OEW*1.001
-    cg_OEW = cg_OEW + 0.001*lf
-    cg_OEW = 2.9 + 6*0.2
+%     cg_OEW = cg_OEW + 0.001*lf
+    cg_OEW = 2.9+1.7*0;
    
 
     seat_pilot=2.2 ;                    %c.g. Position Pilot   <----- INPUT 
@@ -375,8 +314,11 @@ plot([cg_mat(:,1), cg_mat(:,2)], x_lemac/lf, "LineWidth", thick)
 
 hold on
 % plot(x_cg_c,Sh_S,x_cg_c,Sh_S_NS,x_cg_c,Sh_S_C)
-xlabel("xc_{cg}/mac")
-ylabel("x_{LEMAC}/L_{FUS}")
+xlabel("xc_{cg}/mac", "FontSize", 30)
+ylabel("x_{LEMAC}/L_{FUS}", "FontSize", 30)
+
+legend("FORWARD CG", "AFT CG", "Stability", "Neutral Stability", "Controlability")
+set(gca,'FontSize',30);
 
 % yyaxis right
 % % plots
@@ -390,10 +332,35 @@ ylabel("x_{LEMAC}/L_{FUS}")
 % hold on
 
 
-% figure
-% x_lemac = 5.2;
-% line([([cg_OEW,cg_OEW_cargo]- x_lemac)/MAC],[[W_OEW,W_OEW_cargo]],'Color','green');
-% line([([cg_OEW_cargo,cg_btf_1,cg_btf_2,cg_btf_3,cg_btf_4]-x_lemac)/MAC],[W_OEW_cargo,W_OEW_1pax,W_OEW_2pax,W_OEW_3pax,W_OEW_4pax],'Color','blue');
-% line([([cg_OEW_cargo,cg_ftb_1,cg_ftb_2,cg_ftb_3,cg_ftb_4]-x_lemac)/MAC],[W_OEW_cargo,W_OEW_1pax,W_OEW_2pax,W_OEW_3pax,W_OEW_4pax],'Color','red');
-% line([([cg_nofuel,cg_fuel]-x_lemac)/MAC],[W_OEW_4pax, W_OEW_4pax+mass_fuel],'Color','black');
+figure
+x_lemac = 2.9;
+line([([cg_OEW,cg_OEW_cargo]- x_lemac)/MAC],[[W_OEW,W_OEW_cargo]],'Color','green');
+line([([cg_OEW_cargo,cg_btf_1,cg_btf_2,cg_btf_3,cg_btf_4]-x_lemac)/MAC],[W_OEW_cargo,W_OEW_1pax,W_OEW_2pax,W_OEW_3pax,W_OEW_4pax],'Color','blue');
+line([([cg_OEW_cargo,cg_ftb_1,cg_ftb_2,cg_ftb_3,cg_ftb_4]-x_lemac)/MAC],[W_OEW_cargo,W_OEW_1pax,W_OEW_2pax,W_OEW_3pax,W_OEW_4pax],'Color','red');
+line([([cg_nofuel,cg_fuel]-x_lemac)/MAC],[W_OEW_4pax, W_OEW_4pax+mass_fuel],'Color','black');
+
+xlabel("x_{cg}/MAC")
+ylabel("Mass [kg]")
+legend("Cargo", "Front to back", "Back to fron", "Fuel")
+
+
+% prompt_for_cg = 'What is the forward cg position: ';
+% cg_foward = double(input(prompt_for_cg))
+% 
+% 
+% prompt_aft_cg = 'What is the aft cg position: ';
+% cg_aft = double(input(prompt_aft_cg))
+% 
+% prompt_lemac = 'What is the lemac position: ';
+% lemac_pos = double(input(prompt_lemac))
+% 
+% 
+% prompt_surface = 'What is your area ratio: ';
+% Sh_ratio = double(input(prompt_surface))
+% 
+% Sh_2 = Sh_ratio * double(vars.S)
+
+
+
+
 

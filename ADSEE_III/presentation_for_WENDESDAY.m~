@@ -78,16 +78,16 @@ lh = lh + 1 % <----- INPUT ???????????????????
 lh = 3.8; % !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 x_lemac = x_datum + x_mac;          % x location of leading edge mean aerodynamic chord [m] ???????????
-x_lemac = 2.2;
+x_lemac = 3.25;
 
 x_OEW = x_lemac + 0.375*mac;        % ?????? assumed CG of operational empty weight [m] >>>>>>>>> HAS TO BE SAME
-x_OEW = (.9 - x_lemac)/mac
+x_OEW = (3.4 - x_lemac)/mac
 
 
-x_Cargo = 2.5;                       % ?????  assumed CG of cargo in meters [m]
+x_Cargo = 5.5;                       % ?????  assumed CG of cargo in meters [m]
 
 x_Fuel = x_lemac + 0.5*mac;         % ?????? CG of fuel [m]
-x_Fuel = 2.63;
+% x_Fuel = 2.63;
 %--------------------------------------------------------------------------
 
 %% scissor plot
@@ -138,7 +138,7 @@ Vh_V = sqrt(0.85); %flow velocity ratio between H-tail and main wing [-]
 
 %% controllability
 
-CL_A_h = 1.04 + 0.3;% lift coefficient of wing+fuselage (without tail, landing configuration), from Data sheet given by Martin
+CL_A_h = 1.04 + 0.3;% lift coefficient of wing+fuselage (without tail, landing configuration)
 % lecture 4 slide 37
 
 dCl_max = 2.0; % change from zero to Clmax
@@ -181,7 +181,7 @@ yyaxis right
 plot(x_cg_c,Sh_S,x_cg_c,Sh_S_NS,x_cg_c,Sh_S_C, "LineWidth", thick)
 % title('Scissors-plot: Stability & Controllability Curve')
 % xlabel('x_{cg}/MAC [%]')
-ylabel('S_h/S [-]')
+ylabel('S_h/S [-]', "FontSize", 30)
 axis([-1 1 -0.5 0.6])
 % legend('Stability','Neutral Stability','Controllability')
 hold on
@@ -304,10 +304,11 @@ plot([cg_mat(:,1), cg_mat(:,2)], x_lemac/lf, "LineWidth", thick)
 
 hold on
 % plot(x_cg_c,Sh_S,x_cg_c,Sh_S_NS,x_cg_c,Sh_S_C)
-xlabel("xc_{cg}/mac")
-ylabel("x_{LEMAC}/L_{FUS}")
+xlabel("xc_{cg}/mac", "FontSize", 30)
+ylabel("x_{LEMAC}/L_{FUS}", "FontSize", 30)
 
 legend("FORWARD CG", "AFT CG", "Stability", "Neutral Stability", "Controlability")
+set(gca,'FontSize',30);
 
 % yyaxis right
 % % plots
@@ -332,6 +333,7 @@ xlabel("x_{cg}/MAC")
 ylabel("Mass [kg]")
 legend("Cargo", "Front to back", "Back to fron", "Fuel")
 
+
 prompt_for_cg = 'What is the forward cg position: ';
 cg_foward = double(input(prompt_for_cg))
 
@@ -347,5 +349,6 @@ prompt_surface = 'What is your area ratio: ';
 Sh_ratio = double(input(prompt_surface))
 
 Sh_2 = Sh_ratio * double(vars.S)
+
 
 
