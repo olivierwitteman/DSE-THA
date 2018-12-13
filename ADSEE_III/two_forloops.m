@@ -163,29 +163,9 @@ for i = 1:1:length(r)
     result_mat(3,i) = de_da;
     result_mat(4,i) = x_ac_c(i);
     
-%     
-%     result_mat(1, counter) = ked;
-%     result_mat(2, counter) = ked0;
-%     result_mat(3, counter) = de_da;
-%     result_mat(4, counter) = x_ac_c;
 
 end
 
-
-% ked = ((0.1121+0.1265*sweep_14+0.1766*sweep_14^2) / r^2 ) + 0.1024/r + 2;  %downwash corrective coefficient 
-% ked0 = 0.1124/r^2 + 0.1024/r + 2; %downwash corrective coefficient 
-% de_da = delta_s_de_da*0 + (ked/ked0)*( (r/(r^2 + m_tv^2))*(0.4876/sqrt(r^2 + 0.6319 + m_tv^2))+...
-%     (1+(r^2/(r^2 + 0.7915+5.0734*m_tv^2))^0.3113)*(1-sqrt(m_tv^2/(1+m_tv^2))))...
-%     *(CLa_w/(pi*A)); %total downwash with added delta_s controbution for propeller !!!!!! delta_s_de_da 000
-% 
-% 
-% kn = -4.0;% for an engine positioned in front of the lemac/nose propeller
-% x_ac_w = 0.25; %aerodynamic center of wing (assumed at 0.4mac)
-% x_ac_c = x_ac_w - ((1.8/CLa_A_h)*(bf*hf*lfn/(S*mac))) +...
-%     ((0.273/(1+lambda))*((bf*cg*(b-bf))/(mac^2*(b+2.15*bf))))*tan(sweep_14) +...
-%     2*kn*((bn^2*ln)/(S*mac*CLa_A_h)); %total aircraft aerodynamic center
-% 
-% Vh_V = sqrt(0.85); %flow velocity ratio between H-tail and main wing [-]
 
 
 
@@ -195,7 +175,7 @@ CL_A_h = 1.04 + 0.3;% lift coefficient of wing+fuselage (without tail, landing c
 % lecture 4 slide 37
 
 dCl_max = 2.0; % change from zero to Clmax
-CL_h = -0.35*Ah;% for fixed
+CL_h = -0.35*Ah^(1/3);% for fixed
 
 CL_0 = 0.8563; % 
 Cm0 = -0.216; %  (for main wing) [-]
