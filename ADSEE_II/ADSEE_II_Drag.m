@@ -8,11 +8,11 @@ classdef ADSEE_II_Drag
 
         function e = A_oswald_eff(A, sweep)
         A_eff = ADSEE_II_Drag.eff_ar(A);
-        if sweep == 0
-            e = A_eff*1.78*(1-0.045*A_eff^0.68) - 0.64;
-        else
-            e = A_eff*4.61*(1-0.045*A_eff^0.68)*cos(sweep)^0.15 -3.1;
-        end
+%         if sweep == 0
+        e = A_eff*1.78*(1-0.045*A_eff^0.68) - 0.64;
+%         else
+%             e = A_eff*4.61*(1-0.045*A_eff^0.68)*cos(sweep)^0.15 -3.1;
+%         end
         end
 
         function ar = eff_ar(A)
