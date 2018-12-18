@@ -224,8 +224,8 @@ aileron_l = AileronNEW(c_r, c_t, sweep_LE, sweep_TE, c_l_alpha,...
 % disp('Inner Aileron Chord:'), disp(Inner_Ail_Chord), disp('Inner Aileron Chord:'), disp(Outer_Ail_Chord);
 
 %% ADSEE II - Lecture 6 - Class II Weights
-W_battery_hybrid = 200;  %just some values for code testing
-W_battery_electric = 800; %just some values for code testing
+W_battery_hybrid = 321;  %just some values for code testing
+W_battery_electric = 2053; %just some values for code testing
 
 
 W_breakdown = C2W.calculation(W_dg,N_z,N_gear,S_ref*10.7639,A,tc_avg,lambda,LAMBDA,W_f*2.2,L/D,W_f*2.2,v,rho,S_ht,LAMBDA_ht,A_ht,lambda_h,H_t_over_H_v,S_vt,LAMBDA_vt,A_vt,lambda_vt,L_t,W_press,W_l,L_m,L_n,W_en,N_en,V_t,V_i,N_t,L,b,W_uav,N_p,M)
