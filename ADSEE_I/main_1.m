@@ -20,10 +20,15 @@ MTOW_median = median(MTOW_weights)
 % W4W5 (for wing loading),
 % OEW, W_fuel_used (cruise or all????)
 
+<<<<<<< HEAD
+%MTOW = average_MTOW; % or choose average MTOW % <------ INPUT
+MTOW = 1750;
+=======
 MTOW = average_MTOW; % or choose average MTOW % <------ INPUT
 %MTOW = 5298*9.80665
 
 %MTOW = 1750;
+>>>>>>> 04e12ecf588869e10e5a6c5cb61f3dc73f991699
 
 A = 8.5;                              % <------ INPUT
 e = 0.75;                             % <------ INPUT
@@ -65,6 +70,13 @@ percent_emptiness_payload = 0.5;    % Input : how empty the payload is
 PR_func(MTOW, OEW, W_fuel_used, payload, LD_cruise, W4W5, percent_emptiness_payload);
 % maybe change W_fuel_used to W_fuel_total
 
+<<<<<<< HEAD
+%%
+
+
+
+=======
+>>>>>>> 04e12ecf588869e10e5a6c5cb61f3dc73f991699
 % choose design point so we can add S and P
 prompt_WS = 'What wing loading did you choose: ';
 WS = double(input(prompt_WS))
