@@ -28,5 +28,6 @@ end
 if strcmp(LE,'Slat')==1.
     Delta_Clmax_LE=0.4*c_ac_c;
 end
-Delta_Clmax_HLD=Delta_Clmax_LE+Delta_Clmax_TE
+
+Delta_Clmax_HLD=Delta_Clmax_TE
 end
