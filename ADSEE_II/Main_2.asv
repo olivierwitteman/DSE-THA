@@ -198,8 +198,8 @@ L_D = CLdes/cD
 
 
 %% ADSEE II - Lecture 4
-c_r = double(vars.("cr"));
-c_t = double(vars.("ct"));
+c_r =2.34;
+c_t = 0.939;
 sweep_LE; % sweep at leading edge in degrees (positive number)
 %theta = atan((c_r-c_t)/(b/2.))*180/pi;
 % theta = 10.7773; %sweep at trailing edge in degrees (positive number) (If sweep at leading edge is zero, this equals "atan((c_r-c_t)/(b/2.))"
