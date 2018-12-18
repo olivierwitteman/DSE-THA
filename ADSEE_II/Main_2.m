@@ -8,7 +8,7 @@ vars = load('../ADSEE_I/variables_ADSEE_I.mat');
 A = double(vars.A);               % <---- CHANGE FOR ELECTRIC/HYBRID
 MAC = double(vars.MAC);           % <---- CHANGE FOR ELECTRIC/HYBRID
 MTOW = double(vars.MTOW);         % <---- CHANGE FOR ELECTRIC/HYBRID
-OEW = double(vars.OEW)% <---- CHANGE FOR ELECTRIC/HYBRID
+OEW = double(vars.OEW)            % <---- CHANGE FOR ELECTRIC/HYBRID
 S_ref = double(vars.S);           % <---- CHANGE FOR ELECTRIC/HYBRID
 v = double(vars.V_cruise);        % <---- CHANGE FOR ELECTRIC/HYBRID
 W4W5 = double(vars.W4W5);         % <---- CHANGE FOR ELECTRIC/HYBRID
@@ -227,19 +227,12 @@ aileron_l = AileronNEW(c_r, c_t, sweep_LE, sweep_TE, c_l_alpha,...
 % disp('Inner Aileron Chord:'), disp(Inner_Ail_Chord), disp('Inner Aileron Chord:'), disp(Outer_Ail_Chord);
 
 %% ADSEE II - Lecture 6 - Class II Weights
-<<<<<<< HEAD
-W_battery_hybrid = 321;  %just some values for code testing
-=======
-W_battery_hybrid = 200;  %just some values for code testing
->>>>>>> 06b299c7f9c439be4aa5e977ea3dd04d195a542f
-W_battery_electric = 2053; %just some values for code testing
 
+W_battery_hybrid = 321;  %just some values for code testing
+W_battery_electric = 2053; %just some values for code testing
 
 W_breakdown = C2W.calculation(W_dg,N_z,N_gear,S_ref*10.7639,A,tc_avg,lambda,LAMBDA,W_f*2.2,L/D,W_f*2.2,v,rho,S_ht,LAMBDA_ht,A_ht,lambda_h,H_t_over_H_v,S_vt,LAMBDA_vt,A_vt,lambda_vt,L_t,W_press,W_l,L_m,L_n,W_en,N_en,V_t,V_i,N_t,L,b,W_uav,N_p,M);
 W_breakdownHYB = W_breakdown + [0 0 0 0 0 0 0 W_battery_hybrid 0 0 0 0 0 0];
-
-W_breakdownELEC = W_breakdown + [0 0 0 0 0 0 0 W_battery_electric 0 0 0 0 0 0]
-
 W_breakdownELEC = W_breakdown + [0 0 0 0 0 0 0 W_battery_electric-W_breakdown(8) 0 0 0 0 0 0];
 
 %The variables in the matrix W_breakdown are given below
@@ -249,15 +242,38 @@ W_total = sum(W_breakdown);
 W_totalHYB = sum(W_breakdownHYB);
 W_totalELEC = sum(W_breakdownELEC)
 
-config = menu('Do you want the results for Design 1 (Hybrid), Design 2 (Fuel) or Design 3 (Electric)?', '1','2','3'); 
-weight_pie = W_breakdownELEC
-perc_weights =  round(double((weight_pie/W_totalELEC)*100))
+config = menu('Do you want the prelimnary XLEMAC results for Design 1 (Hybrid), Design 2 (Fuel) or Design 3 (Electric)?', '1','2','3'); 
+weight_pie= W_breakdownELEC
+
+perc_weights =  round(double((W_breakdownELEC/W_totalELEC)*100))
+perc_weightsFUEL=round(double((W_breakdown/W_total)*100))
+perc_weightsHYB=round(double((W_breakdownHYB/W_totalHYB)*100))
 
 label_pie = {'Wing '+ string(perc_weights(1))+'%','Horizontaltail '+ string(perc_weights(2))+'%', 'Verticaltail '+ string(perc_weights(3))+'%', 'Fuselage '+ string(perc_weights(4))+'%', 'Mainlandinggear '+ string(perc_weights(5))+'%', 'Noselandinggear '+ string(perc_weights(6))+'%', 'Installedengines '+ string(perc_weights(7))+'%',... 
 'Battery Pack '+ string(perc_weights(8))+'%', 'Flightcontrols '+ string(perc_weights(9))+'%', 'Hydraulics '+ string(perc_weights(10))+'%', 'Avionics '+ string(perc_weights(11))+'%', 'Electrical '+ string(perc_weights(12))+'%', 'Airco and anti ice '+ string(perc_weights(13))+'%', 'Furnishings '+ string(perc_weights(14))+'%'}
-title('Class 2 weightbreakdown of the OEW')
-p=pie(weight_pie, label_pie)
-set(p(2:2:end),'FontSize',15)
+%title('Class 2 weightbreakdown of the electric based OEW')
+
+label_pieFUEL = {'Wing '+ string(perc_weightsFUEL(1))+'%','Horizontaltail '+ string(perc_weightsFUEL(2))+'%', 'Verticaltail '+ string(perc_weightsFUEL(3))+'%', 'Fuselage '+ string(perc_weightsFUEL(4))+'%', 'Mainlandinggear '+ string(perc_weightsFUEL(5))+'%', 'Noselandinggear '+ string(perc_weightsFUEL(6))+'%', 'Installedengines '+ string(perc_weightsFUEL(7))+'%',... 
+'Fuel system '+ string(perc_weightsFUEL(8))+'%', 'Flightcontrols '+ string(perc_weightsFUEL(9))+'%', 'Hydraulics '+ string(perc_weightsFUEL(10))+'%', 'Avionics '+ string(perc_weightsFUEL(11))+'%', 'Electrical '+ string(perc_weightsFUEL(12))+'%', 'Airco and anti ice '+ string(perc_weightsFUEL(13))+'%', 'Furnishings '+ string(perc_weightsFUEL(14))+'%'}
+%title('Class 2 weightbreakdown of the fuel based OEW')
+
+label_pieHYB = {'Wing '+ string(perc_weightsHYB(1))+'%','Horizontaltail '+ string(perc_weightsHYB(2))+'%', 'Verticaltail '+ string(perc_weightsHYB(3))+'%', 'Fuselage '+ string(perc_weightsHYB(4))+'%', 'Mainlandinggear '+ string(perc_weightsHYB(5))+'%', 'Noselandinggear '+ string(perc_weightsHYB(6))+'%', 'Installedengines '+ string(perc_weightsHYB(7))+'%',... 
+'Battery Pack '+ string(perc_weightsHYB(8))+'%', 'Flightcontrols '+ string(perc_weightsHYB(9))+'%', 'Hydraulics '+ string(perc_weightsHYB(10))+'%', 'Avionics '+ string(perc_weightsHYB(11))+'%', 'Electrical '+ string(perc_weightsHYB(12))+'%', 'Airco and anti ice '+ string(perc_weightsHYB(13))+'%', 'Furnishings '+ string(perc_weightsHYB(14))+'%'}
+%title('Class 2 weightbreakdown of the hybrid OEW')
+
+figure;
+pELEC=pie(W_breakdownELEC, label_pie)
+title('Class 2 weightbreakdown of the electric based OEW')
+
+figure;
+pFUEL=pie(W_breakdown, label_pieFUEL)
+title('Class 2 weightbreakdown of the fuel based OEW')
+figure;
+pHYB=pie(W_breakdownHYB, label_pieHYB)
+title('Class 2 weightbreakdown of the hybrid based OEW')
+
+
+%set(p(2:2:end),'FontSize',15)
 %Here two different paths are taken to taken xlemac for different wing
 %positions
 
