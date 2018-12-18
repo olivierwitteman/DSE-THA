@@ -42,7 +42,7 @@ sweep_c2_deg = sweep_c2*180/pi;
 
 
 % thickeness to chord
-cl_cruise = m_cruise*9.81*2*1./(rho_isa*V_cruise*V_cruise*S);
+cl_cruise = m_cruise*9.80665*2*1./(rho_isa*V_cruise*V_cruise*S);
 tc = 0.18;
 
 % MAC

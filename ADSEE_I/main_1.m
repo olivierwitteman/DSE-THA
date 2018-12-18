@@ -20,14 +20,14 @@ MTOW_median = median(MTOW_weights)
 % W4W5 (for wing loading),
 % OEW, W_fuel_used (cruise or all????)
 
-MTOW = average_MTOW; % or choose average MTOW % <------ INPUT
-
+%MTOW = average_MTOW; % or choose average MTOW % <------ INPUT
+MTOW=5298*9.80665
 
 
 
 
 A = 8.5;                              % <------ INPUT
-e = 0.75;                             % <------ INPUT
+e = 0.78;                             % <------ INPUT
 
 V_cruise = 180;  % kts                % <------ INPUT
 V_stall = 61;    % kts                % <------ INPUT
@@ -41,12 +41,12 @@ h = 2400;                   % <------ INPUT
 g = 9.80665;
 rho = 1.225;
 
-CL_to = 1.7; % <------ INPUT
-CL_max = 1.9; % <------ INPUT
+CL_to = 1.9; % <------ INPUT
+CL_max = 2.1; % <------ INPUT
 c = 5;       % 1.2*V_stall*grad(0.083) = 3.1 minimum . % <------ INPUT
 V_land = 1.2*32; % ms From requirements?     % <------ INPUT
 
-OEW = summary(1,2);                   % Input from fuel fractions
+OEW = 4935*9.80665;                   % Input from fuel fractions
 W_fuel_used = summary(3,2);           % Input from fuel fractions
 Wl_Wto;                               % Input from fuel fractions
 cd0_clean = Cd0;                      % Input from fuel fractions
@@ -148,7 +148,7 @@ prompt_prop_pos = 'Where to put the enignes? wing or fuselage . 1/2: ';
 prop_pos = double(input(prompt_prop_pos));
 
 if prop_pos == 2 % fuselage
-    fus_length = 7.5;   % <------ INPUT
+    fus_length = 8.;   % <------ INPUT
     X_oew = 0.40;       % <------ INPUT Assume position of the OEW cg
     X_payload = 0.667;    % <------ INPUT Assume position of the Payload(including passengers) cg
     xc_oewcg = 0.3;     % <------ INPUT
