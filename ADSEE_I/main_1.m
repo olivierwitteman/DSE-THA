@@ -20,7 +20,6 @@ MTOW_median = median(MTOW_weights)
 % W4W5 (for wing loading),
 % OEW, W_fuel_used (cruise or all????)
 
-<<<<<<< HEAD
 %MTOW = average_MTOW; % or choose average MTOW % <------ INPUT
 MTOW = 1750;
 =======
