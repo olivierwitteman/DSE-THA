@@ -2,7 +2,6 @@ clc;
 clear variables;
 %% ADSEE II
 % Inputs
-
 vars = load('../ADSEE_I/variables_ADSEE_I.mat');
 
 P = double(vars.P);
@@ -98,6 +97,7 @@ xc_max = 0.25; % (x/c)_max is the position of maximum thickness         ????????
 
 % k = 0.152E-5; % polished sheet metal
 k = 0.634E-5; % smooth paint
+<<<<<<< HEAD
 % k = 0.052E-5; % smooth molded composite
 % L1 = 1.4; % nosecone length                               ??????? SHOULD BE DONE WITH DRAWINGS I GUESS?????
 % L2 = 3.57; % main fuselage length                          ??????? SHOULD BE DONE WITH DRAWINGS I GUESS?????
@@ -112,19 +112,23 @@ k = 0.634E-5; % smooth paint
 
 %L2_pos = 'L2:  ';
 %L2 = double(input(L2_pos));
+=======
+>>>>>>> c8f72ddb6859224dc08663557d96ce2f93130eff
 
-%L3_pos = 'L3:  ';
-%L3 = double(input(L3_pos));
 
+% 
+% L1_pos = 'L1:  ';   % nosecone length
+% L1 = double(input(L1_pos));
+% 
+% L2_pos = 'L2:  ';   % main fuselage length
+% L2 = double(input(L2_pos));
+% 
+% L3_pos = 'L3:  ';   % tailcone length
+% L3 = double(input(L3_pos));
 
-L1_pos = 'L1:  ';   % nosecone length
-L1 = double(input(L1_pos));
-
-L2_pos = 'L2:  ';   % main fuselage length
-L2 = double(input(L2_pos));
-
-L3_pos = 'L3:  ';   % tailcone length
-L3 = double(input(L3_pos));
+L1 = 1.7;
+L2 = 2.8;
+L3 = 3;
 
 L = (L1+L2+L3)*3.281 ; %Fuselage structural length in ft for lecture 6 raymer pls dont hate
 
