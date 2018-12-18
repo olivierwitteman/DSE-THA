@@ -48,7 +48,7 @@ plot([range_B, range_B], [percent_emptiness_payload*A_payload, 0],'--', "Color",
 plot([0, range_B], [percent_emptiness_payload*A_payload, percent_emptiness_payload*A_payload],...
     '--', "Color","red",'LineWidth',7);
 
-ylim([0, 400])
+ylim([0,400])
 xlabel("Range [km]","FontSize", 40)
 ylabel("Payload [kg]","FontSize", 40)
 % title("Payload Range Diagram","FontSize", 25)
