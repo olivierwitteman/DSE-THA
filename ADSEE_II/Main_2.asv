@@ -5,10 +5,11 @@ clear variables;
 
 vars = load('../ADSEE_I/variables_ADSEE_I.mat');
 
+P 
 A = double(vars.A);               % <---- CHANGE FOR ELECTRIC/HYBRID
 MAC = double(vars.MAC);           % <---- CHANGE FOR ELECTRIC/HYBRID
 MTOW = double(vars.MTOW);         % <---- CHANGE FOR ELECTRIC/HYBRID
-OEW = double(vars.OEW)% <---- CHANGE FOR ELECTRIC/HYBRID
+OEW = double(vars.OEW)            % <---- CHANGE FOR ELECTRIC/HYBRID
 S_ref = double(vars.S);           % <---- CHANGE FOR ELECTRIC/HYBRID
 v = double(vars.V_cruise);        % <---- CHANGE FOR ELECTRIC/HYBRID
 W4W5 = double(vars.W4W5);         % <---- CHANGE FOR ELECTRIC/HYBRID
@@ -98,8 +99,6 @@ xc_max = 0.25; % (x/c)_max is the position of maximum thickness         ????????
 % k = 0.152E-5; % polished sheet metal
 k = 0.634E-5; % smooth paint
 % k = 0.052E-5; % smooth molded composite
-
-% 
 % L1 = 1.4; % nosecone length                               ??????? SHOULD BE DONE WITH DRAWINGS I GUESS?????
 % L2 = 3.57; % main fuselage length                          ??????? SHOULD BE DONE WITH DRAWINGS I GUESS?????
 % L3 = 8-L1-L2; % tailcone length                               ??????? SHOULD BE DONE WITH DRAWINGS I GUESS?????
@@ -215,10 +214,6 @@ b = b; %wingspan in meters
 aileron_l = AileronNEW(c_r, c_t, sweep_LE, sweep_TE, c_l_alpha,...
    S_ref, c_d0, V_stall, b);
 
-
-% P = AileronSizing.Intergral(lambda, theta, b1, b2, c_l_alpha, tau, S_ref, b, total_cD0, c_r, da_max, v);
-% [b1, Inner_Ail_Chord, Outer_Ail_Chord] = AileronSizing.Iteration(lambda, theta, b1, b2, c_l_alpha, tau, S_ref, b, total_cD0, c_r, da_max, v, P, P_req, chordratio_ail_total);
-% P = AileronSizing.Intergral(lambda, theta, b1, b2, c_l_alpha, tau, S_ref, b, total_cD0, c_r, da_max, v);
 % [b1, Inner_Ail_Chord, Outer_Ail_Chord] = AileronSizing.Iteration(lambda, theta, b1, b2, c_l_alpha, tau, S_ref, b, total_cD0, c_r, da_max, v, P, P_req, chordratio_ail_total);
 % disp('The total aileron size is from the tip of the wing up until: in [m] from the base of the fuselage'), disp(b1);
 % disp('Inner Aileron Chord:'), disp(Inner_Ail_Chord), disp('Inner Aileron Chord:'), disp(Outer_Ail_Chord);
@@ -242,19 +237,32 @@ W_total = sum(W_breakdown);
 W_totalHYB = sum(W_breakdownHYB);
 W_totalELEC = sum(W_breakdownELEC)
 
-config = menu('Do you want the results for Design 1 (Hybrid), Design 2 (Fuel) or Design 3 (Electric)?', '1','2','3'); 
+config = menu('Do you want the prelimnary XLEMAC results for Design 1 (Hybrid), Design 2 (Fuel) or Design 3 (Electric)?', '1','2','3'); 
 weight_pie= W_breakdownELEC
 
 perc_weights =  round(double((W_breakdownELEC/W_totalELEC)*100))
 perc_weightsFUEL=round(double((W_breakdown/W_total)*100))
 perc_weightsHYB=round(double((W_breakdownHYB/W_totalHYB)*100))
 
-label_pie = {'Wing '+ string(perc_weights(1))+'%','Horizontaltail '+ string(perc_weights(2))+'%', 'Verticaltail '+ string(perc_weights(3))+'%', 'Fuselage '+ string(perc_weights(4))+'%', 'Mainlandinggear '+ string(perc_weights(5))+'%', 'Noselandinggear '+ string(perc_weights(6))+'%', 'Installedengines '+ string(perc_weights(7))+'%',... 
-'Battery Pack '+ string(perc_weights(8))+'%', 'Flightcontrols '+ string(perc_weights(9))+'%', 'Hydraulics '+ string(perc_weights(10))+'%', 'Avionics '+ string(perc_weights(11))+'%', 'Electrical '+ string(perc_weights(12))+'%', 'Airco and anti ice '+ string(perc_weights(13))+'%', 'Furnishings '+ string(perc_weights(14))+'%'}
+label_pie = {'Wing '+ string(perc_weights(1))+'%',...
+    'Horizontaltail '+ string(perc_weights(2))+'%',...
+    'Verticaltail '+ string(perc_weights(3))+'%',...
+    'Fuselage '+ string(perc_weights(4))+'%',...
+    'Mainlandinggear '+ string(perc_weights(5))+'%',...
+    'Noselandinggear '+ string(perc_weights(6))+'%',...
+    'Installedengines '+ string(perc_weights(7))+'%',... 
+    'Battery Pack '+ string(perc_weights(8))+'%',...
+    'Flightcontrols '+ string(perc_weights(9))+'%',...
+    'Hydraulics '+ string(perc_weights(10))+'%',...
+    'Avionics '+ string(perc_weights(11))+'%',...
+    'Electrical '+ string(perc_weights(12))+'%',...
+    'Airco and anti ice '+ string(perc_weights(13))+'%',...
+    'Furnishings '+ string(perc_weights(14))+'%'}
+
 %title('Class 2 weightbreakdown of the electric based OEW')
 
 label_pieFUEL = {'Wing '+ string(perc_weightsFUEL(1))+'%','Horizontaltail '+ string(perc_weightsFUEL(2))+'%', 'Verticaltail '+ string(perc_weightsFUEL(3))+'%', 'Fuselage '+ string(perc_weightsFUEL(4))+'%', 'Mainlandinggear '+ string(perc_weightsFUEL(5))+'%', 'Noselandinggear '+ string(perc_weightsFUEL(6))+'%', 'Installedengines '+ string(perc_weightsFUEL(7))+'%',... 
-'Battery Pack '+ string(perc_weightsFUEL(8))+'%', 'Flightcontrols '+ string(perc_weightsFUEL(9))+'%', 'Hydraulics '+ string(perc_weightsFUEL(10))+'%', 'Avionics '+ string(perc_weightsFUEL(11))+'%', 'Electrical '+ string(perc_weightsFUEL(12))+'%', 'Airco and anti ice '+ string(perc_weightsFUEL(13))+'%', 'Furnishings '+ string(perc_weightsFUEL(14))+'%'}
+'Fuel system '+ string(perc_weightsFUEL(8))+'%', 'Flightcontrols '+ string(perc_weightsFUEL(9))+'%', 'Hydraulics '+ string(perc_weightsFUEL(10))+'%', 'Avionics '+ string(perc_weightsFUEL(11))+'%', 'Electrical '+ string(perc_weightsFUEL(12))+'%', 'Airco and anti ice '+ string(perc_weightsFUEL(13))+'%', 'Furnishings '+ string(perc_weightsFUEL(14))+'%'}
 %title('Class 2 weightbreakdown of the fuel based OEW')
 
 label_pieHYB = {'Wing '+ string(perc_weightsHYB(1))+'%','Horizontaltail '+ string(perc_weightsHYB(2))+'%', 'Verticaltail '+ string(perc_weightsHYB(3))+'%', 'Fuselage '+ string(perc_weightsHYB(4))+'%', 'Mainlandinggear '+ string(perc_weightsHYB(5))+'%', 'Noselandinggear '+ string(perc_weightsHYB(6))+'%', 'Installedengines '+ string(perc_weightsHYB(7))+'%',... 
@@ -263,14 +271,14 @@ label_pieHYB = {'Wing '+ string(perc_weightsHYB(1))+'%','Horizontaltail '+ strin
 
 figure;
 pELEC=pie(W_breakdownELEC, label_pie)
-title('Class 2 weightbreakdown of the hybrid OEW')
+title('Class 2 weightbreakdown of the electric based OEW')
 
 figure;
 pFUEL=pie(W_breakdown, label_pieFUEL)
 title('Class 2 weightbreakdown of the fuel based OEW')
 figure;
 pHYB=pie(W_breakdownHYB, label_pieHYB)
-title('Class 2 weightbreakdown of the hybrid OEW')
+title('Class 2 weightbreakdown of the hybrid based OEW')
 
 
 %set(p(2:2:end),'FontSize',15)
