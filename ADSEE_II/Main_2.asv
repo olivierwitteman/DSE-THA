@@ -198,8 +198,8 @@ L_D = CLdes/cD
 
 
 %% ADSEE II - Lecture 4
-c_r = double(vars.("cr"));
-c_t = double(vars.("ct"));
+c_r =2.34;
+c_t = 0.939;
 sweep_LE; % sweep at leading edge in degrees (positive number)
 %theta = atan((c_r-c_t)/(b/2.))*180/pi;
 % theta = 10.7773; %sweep at trailing edge in degrees (positive number) (If sweep at leading edge is zero, this equals "atan((c_r-c_t)/(b/2.))"
@@ -227,11 +227,7 @@ aileron_l = AileronNEW(c_r, c_t, sweep_LE, sweep_TE, c_l_alpha,...
 % disp('Inner Aileron Chord:'), disp(Inner_Ail_Chord), disp('Inner Aileron Chord:'), disp(Outer_Ail_Chord);
 
 %% ADSEE II - Lecture 6 - Class II Weights
-<<<<<<< HEAD
-W_battery_hybrid = 321;  %just some values for code testing
-=======
 W_battery_hybrid = 200;  %just some values for code testing
->>>>>>> 06b299c7f9c439be4aa5e977ea3dd04d195a542f
 W_battery_electric = 2053; %just some values for code testing
 
 
