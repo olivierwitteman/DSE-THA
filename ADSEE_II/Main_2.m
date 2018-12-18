@@ -204,11 +204,19 @@ S_cs = ADSEE_II_Drag.S_wet_c(S_ref, S_ht, S_vt, D, L1, L2, L3);
 
 cd0_c = ADSEE_II_Drag.tot_comp_drag0(C_f_cs, FF_cs, IF_cs, S_cs, S_ref, 0);
 misc = ADSEE_II_Drag.cD_misc0(0.034, A_cs, L2*D*0.1, v, a, 0.6, 1., 0, 0.1*S_ref, S_ref, 0.1*c, c);
+<<<<<<< HEAD
 
 total_cD0 = cd0_c + misc%Cldes^2/(pi*A*e)
 
  %cD = total_cD0 + ADSEE_II_Drag.k_f(A, LAMBDA, CLdes) * (CLdes)^2
 cD = Fast_Cd0 + ADSEE_II_Drag.k_f(A, LAMBDA, CLdes) %* (CLdes)^2
+=======
+total_cD0 = cd0_c + misc
+
+
+% cD = total_cD0 + ADSEE_II_Drag.k_f(A, LAMBDA, CLdes) * (CLdes)^2
+cD = Fast_Cd0 + ADSEE_II_Drag.k_f(A, LAMBDA, CLdes) * (CLdes)^2
+>>>>>>> 46a88fa21ac91410ed6e0f80fe3c3ea160ea0f9a
 
 L_D = CLdes/cD
 
@@ -222,7 +230,7 @@ sweep_LE; % sweep at leading edge in degrees (positive number)
 
 prompt_dclda = 'What is your lift curve slope: default is 0.32  ';
 c_l_alpha = double(input(prompt_dclda));
-c_l_alpha = 0.32; % Airfoil lift curve slope  <------- INPUT FROM BOOK
+% c_l_alpha = 0.32; % Airfoil lift curve slope  <------- INPUT FROM BOOK
 S_ref = S_ref; % Wing surface in square meters
 c_d0 = Fast_Cd0; % 2D zero lift drag coefficient        
 %V = 1.2*V_stall; %speed in m/s                          % XXXXXXX
@@ -249,7 +257,11 @@ W_battery_electric = 2053; %just some values for code testing
 
 W_breakdown = C2W.calculation(W_dg,N_z,N_gear,S_ref*10.7639,A,tc_avg,lambda,LAMBDA,W_f*2.2,L/D,W_f*2.2,v,rho,S_ht,LAMBDA_ht,A_ht,lambda_h,H_t_over_H_v,S_vt,LAMBDA_vt,A_vt,lambda_vt,L_t,W_press,W_l,L_m,L_n,W_en,N_en,V_t,V_i,N_t,L,b,W_uav,N_p,M);
 W_breakdownHYB = W_breakdown + [0 0 0 0 0 0 0 W_battery_hybrid 0 0 0 0 0 0];
+<<<<<<< HEAD
 W_breakdownELEC = W_breakdown + [0 0 0 0 0 0 0 W_battery_electric 0 0 0 0 0 0]
+=======
+W_breakdownELEC = W_breakdown + [0 0 0 0 0 0 0 W_battery_electric-W_breakdown(8) 0 0 0 0 0 0];
+>>>>>>> 46a88fa21ac91410ed6e0f80fe3c3ea160ea0f9a
 %The variables in the matrix W_breakdown are given below
 %W_breakdown = [W_wing, W_horizontaltail, W_verticaltail, W_fuselage, W_mainlandinggear, W_noselandinggear, W_installedengines, W_fuelsystem, W_flightcontrols, W_hydraulics, W_avionics, W_electrical, W_airco_and_anti_ice, W_furnishings]/2.2;
 
@@ -289,15 +301,15 @@ OEWDES3_ARMS = [Xlemac+0.4*MAC,Xlemac+0.25*MAC+L_t+0.15*MAC_ht,Xlemac+0.25*MAC+L
     Xlemac+0.3*MAC,0.15*L,Xlemac+0.25*MAC,Xlemac+0.4*MAC,0.5*L,0.5*L,0.3*L,0.3*L,Xlemac+0.4*MAC,0.4*L].';
     if config == 1
         eqn1 = Xlemac + CG_OEW_MAC*MAC == W_breakdownHYB*OEWDES1_ARMS/W_totalHYB;
-        XLEMACSOLVED = double(solve(eqn1, Xlemac))
+        XLEMAC = double(solve(eqn1, Xlemac))
     elseif config == 2
         eqn2 = Xlemac + CG_OEW_MAC*MAC == W_breakdown*OEWDES2_ARMS/W_total;
-        XLEMACSOLVED = double(solve(eqn2, Xlemac))
+        XLEMAC = double(solve(eqn2, Xlemac))
     elseif config == 3
         eqn3 = Xlemac + CG_OEW_MAC*MAC == W_breakdownELEC*OEWDES2_ARMS/W_totalELEC;
-        XLEMACSOLVED = double(solve(eqn3, Xlemac))
+        XLEMAC = double(solve(eqn3, Xlemac))
     end
  L = L*3.2808; %Changing L back to feet
  L_t=L_t*3.2808; %Changing L_t back to feet
  
- CG_OEW = double(XLEMACSOLVED + CG_OEW_MAC*MAC)
+ CG_OEW = double(XLEMAC + CG_OEW_MAC*MAC)

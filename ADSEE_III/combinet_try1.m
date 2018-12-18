@@ -307,6 +307,8 @@ hold on
 xlabel("xc_{cg}/mac")
 ylabel("x_{LEMAC}/L_{FUS}")
 
+legend("FORWARD CG", "AFT CG", "Stability", "Neutral Stability", "Controlability")
+
 % yyaxis right
 % % plots
 % % figure
@@ -319,10 +321,31 @@ ylabel("x_{LEMAC}/L_{FUS}")
 % hold on
 
 
-% figure
-% x_lemac = 5.2;
-% line([([cg_OEW,cg_OEW_cargo]- x_lemac)/MAC],[[W_OEW,W_OEW_cargo]],'Color','green');
-% line([([cg_OEW_cargo,cg_btf_1,cg_btf_2,cg_btf_3,cg_btf_4]-x_lemac)/MAC],[W_OEW_cargo,W_OEW_1pax,W_OEW_2pax,W_OEW_3pax,W_OEW_4pax],'Color','blue');
-% line([([cg_OEW_cargo,cg_ftb_1,cg_ftb_2,cg_ftb_3,cg_ftb_4]-x_lemac)/MAC],[W_OEW_cargo,W_OEW_1pax,W_OEW_2pax,W_OEW_3pax,W_OEW_4pax],'Color','red');
-% line([([cg_nofuel,cg_fuel]-x_lemac)/MAC],[W_OEW_4pax, W_OEW_4pax+mass_fuel],'Color','black');
+figure
+x_lemac = 2.9;
+line([([cg_OEW,cg_OEW_cargo]- x_lemac)/MAC],[[W_OEW,W_OEW_cargo]],'Color','green');
+line([([cg_OEW_cargo,cg_btf_1,cg_btf_2,cg_btf_3,cg_btf_4]-x_lemac)/MAC],[W_OEW_cargo,W_OEW_1pax,W_OEW_2pax,W_OEW_3pax,W_OEW_4pax],'Color','blue');
+line([([cg_OEW_cargo,cg_ftb_1,cg_ftb_2,cg_ftb_3,cg_ftb_4]-x_lemac)/MAC],[W_OEW_cargo,W_OEW_1pax,W_OEW_2pax,W_OEW_3pax,W_OEW_4pax],'Color','red');
+line([([cg_nofuel,cg_fuel]-x_lemac)/MAC],[W_OEW_4pax, W_OEW_4pax+mass_fuel],'Color','black');
+
+xlabel("x_{cg}/MAC")
+ylabel("Mass [kg]")
+legend("Cargo", "Front to back", "Back to fron", "Fuel")
+
+prompt_for_cg = 'What is the forward cg position: ';
+cg_foward = double(input(prompt_for_cg))
+
+
+prompt_aft_cg = 'What is the aft cg position: ';
+cg_aft = double(input(prompt_aft_cg))
+
+prompt_lemac = 'What is the lemac position: ';
+lemac_pos = double(input(prompt_lemac))
+
+
+prompt_surface = 'What is your area ratio: ';
+Sh_ratio = double(input(prompt_surface))
+
+Sh_2 = Sh_ratio * double(vars.S)
+
 
