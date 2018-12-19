@@ -1,9 +1,9 @@
-clc
-clear variables
-PR_function(2275, 2089, 145, 363, 7.8, 0.98, 0.5)
+<<<<<<< HEAD
 
 
-function [] = PR_function(MTOW, OEW, W_Fuel, A_payload, L_D, W4W5, percent_emptiness_payload)
+=======
+>>>>>>> ac8a1025382aa3ab0a7e99f73a0c480183544e3d
+function [] = PR_func(MTOW, OEW, W_Fuel, A_payload, L_D, W4W5, percent_emptiness_payload)
 %% Input . group 3
 g = 9.81;
 % MTOW = 1736; %kg <------ INPUT 
