@@ -1,5 +1,8 @@
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> ac8a1025382aa3ab0a7e99f73a0c480183544e3d
 function [] = PR_func(MTOW, OEW, W_Fuel, A_payload, L_D, W4W5, percent_emptiness_payload)
 %% Input . group 3
 g = 9.81;
