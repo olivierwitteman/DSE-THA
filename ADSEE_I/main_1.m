@@ -21,10 +21,7 @@ MTOW_median = median(MTOW_weights)
 % OEW, W_fuel_used (cruise or all????)
 
 
-<<<<<<< HEAD
 
-=======
->>>>>>> ac8a1025382aa3ab0a7e99f73a0c480183544e3d
 MTOW = average_MTOW; % or choose average MTOW % <------ INPUT
 MTOW = 1750;
 
