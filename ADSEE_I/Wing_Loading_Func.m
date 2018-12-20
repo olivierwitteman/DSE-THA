@@ -56,7 +56,7 @@ P = P0 * (T / T_0)^(g / (lambda * R));
 rho_isa = P / (R * T)
 
 power_setting = 0.9; % assumed slide 66. % <-------INPUT
-per_mtow = 1; % as asked in sizing mission
+per_mtow = 1;        % as asked in sizing mission
 
 
 % V_cruise = 92.6; % m/s from requirements project guide
