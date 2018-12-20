@@ -25,7 +25,7 @@ s_to = 762; % m from project guide requirements
 top = 250*0.2512 % checked with formula on slide 41
 
 sigma = 1; % rho/rho0 slide 27 . Assume from Sizing mission - sea level
-WS_x = [1:1:1800];
+WS_x = [1:1:2500];
 
 
 for i = cl_to
@@ -57,7 +57,7 @@ rho_isa = P / (R * T)
 
 power_setting = 0.9; % assumed slide 66. % <-------INPUT
 per_mtow = 1;        % as asked in sizing mission
-
+ 
 
 % V_cruise = 92.6; % m/s from requirements project guide
 
