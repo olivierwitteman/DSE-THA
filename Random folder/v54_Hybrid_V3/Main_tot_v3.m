@@ -2,29 +2,30 @@ clc
 clear all
 close all
 tic
-% AR = 10;
-% Lambda = - 2.8;
-% TR = 0.4;
-% tc = 0.18;
-% CLmax_Clean = 1.5;
-% CLmax_TO = 1.7;
-% CLmax_L = 2.1;
-% 
-% 
-% % Oswald factor (no propulsive interaction assumed)
-% e_clean=0.82;
-% e_TO=0.77;
-% e_L=0.73;
-%  
-% % zero-lift drag coefficient (no propulsive interaction assumed)
-% CD0_clean=0.033;
-% CD0_TO=0.068;
-% CD0_L=0.098;
-%  
-% 
-% % Input_new(10)
-% 
-% disp("Done")
+AR = 10;
+Lambda = - 2.8;
+TR = 0.4;
+tc = 0.18;
+CLmax_Clean = 1.5;
+CLmax_TO = 1.7;
+CLmax_L = 2.1;
+
+
+% Oswald factor (no propulsive interaction assumed)
+e_clean=0.82;
+e_TO=0.77;
+e_L=0.73;
+ 
+% zero-lift drag coefficient (no propulsive interaction assumed)
+CD0_clean=0.033;
+CD0_TO=0.068;
+CD0_L=0.098;
+save("CD0_matrix_1.mat","CD0_clean")
+ 
+
+% Input_new(10)
+
+disp("Done")
 
 
 
@@ -393,7 +394,8 @@ xc_max = 0.25; % (x/c)_max is the position of maximum thickness         ????????
 % C_f_e = 0.0045; % light AC - twin engine
 
 % k = 0.152E-5; % polished sheet metal
-k = 0.634E-5; % smooth paint
+% k = 0.634E-5; % smooth paint
+k = 0.052E-5;   % composites
 
 
 
@@ -443,8 +445,8 @@ S_w = ADSEE_II_Drag.S_wet_c(S_ref, S_ht, S_vt, D, L1, L2, L3);
 
 %% Component method
 % [Fuselage, Wing, horizontal tail, vertical tail]
-C_f_c_fuselage = ADSEE_II_Drag.fp_skin_friction(0.1+0.9*0, k, rho, v, L2, mu, a); % increase
-C_f_c_wingtail = ADSEE_II_Drag.fp_skin_friction(0.4+2*0, k, rho, v, L3, mu, a);
+C_f_c_fuselage = ADSEE_II_Drag.fp_skin_friction(0.25, k, rho, v, L2, mu, a); % increase
+C_f_c_wingtail = ADSEE_II_Drag.fp_skin_friction(0.5, k, rho, v, L3, mu, a);
 C_f_cs = [C_f_c_fuselage, C_f_c_wingtail, C_f_c_wingtail, C_f_c_wingtail];
 option = [2, 1, 1, 1]; % length? it was 2 1 1 1
 FF_cs = [ADSEE_II_Drag.form_factor(option(1), L2, D, tc_avg, xc_max, LAMBDA, v, a),...
@@ -457,10 +459,11 @@ S_cs = ADSEE_II_Drag.S_wet_c(S_ref, S_ht, S_vt, D, L1, L2, L3);
 %                                                           |
 cd0_c = ADSEE_II_Drag.tot_comp_drag0(C_f_cs, FF_cs, IF_cs, S_cs, S_ref, 0);
 % misc = ADSEE_II_Drag.cD_misc0(0.034, A_cs, L2*D*0.1, v, a, 0.6, 1., 0, 0.1*S_ref, S_ref, 0.1*c, c);
-misc = ADSEE_II_Drag.cD_misc0(0.034, A_cs, L2*D*0.1, v, a, 0.6, 1., 0, 0.1*S_ref, S_ref, 0.1*c_avg, c_avg);
+misc = ADSEE_II_Drag.cD_misc0(0.034, A_cs, L2*D*0, v, a, 0.6, 1., 0, 0.1*S_ref, S_ref, 0.1*c_avg, c_avg);
 
 
 total_cD0 = cd0_c + misc;
+save("CD0_matrix_2.mat","total_cD0")
 
 cD = total_cD0 + ADSEE_II_Drag.k_f(A, LAMBDA, CLdes) * (CLdes)^2
 % cD = Fast_Cd0 + ADSEE_II_Drag.k_f(A, LAMBDA, CLdes) * (CLdes)^2
@@ -468,7 +471,10 @@ cD = total_cD0 + ADSEE_II_Drag.k_f(A, LAMBDA, CLdes) * (CLdes)^2
 
 L_D = CLdes/cD
 
-
+check_matrix = zeros(30, 1);    % MATRIX FOR SAVING CD0_OLIVERS
+if total_cD0 - CD0_clean < 0.5
+    disp("Difference is small")
+end
 
 
 
