@@ -3,7 +3,11 @@
 %    e_clean, e_TO, e_L,...
 %    CD0_clean, CD0_TO, CD0_L)
 %% Aerodynamic / wing properties
- 
+ind  = load("index_number.mat");
+cd0s = load("cd0_matrix.mat");
+
+
+
 % General
 a.AR = 10;                                      % Wing aspect ratio [-]
 a.Lambda = -2.8;                                   % Half-chord sweep angle of wing [deg]

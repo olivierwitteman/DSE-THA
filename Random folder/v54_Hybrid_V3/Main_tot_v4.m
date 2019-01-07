@@ -155,11 +155,13 @@ disp("Done")
 
 
 %% Initialize
-
+cd0_space = linspace(0.03, 0.05, 10);
+save("cd0_matrix.mat", "cd0_space")
 
 
 %% Main body
-
+for i = [1:1:length(cd0_space)]
+save("index_number.mat", "i");
 % Load input parameters
 Input_new;
 
@@ -471,10 +473,10 @@ cD = total_cD0 + ADSEE_II_Drag.k_f(A, LAMBDA, CLdes) * (CLdes)^2
 
 L_D = CLdes/cD
 
-check_matrix = zeros(30, 1);    % MATRIX FOR SAVING CD0_OLIVERS
-if total_cD0 - CD0_clean < 0.5
-    disp("Difference is small")
+% check_matrix = zeros(30, 1);    % MATRIX FOR SAVING CD0_OLIVERS
+% if total_cD0 - CD0_clean < 0.5
+%     disp("Difference is small")
+% end
+
 end
-
-
 
