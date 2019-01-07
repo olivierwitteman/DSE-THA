@@ -1,5 +1,6 @@
 function [Delta_Clmax_HLD] = HLD(LE, TE , c_ac_c)
 Delta_Clmax_TE=0;
+Delta_Clmax_LE=0.;
 disp('HLD')
 if strcmp(TE,'plain_split')
     Delta_Clmax_TE=0.9;
@@ -29,5 +30,5 @@ if strcmp(LE,'Slat')==1.
     Delta_Clmax_LE=0.4*c_ac_c;
 end
 
-Delta_Clmax_HLD=Delta_Clmax_TE
+Delta_Clmax_HLD= Delta_Clmax_LE +Delta_Clmax_TE
 end
