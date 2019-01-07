@@ -13,13 +13,6 @@ MTOW_median = median(MTOW_weights)
 
 
 %% General input and input for Fuel fractions
-% Input MTOW, A, e, V_cruise, V_stall
-%
-% Output: Cd0, LD_cruise (also loiter if needed),
-% Wl_Wto (for wingloading),
-% W4W5 (for wing loading),
-% OEW, W_fuel_used (cruise or all????)
-
 
 
 MTOW = average_MTOW; % or choose average MTOW % <------ INPUT
@@ -40,8 +33,8 @@ h = 2400;                   % <------ INPUT
 g = 9.80665;
 rho = 1.225;
 
-CL_to = 1.7; % <------ INPUT
-CL_max = 1.9; % <------ INPUT
+CL_to = 1.7*1.2; % <------ INPUT
+CL_max = 1.9*1.2; % <------ INPUT
 c = 5;       % 1.2*V_stall*grad(0.083) = 3.1 minimum . % <------ INPUT
 V_land = 1.2*32; % ms From requirements?     % <------ INPUT
 

@@ -132,7 +132,7 @@ L3 = 3;
 L = (L1+L2+L3)*3.281 ; %Fuselage structural length in ft for lecture 6 raymer pls dont hate
 
 
-A_cs = 3;
+A_cs = 2.9;
 D = sqrt(A_cs/pi); % derived from frontal area (even though fuselage may not be cilindrical)
 
 mu = 1.7331332E-5; % viscosity of standard air at h=2400m (T=272K)
@@ -174,23 +174,26 @@ S_w = ADSEE_II_Drag.S_wet_c(S_ref, S_ht, S_vt, D, L1, L2, L3);
 
 %% Component method
 % [Fuselage, Wing, horizontal tail, vertical tail]
-C_f_c_fuselage = ADSEE_II_Drag.fp_skin_friction(0.1, k, rho, v, L2, mu, a);
-C_f_c_wingtail = ADSEE_II_Drag.fp_skin_friction(0.4, k, rho, v, L3, mu, a);
+C_f_c_fuselage = ADSEE_II_Drag.fp_skin_friction(0.1+0.9*0, k, rho, v, L2, mu, a); % increase
+C_f_c_wingtail = ADSEE_II_Drag.fp_skin_friction(0.4+2*0, k, rho, v, L3, mu, a);
 C_f_cs = [C_f_c_fuselage, C_f_c_wingtail, C_f_c_wingtail, C_f_c_wingtail];
-option = [2, 1, 1, 1];
-FF_cs = [ADSEE_II_Drag.form_factor(option(1), L2, D, tc_avg, xc_max, LAMBDA, v, a), ADSEE_II_Drag.form_factor(option(2), L2, D, tc_avg, xc_max, LAMBDA, v, a), ADSEE_II_Drag.form_factor(option(3), L2, D, tc_avg, xc_max, LAMBDA, v, a), ADSEE_II_Drag.form_factor(option(4), L2, D, tc_avg, xc_max, LAMBDA, v, a)];
+option = [2, 1, 1, 1]; % length? it was 2 1 1 1
+FF_cs = [ADSEE_II_Drag.form_factor(option(1), L2, D, tc_avg, xc_max, LAMBDA, v, a),...
+    ADSEE_II_Drag.form_factor(option(2), L2, D, tc_avg, xc_max, LAMBDA, v, a),...
+    ADSEE_II_Drag.form_factor(option(3), L2, D, tc_avg, xc_max, LAMBDA, v, a),...
+    ADSEE_II_Drag.form_factor(option(4), L2, D, tc_avg, xc_max, LAMBDA, v, a)];
 IF_cs = [1.0, 1.25, 1.05, 1.05];
 S_cs = ADSEE_II_Drag.S_wet_c(S_ref, S_ht, S_vt, D, L1, L2, L3);
-
-
+% ---------------------------------------------------------->
+%                                                           |
 cd0_c = ADSEE_II_Drag.tot_comp_drag0(C_f_cs, FF_cs, IF_cs, S_cs, S_ref, 0);
 misc = ADSEE_II_Drag.cD_misc0(0.034, A_cs, L2*D*0.1, v, a, 0.6, 1., 0, 0.1*S_ref, S_ref, 0.1*c, c);
 
 
 total_cD0 = cd0_c + misc;
 
-%cD = total_cD0 + ADSEE_II_Drag.k_f(A, LAMBDA, CLdes) * (CLdes)^2
-cD = Fast_Cd0 + ADSEE_II_Drag.k_f(A, LAMBDA, CLdes) * (CLdes)^2
+cD = total_cD0 + ADSEE_II_Drag.k_f(A, LAMBDA, CLdes) * (CLdes)^2
+% cD = Fast_Cd0 + ADSEE_II_Drag.k_f(A, LAMBDA, CLdes) * (CLdes)^2
 
 
 L_D = CLdes/cD
@@ -333,3 +336,5 @@ OEWDES3_ARMS = [Xlemac+0.4*MAC,Xlemac+0.25*MAC+L_t+0.15*MAC_ht,Xlemac+0.25*MAC+L
  L_t=L_t*3.2808; %Changing L_t back to feet
  
  CG_OEW = double(XLEMAC + CG_OEW_MAC*MAC)
+
+ close all
