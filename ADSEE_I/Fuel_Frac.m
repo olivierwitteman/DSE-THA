@@ -19,7 +19,7 @@ Cd0 = C_fe*Sw_S;
 
 LD_cruise = sqrt((pi*A*e)./(4*Cd0))
 cp = 0.0000000845; % <----- Assumed
-range = 250; % nmi
+range = 250; % nmi  <----- INPUT
 range = 1845 * range; % m
 eta_p = 0.8;
 g = 9.80065; 

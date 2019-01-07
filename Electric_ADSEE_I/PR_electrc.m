@@ -40,12 +40,12 @@ L_D=8.5
 range_C=cb*L_D/g*M_batt/(MTOW - percent_emptiness_payload*A_payload - percent_emptiness_payload*A_payload)*eta_total/1000 
 
 f3 = figure;
-plot([0,range_A], [A_payload,A_payload], "Color","blue",'LineWidth',9);
+plot([0,range_A], [A_payload,A_payload], "Color","blue",'LineWidth',2);
 hold on
-plot([range_A,range_C], [A_payload, 0], "Color", [0.9290 ,   0.6940   , 0.1250],'LineWidth',9);
-xlabel("Range [km]","FontSize", 10)
-ylabel("Payload [kg]","FontSize", 20)
-plot([range_A, range_A], [A_payload, 0],'--', "Color","blue",'LineWidth',9);
+plot([range_A,range_C], [A_payload, 0], "Color", [0.9290 ,   0.6940   , 0.1250],'LineWidth',2);
+%xlabel("Range [km]","FontSize", 10)
+%ylabel("Payload [kg]","FontSize", 20)
+plot([range_A, range_A], [A_payload, 0],'--', "Color","blue",'LineWidth',2);
 %plot([range_B, range_B], [percent_emptiness_payload*A_payload, 0],'--', "Color","red",'LineWidth',9);
 %plot([0, range_B], [percent_emptiness_payload*A_payload, percent_emptiness_payload*A_payload],...
    % '--', "Color","red",'LineWidth',7);
@@ -56,7 +56,7 @@ ylabel("Payload [kg]","FontSize", 1)
 % title("Payload Range Diagram","FontSize", 25)
 
 
-text(20, A_payload+40, "MTOW with full payload", "FontSize", 60)
+text(20, A_payload+40, "MTOW with full payload", "FontSize", 40)
 %text(20, percent_emptiness_payload*A_payload+15, "50% payload", "FontSize", 40)
 text(range_C-40, 20, "Ferry range", "FontSize", 40 )
 

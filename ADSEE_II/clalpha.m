@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 function [CLmax_clean, alpha_stall] = clalpha(A, clmax, CLdes, sweep_c2, M, sweepLE, t_c)
+=======
+function [CLmax_clean, alpha_stall,CL_alpha_clean] = clalpha(A, clmax, CLdes, sweep_c2, M, sweepLE, t_c)
+>>>>>>> 8e04a7f2bbf68aa5db112dc28670559be59188f5
 %input values for Cl-alpha curve for finite wing (clean and flapped
 %General inputs
 Beta = sqrt(1-M^2);                  %Compressibility factor for the mach number.
@@ -29,7 +33,11 @@ if A> 4/Datcom_choose_method
 %The low aspect ratio method.
 elseif A< 4/Datcom_choose_method
     
+<<<<<<< HEAD
     disp('something went wrong'
+=======
+    disp('something went wrong')
+>>>>>>> 8e04a7f2bbf68aa5db112dc28670559be59188f5
 end
 
 %% High Lift Devices.
@@ -50,7 +58,11 @@ Delta_Clmax_HLD = HLD(LE,TE,c_ac_c);
 %METHOD FOR CALCULATING THE DIFFERENCE IN CLMAX
 HLD_Delta_CLmax = 0.9 * Delta_Clmax_HLD * Swf_S * cos(sweep_hinge); %The shift in CLMax due to the HLD, THIS IS NOT THE FINAL VALUE.
 %METHOD FOR CALCULATING THE AREA RATIO IF DELTA CLMAX IS KNOWN.
+<<<<<<< HEAD
 Swf_S= HLD_Delta_CLmax/0.9/Delta_Clmax_HLD/cos(sweep_hinge);
+=======
+%Swf_S= HLD_Delta_CLmax/0.9/Delta_Clmax_HLD/cos(sweep_hinge);
+>>>>>>> 8e04a7f2bbf68aa5db112dc28670559be59188f5
 
 HLD_Delta_alpha0L = delta_alpha0L_airfoil * Swf_S*cos(sweep_hinge); %The shift in alpha 0 Lift, THIS IS NOT THE FINAL VALUE.
 
@@ -61,6 +73,10 @@ Total_alpha_0L=HLD_Delta_alpha0L+alpha0l ;
 
 
 S_ac_S = 1 + Swf_S * (c_ac_c - 1);          %Increased wing area ratio: Relation from Raymer (slide 59 notes.)
+<<<<<<< HEAD
 CL_alpha_HLD=S_ac_S*CL*CL_alpha_clean;
+=======
+CL_alpha_HLD=S_ac_S*CL_alpha_clean;
+>>>>>>> 8e04a7f2bbf68aa5db112dc28670559be59188f5
 
 end

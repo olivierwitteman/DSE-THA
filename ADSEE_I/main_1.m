@@ -20,18 +20,13 @@ MTOW_median = median(MTOW_weights)
 % W4W5 (for wing loading),
 % OEW, W_fuel_used (cruise or all????)
 
-%MTOW = average_MTOW; % or choose average MTOW % <------ INPUT
-MTOW=5298*9.80665
-
-<<<<<<< HEAD
 
 
+MTOW = average_MTOW; % or choose average MTOW % <------ INPUT
+MTOW = 1750; % 78 kg
 
-=======
-MTOW = 1750;
->>>>>>> 46a88fa21ac91410ed6e0f80fe3c3ea160ea0f9a
 A = 8.5;                              % <------ INPUT
-e = 0.78;                             % <------ INPUT
+e = 0.75;                             % <------ INPUT
 
 V_cruise = 180;  % kts                % <------ INPUT
 V_stall = 61;    % kts                % <------ INPUT
@@ -45,12 +40,12 @@ h = 2400;                   % <------ INPUT
 g = 9.80665;
 rho = 1.225;
 
-CL_to = 1.9; % <------ INPUT
-CL_max = 2.1; % <------ INPUT
+CL_to = 1.7; % <------ INPUT
+CL_max = 1.9; % <------ INPUT
 c = 5;       % 1.2*V_stall*grad(0.083) = 3.1 minimum . % <------ INPUT
 V_land = 1.2*32; % ms From requirements?     % <------ INPUT
 
-OEW = 4935*9.80665;                   % Input from fuel fractions
+OEW = double(summary(1,2));                   % Input from fuel fractions
 W_fuel_used = summary(3,2);           % Input from fuel fractions
 Wl_Wto;                               % Input from fuel fractions
 cd0_clean = Cd0;                      % Input from fuel fractions
@@ -65,19 +60,15 @@ Wing_Loading_Func(h,A,e_clean,cd0_clean, CL_max,CL_to ,c, Wl_Wto, V_land, V_stal
 
 W4W5;                               % Input from fuel fractions
 payload = 363;                      % from requirements
-percent_emptiness_payload = 00.5;    % Input : how empty the payload is
-
+percent_emptiness_payload = 0.5;    % Input : how empty the payload is
 
 PR_func(MTOW, OEW, W_fuel_used, payload, LD_cruise, W4W5, percent_emptiness_payload);
 % maybe change W_fuel_used to W_fuel_total
-
-
-
+%%
 % choose design point so we can add S and P
 prompt_WS = 'What wing loading did you choose: ';
 WS = double(input(prompt_WS))
 S = MTOW*9.81/WS; % mˆ2
-
 
 prompt_WP = 'What WP did you choose: ';
 WP = double(input(prompt_WP))
@@ -110,9 +101,8 @@ summary_wing = [summary_wing; ["Wing Area", S]];
 
 
 %% eng dimensions
-% N = 1
-% 
-% [D_p, w_ee, l_ee, h_ee] = engine_dim_func(P, N);
+N = 1
+[D_p, w_ee, l_ee, h_ee] = engine_dim_func(P, N);
 
 %% CG VERY ROUGH ESTIMATION
 % % % % fus_length = 6.6;   % <------ INPUT
@@ -216,5 +206,5 @@ save('variables_ADSEE_I.mat', 'A', 'MTOW', 'OEW', 'S', 'V_cruise', 'W4W5',...
     "h", "S_h", "S_v", "b", "N", "W_fuel_total", "CL_max", "CL_to", "e",...
     "tc", "cl_cruise", "cr", "ct", "b", "V_stall",...
     "h", "S_h", "S_v", "b", "N", "W_fuel_total", "M_cruise", "MAC",...
-    "A_h", "A_v", "b_h", "b_v")
+    "A_h", "A_v", "b_h", "b_v","P")
 
