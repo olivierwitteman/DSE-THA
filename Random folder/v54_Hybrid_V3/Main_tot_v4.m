@@ -160,8 +160,8 @@ save("cd0_matrix.mat", "cd0_space")
 
 
 %% Main body
-for i = [1:1:length(cd0_space)]
-save("index_number.mat", "i");
+for index123 = [1:1:length(cd0_space)]
+save("index_number.mat", "index123");
 % Load input parameters
 Input_new;
 
