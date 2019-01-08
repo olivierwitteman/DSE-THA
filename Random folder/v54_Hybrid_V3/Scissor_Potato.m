@@ -165,7 +165,7 @@ axis([0.1 0.5 0 0.4])
 
 
 %% POTATO PLOT
-clear all
+% clear all
 %OEW = double(vars.OEW);
 OEW=1768;
 x_lemac = [2: 0.1: 4.2];
@@ -227,24 +227,6 @@ for i  = x_lemac
     cg_fuel=((cg_nofuel*W_OEW_4pax)+(location_fuel*mass_fuel))/(mass_fuel+W_OEW_4pax);
 
 
-    %% graph
-    % figure
-    % line([([cg_OEW,cg_OEW_cargo]- x_lemac)/MAC],[W_OEW,W_OEW_cargo],'Color','green');
-    % line([([cg_OEW_cargo,cg_btf_1,cg_btf_2,cg_btf_3,cg_btf_4]-x_lemac)/MAC],[W_OEW_cargo,W_OEW_1pax,W_OEW_2pax,W_OEW_3pax,W_OEW_4pax],'Color','blue');
-    % line([([cg_OEW_cargo,cg_ftb_1,cg_ftb_2,cg_ftb_3,cg_ftb_4]-x_lemac)/MAC],[W_OEW_cargo,W_OEW_1pax,W_OEW_2pax,W_OEW_3pax,W_OEW_4pax],'Color','red');
-    % line([([cg_nofuel,cg_fuel]-x_lemac)/MAC],[W_OEW_4pax, W_OEW_4pax+mass_fuel],'Color','black'); 
-
-    %     figure
-%     line([([cg_OEW,cg_OEW_cargo]- x_lemac)/i],[[W_OEW,W_OEW_cargo]],'Color','green');
-%     line([([cg_OEW_cargo,cg_btf_1,cg_btf_2,cg_btf_3,cg_btf_4]-x_lemac)/i],[W_OEW_cargo,W_OEW_1pax,W_OEW_2pax,W_OEW_3pax,W_OEW_4pax],'Color','blue');
-%     line([([cg_OEW_cargo,cg_ftb_1,cg_ftb_2,cg_ftb_3,cg_ftb_4]-x_lemac)/i],[W_OEW_cargo,W_OEW_1pax,W_OEW_2pax,W_OEW_3pax,W_OEW_4pax],'Color','red');
-%     line([([cg_nofuel,cg_fuel]-x_lemac)/i],[W_OEW_4pax, W_OEW_4pax+mass_fuel],'Color','black');
-
-%     title('Potato Plot')
-%     ylabel('mass [kg]')
-%     xlabel('c.g. position from nose [m]')
-%     legend('Cargo','Back to Front','Front to Back','Fuel')
-
     cg_max=max([cg_OEW,cg_OEW_cargo,cg_OEW_cargo,cg_btf_1,cg_btf_2,cg_btf_3,cg_btf_4,cg_OEW_cargo,cg_btf_1,cg_btf_2,cg_btf_3,cg_btf_4,cg_fuel]);
     cg_min=min([cg_OEW,cg_OEW_cargo,cg_OEW_cargo,cg_btf_1,cg_btf_2,cg_btf_3,cg_btf_4,cg_OEW_cargo,cg_btf_1,cg_btf_2,cg_btf_3,cg_btf_4,cg_fuel]);
 
@@ -269,17 +251,6 @@ ylabel("x_{LEMAC}/L_{FUS}", "FontSize", 30)
 
 legend("FORWARD CG", "AFT CG", "Stability", "Neutral Stability", "Controlability")
 set(gca,'FontSize',25);
-
-% yyaxis right
-% % plots
-% % figure
-% plot(x_cg_c,Sh_S,x_cg_c,Sh_S_NS,x_cg_c,Sh_S_C)
-% % title('Scissors-plot: Stability & Controllability Curve')
-% % xlabel('x_{cg}/MAC  [%]')
-% ylabel('S_h/S [-]')
-% axis([-1 1 -0.5 0.6])
-% % legend('Stability','Neutral Stability','Controllability')
-% hold on
 
 
 figure
