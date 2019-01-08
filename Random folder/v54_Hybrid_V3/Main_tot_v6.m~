@@ -703,12 +703,16 @@ axis([0.1 0.5 0 0.4])
 
 %% POTATO PLOT
 % clear all
+%OEW = double(vars.OEW);
+OEW=1768;
 x_lemac = [2: 0.1: 4.2];
 cg_mat = zeros(length(x_lemac),2);
 counter = 1
 cg_OEW = 4;
+MAC=1.456;
 thick=2;
 for i  = x_lemac
+    lf = 8;                                      % <----- INPUT m 
     lbs_to_kg = 0.45359237;
     mass_pax=175;                    %lbs               <----- INPUT (fixed)
     mass_pax = mass_pax*lbs_to_kg;
@@ -717,10 +721,10 @@ for i  = x_lemac
     mass_bags = mass_bags * lbs_to_kg;
 
 %     mass_fuel=(vars.W_fuel_total);                 %kg  <----- INPUT
-    mass_fuel = M.f;
+    mass_fuel = 145;
 
     W_OEW = OEW;                                   %kg  <----- INPUT   
-    cg_OEW =3.6;                % <--------- INPUT INPUT INPUT INPUT INPUT INPUT INPUT INPUT
+    cg_OEW =3.6;
    
 
     seat_pilot=2.06 ;                    %c.g. Position Pilot   <----- INPUT 
@@ -786,14 +790,8 @@ legend("FORWARD CG", "AFT CG", "Stability", "Neutral Stability", "Controlability
 set(gca,'FontSize',25);
 
 
-
-
-
-prompt_xlemac = 'X_lemac position: ';
-x_lemac = double(input(prompt_xlemac))
-
 figure
-x_lemac = x_lemac * lf; %%% AFTER x_lemac was chosen
+x_lemac = 2.5;
 line([([cg_OEW,cg_OEW_cargo]- x_lemac)/MAC],[[W_OEW,W_OEW_cargo]],'Color','green');
 line([([cg_OEW_cargo,cg_btf_1,cg_btf_2,cg_btf_3,cg_btf_4]-x_lemac)/MAC],[W_OEW_cargo,W_OEW_1pax,W_OEW_2pax,W_OEW_3pax,W_OEW_4pax],'Color','blue');
 line([([cg_OEW_cargo,cg_ftb_1,cg_ftb_2,cg_ftb_3,cg_ftb_4]-x_lemac)/MAC],[W_OEW_cargo,W_OEW_1pax,W_OEW_2pax,W_OEW_3pax,W_OEW_4pax],'Color','red');
