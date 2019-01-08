@@ -18,9 +18,9 @@ e_TO=0.77;
 e_L=0.73;
  
 % zero-lift drag coefficient (no propulsive interaction assumed)
-CD0_clean=0.02;
+CD0_clean=0.0355;
 CD0_TO= CD0_clean + 0.015;
-CD0_L=CD0_clean + 0.05;
+CD0_L=CD0_clean + 0.055;
  
 % Cruise
 a.cr.CD0 = CD0_clean;                         % Cruise zero-lift drag coefficient [-]
@@ -141,9 +141,9 @@ m.L.f = 0.97;                                   % Landing weight fraction W/MTOW
 m.L.vs = 31.4;                                  % Stall speed requirement in landing conditions [m/s]
 m.L.vApp = 1.23;                                % Stall margin during approach/landing, vApp/vs [-] (see Patterson 2017)
 m.L.vAppIso = 1.05;                             % Stall margin of isolated wing during approach/landing, vApp/vsIso [-]
-m.L.t = 0.5;                                      % Landing throttle setting P/P_max [-] (see note at end)
-m.L.phi = 0.05;                                 % Landing supplied power ratio [-]
-m.L.Phi = 0.05;                                 % Landing shaft power ratio [-]
+m.L.t = 0.4;                                      % Landing throttle setting P/P_max [-] (see note at end)
+m.L.phi = 0.6;                                 % Landing supplied power ratio [-]
+m.L.Phi = 0.6;                                 % Landing shaft power ratio [-]
  
 % Take off
  

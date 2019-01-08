@@ -767,8 +767,8 @@ for i  = x_lemac
 
     cg_max = (cg_max - i)/MAC;
     cg_min = (cg_min - i)/MAC;
-    cg_mat(counter, 1) = cg_min;
-    cg_mat(counter, 2) = cg_max;
+    cg_mat(counter, 1) = round(cg_min,3);
+    cg_mat(counter, 2) = round(cg_max,3);
     
     counter = counter + 1;
     
@@ -776,7 +776,7 @@ end
 
 %figure
 yyaxis left
-plot([cg_mat(:,1)-0.48, cg_mat(:,2)-0.48], x_lemac/lf, "LineWidth", thick)
+plot([cg_mat(:,1), cg_mat(:,2)], x_lemac/lf, "LineWidth", thick)
 ylim([0.25 0.34])
 xlim([0.1 0.5])
 hold on
@@ -795,11 +795,11 @@ prompt_xlemac = 'X_lemac position: ';
 x_lemac = double(input(prompt_xlemac))
 
 
-% % % % prompt_aftcg = 'Most AFT cg: ';
-% % % % most_aft_cg = double(input(prompt_aftcg))
-% % % % 
-% % % % prompt_forwardcg = 'Most FORWARD cg: ';
-% % % % most_forward_cg = double(input(prompt_forwardcg))
+prompt_aftcg = 'Most AFT cg: ';
+most_aft_cg = double(input(prompt_aftcg))
+
+prompt_forwardcg = 'Most FORWARD cg: ';
+most_forward_cg = double(input(prompt_forwardcg))
 
 
 figure
@@ -815,3 +815,25 @@ legend("Cargo", "Front to back", "Back to fron", "Fuel")
 
 
 set(gca,'FontSize',25);
+
+
+
+
+
+
+
+
+
+% cg_mat(:,1) = round(cg_mat(:,1), 4)
+% cg_mat(:,2) = round(cg_mat(:,2), 4)
+
+
+
+ind = find(cg_mat(:,2) == most_aft_cg)
+% get the index and the run the loop untill this index with the ne x_lemac
+
+
+
+
+
+

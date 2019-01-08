@@ -141,9 +141,9 @@ m.L.f = 0.97;                                   % Landing weight fraction W/MTOW
 m.L.vs = 31.4;                                  % Stall speed requirement in landing conditions [m/s]
 m.L.vApp = 1.23;                                % Stall margin during approach/landing, vApp/vs [-] (see Patterson 2017)
 m.L.vAppIso = 1.05;                             % Stall margin of isolated wing during approach/landing, vApp/vsIso [-]
-m.L.t = 0.5;                                      % Landing throttle setting P/P_max [-] (see note at end)
-m.L.phi = 0.05;                                 % Landing supplied power ratio [-]
-m.L.Phi = 0.05;                                 % Landing shaft power ratio [-]
+m.L.t = 0.4;                                      % Landing throttle setting P/P_max [-] (see note at end)
+m.L.phi = 0.6;                                 % Landing supplied power ratio [-]
+m.L.Phi = 0.6;                                 % Landing shaft power ratio [-]
  
 % Take off
  
@@ -224,9 +224,9 @@ MA_in.cr.phi = [0 0];
 MA_in.cr.Phi = [0 0];
  
 % Descent (all parameters must be specified; SEP is computed)
-MA_in.de.xi = [0.01 0.01];
-MA_in.de.phi = [0.01 0.01];
-MA_in.de.Phi = [0.01 0.01];
+MA_in.de.xi = [0.02 0.02];
+MA_in.de.phi = [0.6 0.6];
+MA_in.de.Phi = [0.6 0.6];
  
 % Diversion climb (all parameters must be specified; SEP is computed)
 MA_in.Dcl.xi = [0.5 0.5];
