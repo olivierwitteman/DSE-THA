@@ -1,0 +1,297 @@
+clc; clear variables
+%%Inputs for fuel
+thick = 2;
+OEW = 1768*9.81;  %operational empty weight [N] <---- INPUT
+MTOW = 2275*9.81; %maximum take-off weight [N] <---- INPUT
+Payload  = 363*9.81; %total payload [N]
+Fuel = 145*9.81;
+Batteries = 321*9.81% <---- INPUT
+%Dimensions and parameters (fixed) 
+b = 11.7; %span [m] 
+A = 10;   %aspect ratio [-]
+S = 16; %reference surface area [m^2]
+Snet=16*2; %wetted area
+cg = S/b; %average constant chord [m]
+Mach_1 = 0.27; %mach number at cruise [-]
+beta=sqrt(1-Mach_1^2);
+bf = 1.7; %fuselage width [m]                   
+hf = 1.65; %fuselage height [m]                            
+lf = 8; % total length of fuselage [m]      
+ln = 0.25; %distance from engine to quater chord mac [m]
+lfn = 2.85; %nose to leading edge [m] (GUESS)
+bn = 0.5; %width of nacelles (engines) [m]
+Ct = 0.78;%tip chord [m]
+Cr = 1.96;%root chord [m]
+lambda = Ct/Cr; %taper ratio of main wing [-]
+Ah = 5.6; %aspect ratio of horizontal tail [-]
+bh= 2.87; %horizontal tail span [m]
+Sh = bh^2/Ah; %Area of the horizontal tail wing [m]
+cg_h= Sh/bh; %average chord
+lambda_h = 0.39 %taper ratio of tail wing [-] (
+Cr_h = 2*Sh/((1+lambda_h)*bh);
+Ct_h = lambda_h*Cr_h;
+eta = 0.95; %airfoil efficiency factor [-]
+MAC = 1.45; %mean aeroynamic chord[m]
+
+% Calculate wing sweep angle
+sweep_LE = 2.9*pi/180;  %sweep at leading edge [rad]  
+sweep_4 = atan(tan(sweep_LE) + (Cr/(2*b))*(lambda -1)); %sweep at quater chord [rad]
+sweep_2 = -2.9*pi/180;%atan(tan(sweep_LE) - (4/A)*(0.5*((1-lambda)/(1+lambda)))); %sweep at half chord [rad]
+
+% Calculate tail wing sweep angle (could be ifferent)
+sweep_LE_h = 0;
+sweep_4_h = atan(tan(sweep_LE_h) + (Cr_h/(2*bh))*(lambda_h -1));
+sweep_2_h = -2.9*pi/180;
+
+% measured from planform for given geometry (from nose to horizontal tail) [m]
+x_datum_h = 7.2 ;   %(ASSUMED)               
+
+%distance between aerodynamic center of main wing and horizontal tail [m] 
+lh = 3.9; %(ASSUMED)
+
+% x locations
+x_lemac = 3.55;          % x location of leading edge mean aerodynamic chord [m] (GUESS)
+x_OEW = x_lemac + 0.375*MAC;        % assumed CG of operational empty weight [m]
+x_Cargo = 4.9;                       % assumed CG of cargo in meters [m]
+x_Fuel = x_lemac + 0.5*MAC;         % CG of fuel [m]
+
+%% Variables Stability 
+
+SM = 0.05; 
+%stability margin for safety given as percentage/100
+CLaw = (2*pi*A)/(2 + sqrt(4 + (A/eta)^2 *(1 + (tan(sweep_2)^2/beta^2)) )) ; 
+% dCl/dalpha using DATCOM method [1/rad]
+%compressibility ignored due to low speeds
+
+%for main wing
+CLah = (2*pi*Ah)/(2+ sqrt(4 + (Ah/eta)^2 *(1 + (tan(sweep_2_h)^2/beta^2)) ));
+% dCl/dalpha using DATCOM method [1/rad]
+%compressibility ignored due to low speeds
+
+%for horizontal tail
+CLaAh = CLaw*(1+(2.15*bf/b))*(Snet/S) + ((pi/2)*(bf^2/S)); 
+%dClDalpha for tail-less aicraft 
+
+%% Downwash
+
+zh = 0.5;%vertical distance between wing and tail root chord taken from current geometry [m] (ASSUMED)
+m_tv = 2*zh/b; % distance factor between horizontal tail and vortex shed plane of main wing [-]
+r = 2*lh/b; % distance factor quarter chord main wing and tail [-]
+
+%For a propeller on the wing 
+rho= 0.9; % density at given altitude [kg/m^3]
+Pbr= 326; %shaft horse power of one engine 132HP = 99000W (Rotax 915) (ASSUMED)
+Cl= 0.27 ;%lift coefficient at given altitude  (cl_cruize)
+phi= asin(m_tv/r)*180/pi; %angle between r and m_tv
+%assume 0, as the engine is located on the tip of the fuselage for the fuel
+%configuration
+delta_s_de_da = 6.5*((rho*Pbr^2*S^3+Cl^3)/(lh^4*MTOW^3))^(0.25)*(sin(6*phi))^(2.5); %downwash propeller factor
+
+ked = ((0.1121+0.1265*sweep_4+0.1766*sweep_4^2) / r^2 ) + 0.1024/r + 2;  %downwash corrective coefficient 
+ked0 = 0.1124/r^2 + 0.1024/r + 2; %downwash corrective coefficient 
+de_da = delta_s_de_da + (ked/ked0)*( (r/(r^2 + m_tv^2))*(0.4876/sqrt(r^2 + 0.6319 + m_tv^2))+...
+    (1+(r^2/(r^2 + 0.7915+5.0734*m_tv^2))^0.3113)*(1-sqrt(m_tv^2/(1+m_tv^2))))...
+    *(CLaw/(pi*A)); %total downwash with added delta_s controbution for propeller !!!!!! delta_s_de_da 000
+
+%% Aerodynamic center
+kn = -2.5;% for an engine positioned in front of the lemac/nose propeller
+x_ac_w = 0.25; %aerodynamic center of wing (assumed at 0.4mac)
+
+x_ac_c = x_ac_w - ((1.8/CLaAh)*(bf*hf*lfn/(S*MAC))) +...
+    ((0.273/(1+lambda))*((bf*cg*(b-bf))/(MAC^2*(b+2.15*bf))))*tan(sweep_4) +...
+    2*kn*((bn^2*ln)/(S*MAC*CLaAh)); %total aircraft aerodynamic center
+
+%% Speed on the tail an wing
+Vh_V = sqrt(0.85); %flow velocity ratio between H-tail and main wing [-]
+
+%% Controllability
+CLAh = 1.2;% lift coefficient of wing+fuselage (without tail, landing configuration)
+% lecture 4 slide 37
+CLh = -0.35*Ah^(1/3);% for fixed
+CL0 = 0.8563; % Zero incident while flaps out
+Cm0 = -0.216; %  (for main wing) [-]
+CL=1.6;
+
+mu_1=0.17; % accounts for the effect of the camber increase associated with the deflection angle of the flaps
+mu_2=0.5;%represent the 2D effect lift contribution generated by the high lift devices
+mu_3=0.55;% accounts for the effect of sweep angle
+cf_c= 1.0; %extended chord due to flaps and normal chord length
+S_wf_S=1.0; %ratio between flapped wing area and reference wing area 
+CLmax= 2.1; %aircraft lift at landing
+dClmax = 0.35;
+%% Cmac zero-lift pitching moment
+Cmac_w = Cm0*((A*cos(sweep_4)^2)/(A+2*cos(sweep_4))); %pitching moment coefficient at aerodynamic center for wing
+
+Cmac_nac = 0.2; %assumed pitching moment coefficient at aerodynamic center (please estimate correctly when engine data available)
+%for nacelle
+
+Cmac_fus = -1.8*(1-(2.5*bf/lf))*((pi*bf*hf*lf)/(4*S*MAC))*(CL0/CLaAh); %pitching moment coefficient at aerodynamic center 
+% for fuselage
+
+Delta_f_Cmac = mu_2*(-mu_1*dClmax*cf_c-[CL+dClmax*(1-S_wf_S)]*cf_c/8*(cf_c-1))+0.7*A/(1+2/A)*mu_3*dClmax*tan(2.8)% flaps
+
+Cm_ac = Cmac_w + Cmac_fus + Cmac_nac + Delta_f_Cmac %total moment coefficient at aerodynamic center
+         
+%Cm_ac = -0.082; %(ac assumed to be within +-10% of the neutral point)
+
+%% Equations
+x_cg=(-1:0.01:1);
+
+% Stability curve
+Sh_S= (x_cg-x_ac_c+SM)/((CLah/CLaAh)*(1-de_da)*((Vh_V)^(2))*(lh/MAC)); %Stability gradient
+
+% Controllablity Curve
+Sh_S_C = ((Cm_ac/CLAh) -(x_ac_c)) / ((CLh/CLAh)*(lh/MAC)*Vh_V^2)+ (x_cg)/ ((CLh/CLAh)*(lh/MAC)*Vh_V^2);
+
+%% Rotation Take off setting
+% xG = 4.6;%new obtaine position of the undercarriage [m]
+% 
+% VS1=31.6; % vstall speed (requirement);
+% Vh = 31; %random assumption
+% VR =33.18; % vstall * 1.05 (ASSUMPTION)
+% nh = (x_datum_h-xG)/lh*(Vh/VR)^2; 
+% theta = 0.5;
+% nq= 1+ CLah*theta*(x_datum_h-xG)/(CLh*VR);
+% 
+% Sh_S_R=(CLmax/(nh*nq*CLh))*((Cm_ac/CLmax)-(VS1/VR)^2*((xG-x_cg)/MAC))+(CLAh/CLh*(xG/MAC-0.25));
+
+
+figure
+yyaxis right
+plot(x_cg,Sh_S,x_cg,Sh_S_C, "LineWidth", thick)
+xlabel('x_{cg}/MAC [%]')
+ylabel('S_h/S [-]')
+axis([0.1 0.5 0 0.4])
+
+
+%% POTATO PLOT
+clear all
+%OEW = double(vars.OEW);
+OEW=1768;
+x_lemac = [2: 0.1: 4.2];
+cg_mat = zeros(length(x_lemac),2);
+counter = 1
+cg_OEW = 4;
+MAC=1.456;
+thick=2;
+for i  = x_lemac
+    lf = 8;                                      % <----- INPUT m 
+    lbs_to_kg = 0.45359237;
+    mass_pax=175;                    %lbs               <----- INPUT (fixed)
+    mass_pax = mass_pax*lbs_to_kg;
+
+    mass_bags = 25;                                %lbs <----- INPUT (fixed)
+    mass_bags = mass_bags * lbs_to_kg;
+
+%     mass_fuel=(vars.W_fuel_total);                 %kg  <----- INPUT
+    mass_fuel = 145;
+
+    W_OEW = OEW;                                   %kg  <----- INPUT   
+    cg_OEW =3.6;
+   
+
+    seat_pilot=2.06 ;                    %c.g. Position Pilot   <----- INPUT 
+    seat_row1=2.85  ;                    %c.g. Position Row 1   <----- INPUT 
+    seat_row2=3.9  ;                    %c.g. Position Row 2   <----- INPUT 
+    location_cargo = 4.9;             %c.g. Position Baggage <----- INPUT
+    location_fuel = 4.275 ;
+    %location_batteries%c.g. Position Fuel    <----- INPUT
+%     location_fuel = cg_OEW + 0.10*l_fus;
+%     location_feul = x_Fuel;
+
+    %cargo
+    W_OEW_cargo = W_OEW+4*mass_bags;
+    cg_OEW_cargo=((cg_OEW*W_OEW)+(location_cargo*4*mass_bags))/(W_OEW_cargo);
+
+   
+    W_OEW_1pax=1*mass_pax+W_OEW_cargo;
+    W_OEW_2pax=2*mass_pax+W_OEW_cargo;
+    W_OEW_3pax=3*mass_pax+W_OEW_cargo;
+    W_OEW_4pax=4*mass_pax+W_OEW_cargo;
+    %back to front
+    cg_btf_1=((cg_OEW_cargo*W_OEW_cargo)+(seat_row2*mass_pax))/(W_OEW_1pax);
+    cg_btf_2=((cg_btf_1*W_OEW_1pax)+(seat_row2*mass_pax))/(W_OEW_2pax);
+    cg_btf_3=((cg_btf_2*W_OEW_2pax)+(seat_row1*mass_pax))/(W_OEW_3pax);
+    cg_btf_4=((cg_btf_3*W_OEW_3pax)+(seat_row1*mass_pax))/(W_OEW_4pax);
+
+
+    %front to back
+    cg_ftb_1=((cg_OEW_cargo*W_OEW_cargo)+(seat_row1*mass_pax))/(W_OEW_1pax);
+    cg_ftb_2=((cg_ftb_1*W_OEW_1pax)+(seat_row1*mass_pax))/(W_OEW_2pax);
+    cg_ftb_3=((cg_ftb_2*W_OEW_2pax)+(seat_row2*mass_pax))/(W_OEW_3pax);
+    cg_ftb_4=((cg_ftb_3*W_OEW_3pax)+(seat_row2*mass_pax))/(W_OEW_4pax);
+
+
+    %include fuel
+    cg_nofuel=cg_btf_4;
+    cg_fuel=((cg_nofuel*W_OEW_4pax)+(location_fuel*mass_fuel))/(mass_fuel+W_OEW_4pax);
+
+
+    %% graph
+    % figure
+    % line([([cg_OEW,cg_OEW_cargo]- x_lemac)/MAC],[W_OEW,W_OEW_cargo],'Color','green');
+    % line([([cg_OEW_cargo,cg_btf_1,cg_btf_2,cg_btf_3,cg_btf_4]-x_lemac)/MAC],[W_OEW_cargo,W_OEW_1pax,W_OEW_2pax,W_OEW_3pax,W_OEW_4pax],'Color','blue');
+    % line([([cg_OEW_cargo,cg_ftb_1,cg_ftb_2,cg_ftb_3,cg_ftb_4]-x_lemac)/MAC],[W_OEW_cargo,W_OEW_1pax,W_OEW_2pax,W_OEW_3pax,W_OEW_4pax],'Color','red');
+    % line([([cg_nofuel,cg_fuel]-x_lemac)/MAC],[W_OEW_4pax, W_OEW_4pax+mass_fuel],'Color','black'); 
+
+    %     figure
+%     line([([cg_OEW,cg_OEW_cargo]- x_lemac)/i],[[W_OEW,W_OEW_cargo]],'Color','green');
+%     line([([cg_OEW_cargo,cg_btf_1,cg_btf_2,cg_btf_3,cg_btf_4]-x_lemac)/i],[W_OEW_cargo,W_OEW_1pax,W_OEW_2pax,W_OEW_3pax,W_OEW_4pax],'Color','blue');
+%     line([([cg_OEW_cargo,cg_ftb_1,cg_ftb_2,cg_ftb_3,cg_ftb_4]-x_lemac)/i],[W_OEW_cargo,W_OEW_1pax,W_OEW_2pax,W_OEW_3pax,W_OEW_4pax],'Color','red');
+%     line([([cg_nofuel,cg_fuel]-x_lemac)/i],[W_OEW_4pax, W_OEW_4pax+mass_fuel],'Color','black');
+
+%     title('Potato Plot')
+%     ylabel('mass [kg]')
+%     xlabel('c.g. position from nose [m]')
+%     legend('Cargo','Back to Front','Front to Back','Fuel')
+
+    cg_max=max([cg_OEW,cg_OEW_cargo,cg_OEW_cargo,cg_btf_1,cg_btf_2,cg_btf_3,cg_btf_4,cg_OEW_cargo,cg_btf_1,cg_btf_2,cg_btf_3,cg_btf_4,cg_fuel]);
+    cg_min=min([cg_OEW,cg_OEW_cargo,cg_OEW_cargo,cg_btf_1,cg_btf_2,cg_btf_3,cg_btf_4,cg_OEW_cargo,cg_btf_1,cg_btf_2,cg_btf_3,cg_btf_4,cg_fuel]);
+
+    cg_max = (cg_max - i)/MAC;
+    cg_min = (cg_min - i)/MAC;
+    cg_mat(counter, 1) = cg_min;
+    cg_mat(counter, 2) = cg_max;
+    
+    counter = counter + 1;
+    
+end
+
+%figure
+yyaxis left
+plot([cg_mat(:,1)-0.48, cg_mat(:,2)-0.48], x_lemac/lf, "LineWidth", thick)
+ylim([0.25 0.34])
+xlim([0.1 0.5])
+hold on
+% plot(x_cg_c,Sh_S,x_cg_c,Sh_S_NS,x_cg_c,Sh_S_C)
+xlabel("x_{cg}/MAC", "FontSize", 30)
+ylabel("x_{LEMAC}/L_{FUS}", "FontSize", 30)
+
+legend("FORWARD CG", "AFT CG", "Stability", "Neutral Stability", "Controlability")
+set(gca,'FontSize',25);
+
+% yyaxis right
+% % plots
+% % figure
+% plot(x_cg_c,Sh_S,x_cg_c,Sh_S_NS,x_cg_c,Sh_S_C)
+% % title('Scissors-plot: Stability & Controllability Curve')
+% % xlabel('x_{cg}/MAC  [%]')
+% ylabel('S_h/S [-]')
+% axis([-1 1 -0.5 0.6])
+% % legend('Stability','Neutral Stability','Controllability')
+% hold on
+
+
+figure
+x_lemac = 2.5;
+line([([cg_OEW,cg_OEW_cargo]- x_lemac)/MAC],[[W_OEW,W_OEW_cargo]],'Color','green');
+line([([cg_OEW_cargo,cg_btf_1,cg_btf_2,cg_btf_3,cg_btf_4]-x_lemac)/MAC],[W_OEW_cargo,W_OEW_1pax,W_OEW_2pax,W_OEW_3pax,W_OEW_4pax],'Color','blue');
+line([([cg_OEW_cargo,cg_ftb_1,cg_ftb_2,cg_ftb_3,cg_ftb_4]-x_lemac)/MAC],[W_OEW_cargo,W_OEW_1pax,W_OEW_2pax,W_OEW_3pax,W_OEW_4pax],'Color','red');
+line([([cg_nofuel,cg_fuel]-x_lemac)/MAC],[W_OEW_4pax, W_OEW_4pax+mass_fuel],'Color','black');
+
+xlabel("x_{cg}/MAC")
+ylabel("Mass [kg]")
+legend("Cargo", "Front to back", "Back to fron", "Fuel")
+set(gca,'FontSize',25);
+
+
