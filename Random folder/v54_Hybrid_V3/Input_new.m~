@@ -26,9 +26,9 @@ e_TO=0.77;
 e_L=0.73;
  
 % zero-lift drag coefficient (no propulsive interaction assumed)
-CD0_clean = 0.0357;
+CD0_clean = 0.0355;
 CD0_TO= CD0_clean + 0.02;
-CD0_L= CD0_clean + 0.045;
+CD0_L= CD0_clean + 0.06;
  
 % Cruise
 a.cr.CD0 = CD0_clean;                         % Cruise zero-lift drag coefficient [-]
@@ -164,7 +164,7 @@ m.TO.Phi = 0.3;                                % TO shaft power ratio [-]
  
 % OEI Balked landing
 m.bL.G = 0.021;                                 % OEI balked landing climb gradient [-] (CS25.121d)
-m.bL.f = 0.97;                                   % Max landing weight (MLW) as a fraction of MTOW [-]
+m.bL.f = 0.99;                                   % Max landing weight (MLW) as a fraction of MTOW [-]
 m.bL.vMargin = 1.4;                             % Stall margin in balked-landing conditions
 m.bL.t = 1;                                     % Balked landing throttle setting P/P_max [-] (see note at end)
 m.bL.phi = 0.06;                                % Balked landing supplied power ratio [-]
@@ -176,7 +176,7 @@ m.cI.f = 0.999;                                  % OEI-ceiling weight fraction W
 m.cI.c = 0.5;                                   % Ceiling climb rate [m/s] (also used for cruise ceiling and cruise speed!)
 m.cI.vMargin = 1.25;                            % Stall margin in OEI-ceiling conditions (also used for cruise ceiling) CHECK!
 m.cI.t = 1;                                   % OEI-ceiling throttle setting P/P_max [-] (see note at end)
-m.cI.phi = 0.02;                                % OEI-ceiling landing supplied power ratio [-]
+m.cI.phi = 0.01;                                % OEI-ceiling landing supplied power ratio [-]
 m.cI.Phi = 0.1;                                   % OEI-ceiling landing shaft power ratio [-]
  
 % Start-of-climb
@@ -222,9 +222,9 @@ MA_in.DOH_miss0 = 0.1;                          % Degree-of-hybridization, Ebat/
 % interpolation is carried out versus altitude, and for cruise, versus 
 % range flown.
 % Climb (all parameters must be specified; SEP is computed)
-MA_in.cl.xi = [0.6 0.8];
-MA_in.cl.phi = [0.1 0.05];
-MA_in.cl.Phi = [0.1 0.1];
+MA_in.cl.xi = [0.7 0.9];
+MA_in.cl.phi = [0.03 0.03];
+MA_in.cl.Phi = [0.3 0.3];
  
 % Cruise (level flight is specified, so one DOF must be kept free)
 MA_in.cr.xi = [NaN NaN];
