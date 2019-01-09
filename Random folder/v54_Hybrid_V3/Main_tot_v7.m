@@ -693,7 +693,7 @@ Sh_S_C = ((Cm_ac/CLAh) -(x_ac_c)) / ((CLh/CLAh)*(lh/MAC)*Vh_V^2)+ (x_cg)/ ((CLh/
 % Sh_S_R=(CLmax/(nh*nq*CLh))*((Cm_ac/CLmax)-(VS1/VR)^2*((xG-x_cg)/MAC))+(CLAh/CLh*(xG/MAC-0.25));
 
 
-figure
+fscissor = figure
 yyaxis right
 plot(x_cg,Sh_S,x_cg,Sh_S_C, "LineWidth", thick)
 xlabel('x_{cg}/MAC [%]')
@@ -786,6 +786,8 @@ ylabel("x_{LEMAC}/L_{FUS}", "FontSize", 30)
 
 legend("FORWARD CG", "AFT CG", "Stability", "Neutral Stability", "Controlability")
 set(gca,'FontSize',25);
+saveas(fscissor,'ScissorPlot.fig');
+% close all
 
 
 
@@ -878,7 +880,7 @@ for i  = x_lemac
     
     counter = counter + 1;
     if counter == ind
-        figure
+        fpotato = figure
 %         x_lemac = x_lemac * lf; %%% AFTER x_lemac was chosen
         line([([cg_OEW,cg_OEW_cargo]- i)/MAC],[[W_OEW,W_OEW_cargo]],'Color','green');
         line([([cg_OEW_cargo,cg_btf_1,cg_btf_2,cg_btf_3,cg_btf_4]-i)/MAC],[W_OEW_cargo,W_OEW_1pax,W_OEW_2pax,W_OEW_3pax,W_OEW_4pax],'Color','blue');
@@ -888,6 +890,9 @@ for i  = x_lemac
         xlabel("x_{cg}/MAC")
         ylabel("Mass [kg]")
         legend("Cargo", "Front to back", "Back to fron", "Fuel")
+        
+        saveas(fpotato,'PotatoDiagram.fig');
+        close all
         
         break
     end
