@@ -59,7 +59,9 @@ text(20, percent_emptiness_payload*A_payload+15, "MTOW with full tanks and 50% p
 text(range_C-40, 20, "Ferry range", "FontSize", 40 )
 
 
-set(gca,'FontSize',40)
+set(gca,'FontSize',60)
+saveas(f3,'PayloadRange.fig');
+close all
 end
 
 
