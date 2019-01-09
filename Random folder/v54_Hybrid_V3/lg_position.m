@@ -47,8 +47,8 @@ if winghigh == 2
     Ymlg = (ln + lgearrange)/(((ln^2 + (tan(Tangle))^2)/z^2)-1);
 end
 
-length_strut
-l_gear_n
-z
-Ymlg
+% length_strut
+% l_gear_n
+% z
+% Ymlg
 end
