@@ -1,3 +1,7 @@
+% TODO: THE POTATO PLOT IS SOMEHWAT WRONG, IT DOES NOT INCORPORATE THE NEW
+% VALUE FOR XLEMAC, THUS IS A LITTLE BIT OFF. DO A SEPARATE FILE WITH
+% RUBENS's CODE FOR THE CORRECT PLOT
+
 clc
 clear all
 close all
@@ -274,28 +278,20 @@ summary_wing = [summary_wing; ["Wing Area", S]];
 
 
 %% Drag part
-% vars = load('../ADSEE_I/variables_ADSEE_I.mat');
-
-
-
-
-
-% P = double(vars.P); % FIND IT FROM ROELOF
 P = MTOW*9.81/WPdes.minGTM.GTM; % ADD THE SECONDARY POINT WHICH WE DO NOT KNOW for some reason
-A = a.AR
-MAC = double(summary_wing(11,2));           % <---- CHANGE FOR ELECTRIC/HYBRID
+A = a.AR;
+MAC = double(summary_wing(11,2));           
 OEW = M.OEM + M.EM1 + M.EM2 + M.bat + M.f + M.GT + M.w;
-S_ref = S;                        % <---- FROM ROELOF
-v = V_cruise;        % <---- CHANGE FOR ELECTRIC/HYBRID
-W4W5 = m.cr.f/m.L.f
-% W_f = double(vars.W_fuel_total);  % <---- CHANGE FOR ELECTRIC/HYBRID
-W_f = M.f
-taper_ratio = double(summary_wing(3,2));    % <---- CHANGE FOR ELECTRIC/HYBRID
-sweep_c4 = double(summary_wing(4,2)); % <---- CHANGE FOR ELECTRIC/HYBRID
-sweep_c2 = double(summary_wing(5,2)); % <---- CHANGE FOR ELECTRIC/HYBRID
-sweep_LE = double(summary_wing(6,2)); % <---- CHANGE FOR ELECTRIC/HYBRID
-sweep_TE = double(summary_wing(7,2)); % <---- CHANGE FOR ELECTRIC/HYBRID
-b = double(summary_wing(2,2));               % <---- CHANGE FOR ELECTRIC/HYBRID
+S_ref = S;                        
+v = V_cruise;                     
+W4W5 = m.cr.f/m.L.f;
+W_f = M.f; % total fuel
+taper_ratio = double(summary_wing(3,2));    
+sweep_c4 = double(summary_wing(4,2));       
+sweep_c2 = double(summary_wing(5,2));       
+sweep_LE = double(summary_wing(6,2));       
+sweep_TE = double(summary_wing(7,2));       
+b = double(summary_wing(2,2));              
 V_stall = 31.38;
 LAMBDA = sweep_c4;    % Wingsweep at 0.25MAC
 % Wfiml = 0.97 * MTOW * 9.81;      % Aircraft weight at fuel intensive mission leg %ADSEEII-LECTURE1-SLIDE48 !!!!! ELECTRIC = 1
@@ -303,11 +299,11 @@ Wfiml = frac * MTOW * 9.81;
 WSsc = MTOW * m.cr.f * 9.81 / S_ref;      % Wing loading at the start of the cruise
 WSec = W4W5 * WSsc;     % Wing loading at the end of the cruise
 
-fus_length = 7.5; % <------ INPUT
-empen_x = 0.9;  %   <---- INPUT WRONG WRONG WRONG
-most_aft_cg = 0.6 * fus_length;     % <----- WRONG WRONG WRONG
+fus_length = 7.5;                       % <------ INPUT
+empen_x = 0.9;                          %      <---- INPUT WRONG WRONG WRONG
+most_aft_cg = 0.6 * fus_length;         % <----- WRONG WRONG WRONG INITIAL ROUGH CALCULATION
 
-%%%%%%%% added martin isa
+%%%%%%%% ISA CALCULATION
 h = m.cr.h;
 lambda_isa = 0.0065;
 T_0_isa = 288.15;
@@ -403,26 +399,17 @@ k = 0.052E-5;   % composites
 
 
 
-L1 = 1.7;
-L2 = 2.8;
-L3 = 3;
+L1 = 1.7;               %       <--------- INPUT
+L2 = 2.8;               %       <--------- INPUT
+L3 = 3;                 %       <--------- INPUT
 
 L = (L1+L2+L3)*3.281 ; %Fuselage structural length in ft for lecture 6 raymer pls dont hate
 
 
-A_cs = 2.9;
+A_cs = 2.9; % cross sectional area of the fuselage
 D = sqrt(A_cs/pi); % derived from frontal area (even though fuselage may not be cilindrical)
 
 mu = 1.7331332E-5; % viscosity of standard air at h=2400m (T=272K)
-
-
-
-
-
-
-
-
-
 
 
 
@@ -467,19 +454,11 @@ misc = ADSEE_II_Drag.cD_misc0(0.034, A_cs, L2*D*0, v, a, 0.6, 1., 0, 0.1*S_ref, 
 total_cD0 = cd0_c + misc;
 save("CD0_matrix_2.mat","total_cD0")
 
-cD = total_cD0 + ADSEE_II_Drag.k_f(A, LAMBDA, CLdes) * (CLdes)^2
+cD = total_cD0 + ADSEE_II_Drag.k_f(A, LAMBDA, CLdes) * (CLdes)^2;
 % cD = Fast_Cd0 + ADSEE_II_Drag.k_f(A, LAMBDA, CLdes) * (CLdes)^2
 
-
+cD
 L_D = CLdes/cD
-
-% check_matrix = zeros(30, 1);    % MATRIX FOR SAVING CD0_OLIVERS
-% if total_cD0 - CD0_clean < 0.5
-%     disp("Difference is small")
-% end
-
-% end
-% check wether the cd0s converge
 total_cD0
 CD0_clean
 
@@ -540,33 +519,30 @@ c_l_alpha = 0.32;
 
 
 %% Scissor and Potato plots
-
-
-
 thick = 2;
 Fuel = M.f;
-Batteries = M.bat*9.81% <---- INPUT
+Batteries = M.bat*9.81;
 %Dimensions and parameters (fixed) 
 Snet=S*2; %wetted area
 cg = S/b; %average constant chord [m]
 Mach_1 = 0.27; %mach number at cruise [-]
 beta=sqrt(1-Mach_1^2);
-bf = 1.7; %fuselage width [m]        % <----- INPUT           
-hf = 1.65; %fuselage height [m]      % <----- INPUT                      
+bf = 1.7; %fuselage width [m]                              % <----- INPUT           
+hf = 1.65; %fuselage height [m]                            % <----- INPUT                      
 lf = L1 + L2 + L3; % total length of fuselage [m]       
 ln = 0.25; %distance from engine to quater chord mac [m] . % <----- INPUT   
-lfn = 2.85; %nose to leading edge [m] (GUESS) . % <----- INPUT   
-bn = 0.5; %width of nacelles (engines) [m] .  % <----- INPUT   
+lfn = 2.85; %nose to leading edge [m] (GUESS) .            % <----- INPUT   
+bn = 0.5; %width of nacelles (engines) [m] .               % <----- INPUT   
 Ct = c_t;%tip chord [m]
 Cr = c_r;%root chord [m]
 lambda = Ct/Cr; %taper ratio of main wing [-]
-Ah = 5.6; %aspect ratio of horizontal tail [-] . % <----- INPUT   
-bh= 2.87; %horizontal tail span [m] .   % <----- INPUT   
-Sh = bh^2/Ah; %Area of the horizontal tail wing [m] . % <----- INPUT   NOT NEEDED I THINK ? MAYBE NO SWEEP AND LEAVE IT OUT
+Ah = 5.6; %aspect ratio of horizontal tail [-] .           % <----- INPUT   
+bh= 2.87; %horizontal tail span [m] .                      % <----- INPUT   
+Sh = bh^2/Ah; %Area of the horizontal tail wing [m] .      % <----- INPUT   NOT NEEDED I THINK ? MAYBE NO SWEEP AND LEAVE IT OUT
 cg_h= Sh/bh; %average chord
 lambda_h = 0.39 %taper ratio of tail wing [-] (
-Cr_h = 2*Sh/((1+lambda_h)*bh);  % <----- INPUT    NOT NEEDED
-Ct_h = lambda_h*Cr_h;   % <----- INPUT   NOT NEEDED
+Cr_h = 2*Sh/((1+lambda_h)*bh);  %     NOT NEEDED
+Ct_h = lambda_h*Cr_h;           %  INPUT   NOT NEEDED
 eta = 0.95; %airfoil efficiency factor [-]
 
 
@@ -581,10 +557,10 @@ sweep_4_h = atan(tan(sweep_LE_h) + (Cr_h/(2*bh))*(lambda_h -1));
 sweep_2_h = -2.9*pi/180;
 
 % measured from planform for given geometry (from nose to horizontal tail) [m]
-x_datum_h = 7.2 ;   %(ASSUMED)   % <----- INPUT               
+x_datum_h = 7.2 ;   %(ASSUMED)                  % <----- INPUT               
 
 %distance between aerodynamic center of main wing and horizontal tail [m] 
-lh = 3.9; %(ASSUMED) .  % <----- INPUT   
+lh = 3.9; %(ASSUMED) .                          % <----- INPUT   
 
 % % % % % x locations
 % % % % x_lemac = 3.55;          % x location of leading edge mean aerodynamic chord [m] (GUESS)
@@ -617,7 +593,7 @@ r = 2*lh/b; % distance factor quarter chord main wing and tail [-]
 
 %For a propeller on the wing 
 % rho= 0.9; % density at given altitude [kg/m^3]
-Pbr= 326; %shaft horse power of one engine 132HP = 99000W (Rotax 915) (ASSUMED) % <----- INPUT
+Pbr= 326; %shaft horse power of one engine 132HP = 99000W (Rotax 915) (ASSUMED) % <----- INPUT INPUT
 Cl= double(summary_wing(8,2));%lift coefficient at given altitude  (cl_cruize)
 phi= asin(m_tv/r)*180/pi; %angle between r and m_tv
 %assume 0, as the engine is located on the tip of the fuselage for the fuel
@@ -693,7 +669,7 @@ Sh_S_C = ((Cm_ac/CLAh) -(x_ac_c)) / ((CLh/CLAh)*(lh/MAC)*Vh_V^2)+ (x_cg)/ ((CLh/
 % Sh_S_R=(CLmax/(nh*nq*CLh))*((Cm_ac/CLmax)-(VS1/VR)^2*((xG-x_cg)/MAC))+(CLAh/CLh*(xG/MAC-0.25));
 
 
-figure
+fscissor = figure
 yyaxis right
 plot(x_cg,Sh_S,x_cg,Sh_S_C, "LineWidth", thick)
 xlabel('x_{cg}/MAC [%]')
@@ -708,27 +684,24 @@ axis([0.1 0.5 0 0.4])
 x_lemac = [2: 0.01: 4.2];
 cg_mat = zeros(length(x_lemac),2);
 counter = 1
-cg_OEW = 4;
-thick=2;
 for i  = x_lemac
     lbs_to_kg = 0.45359237;
-    mass_pax=175;                    %lbs               <----- INPUT (fixed)
+    mass_pax=175;                    %lbs               
     mass_pax = mass_pax*lbs_to_kg;
 
-    mass_bags = 25;                                %lbs <----- INPUT (fixed)
+    mass_bags = 25;                                
     mass_bags = mass_bags * lbs_to_kg;
 
-%     mass_fuel=(vars.W_fuel_total);                 %kg  <----- INPUT
     mass_fuel = M.f;
 
-    W_OEW = OEW;                                   %kg  <----- INPUT   
+    W_OEW = OEW;                                     
     cg_OEW =3.6;                % <--------- INPUT INPUT INPUT INPUT INPUT INPUT INPUT INPUT
    
 
     seat_pilot=2.06 ;                    %c.g. Position Pilot   <----- INPUT 
     seat_row1=2.85  ;                    %c.g. Position Row 1   <----- INPUT 
-    seat_row2=3.9  ;                    %c.g. Position Row 2   <----- INPUT 
-    location_cargo = 4.9;             %c.g. Position Baggage <----- INPUT
+    seat_row2=3.9  ;                     %c.g. Position Row 2   <----- INPUT 
+    location_cargo = 4.9;                %c.g. Position Baggage <----- INPUT
     location_fuel = 4.275 ;
     %location_batteries%c.g. Position Fuel    <----- INPUT
 %     location_fuel = cg_OEW + 0.10*l_fus;
@@ -787,12 +760,14 @@ ylabel("x_{LEMAC}/L_{FUS}", "FontSize", 30)
 legend("FORWARD CG", "AFT CG", "Stability", "Neutral Stability", "Controlability")
 set(gca,'FontSize',25);
 
+% close all
+
 
 
 
 
 prompt_xlemac = 'X_lemac position: ';
-x_lemac = double(input(prompt_xlemac))
+x_lemac_scissor = double(input(prompt_xlemac))
 
 
 prompt_aftcg = 'Most AFT cg: ';
@@ -802,38 +777,101 @@ prompt_forwardcg = 'Most FORWARD cg: ';
 most_forward_cg = double(input(prompt_forwardcg))
 
 
-figure
-x_lemac = x_lemac * lf; %%% AFTER x_lemac was chosen
-line([([cg_OEW,cg_OEW_cargo]- x_lemac)/MAC],[[W_OEW,W_OEW_cargo]],'Color','green');
-line([([cg_OEW_cargo,cg_btf_1,cg_btf_2,cg_btf_3,cg_btf_4]-x_lemac)/MAC],[W_OEW_cargo,W_OEW_1pax,W_OEW_2pax,W_OEW_3pax,W_OEW_4pax],'Color','blue');
-line([([cg_OEW_cargo,cg_ftb_1,cg_ftb_2,cg_ftb_3,cg_ftb_4]-x_lemac)/MAC],[W_OEW_cargo,W_OEW_1pax,W_OEW_2pax,W_OEW_3pax,W_OEW_4pax],'Color','red');
-line([([cg_nofuel,cg_fuel]-x_lemac)/MAC],[W_OEW_4pax, W_OEW_4pax+mass_fuel],'Color','black');
-
-xlabel("x_{cg}/MAC")
-ylabel("Mass [kg]")
-legend("Cargo", "Front to back", "Back to fron", "Fuel")
-
-
-set(gca,'FontSize',25);
-
-
-
-
-
-
-
-
-
-% cg_mat(:,1) = round(cg_mat(:,1), 4)
-% cg_mat(:,2) = round(cg_mat(:,2), 4)
-
-
-
 ind = find(cg_mat(:,2) == most_aft_cg)
 % get the index and the run the loop untill this index with the ne x_lemac
 
 
 
+%% POTATO PLOT
+% ADD ROUND UP TO THIRD DECIMAL POINT AND EXTRACT THE VALUE OF THE CHOSEN
+% LEMAC 
+% clear all
+x_lemac = [2: 0.01: 4.2];
+cg_mat = zeros(length(x_lemac),2);
+counter = 1
+for i  = x_lemac
+    lbs_to_kg = 0.45359237;
+    mass_pax=175;                    
+    mass_pax = mass_pax*lbs_to_kg;
+
+    mass_bags = 25;                                
+    mass_bags = mass_bags * lbs_to_kg;
+
+    mass_fuel = M.f;
+
+    W_OEW = OEW;                                  
+    cg_OEW =3.6;                        % <--------- INPUT INPUT INPUT INPUT INPUT INPUT INPUT INPUT
+   
+
+    seat_pilot=2.06 ;                    %c.g. Position Pilot   <----- INPUT 
+    seat_row1=2.85  ;                    %c.g. Position Row 1   <----- INPUT 
+    seat_row2=3.9  ;                     %c.g. Position Row 2   <----- INPUT 
+    location_cargo = 4.9;                %c.g. Position Baggage <----- INPUT
+    location_fuel = 4.275 ;
+    %location_batteries%c.g. Position Fuel    <----- INPUT
+%     location_fuel = cg_OEW + 0.10*l_fus;
+%     location_feul = x_Fuel;
+
+    %cargo
+    W_OEW_cargo = W_OEW+4*mass_bags;
+    cg_OEW_cargo=((cg_OEW*W_OEW)+(location_cargo*4*mass_bags))/(W_OEW_cargo);
+
+   
+    W_OEW_1pax=1*mass_pax+W_OEW_cargo;
+    W_OEW_2pax=2*mass_pax+W_OEW_cargo;
+    W_OEW_3pax=3*mass_pax+W_OEW_cargo;
+    W_OEW_4pax=4*mass_pax+W_OEW_cargo;
+    %back to front
+    cg_btf_1=((cg_OEW_cargo*W_OEW_cargo)+(seat_row2*mass_pax))/(W_OEW_1pax);
+    cg_btf_2=((cg_btf_1*W_OEW_1pax)+(seat_row2*mass_pax))/(W_OEW_2pax);
+    cg_btf_3=((cg_btf_2*W_OEW_2pax)+(seat_row1*mass_pax))/(W_OEW_3pax);
+    cg_btf_4=((cg_btf_3*W_OEW_3pax)+(seat_row1*mass_pax))/(W_OEW_4pax);
 
 
+    %front to back
+    cg_ftb_1=((cg_OEW_cargo*W_OEW_cargo)+(seat_row1*mass_pax))/(W_OEW_1pax);
+    cg_ftb_2=((cg_ftb_1*W_OEW_1pax)+(seat_row1*mass_pax))/(W_OEW_2pax);
+    cg_ftb_3=((cg_ftb_2*W_OEW_2pax)+(seat_row2*mass_pax))/(W_OEW_3pax);
+    cg_ftb_4=((cg_ftb_3*W_OEW_3pax)+(seat_row2*mass_pax))/(W_OEW_4pax);
+
+
+    %include fuel
+    cg_nofuel=cg_btf_4;
+    cg_fuel=((cg_nofuel*W_OEW_4pax)+(location_fuel*mass_fuel))/(mass_fuel+W_OEW_4pax);
+
+
+    cg_max=max([cg_OEW,cg_OEW_cargo,cg_OEW_cargo,cg_btf_1,cg_btf_2,cg_btf_3,cg_btf_4,cg_OEW_cargo,cg_btf_1,cg_btf_2,cg_btf_3,cg_btf_4,cg_fuel]);
+    cg_min=min([cg_OEW,cg_OEW_cargo,cg_OEW_cargo,cg_btf_1,cg_btf_2,cg_btf_3,cg_btf_4,cg_OEW_cargo,cg_btf_1,cg_btf_2,cg_btf_3,cg_btf_4,cg_fuel]);
+
+    cg_max = (cg_max - i)/MAC;
+    cg_min = (cg_min - i)/MAC;
+    cg_mat(counter, 1) = round(cg_min,3);
+    cg_mat(counter, 2) = round(cg_max,3);
+    
+    counter = counter + 1;
+    if counter == ind
+        fpotato = figure
+%         x_lemac = x_lemac * lf; %%% AFTER x_lemac was chosen
+        line([([cg_OEW,cg_OEW_cargo]- i)/MAC],[[W_OEW,W_OEW_cargo]],'Color','green');
+        line([([cg_OEW_cargo,cg_btf_1,cg_btf_2,cg_btf_3,cg_btf_4]-i)/MAC],[W_OEW_cargo,W_OEW_1pax,W_OEW_2pax,W_OEW_3pax,W_OEW_4pax],'Color','blue');
+        line([([cg_OEW_cargo,cg_ftb_1,cg_ftb_2,cg_ftb_3,cg_ftb_4]-i)/MAC],[W_OEW_cargo,W_OEW_1pax,W_OEW_2pax,W_OEW_3pax,W_OEW_4pax],'Color','red');
+        line([([cg_nofuel,cg_fuel]-i)/MAC],[W_OEW_4pax, W_OEW_4pax+mass_fuel],'Color','black');
+
+        xlabel("x_{cg}/MAC")
+        ylabel("Mass [kg]")
+        legend("Cargo", "Front to back", "Back to fron", "Fuel")
+        
+        saveas(fpotato,'PotatoDiagram.fig');
+        close all
+        
+        break
+    end
+end
+
+%%
+perc_mac = 0.4; % 40% of the mac is the landing gear
+
+
+[length_strut, l_gear_n, z, Ymlg ] = lg_position(perc_mac, lf, L3, ...
+    most_aft_cg, x_lemac_scissor*lf, MAC, bf, MTOW) 
 
