@@ -299,7 +299,7 @@ Wfiml = frac * MTOW * 9.81;
 WSsc = MTOW * m.cr.f * 9.81 / S_ref;      % Wing loading at the start of the cruise
 WSec = W4W5 * WSsc;     % Wing loading at the end of the cruise
 
-fus_length = 7.5;                       % <------ INPUT
+fus_length = 7.194;                       % <------ INPUT
 empen_x = 0.9;                          %      <---- INPUT WRONG WRONG WRONG
 most_aft_cg = 0.6 * fus_length;         % <----- WRONG WRONG WRONG INITIAL ROUGH CALCULATION
 
@@ -399,8 +399,8 @@ k = 0.052E-5;   % composites
 
 
 
-L1 = 1.7;               %       <--------- INPUT
-L2 = 2.8;               %       <--------- INPUT
+L1 = 1.66;               %       <--------- INPUT
+L2 = 2.534;               %       <--------- INPUT
 L3 = 3;                 %       <--------- INPUT
 
 L = (L1+L2+L3)*3.281 ; %Fuselage structural length in ft for lecture 6 raymer pls dont hate
@@ -527,7 +527,7 @@ Snet=S*2; %wetted area
 cg = S/b; %average constant chord [m]
 Mach_1 = 0.27; %mach number at cruise [-]
 beta=sqrt(1-Mach_1^2);
-bf = 1.7; %fuselage width [m]                              % <----- INPUT           
+bf = 1.416; %fuselage width [m]                              % <----- INPUT           
 hf = 1.65; %fuselage height [m]                            % <----- INPUT                      
 lf = L1 + L2 + L3; % total length of fuselage [m]       
 ln = 0.25; %distance from engine to quater chord mac [m] . % <----- INPUT   
