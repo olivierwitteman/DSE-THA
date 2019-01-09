@@ -560,7 +560,7 @@ sweep_2_h = -2.9*pi/180;
 x_datum_h = 7.2 ;   %(ASSUMED)                  % <----- INPUT               
 
 %distance between aerodynamic center of main wing and horizontal tail [m] 
-lh = 3.9; %(ASSUMED) .                          % <----- INPUT   
+lh = L_t/3.2808; %(ASSUMED) .                          % <----- INPUT   
 
 % % % % % x locations
 % % % % x_lemac = 3.55;          % x location of leading edge mean aerodynamic chord [m] (GUESS)
@@ -780,6 +780,11 @@ prompt_ShS = 'Chosen ShS: ';
 ShS_ratio = double(input(prompt_ShS));
 
 Sh = S*ShS_ratio;
+A_h = 5.6;    % <----- INPUT   [3, 5] slide 68 lecture 7 ADSEE 1
+A_v = 1.84;  % <----- INPUT   [1, 2] slide 68 lecture 7 ADSEE 1
+
+b_h = sqrt(A_h * S_h);
+b_v = sqrt(A_v * S_v);
 
 ind = find(cg_mat(:,2) == most_aft_cg);
 % get the index and the run the loop untill this index with the ne x_lemac

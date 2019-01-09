@@ -406,7 +406,7 @@ L3 = 3;                 %       <--------- INPUT
 L = (L1+L2+L3)*3.281 ; %Fuselage structural length in ft for lecture 6 raymer pls dont hate
 
 
-A_cs = 2.9; % cross sectional area of the fuselage
+A_cs = 2.9; % cross sectional area of the fuselage .  <-------- INPUT
 D = sqrt(A_cs/pi); % derived from frontal area (even though fuselage may not be cilindrical)
 
 mu = 1.7331332E-5; % viscosity of standard air at h=2400m (T=272K)
@@ -560,7 +560,7 @@ sweep_2_h = -2.9*pi/180;
 x_datum_h = 7.2 ;   %(ASSUMED)                  % <----- INPUT               
 
 %distance between aerodynamic center of main wing and horizontal tail [m] 
-lh = 3.9; %(ASSUMED) .                          % <----- INPUT   
+lh = L_t; %(ASSUMED) .                          % <----- INPUT   
 
 % % % % % x locations
 % % % % x_lemac = 3.55;          % x location of leading edge mean aerodynamic chord [m] (GUESS)
@@ -780,6 +780,11 @@ prompt_ShS = 'Chosen ShS: ';
 ShS_ratio = double(input(prompt_ShS));
 
 Sh = S*ShS_ratio;
+A_h = 5.6;    % <----- INPUT   [3, 5] slide 68 lecture 7 ADSEE 1
+A_v = 1.84;  % <----- INPUT   [1, 2] slide 68 lecture 7 ADSEE 1
+
+b_h = sqrt(A_h * S_h);
+b_v = sqrt(A_v * S_v);
 
 ind = find(cg_mat(:,2) == most_aft_cg);
 % get the index and the run the loop untill this index with the ne x_lemac
@@ -855,7 +860,7 @@ for i  = x_lemac
     cg_mat(counter, 2) = round(cg_max,3);
     
     counter = counter + 1;
-    if counter == ind-1
+    if counter-1 == ind
         fpotato = figure
 %         x_lemac = x_lemac * lf; %%% AFTER x_lemac was chosen
         line([([cg_OEW,cg_OEW_cargo]- i)/MAC],[[W_OEW,W_OEW_cargo]],'Color','green');
@@ -866,7 +871,7 @@ for i  = x_lemac
         xlabel("x_{cg}/MAC")
         ylabel("Mass [kg]")
         legend("Cargo", "Front to back", "Back to fron", "Fuel")
-        
+        set(gca, "FontSize", 20)
         saveas(fpotato,'PotatoDiagram.fig');
         close all
         
