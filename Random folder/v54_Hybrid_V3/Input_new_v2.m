@@ -4,13 +4,13 @@
 a.AR = 10;                                      % Wing aspect ratio [-]
 a.Lambda = -2.8;                                   % Half-chord sweep angle of wing [deg]
 a.TR = 0.4;                                     % Taper ratio of wing [-]
-a.tc = 0.18;                                    % Thickness-to-chord ratio of root section [-]
+a.tc = 0.12;                                    % Thickness-to-chord ratio of root section [-]
 a.nUlt = 4.4;                                   % Ultimate load factor [-]
  
 % maximum lift coefficient (no propulsive interaction assumed)
 CLmax_clean=1.5;
 CLmax_TO=1.7;
-CLmax_L=2.1;
+CLmax_L=2.37; 
  
 % Oswald factor (no propulsive interaction assumed)
 e_clean=0.82;
