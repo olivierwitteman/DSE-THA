@@ -792,7 +792,7 @@ set(gca,'FontSize',25);
 
 
 prompt_xlemac = 'X_lemac position: ';
-x_lemac = double(input(prompt_xlemac))
+x_lemac_scissor = double(input(prompt_xlemac))
 
 
 prompt_aftcg = 'Most AFT cg: ';
@@ -888,6 +888,7 @@ for i  = x_lemac
         xlabel("x_{cg}/MAC")
         ylabel("Mass [kg]")
         legend("Cargo", "Front to back", "Back to fron", "Fuel")
+        
         break
     end
 end
@@ -895,6 +896,7 @@ end
 %%
 perc_mac = 0.4; % 40% of the mac is the landing gear
 
+
 [length_strut, l_gear_n, z, Ymlg ] = lg_position(perc_mac, lf, L3, ...
-    most_aft_cg, x_lemac, MAC, bf, MTOW) 
+    most_aft_cg, x_lemac_scissor*lf, MAC, bf, MTOW) 
 
