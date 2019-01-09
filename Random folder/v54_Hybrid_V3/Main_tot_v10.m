@@ -880,9 +880,9 @@ for i  = x_lemac
 end
 
 %% LANDING GEAR POSITION
-perc_mac = 0.4; % 40% of the mac is the landing gear
+perc_mac = 0.475; % 40% of the mac is the landing gear
 
 
 [length_strut, l_gear_n, z, Ymlg ] = lg_position(perc_mac, lf, L3, ...
-    most_aft_cg, x_lemac_scissor*lf, MAC, bf, MTOW) 
+    most_aft_cg*lf, x_lemac_scissor*lf, MAC, bf, MTOW) 
 

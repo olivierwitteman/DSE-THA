@@ -7,7 +7,7 @@ function [length_strut, l_gear_n, z, Ymlg ] = lg_position(perc_mac, l_plane, tai
 % x_lemac = 3.2;      % <---- INPUT ""
 % MAC = 1.4;          % <---- INPUT ""
  
-l_gear_n = x_lemac + perc_mac*MAC; %assuming sweep is so small it can be neglected
+l_gear_n = x_lemac + perc_mac*(MAC + 0.2*0); %assuming sweep is so small it can be neglected
  
 lgearrange = l_gear_n - most_aft_cg;
  
