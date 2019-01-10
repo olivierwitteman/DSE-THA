@@ -13,24 +13,19 @@ MTOW_median = median(MTOW_weights)
 
 
 %% General input and input for Fuel fractions
-% Input MTOW, A, e, V_cruise, V_stall
-%
-% Output: Cd0, LD_cruise (also loiter if needed),
-% Wl_Wto (for wingloading),
-% W4W5 (for wing loading),
-% OEW, W_fuel_used (cruise or all????)
 
+<<<<<<< HEAD
 %MTOW = average_MTOW; % or choose average MTOW % <------ INPUT
 MTOW = 1750;
 
 
 
 
+=======
+
+>>>>>>> 46eaba27fb7830cb02589a9212def06cdcab090f
 MTOW = average_MTOW; % or choose average MTOW % <------ INPUT
-%MTOW = 5298*9.80665
-
-MTOW = 1750;
-
+MTOW = 1750; % 78 kg
 
 A = 8.5;                              % <------ INPUT
 e = 0.75;                             % <------ INPUT
@@ -47,8 +42,8 @@ h = 2400;                   % <------ INPUT
 g = 9.80665;
 rho = 1.225;
 
-CL_to = 1.7; % <------ INPUT
-CL_max = 1.9; % <------ INPUT
+CL_to = 1.7*1.2; % <------ INPUT
+CL_max = 1.9*1.2; % <------ INPUT
 c = 5;       % 1.2*V_stall*grad(0.083) = 3.1 minimum . % <------ INPUT
 V_land = 1.2*32; % ms From requirements?     % <------ INPUT
 
@@ -71,8 +66,7 @@ percent_emptiness_payload = 0.5;    % Input : how empty the payload is
 
 PR_func(MTOW, OEW, W_fuel_used, payload, LD_cruise, W4W5, percent_emptiness_payload);
 % maybe change W_fuel_used to W_fuel_total
-
-
+%%
 % choose design point so we can add S and P
 prompt_WS = 'What wing loading did you choose: ';
 WS = double(input(prompt_WS))
@@ -214,5 +208,5 @@ save('variables_ADSEE_I.mat', 'A', 'MTOW', 'OEW', 'S', 'V_cruise', 'W4W5',...
     "h", "S_h", "S_v", "b", "N", "W_fuel_total", "CL_max", "CL_to", "e",...
     "tc", "cl_cruise", "cr", "ct", "b", "V_stall",...
     "h", "S_h", "S_v", "b", "N", "W_fuel_total", "M_cruise", "MAC",...
-    "A_h", "A_v", "b_h", "b_v", "P")
+    "A_h", "A_v", "b_h", "b_v","P")
 

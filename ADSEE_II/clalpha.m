@@ -1,93 +1,82 @@
-function [CLmax, alpha_stall] = clalpha(A, clmax, sweepc4, CLdes, S_ref, sweep_c2, M, sweepLE)
+<<<<<<< HEAD
+function [CLmax_clean, alpha_stall] = clalpha(A, clmax, CLdes, sweep_c2, M, sweepLE, t_c)
+=======
+function [CLmax_clean, alpha_stall,CL_alpha_clean] = clalpha(A, clmax, CLdes, sweep_c2, M, sweepLE, t_c)
+>>>>>>> 8e04a7f2bbf68aa5db112dc28670559be59188f5
 %input values for Cl-alpha curve for finite wing (clean and flapped
 %General inputs
+Beta = sqrt(1-M^2);                  %Compressibility factor for the mach number.
+eta = 0.95;             %<-----INPUT, but you cannot change it as we do not have flight data
+%AIRFOIL INPUTS
+alpha0l = -2.5;         %<-----INPUT, form the airfoil
+Sharpfactor = 26*t_c    %<----INPUT Used for some graphs in Raymer.
+%INPUTS FROM RAYMER TABLES
+C1 = 0.4;               %<-----INPUT: From Table Raymer (slide:15)
+C2 = 1.1;               %<-----INPUT  From Table Raymer:(slide:15)
+%% Datcom Method for calculating the lift curve slope and CLmax clean and the stall angle.
+Datcomtop = 2 * pi * A;         %Top part of the lift curve slope equation 
+Datcombottom=sqrt(4 + (A * Beta / eta)^2 * (1 + ((tan(sweep_c2))^2/Beta^2))) + 2; %bottom part of the lift curve slope equation.
+CL_alpha_clean = Datcomtop / Datcombottom *pi/180  %The lift curve slope in 1/degrees.
 
-sweepc2 = sweep_c2;
-Beta = sqrt(1-M^2);
-eta = 0.95;
-%%Airfoil ans wing
 
-alpha0L = -2.5; %Given by the airfoil
-taper = 0.4; %Given
-Sharpfactor = 26*0.18; %from the airfoil.
-%%statistical
-%general
-C1 = 0.4; %From Table (slide:15)
-C2 = 1.1;  %From table slide: 15 raymer.
+alphatrim = CLdes / CL_alpha_clean + alpha0l %The trim angle, the angle at which cldes is reached.
 
-
-%CLmax_base = 0.2;
-% Use the datcom method to get the CL slope from statistics
-Datcomtop = 2 * pi * A;
-Datcombottom=sqrt(4 + (A * Beta / eta)^2 * (1 + ((tan(sweepc2))^2/Beta^2))) + 2;
-CLalpha = Datcomtop / Datcombottom *pi/180;
-
-%next is the trim angle. this is the angle the aircraft needs to fly at to
-%fly at CLdes
-
-alphatrim = CLdes / CLalpha + alpha0L;
-
-%Next is the CLmax, 2 methods are being introduced. The Datcom method and a
-%general  one. Datcom is prefferred. CLmax
-
-Datcom_choose_method=((C1+1)*cos(sweepLE))
-something=4/Datcom_choose_method
-%delta_CLmax = 0.5; %Term for M>0.2. Not for take-off and landing.
-%delta_alpha_CLmax = 0.02; %From table slide 19 (Raymer)
-%CLM_clmax = 0.05; %slide 17 use right table
-%CLmax_base = 0.2; %table from Raymer
-%alpha_CLmax = 0.04;
-
+Datcom_choose_method=((C1+1)*cos(sweepLE));  %WHICH METHOD TO USE: HIGH OR LOW ASPECT RATIO METHOD
 if A> 4/Datcom_choose_method
-    delta_CLmax_Datcom=-0.2; %Term for M>0.2. Not for take-off and landing.
-    delta_alpha_CLmax=2.1; %From table slide 19 (Raymer)
-    CLM_clmax=0.9; %slide 17 use right table
-    %high aspect ratio method
-    CLmax=CLM_clmax*clmax+delta_CLmax_Datcom
-    alpha_stall=CLmax/CLalpha+alpha0L+delta_alpha_CLmax
-%otherwise low aspect ratio method.
-elseif A< 4/Datcom_choose_method
-    CLmax_base=0.2; %table from Raymer
-    delta_CLmax_Datcom=0.5;%table raymer for compressibility
-    delta_alpha_CLmax=0.02; %table Raymer
-    alpha_CLmax=0.04;%table Raymer
+    delta_CLmax_Datcom=-0.2;    %<----INPUT: Term for M>0.2. Not for take-off and landing.
+    delta_alpha_CLmax=2.1;       %<----INPUT: Difference for where CLmax,clean occurs. From Raymer table (slide 19).
+    CLMax_clmax=0.9;            %<----INPUT: Conversion from 2D to 3D. Input from RAYMER table.
+    CLmax_clean=CLMax_clmax*clmax+delta_CLmax_Datcom    %CLmax in clean configuration
+    alpha_stall=CLmax_clean/CL_alpha_clean+alpha0l+delta_alpha_CLmax  %stall angle in clean configuration.
 
-    CLmax=CLmax_base+delta_CLmax_Datcom;
-    alpha_stall=alpha_CLmax+delta_alpha_CLmax;
+
+%The low aspect ratio method.
+elseif A< 4/Datcom_choose_method
+    
+<<<<<<< HEAD
+    disp('something went wrong'
+=======
+    disp('something went wrong')
+>>>>>>> 8e04a7f2bbf68aa5db112dc28670559be59188f5
 end
 
 %% High Lift Devices.
-%Can we take-off at CLmax-clean? Hopfully no otherwise redesign wing.
-%Propose approiate type and combination of HLD's
-%estimate wing area Swf/S needs to be known. This can also be done another
-%way by using a Known DeltaCLMAX and calculating the needed area to a
-%feasibility check.
-%assume chord fractions (cf/c) (slide 52)
-%Use the following equations
-sweep_hinge = 10*pi/180; %hinge line for the flap/slat
-
-Swf_S = 0.4; %Area affected by the HLD might be easier to do this other way.
-
-delta_alpha0L_airfoil = -10;%Get from the LE or TE difficult to say.
-LE = ''; %enter the leading edge flap according to the name
-TE= 'fowler'; %enter TE flap according to name;
-c_ac_c = 1.2; %c'/c is a something we choose in general.
+%We can go 2 ways with high lift devices, calculate the maximum CLmax by
+%assuming a Swf_S and then continue, or by filling in the CLmax and then
+%calculating the space necessary for the CLmax.
+sweep_hinge = 10*pi/180;            %<----INPUT: The hinge angle of the FLAP
+sweep_hinge= sweep_hinge*pi/180.;   %CHANGE DEGREES TO RADIANS.
+%% Here make a choice about which way you want to go!!!!!!!
+Swf_S = 0.4;                        %<-----(POSSIBLE INPUT): Ratio of the area affected by the HLD
+%HLD_Delta_CLmax=0.5;                %<-----(POSSIBLE INPUT): Necessary deltaCLMax needed to be provieded by the HLD.
+%% Calculation for the final CLMAX
+delta_alpha0L_airfoil = -10;        %<----INPUT: Shift of 0 lift angle. First approxamation: -10 Take-off, -15 Landing
+LE = 'slat';                            %<----INPUT: Choose your Leading edge HLD Look in HLD function to check the names.
+TE= 'fowler';                       %<----INPUT: Choose your Trailing edge HLD. Look in HLD function to check the names.
+c_ac_c = 1.2;                       %<----INPUT: How far is the chord extended in for example a fowler flap. This ratio>1
 Delta_Clmax_HLD = HLD(LE,TE,c_ac_c);
+%METHOD FOR CALCULATING THE DIFFERENCE IN CLMAX
+HLD_Delta_CLmax = 0.9 * Delta_Clmax_HLD * Swf_S * cos(sweep_hinge); %The shift in CLMax due to the HLD, THIS IS NOT THE FINAL VALUE.
+%METHOD FOR CALCULATING THE AREA RATIO IF DELTA CLMAX IS KNOWN.
+<<<<<<< HEAD
+Swf_S= HLD_Delta_CLmax/0.9/Delta_Clmax_HLD/cos(sweep_hinge);
+=======
+%Swf_S= HLD_Delta_CLmax/0.9/Delta_Clmax_HLD/cos(sweep_hinge);
+>>>>>>> 8e04a7f2bbf68aa5db112dc28670559be59188f5
 
-HLD_Delta_CLmax = 0.9 * Delta_Clmax_HLD * Swf_S * cos(sweep_hinge) %The difference in CLmax
-%due to the high lift devices.
-HLD_Delta_alpha0L = delta_alpha0L_airfoil * Swf_S*cos(sweep_hinge) %Same but than
-%0L angle of attack.
-TotalCLMAX=HLD_Delta_CLmax+CLmax
-Total_alpha_0L=HLD_Delta_alpha0L+alpha0L 
-%%
-%CLalpha for flapped configuration
-%if HLD increase wing surface
-S_ac_S = 1 + Swf_S * (c_ac_c - 1);% S'/S
-CL_alpha_flap = 1.; %The value is the same if certain flaps are not used.
-if S_ac_S > 1.
-    CL_alpha_flap = S_ac_S * CLalpha;
+HLD_Delta_alpha0L = delta_alpha0L_airfoil * Swf_S*cos(sweep_hinge); %The shift in alpha 0 Lift, THIS IS NOT THE FINAL VALUE.
+
+
+TotalCLMAX=HLD_Delta_CLmax+CLmax_clean;
+Total_alpha_0L=HLD_Delta_alpha0L+alpha0l ;
+%% LIFT CURVE SLOPE CALCULATION DUE TO THE FLAPS OR HLD IN GENERAL.
+
+
+S_ac_S = 1 + Swf_S * (c_ac_c - 1);          %Increased wing area ratio: Relation from Raymer (slide 59 notes.)
+<<<<<<< HEAD
+CL_alpha_HLD=S_ac_S*CL*CL_alpha_clean;
+=======
+CL_alpha_HLD=S_ac_S*CL_alpha_clean;
+>>>>>>> 8e04a7f2bbf68aa5db112dc28670559be59188f5
+
 end
-
-%Check if in the end the values make sense. Feasability check is very
-%important.
