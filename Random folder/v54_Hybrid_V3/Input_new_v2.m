@@ -10,7 +10,7 @@ a.nUlt = 4.4;                                   % Ultimate load factor [-]
 % maximum lift coefficient (no propulsive interaction assumed)
 CLmax_clean=1.5;
 CLmax_TO=1.7;
-CLmax_L=2.37; 
+CLmax_L=2.37; % 2.37
  
 % Oswald factor (no propulsive interaction assumed)
 e_clean=0.82;

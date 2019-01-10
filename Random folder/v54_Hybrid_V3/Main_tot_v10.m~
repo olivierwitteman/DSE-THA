@@ -299,7 +299,7 @@ Wfiml = frac * MTOW * 9.81;
 WSsc = MTOW * m.cr.f * 9.81 / S_ref;      % Wing loading at the start of the cruise
 WSec = W4W5 * WSsc;     % Wing loading at the end of the cruise
 
-fus_length = 7.5;                       % <------ INPUT
+fus_length = 8.352;                       % <------ INPUT
 empen_x = 0.9;                          %      <---- INPUT WRONG WRONG WRONG
 most_aft_cg = 0.6 * fus_length;         % <----- WRONG WRONG WRONG INITIAL ROUGH CALCULATION
 
@@ -326,7 +326,7 @@ S_v = SF_S*S_v;
 S_ht = S_h;
 S_vt = S_v;
 
-A_h = 5.6;    % <----- INPUT   [3, 5] slide 68 lecture 7 ADSEE 1
+A_h = 6.0;    % <----- INPUT   [3, 5] slide 68 lecture 7 ADSEE 1 UsE THIS
 A_v = 1.84;  % <----- INPUT   [1, 2] slide 68 lecture 7 ADSEE 1
 
 b_h = sqrt(A_h * S_h);
@@ -350,7 +350,7 @@ A_vt = A_v; % Aspect ratio vertical tail                         ??????
 
 lambda_vt = 1.; % taper raio vertical tail                                    ??????
 lambda_h = 1; %Taper ratio horizontal tail                                    ??????
-L_t = 3.9*3.2808; % Tail length, wing quarter MAC to tail quarter MAC in ft   ??????
+L_t = 4.1176*3.2808; % Tail length, wing quarter MAC to tail quarter MAC in ft   ??????
 % N_en = double(vars.N); %nr of engines 
 N_en = 2;
 
@@ -399,14 +399,14 @@ k = 0.052E-5;   % composites
 
 
 
-L1 = 1.7;               %       <--------- INPUT
-L2 = 2.8;               %       <--------- INPUT
-L3 = 3;                 %       <--------- INPUT
+L1 = 1.66;               %       <--------- INPUT
+L2 = 2.534;               %       <--------- INPUT
+L3 = 4;                 %       <--------- INPUT
 
 L = (L1+L2+L3)*3.281 ; %Fuselage structural length in ft for lecture 6 raymer pls dont hate
 
 
-A_cs = 2.9; % cross sectional area of the fuselage .  <-------- INPUT
+A_cs = 2.34; % cross sectional area of the fuselage .  <-------- INPUT
 D = sqrt(A_cs/pi); % derived from frontal area (even though fuselage may not be cilindrical)
 
 mu = 1.7331332E-5; % viscosity of standard air at h=2400m (T=272K)
@@ -527,16 +527,16 @@ Snet=S*2; %wetted area
 cg = S/b; %average constant chord [m]
 Mach_1 = 0.27; %mach number at cruise [-]
 beta=sqrt(1-Mach_1^2);
-bf = 1.7; %fuselage width [m]                              % <----- INPUT           
+bf = 1.416; %fuselage width [m]                              % <----- INPUT           
 hf = 1.65; %fuselage height [m]                            % <----- INPUT                      
 lf = L1 + L2 + L3; % total length of fuselage [m]       
-ln = 0.25; %distance from engine to quater chord mac [m] . % <----- INPUT   
+ln = 0.25*0; %distance from engine to quater chord mac [m] . % <----- INPUT   
 lfn = 2.85; %nose to leading edge [m] (GUESS) .            % <----- INPUT   
 bn = 0.5; %width of nacelles (engines) [m] .               % <----- INPUT   
 Ct = c_t;%tip chord [m]
 Cr = c_r;%root chord [m]
 lambda = Ct/Cr; %taper ratio of main wing [-]
-Ah = 5.6; %aspect ratio of horizontal tail [-] .           % <----- INPUT   
+Ah = 6; %aspect ratio of horizontal tail [-] .           % <----- INPUT   
 bh= 2.87; %horizontal tail span [m] .                      % <----- INPUT   
 Sh = bh^2/Ah; %Area of the horizontal tail wing [m] .      % <----- INPUT   NOT NEEDED I THINK ? MAYBE NO SWEEP AND LEAVE IT OUT
 cg_h= Sh/bh; %average chord
@@ -557,10 +557,10 @@ sweep_4_h = atan(tan(sweep_LE_h) + (Cr_h/(2*bh))*(lambda_h -1));
 sweep_2_h = -2.9*pi/180;
 
 % measured from planform for given geometry (from nose to horizontal tail) [m]
-x_datum_h = 7.2 ;   %(ASSUMED)                  % <----- INPUT               
+x_datum_h = 0.9 * fus_length ;   %(ASSUMED)                  % <----- INPUT               
 
 %distance between aerodynamic center of main wing and horizontal tail [m] 
-lh = L_t; %(ASSUMED) .                          % <----- INPUT   
+lh = L_t/3.2808; %(ASSUMED) .                          % <----- INPUT   
 
 % % % % % x locations
 % % % % x_lemac = 3.55;          % x location of leading edge mean aerodynamic chord [m] (GUESS)
@@ -607,7 +607,7 @@ de_da = delta_s_de_da + (ked/ked0)*( (r/(r^2 + m_tv^2))*(0.4876/sqrt(r^2 + 0.631
     *(CLaw/(pi*A)); %total downwash with added delta_s controbution for propeller !!!!!! delta_s_de_da 000
 
 %% Aerodynamic center
-kn = -2.5;% for an engine positioned in front of the lemac/nose propeller
+kn = -4;% for an engine positioned in front of the lemac/nose propeller
 x_ac_w = 0.25; %aerodynamic center of wing (assumed at 0.4mac)
 
 x_ac_c = x_ac_w - ((1.8/CLaAh)*(bf*hf*lfn/(S*MAC))) +...
@@ -618,10 +618,10 @@ x_ac_c = x_ac_w - ((1.8/CLaAh)*(bf*hf*lfn/(S*MAC))) +...
 Vh_V = sqrt(0.85); %flow velocity ratio between H-tail and main wing [-]
 
 %% Controllability
-CLAh = 1.2;% lift coefficient of wing+fuselage (without tail, landing configuration) . % <----- INPUT   
+CLAh = 1.2;% lift coefficient of wing+fuselage (without tail, landing configuration) . % <----- INPUT   1.2
 % lecture 4 slide 37
 CLh = -0.35*Ah^(1/3);% for fixed .              % <----- INPUT   
-CL0 = 0.8563; % Zero incident while flaps out . % <----- WRONG WRONG
+CL0 = 0.8563 -0.3; % Zero incident while flaps out . % <----- WRONG WRONG
 Cm0 = -0.216; %  (for main wing) [-]
 CL=CLmax_clean;
 
@@ -695,14 +695,14 @@ for i  = x_lemac
     mass_fuel = M.f;
 
     W_OEW = OEW;                                     
-    cg_OEW =3.6;                         % <--------- INPUT INPUT INPUT INPUT INPUT INPUT INPUT INPUT
+    cg_OEW = 2.865-0.2;                         % <--------- INPUT INPUT INPUT INPUT INPUT INPUT INPUT INPUT
    
 
-    seat_pilot=2.06 ;                    %c.g. Position Pilot   <----- INPUT 
-    seat_row1=2.85  ;                    %c.g. Position Row 1   <----- INPUT 
-    seat_row2=3.9  ;                     %c.g. Position Row 2   <----- INPUT 
-    location_cargo = 4.9;                %c.g. Position Baggage <----- INPUT
-    location_fuel = 4.275 ;
+    seat_pilot=1.6 ;                    %c.g. Position Pilot   <----- INPUT 
+    seat_row1=1.896  ;                    %c.g. Position Row 1   <----- INPUT 
+    seat_row2=2.967  ;                     %c.g. Position Row 2   <----- INPUT 
+    location_cargo = 1.625;                %c.g. Position Baggage <----- INPUT
+    location_fuel = 3.762;              %c.g. Position Baggage <----- INPUT
     %location_batteries%c.g. Position Fuel    <----- INPUT
 %     location_fuel = cg_OEW + 0.10*l_fus;
 %     location_feul = x_Fuel;
@@ -780,8 +780,8 @@ prompt_ShS = 'Chosen ShS: ';
 ShS_ratio = double(input(prompt_ShS));
 
 Sh = S*ShS_ratio;
-A_h = 5.6;    % <----- INPUT   [3, 5] slide 68 lecture 7 ADSEE 1
-A_v = 1.84;  % <----- INPUT   [1, 2] slide 68 lecture 7 ADSEE 1
+A_h = 6.0;    % <----- INPUT   [3, 5] slide 68 lecture 7 ADSEE 1
+A_v = 1.5;  % <----- INPUT   [1, 2] slide 68 lecture 7 ADSEE 1
 
 b_h = sqrt(A_h * S_h);
 b_v = sqrt(A_v * S_v);
@@ -811,14 +811,14 @@ for i  = x_lemac
     mass_fuel = M.f;
 
     W_OEW = OEW;                                  
-    cg_OEW =3.6;                        % <--------- INPUT INPUT INPUT INPUT INPUT INPUT INPUT INPUT
+    cg_OEW = 2.865 -0.2;                        % <--------- INPUT INPUT INPUT INPUT INPUT INPUT INPUT INPUT
    
 
-    seat_pilot=2.06 ;                    %c.g. Position Pilot   <----- INPUT 
-    seat_row1=2.85  ;                    %c.g. Position Row 1   <----- INPUT 
-    seat_row2=3.9  ;                     %c.g. Position Row 2   <----- INPUT 
-    location_cargo = 4.9;                %c.g. Position Baggage <----- INPUT
-    location_fuel = 4.275 ;
+    seat_pilot=1.6 ;                    %c.g. Position Pilot   <----- INPUT 
+    seat_row1=1.896  ;                    %c.g. Position Row 1   <----- INPUT 
+    seat_row2=2.967  ;                     %c.g. Position Row 2   <----- INPUT 
+    location_cargo = 1.625;                %c.g. Position Baggage <----- INPUT
+    location_fuel = 3.762;
     %location_batteries%c.g. Position Fuel    <----- INPUT
 %     location_fuel = cg_OEW + 0.10*l_fus;
 %     location_feul = x_Fuel;
@@ -880,9 +880,9 @@ for i  = x_lemac
 end
 
 %% LANDING GEAR POSITION
-perc_mac = 0.4; % 40% of the mac is the landing gear
+perc_mac = 0.475; % 40% of the mac is the landing gear
 
 
 [length_strut, l_gear_n, z, Ymlg ] = lg_position(perc_mac, lf, L3, ...
-    most_aft_cg, x_lemac_scissor*lf, MAC, bf, MTOW) 
+    most_aft_cg*lf, x_lemac_scissor*lf, MAC, bf, MTOW) 
 
