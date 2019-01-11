@@ -14,7 +14,16 @@ MTOW_median = median(MTOW_weights)
 
 %% General input and input for Fuel fractions
 
+<<<<<<< HEAD
+%MTOW = average_MTOW; % or choose average MTOW % <------ INPUT
+MTOW = 1750;
 
+
+
+
+=======
+
+>>>>>>> 46eaba27fb7830cb02589a9212def06cdcab090f
 MTOW = average_MTOW; % or choose average MTOW % <------ INPUT
 MTOW = 1750; % 78 kg
 
