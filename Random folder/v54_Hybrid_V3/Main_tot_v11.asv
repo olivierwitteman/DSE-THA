@@ -476,41 +476,9 @@ c_l_alpha = 0.32;
 [aileron_length] = AileronNEW(c_r, c_t, sweep_LE, sweep_TE, c_l_alpha,...
     S_ref, total_cD0, V_stall, b)
 
+%% HLD AND PLANFORM
 
-
-
-
-
-
-
-
-%%%% BROKEN UP PART
-%%%% BROKEN UP PART
-%%%% BROKEN UP PART
-%%%% BROKEN UP PART%%%% BROKEN UP PART
-%%%% BROKEN UP PART
-%%%% BROKEN UP PART
-%%%% BROKEN UP PART
-%%%% BROKEN UP PART
-%%%% BROKEN UP PART
-%%%% BROKEN UP PART
-%%%% BROKEN UP PART
-%%%% BROKEN UP PART
-%%%% BROKEN UP PART
-%%%% BROKEN UP PART
-%%%% BROKEN UP PART
-%%%% BROKEN UP PART%%%% BROKEN UP PART%%%% BROKEN UP PART
-%%%% BROKEN UP PART
-
-
-
-
-
-
-
-
-
-
+[dCLMAX, TVOL] = planformlayout(b, c_ac_c, c_r, c_t, bf, aileron_length, W_payload, , S)
 
 
 
@@ -645,7 +613,7 @@ Delta_f_Cmac = mu_2*(-mu_1*dClmax*cf_c-[CL+dClmax*(1-S_wf_S)]*cf_c/8*(cf_c-1))+0
 
 Cm_ac = Cmac_w + Cmac_fus + Cmac_nac + Delta_f_Cmac %total moment coefficient at aerodynamic center
          
-%Cm_ac = -0.082; %(ac assumed to be within +-10% of the neutral point)
+Cm_ac = -0.52; %(ac assumed to be within +-10% of the neutral point)
 
 %% Equations
 x_cg=(-1:0.01:1);
@@ -795,7 +763,7 @@ ind = find(cg_mat(:,2) == most_aft_cg);
 % ADD ROUND UP TO THIRD DECIMAL POINT AND EXTRACT THE VALUE OF THE CHOSEN
 % LEMAC 
 % clear all
-x_lemac = [2: 0.01: 4.2];
+x_lemac = [1: 0.01: 4.2];
 cg_mat = zeros(length(x_lemac),2);
 counter = 1;
 for i  = x_lemac

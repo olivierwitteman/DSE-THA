@@ -477,47 +477,6 @@ c_l_alpha = 0.32;
     S_ref, total_cD0, V_stall, b)
 
 
-
-
-
-
-
-
-
-%%%% BROKEN UP PART
-%%%% BROKEN UP PART
-%%%% BROKEN UP PART
-%%%% BROKEN UP PART%%%% BROKEN UP PART
-%%%% BROKEN UP PART
-%%%% BROKEN UP PART
-%%%% BROKEN UP PART
-%%%% BROKEN UP PART
-%%%% BROKEN UP PART
-%%%% BROKEN UP PART
-%%%% BROKEN UP PART
-%%%% BROKEN UP PART
-%%%% BROKEN UP PART
-%%%% BROKEN UP PART
-%%%% BROKEN UP PART
-%%%% BROKEN UP PART%%%% BROKEN UP PART%%%% BROKEN UP PART
-%%%% BROKEN UP PART
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 %% Scissor and Potato plots
 thick = 2;
 Fuel = M.f;
@@ -567,6 +526,10 @@ lh = L_t/3.2808; %(ASSUMED) .                          % <----- INPUT
 % % % % x_OEW = x_lemac + 0.375*MAC;        % assumed CG of operational empty weight [m]
 % % % % x_Cargo = 4.9;                       % assumed CG of cargo in meters [m]
 % % % % x_Fuel = x_lemac + 0.5*MAC;         % CG of fuel [m]
+
+%% HLD AND PLANFORM
+
+[dCLMAX, TVOL] = planformlayout(b, c_r, c_t, bf, aileron_length, payload_new, M.f, S)
 
 %% Variables Stability 
 
@@ -645,7 +608,7 @@ Delta_f_Cmac = mu_2*(-mu_1*dClmax*cf_c-[CL+dClmax*(1-S_wf_S)]*cf_c/8*(cf_c-1))+0
 
 Cm_ac = Cmac_w + Cmac_fus + Cmac_nac + Delta_f_Cmac %total moment coefficient at aerodynamic center
          
-%Cm_ac = -0.082; %(ac assumed to be within +-10% of the neutral point)
+Cm_ac = -0.52; %(ac assumed to be within +-10% of the neutral point)
 
 %% Equations
 x_cg=(-1:0.01:1);
@@ -795,7 +758,7 @@ ind = find(cg_mat(:,2) == most_aft_cg);
 % ADD ROUND UP TO THIRD DECIMAL POINT AND EXTRACT THE VALUE OF THE CHOSEN
 % LEMAC 
 % clear all
-x_lemac = [2: 0.01: 4.2];
+x_lemac = [1: 0.01: 4.2];
 cg_mat = zeros(length(x_lemac),2);
 counter = 1;
 for i  = x_lemac
