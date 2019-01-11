@@ -115,4 +115,4 @@ twist_semicric_rest=1/(2*A_encl1)*(-q_b1(10)*s_front)/t_box
 twist_box_rest=1/(2*A_encl2)*(q_b1(2)+q_b1(3)+q_b1(4)+q_b1(5))*d_top+1/(2*A_encl2)*q_b1(6)*s_back+1/(2*A_encl2)*(q_b1(7)+q_b1(8)+q_b1(9)+q_b1(10))*d_bottom+1/(2*A_encl2)*q_b1(11)*s_front;
 twist_box_q01=1/(2*A_encl2)*(-s_front/t_box);
 twist_box_q02=1/(2*A_encl2)*((s_front+s_top+s_bottom+s_back)/t_box);
-solvable_matrix=[q01moment q02moment shearmoment-sum(kutmoment); twist_semicirc_q01-twist_box_q01 0 0]
+solvable_matrix=[q01moment q02moment shearmoment-sum(kutmoment); twist_semicirc_q01
