@@ -1,3 +1,4 @@
+%% function 
 %% Calculate the shear and stresses in the booms and the skin of the wing box 
 %A few assumptions are made in this program. Only the booms carry he normal
 %stresses and the skin panels only carry the shear stress.
