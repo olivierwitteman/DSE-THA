@@ -4,7 +4,7 @@
 %stresses and the skin panels only carry the shear stress.
 %The general inputs are shown below.
 %% INPUTS 
-function[shear_flow]= function_shear_calc(c, S_x, S_y, I_xx, I_yy, I_xy, S_x_x, S_x_y, S_y_x, S_y_y)
+function[shear_flow, shear_stress, max_shear ]= function_shear_calc(c, S_x, S_y, I_xx, I_yy, I_xy, S_x_x, S_x_y, S_y_x, S_y_y, t_semicirc, t_box)
                     %INPUT [m]      Chord length      tip=0.64 root=1.6 bekend
 semi_circ= 0.534/1.6*c;      %INPUT length of the semicircle    
 %I_xx=48*10^-3;                %INPUT [m^4]    Moment of inertia around x axis
@@ -60,7 +60,7 @@ s=3;
 %disp(boom_pos_cg(2,1)*Boom_area(1))
 qvaluemat=[]
 for number=im
-    qvalue=q_left*Boom_area(number)*boom_pos_cg(number,1)+q_right*Boom_area(number)*boom_pos_cg(number,2)
+    qvalue=q_left*Boom_area(number)*boom_pos_cg(number,1)+q_right*Boom_area(number)*boom_pos_cg(number,2);
     qvaluemat=[qvaluemat, qvalue];
     qvalue1= q_b1(s-1,1)+qvalue;
     q_b1(s)=[qvalue1];       %the basic shear flow, starting from 10-1 outer to 10-1 innter
@@ -112,8 +112,8 @@ q02moment=2*A_encl2;
 %then calcualte the resilliant shear flow.
 s_front=boom_pos_cg(1,2)-boom_pos_cg(10,2);       %INPUT [m]      length of the front spar
 s_back =boom_pos_cg(5,2)-boom_pos_cg(6,2);      %INPUT [m]      length of the rear spar
-t_semicirc=0.001;            %INPUT thickness of the leading edge part.
-t_box=0.002;                 %INPUT thickeness of the box part.
+%t_semicirc=0.001;            %INPUT thickness of the leading edge part.
+%t_box=0.002;                 %INPUT thickeness of the box part.
                
 d_top=s_top/4.;
 d_bottom=s_bottom/4.;
@@ -142,8 +142,14 @@ for hoi=[1 2 3 4 5 6 7 8 9 10 11]
     end
     disp(hoi)
 end
-disp(shear_flow)
+%disp(shear_flow)
 %disp(q0mat)
 %%disp(Shear_moment)
 %disp(sum(kutmoment))
+%disp(shear_flow)
+%disp(shear_flow(2:11))
+shear_stress=shear_flow;
+shear_stress(1)=shear_stress(1)/t_semicirc;
+shear_stress(2:11)=shear_stress(2:11)/t_box;
+max_shear=max(shear_stress)
 end
