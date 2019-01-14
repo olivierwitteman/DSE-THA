@@ -1,5 +1,3 @@
-clear all
-
 % load XFLR5 data
 xflr5input
 
