@@ -6,19 +6,19 @@
 %% INPUTS 
 function[shear_flow, shear_stress, max_shear ]= function_shear_calc(c, S_x, S_y, I_xx, I_yy, I_xy, S_x_x, S_x_y, S_y_x, S_y_y, t_semicirc, t_box, boomarea)
                     %INPUT [m]      Chord length      tip=0.64 root=1.6 bekend
-     %INPUT length of the semicircle    
+       
 %I_xx=48*10^-3;                %INPUT [m^4]    Moment of inertia around x axis
 %I_yy=52*10^-3;                %INPUT [m^4]    Moment of inertia around y axis
-%I_xy=20*10^-3;    
-semi_circ= 0.534/1.6*c;       %INPUT ]m^4]    Product moment of inertia.
-s_top=1.141/1.96^c;          %INPUT [m]      distance between each boom
-s_bottom=1.138/1.96*c;       %INPUT [m]      distance at the bottom of each boom
-A_encl1=0.3/1.6*c;                  %INPUT enclosed area of the semicircle
+%I_xy=20*10^-3;                %INPUT ]m^4]    Product moment of inertia.
+semi_circ= 0.534/1.6*c;        %INPUT length of the semicircle  
+s_top=1.141/1.96^c;            %INPUT [m]      distance between each boom
+s_bottom=1.138/1.96*c;         %INPUT [m]      distance at the bottom of each boom
+A_encl1=0.3/1.6*c;             %INPUT enclosed area of the semicircle
 A_encl2=0.155/1.6*c;               %0.155
-%S_x=1000;                    %INPUT [N]      Shear force in x direction
-%S_y=8000;                    %INPUT [N]      Shear force in y direction
-S_x_pos=[S_x_x S_x_y]*c;              %INPUT [m]    location of the shear force in x-direction
-S_y_pos=[S_y_x S_y_y]*c;             %INPUT [m]    location of the shear force in y-direction
+%S_x=1000;                     %INPUT [N]      Shear force in x direction
+%S_y=8000;                     %INPUT [N]      Shear force in y direction
+S_x_pos=[S_x_x S_x_y]*c;       %INPUT [m]    location of the shear force in x-direction
+S_y_pos=[S_y_x S_y_y]*c;       %INPUT [m]    location of the shear force in y-direction
 boom1=boomarea;                   %INPUT [m^2]   Boom area of boom1
 boom2=boomarea;                   %INPUT [m^2]   Boom area of boom2
 boom3=boomarea;                   %INPUT [m^2]   Boom area of boom3
