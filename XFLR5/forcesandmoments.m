@@ -11,7 +11,7 @@ MAC = 0.996;                            % mean aerodynamic chord (m)
 c_r = 1.3;                              % root chord (m)
 c_t = 0.52;                             % tip chord (m)
 
-stepi = 0.01;                           % spacing for interpolation (m)
+stepi = 0.01;                           % spacing (m)
 
 % from the data sheet
 Vinf = XFLR5.Vinf;                      % freestream air speed (m/s)
