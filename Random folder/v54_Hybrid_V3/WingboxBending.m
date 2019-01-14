@@ -2,9 +2,9 @@ clc; clear all
 % MOI
 %Centroid  
 %assuming constant boom area 
-c_r = 1.6
-c_t = 1.6*0.4
-b= 11
+c_r = 1.6;
+c_t = 1.6*0.4;
+b= 11;
  
 A = 0.3; %<---input Boom area
  
@@ -52,7 +52,7 @@ while i < length(z)+1
    
     i = i+1;
 end
-
+save("IXX", "IXY", "IYY")
 %Bending stress 
 
 g = 9.80665;
