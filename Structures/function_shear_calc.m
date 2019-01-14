@@ -4,7 +4,7 @@
 %stresses and the skin panels only carry the shear stress.
 %The general inputs are shown below.
 %% INPUTS 
-function[shear_flow, shear_stress, max_shear ]= function_shear_calc(c, S_x, S_y, I_xx, I_yy, I_xy, S_x_x, S_x_y, S_y_x, S_y_y, t_semicirc, t_box)
+function[shear_flow, shear_stress, max_shear ]= function_shear_calc(c, S_x, S_y, I_xx, I_yy, I_xy, S_x_x, S_x_y, S_y_x, S_y_y, t_semicirc, t_box, boomarea)
                     %INPUT [m]      Chord length      tip=0.64 root=1.6 bekend
 semi_circ= 0.534/1.6*c;      %INPUT length of the semicircle    
 %I_xx=48*10^-3;                %INPUT [m^4]    Moment of inertia around x axis
@@ -18,16 +18,16 @@ A_encl2=0.155/1.6*c;               %0.155
 %S_y=8000;                    %INPUT [N]      Shear force in y direction
 S_x_pos=[S_x_x S_x_y]*c;              %INPUT [m]    location of the shear force in x-direction
 S_y_pos=[S_y_x S_y_y]*c;             %INPUT [m]    location of the shear force in y-direction
-boom1=0.00345;                   %INPUT [m^2]   Boom area of boom1
-boom2=0.00345;                   %INPUT [m^2]   Boom area of boom2
-boom3=0.00345;                   %INPUT [m^2]   Boom area of boom3
-boom4=0.00345;                   %INPUT [m^2]   Boom area of boom4
-boom5=0.00345;                   %INPUT [m^2]   Boom area of boom5
-boom6=0.00345;                   %INPUT [m^2]   Boom area of boom6
-boom7=0.00345;                   %INPUT [m^2]   Boom area of boom7
-boom8=0.00345;                   %INPUT [m^2]   Boom area of boom8
-boom9=0.00345;                   %INPUT [m^2]   Boom area of boom9
-boom10=0.00345;                  %INPUT [m^2]   Boom area of boom10
+boom1=boomarea;                   %INPUT [m^2]   Boom area of boom1
+boom2=boomarea;                   %INPUT [m^2]   Boom area of boom2
+boom3=boomarea;                   %INPUT [m^2]   Boom area of boom3
+boom4=boomarea;                   %INPUT [m^2]   Boom area of boom4
+boom5=boomarea;                   %INPUT [m^2]   Boom area of boom5
+boom6=boomarea;                   %INPUT [m^2]   Boom area of boom6
+boom7=boomarea;                   %INPUT [m^2]   Boom area of boom7
+boom8=boomarea;                   %INPUT [m^2]   Boom area of boom8
+boom9=boomarea;                   %INPUT [m^2]   Boom area of boom9
+boom10=boomarea;                  %INPUT [m^2]   Boom area of boom10
 boom1_xy=[0.15 0.065];                  %INPUT [m]     Boom position of boom 1 [x y] 
 boom2_xy=[0.295 0.0804];                %INPUT [m]     Boom position of boom 2 [x y] 
 boom3_xy=[0.44 0.0755];                 %INPUT [m]     Boom position of boom 3 [x y] 
@@ -55,10 +55,11 @@ for num=im
 end
 im=[ 2 3 4 5 6 7 8 9 10];
 s=3;
+
 %disp(q_left)
 %disp(q_right)
 %disp(boom_pos_cg(2,1)*Boom_area(1))
-qvaluemat=[]
+qvaluemat=[];
 for number=im
     qvalue=q_left*Boom_area(number)*boom_pos_cg(number,1)+q_right*Boom_area(number)*boom_pos_cg(number,2);
     qvaluemat=[qvaluemat, qvalue];
@@ -98,6 +99,7 @@ end
 q_b2=q_b1;
 q_b2(1)=[];
 kutmoment=zeros(10,1);
+
 for kut2=kut
     moment=-q_b2(kut2)*d_5_relative(kut2,1)+q_b2(kut2)*d_5_relative(kut2,2);
     kutmoment(kut2)=moment;
@@ -140,7 +142,7 @@ for hoi=[1 2 3 4 5 6 7 8 9 10 11]
     else 
         shear_flow(hoi)=q_b1(hoi)+q0mat(2);
     end
-    disp(hoi)
+    
 end
 %disp(shear_flow)
 %disp(q0mat)
@@ -151,5 +153,5 @@ end
 shear_stress=shear_flow;
 shear_stress(1)=shear_stress(1)/t_semicirc;
 shear_stress(2:11)=shear_stress(2:11)/t_box;
-max_shear=max(shear_stress)
+max_shear=max(shear_stress);
 end
