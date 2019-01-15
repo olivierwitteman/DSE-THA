@@ -62,7 +62,7 @@ b = 10.51; %input from layout
 W_wing = 200 * g;%input from layout
 W_engine = 100 * g; %input from layout
 W_hl = 10 * g; %weight of high lift device (all of the weights have to be ajdusted)
-z_L = 3; %input from layout
+z_L = 3;%input from layout
 z_D = 3;%input from layout
 z_1 = 2;%input from layout
 z_2 = 4;%input from layout
@@ -105,9 +105,10 @@ end
 
 k = 1;
 BOOMAREA = [];
-while k < length(z)+1
 sigmayield= 511240;
-    eqn1 = sigmayield == sqrt((((M_x.*IYY(k)-M_y.*IXY(k))*y+(M_y.*IXX(k)-M_x.*IXY(k)).*x)/(IXX(k).*IYY(k)-IXY(k).^2)).^2+MAXSHEAR(k).^2);
+
+while k < length(z)+1
+    eqn1 = sigmayield == sqrt((((M_x.*IYY(k)-M_y.*IXY(k))*y+(M_y.*IXX(k)-M_x.*IXY(k)).*x)/(IXX(k).*IYY(k)-IXY(k).^2)).^2+3.*MAXSHEAR(k).^2);
     BOOMAREA = [BOOMAREA, double(solve(eqn1,A))];
     k = k+1
 end
