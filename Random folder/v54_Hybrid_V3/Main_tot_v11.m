@@ -531,6 +531,7 @@ lh = L_t/3.2808; %(ASSUMED) .                          % <----- INPUT
 
 [dCLMAX, TVOL] = planformlayout(b, c_r, c_t, bf, aileron_length, payload_new, M.f, S)
 
+
 %% Variables Stability 
 
 SM = 0.05; 
