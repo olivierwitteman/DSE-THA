@@ -6,7 +6,7 @@ tic
 c_r = 1.6;
 c_t = 1.6*0.4;
 b= 11;
- 
+Torsion=10000
 %A = 0.3; %<---input Boom area
  
 x1 = 0.15;  %Positions boom
@@ -95,7 +95,7 @@ M_y = (T_hl*(z_1+z_2+z_3+z_4)+T_E*b-D*z_D);
 j = 1;
 MAXSHEAR = [];
 while j < length(z)+1
-    [shear_flow, shear_stress, max_shear, A ]= function_shear_calc(chl(j), 1000, 1000, IXX(j), IYY(j), IXY(j), 0.25, 0.3, 0.25, 0.02, 0.002, 0.02, A);
+    [shear_flow, shear_stress, max_shear, A ]= function_shear_calc(chl(j), 1000, 1000, IXX(j), IYY(j), IXY(j), 0.25, 0.3, 0.25, 0.02,  0.02, A, Torsion);
     MAXSHEAR = [MAXSHEAR, max_shear];
     j = j+1;
 end

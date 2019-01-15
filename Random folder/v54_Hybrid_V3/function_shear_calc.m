@@ -111,7 +111,7 @@ q_s_shear=sum(kutmoment)/q01moment;
 q_s_torsion=Torsion/(A_encl2*2);
 shear_flow=q_b1+q_s_torsion+q_s_shear;
 shear_stress=shear_flow;
-max_shear=max(shear_stress)
+max_shear=max(abs(shear_stress)
 end
 %% Rate of twist. Ignore below
 %now that the basic shear flow is done, the next step in calculating the
