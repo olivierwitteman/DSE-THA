@@ -38,23 +38,29 @@ plot(V_stall,h)
 %%Cp= Pbr/rho
 %% Maximum climb angle
 CD0=0.0355+0.015;
-A=1;
+A=10;
 e=0.95;
 CL=sqrt(CD0*pi*A*e);
-CD=CD0+CL^2/(pi*A*e)
-clim_angle_max=asin(T_W-1/(CL/CD))*180/pi
+CD=CD0+CL^2/(pi*A*e);
+%clim_angle_max=asin(T_W-1/(CL/CD))*180/pi
 k=1/(pi*A*e)
 P_W=19;
 W_S=1263;
-speed=4*W_S*k/(1.225*0.8*P_W)
-speed=linspace(-100,100)
+speed=4*W_S*k/(1.225*0.8*P_W);
+speed=linspace(-100,100);
 iets=speed.^4+np*P_W*W_S./(1.225*CD0)*speed-4*W_S.^2*k./(1.225^2*CD0);
-f2 = figure
+f2 = figure;
 plot(speed,iets);
-disp(4*W_S.^2*k./(1.225^2*CD0))
+disp(4*W_S.^2*k./(1.225^2*CD0));
 y=linspace(-100,100);
 hold on
 %plot(0,y)
-line([-500,500], [0, 0], "LineStyle", "--")
+line([-500,500], [0, 0], "LineStyle", "--");
 %ylim([-20,500])
 hold off
+k=1/(pi*A*e)
+V_max_angle=input('enter the value for the speed: ');
+theta_max=asin((np*P_W/V_max_angle-0.5*rho_isa*V_max_angle^2/W_S*CD0-W_S/2*2*(1/(pi*A*e))/(rho_isa*V_max_angle^2)))*180/pi
+midden=0.5*rho_isa*V_max_angle^2/W_S*CD0
+rechts=W_S*2*k/(rho_isa*V_max_angle^2)
+links=np*P_W/V_max_angle
