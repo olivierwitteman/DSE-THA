@@ -151,8 +151,8 @@ m.TO.h = 0;                                     % TO altitude [m]
 m.TO.f = 0.8;                                     % TO weight fraction W/MTOW [-]
 m.TO.s = 762;                                   % TO runway length [m]
 m.TO.t = 1;                                     % TO throttle setting P/P_max [-] (see note at end)
-m.TO.phi = 0.2;                                % TO supplied power ratio [-]
-m.TO.Phi = 0.15;                                % TO shaft power ratio [-]
+m.TO.phi = 0.14;                                % TO supplied power ratio [-]vv0.14
+m.TO.Phi = 0.09;                                % TO shaft power ratio [-] .   0.09
  
 % OEI Balked landing
 m.bL.G = 0.021;                                 % OEI balked landing climb gradient [-] (CS25.121d)
