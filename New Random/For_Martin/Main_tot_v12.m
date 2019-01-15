@@ -795,9 +795,10 @@ b_v = sqrt(A_v * S_v);
 
 % wing_planform_design(V_cruise, A_ht, Sh_final, m_cruise, h) % Done untill block 3
 [summary_horiz_tail] = wing_planform_design(V_cruise, A_ht, Sh_final, m_cruise, h); % m_cruise
-cr_h = double(summary_horiz_tail(9,2));
-cr_t = double(summary_horiz_tail(10,2));
-MAC_h = double(summary_horiz_tail(11,2));
+Cr_h_final = double(summary_horiz_tail(9,2));
+Ct_h_final = double(summary_horiz_tail(10,2));
+MAC_h_final = double(summary_horiz_tail(11,2));
+b_h_final = b_h;
 
 
 
