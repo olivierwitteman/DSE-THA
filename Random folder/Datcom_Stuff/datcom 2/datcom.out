@@ -1,0 +1,135 @@
+  ****************************************************
+  *    USAF STABILITY AND CONTROL  DIGITAL DATCOM    *
+  *    PROGRAM REV. JAN 96   DIRECT INQUIRIES TO:    *
+  *    WRIGHT LABORATORY  (WL/FIGC)  ATTN: W. BLAKE  *
+  *      WRIGHT PATTERSON AFB, OHIO  45433           *
+  *    PHONE (513) 255-6764,   FAX (513) 258-4054    *
+  ****************************************************
+1                         CONERR - INPUT ERROR CHECKING
+0 ERROR CODES - N* DENOTES THE NUMBER OF OCCURENCES OF EACH ERROR
+0 A - UNKNOWN VARIABLE NAME
+0 B - MISSING EQUAL SIGN FOLLOWING VARIABLE NAME
+0 C - NON-ARRAY VARIABLE HAS AN ARRAY ELEMENT DESIGNATION - (N)
+0 D - NON-ARRAY VARIABLE HAS MULTIPLE VALUES ASSIGNED
+0 E - ASSIGNED VALUES EXCEED ARRAY DIMENSION
+0 F - SYNTAX ERROR
+
+0******************************  INPUT DATA CARDS  ******************************
+
+  $FLTCON  NMACH=1.0, MACH(1)=0.279,                                             
+   NALPHA=5.0, ALSCHD(1)=0.0,5.0,10.0,15.0,20.0, RNNUB(1)=3.1E6$                 
+  $OPTINS SREF=12.1, CBARR=1.14, BLREF=11.01$                                    
+  $SYNTHS XCG=2.178.68, ZCG=0.0$                                                    ** ERROR **  0*A  0*B  0*C  0*D  0*E  1*F
+  $BODY NX=5.0,BNOSE=1.0,BTAIL=1.0,BLN=1.66,BLA=0.0,                             
+    X(1)=0.0,  0.401,  1.300,  2.798, 3.680,                                     
+    S(1)=0.0, 0.51,   2.334, 1.841, 0.0314,                                      
+    P(1)=0.0,  2.519,  10.367,  10.367,  0.628,                                  
+    R(1)=0.0, 0.402, 0.703,  0.558, 0.09$                                        
+ NACA-W-4-2412                                                                   
+ NACA-H-5-63015                                                                  
+  $WGPLNF CHSTAT=0.0, SWAFP=0.0, TWISTA=0.0, SSPNDD=0.0,                         
+    DHDADI=0.0,DHDADO=0.0,TYPE=1.0$                                              
+  $SYNTHS XW=2.178,ZW=0.825,ALIW=0.0$                                            
+  $WGPLNF CHRDTP=0.64,SSPNE=4.861,SSPN=5.6,CHRDR=1.6,SAVSI=-7.326$               
+  $SYNTHS XH=7.326,ZH=-0.2,ALIH=0.0$                                             
+  $HTPLNF SSPNE=2.0,SSPN=2,CHRDR=0.960,SAVSI=30.0,CHSTAT=0.25,                      ** ERROR **  0*A  0*B  0*C  0*D  0*E  1*F
+    CHRDTP=0.384, SWAFP=0.0, TWISTA=0.0, SSPNDD=0.0,                             
+    DHDADI=0.0,DHDADO=0.0,TYPE=1.0$                                              
+ CASEID BODY PLUS WING PLUS CANARD, EXAMPLE PROBLEM 4, CASE 1                    
+ NEXT CASE                                                                       
+ DIM M                                                                           
+1          THE FOLLOWING IS A LIST OF ALL INPUT CARDS FOR THIS CASE.
+0
+  $FLTCON  NMACH=1.0, MACH(1)=0.279,                                             
+   NALPHA=5.0, ALSCHD(1)=0.0,5.0,10.0,15.0,20.0, RNNUB(1)=3.1E6$                 
+  $OPTINS SREF=12.1, CBARR=1.14, BLREF=11.01$                                    
+  $SYNTHS XCG=2.178.68, ZCG=0.0$                                                 
+  $BODY NX=5.0,BNOSE=1.0,BTAIL=1.0,BLN=1.66,BLA=0.0,                             
+    X(1)=0.0,  0.401,  1.300,  2.798, 3.680,                                     
+    S(1)=0.0, 0.51,   2.334, 1.841, 0.0314,                                      
+    P(1)=0.0,  2.519,  10.367,  10.367,  0.628,                                  
+    R(1)=0.0, 0.402, 0.703,  0.558, 0.09$                                        
+ NACA-W-4-2412                                                                   
+ NACA-H-5-63015                                                                  
+  $WGPLNF CHSTAT=0.0, SWAFP=0.0, TWISTA=0.0, SSPNDD=0.0,                         
+    DHDADI=0.0,DHDADO=0.0,TYPE=1.0$                                              
+  $SYNTHS XW=2.178,ZW=0.825,ALIW=0.0$                                            
+  $WGPLNF CHRDTP=0.64,SSPNE=4.861,SSPN=5.6,CHRDR=1.6,SAVSI=-7.326$               
+  $SYNTHS XH=7.326,ZH=-0.2,ALIH=0.0$                                             
+  $HTPLNF SSPNE=2.0,SSPN=2,CHRDR=0.960,SAVSI=30.0,CHSTAT=0.25,                   
+    CHRDTP=0.384, SWAFP=0.0, TWISTA=0.0, SSPNDD=0.0,                             
+    DHDADI=0.0,DHDADO=0.0,TYPE=1.0$                                              
+ CASEID BODY PLUS WING PLUS CANARD, EXAMPLE PROBLEM 4, CASE 1                    
+ NEXT CASE                                                                       
+0 INPUT DIMENSIONS ARE IN FT, SCALE FACTOR IS 1.0000
+
+1                             AUTOMATED STABILITY AND CONTROL METHODS PER APRIL 1976 VERSION OF DATCOM   
+                                                        WING SECTION DEFINITION
+0                                 IDEAL ANGLE OF ATTACK =   0.25757 DEG.
+
+                              ZERO LIFT ANGLE OF ATTACK =  -1.87966 DEG.
+
+                                 IDEAL LIFT COEFFICIENT =   0.25602
+
+                  ZERO LIFT PITCHING MOMENT COEFFICIENT =  -0.05087
+
+                             MACH ZERO LIFT-CURVE-SLOPE =   0.09617 /DEG.
+
+                                    LEADING EDGE RADIUS =   0.01587 FRACTION CHORD
+
+                              MAXIMUM AIRFOIL THICKNESS =   0.12000 FRACTION CHORD
+
+                                                DELTA-Y =   3.16898 PERCENT CHORD
+
+
+0                         MACH= 0.2790 LIFT-CURVE-SLOPE =   0.10723 /DEG.      XAC =   0.25836
+1                             AUTOMATED STABILITY AND CONTROL METHODS PER APRIL 1976 VERSION OF DATCOM   
+                                                   HORIZONTAL TAIL SECTION DEFINITION
+0                                 IDEAL ANGLE OF ATTACK =   5.36937 DEG.
+
+                              ZERO LIFT ANGLE OF ATTACK =  -3.10313 DEG.
+
+                                 IDEAL LIFT COEFFICIENT =   0.98019
+
+                  ZERO LIFT PITCHING MOMENT COEFFICIENT =  -0.03881
+
+                             MACH ZERO LIFT-CURVE-SLOPE =   0.09878 /DEG.
+
+                                    LEADING EDGE RADIUS =   0.02479 FRACTION CHORD
+
+                              MAXIMUM AIRFOIL THICKNESS =   0.15000 FRACTION CHORD
+
+                                                DELTA-Y =   3.96122 PERCENT CHORD
+
+
+0                         MACH= 0.2790 LIFT-CURVE-SLOPE =   0.10518 /DEG.      XAC =   0.24989
+1                               AUTOMATED STABILITY AND CONTROL METHODS PER APRIL 1976 VERSION OF DATCOM
+                                         CHARACTERISTICS AT ANGLE OF ATTACK AND IN SIDESLIP
+                                               WING-BODY-HORIZONTAL TAIL CONFIGURATION
+                                       BODY PLUS WING PLUS CANARD, EXAMPLE PROBLEM 4, CASE 1
+ 
+ -----------------------  FLIGHT CONDITIONS  ------------------------           --------------  REFERENCE DIMENSIONS  ------------
+  MACH    ALTITUDE   VELOCITY    PRESSURE    TEMPERATURE     REYNOLDS             REF.      REFERENCE LENGTH   MOMENT REF. CENTER
+ NUMBER                                                       NUMBER              AREA       LONG.     LAT.     HORIZ      VERT
+             FT       FT/SEC     LB/FT**2       DEG R         1/FT               FT**2        FT        FT        FT        FT
+0 0.279                                                    3.1000E+06            12.100      1.140    11.010     2.179     0.000
+0                                                               -------------------DERIVATIVE (PER DEGREE)-------------------
+0 ALPHA     CD       CL       CM       CN       CA       XCP        CLA          CMA          CYB          CNB          CLB
+0
+    0.0    0.063    0.216   -0.2205   0.216    0.063   -1.019    1.143E-01   -4.414E-02   -2.640E-03   -5.214E-04   -1.220E-03
+    5.0    0.083    0.777   -0.4764   0.782    0.015   -0.609    1.096E-01   -5.652E-02                             -7.697E-04
+   10.0    0.123    1.313   -0.7857   1.314   -0.107   -0.598    8.299E-02   -6.721E-02                             -3.382E-04
+   15.0    0.156    1.607     NA      1.593   -0.266    NA      -4.792E-02      NA                                  -1.219E-04
+   20.0    0.108    0.834     NA      0.820   -0.184    NA      -2.616E-01      NA                                  -9.447E-04
+0                                    ALPHA     Q/QINF    EPSLON  D(EPSLON)/D(ALPHA)
+0
+                                      0.0      1.000      0.727        0.340
+                                      5.0      1.000      2.426        0.302
+                                     10.0      1.000      3.744        0.178
+                                     15.0      1.000      4.205       -0.110
+                                     20.0      1.000      2.646       -0.312
+0*** NA PRINTED WHEN METHOD NOT APPLICABLE
+1          THE FOLLOWING IS A LIST OF ALL INPUT CARDS FOR THIS CASE.
+0
+ DIM M                                                                           
+1 END OF JOB.

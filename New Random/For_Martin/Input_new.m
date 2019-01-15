@@ -1,5 +1,13 @@
+% function InputFunc = input_new(AR, Lambda, TR, tc,...
+%    CLmax_clean, CLmax_TO, CLmax_L,...
+%    e_clean, e_TO, e_L,...
+%    CD0_clean, CD0_TO, CD0_L)
 %% Aerodynamic / wing properties
- 
+ind  = load("index_number.mat");
+cd0s = load("cd0_matrix.mat");
+
+
+
 % General
 a.AR = 10;                                      % Wing aspect ratio [-]
 a.Lambda = -2.8;                                   % Half-chord sweep angle of wing [deg]
@@ -8,9 +16,9 @@ a.tc = 0.18;                                    % Thickness-to-chord ratio of ro
 a.nUlt = 4.4;                                   % Ultimate load factor [-]
  
 % maximum lift coefficient (no propulsive interaction assumed)
-CLmax_clean=1.5;
+CLmax_clean=1.55;
 CLmax_TO=1.7;
-CLmax_L=2.35;
+CLmax_L=2.1;
  
 % Oswald factor (no propulsive interaction assumed)
 e_clean=0.82;
@@ -18,9 +26,9 @@ e_TO=0.77;
 e_L=0.73;
  
 % zero-lift drag coefficient (no propulsive interaction assumed)
-CD0_clean=0.0355;
+CD0_clean = 0.0357;
 CD0_TO= CD0_clean + 0.015;
-CD0_L=CD0_clean + 0.055;
+CD0_L= CD0_clean + 0.035;
  
 % Cruise
 a.cr.CD0 = CD0_clean;                         % Cruise zero-lift drag coefficient [-]
@@ -76,7 +84,7 @@ p.eta_EM2 = 0.95;                               % Conversion efficiency of elect
 p.eta_PM = 0.95;                                % Conversion efficiency of PMAD
 p.eta_GB = 0.95;                                % Transmission efficiency of gearboxes
 p.eta_GT = 0.35;                                % Conversion (thermal) efficiency of gas turbine
-p.SE.bat = 1.6e6;                               % Battery specific energy [J/kg] http://assets.solidenergysystems.com/wp-content/uploads/2017/09/08171937/Hermes_Spec_Sheet1.pdf
+p.SE.bat = 1.8e6;                               % Battery specific energy [J/kg] 
 p.SE.f = 42.8e6;                                % Fuel specific energy [J/kg]
 p.SP.EM = 7.7e3;                                % Electrical machine specific power [W/kg]
 p.SP.bat = 2000;                                % Battery pack specific power [W/kg]
@@ -89,18 +97,18 @@ p.cr.etap2 = 0.8;                              % Secondary propulsors' propulsiv
 p.cr.Gamma = 0;                                 % Thrust vectoring in cruise [deg]
  
 % Landing
-p.L.etap1 = 0.8;                                % Primary propulsors' propulsive efficiency in landing conditions (of ISOLATED propulsors) [-]
+p.L.etap1 = 0.65;                                % Primary propulsors' propulsive efficiency in landing conditions (of ISOLATED propulsors) [-]
 p.L.etap2 = 0.75;                                % Secondary propulsors' propulsive efficiency in landing conditions (of ISOLATED propulsors) [-]
 p.L.Gamma = 0;                                  % Thrust vectoring in landing configuration [deg]
  
 % Take off
-p.TO.etap1 = 0.70;                              % Primary propulsors' propulsive efficiency in TO conditions (of ISOLATED propulsors) [-]
+p.TO.etap1 = 0.80;                              % Primary propulsors' propulsive efficiency in TO conditions (of ISOLATED propulsors) [-]
 p.TO.etap2 = 0.70;                              % Secondary propulsors' propulsive efficiency in TO conditions (of ISOLATED propulsors) [-]
 p.TO.Gamma = 0;                                 % Thrust vectoring in TO configuration [deg]
  
 % OEI Balked landing
 p.bL.etap1 = 0.8;                               % Primary propulsors' propulsive efficiency in balked landing conditions (of ISOLATED propulsors) [-]
-p.bL.etap2 = 0.8;                               % Secondary propulsors' propulsive efficiency in balked landing conditions (of ISOLATED propulsors) [-]
+p.bL.etap2 = 0.7;                               % Secondary propulsors' propulsive efficiency in balked landing conditions (of ISOLATED propulsors) [-]
 p.bL.Gamma = 0;                                 % Thrust vectoring in balked landing configuration [deg]
  
 % OEI ceiling
@@ -141,26 +149,26 @@ m.L.f = 0.97;                                   % Landing weight fraction W/MTOW
 m.L.vs = 31.4;                                  % Stall speed requirement in landing conditions [m/s]
 m.L.vApp = 1.23;                                % Stall margin during approach/landing, vApp/vs [-] (see Patterson 2017)
 m.L.vAppIso = 1.05;                             % Stall margin of isolated wing during approach/landing, vApp/vsIso [-]
-m.L.t = 0.4;                                      % Landing throttle setting P/P_max [-] (see note at end)
-m.L.phi = 0.6;                                 % Landing supplied power ratio [-]
-m.L.Phi = 0.6;                                 % Landing shaft power ratio [-]
+m.L.t = 0.5;                                      % Landing throttle setting P/P_max [-] (see note at end)
+m.L.phi = 0.05;                                 % Landing supplied power ratio [-]
+m.L.Phi = 0.05;                                 % Landing shaft power ratio [-]
  
 % Take off
  
 m.TO.h = 0;                                     % TO altitude [m]
-m.TO.f = 0.8;                                     % TO weight fraction W/MTOW [-]
+m.TO.f = 1;                                     % TO weight fraction W/MTOW [-]
 m.TO.s = 762;                                   % TO runway length [m]
 m.TO.t = 1;                                     % TO throttle setting P/P_max [-] (see note at end)
-m.TO.phi = 0.2;                                % TO supplied power ratio [-]
-m.TO.Phi = 0.1;                                % TO shaft power ratio [-]
+m.TO.phi = 0.1;                                % TO supplied power ratio [-]
+m.TO.Phi = 0.3;                                % TO shaft power ratio [-]
  
 % OEI Balked landing
 m.bL.G = 0.021;                                 % OEI balked landing climb gradient [-] (CS25.121d)
 m.bL.f = 0.97;                                   % Max landing weight (MLW) as a fraction of MTOW [-]
 m.bL.vMargin = 1.4;                             % Stall margin in balked-landing conditions
 m.bL.t = 1;                                     % Balked landing throttle setting P/P_max [-] (see note at end)
-m.bL.phi = 0.08;                                % Balked landing supplied power ratio [-]
-m.bL.Phi = 0.04;                                   % Balked landing shaft power ratio [-]
+m.bL.phi = 0.06;                                % Balked landing supplied power ratio [-]
+m.bL.Phi = 0.05;                                   % Balked landing shaft power ratio [-]
  
 % OEI ceiling
 m.cI.h = 1200;                                  % OEI ceiling [m]
@@ -186,7 +194,7 @@ m.ct.h = 2400;                                 % Altitude for top-of-climb const
 m.ct.f = 0.999;                                % Start-of-climb weight fraction W/MTOW [-]
 m.ct.M = 0.2797;                               % Mach at top-of-climb (shoud be equal to cruise Mach) [-]
 m.ct.G = 0.01;                                 % Top-of-climb climb gradient [-] (based on MA observances)
-m.ct.dVdt = 0.06;                              % Top-of-climb acceleration [m/s2]
+m.ct.dVdt = 0.05;                              % Top-of-climb acceleration [m/s2]
 m.ct.t = 1;                                    % Top-of-climb throttle setting P/P_max [-] (see note at end)
 m.ct.phi = 0.05;                               % Top-of-climb supplied power ratio [-]
 m.ct.Phi = 0.3;                               % Top-of-climb shaft power ratio [-]
@@ -214,9 +222,9 @@ MA_in.DOH_miss0 = 0.1;                          % Degree-of-hybridization, Ebat/
 % interpolation is carried out versus altitude, and for cruise, versus 
 % range flown.
 % Climb (all parameters must be specified; SEP is computed)
-MA_in.cl.xi = [0.7 0.8];
-MA_in.cl.phi = [0.05 0.05];
-MA_in.cl.Phi = [0.05 0.05];
+MA_in.cl.xi = [0.6 0.8];
+MA_in.cl.phi = [0.1 0.05];
+MA_in.cl.Phi = [0.1 0.1];
  
 % Cruise (level flight is specified, so one DOF must be kept free)
 MA_in.cr.xi = [NaN NaN];
@@ -224,9 +232,9 @@ MA_in.cr.phi = [0 0];
 MA_in.cr.Phi = [0 0];
  
 % Descent (all parameters must be specified; SEP is computed)
-MA_in.de.xi = [0.02 0.02];
-MA_in.de.phi = [0.6 0.6];
-MA_in.de.Phi = [0.6 0.6];
+MA_in.de.xi = [0.01 0.01];
+MA_in.de.phi = [0.01 0.01];
+MA_in.de.Phi = [0.01 0.01];
  
 % Diversion climb (all parameters must be specified; SEP is computed)
 MA_in.Dcl.xi = [0.5 0.5];
@@ -375,3 +383,15 @@ f.SEPsplit = @(X) 0.83+0.1*cos(X*pi);
 %       turboelectric, serial, parallel, PTE or SPPH), this refers to the
 %       throttle setting of the gas turbine, P_gt/P_gt_available, where
 %       P_gt_available is the maximum power available in the given flight
+%       condition.
+%   - For fully electric architectures:
+%       - For an e-1 or dual-e architecture, throttle refers to the
+%           throttle setting of the primary electrical machine, P_gb/P_EM1,
+%           where P_EM1 is the installed power of the primary electrical
+%           machine. Since it is assumed to present no power lapse with
+%           altitude or Mach, it is equal to the available power.
+%       - For an e-2 architecture, throttle refers to the throttle setting
+%           of the secondary electrical machine, P_s2/P_EM2, since this
+%           layout contains no 
+
+% end

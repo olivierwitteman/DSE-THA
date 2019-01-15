@@ -2,7 +2,7 @@
  
 % General
 a.AR = 10;                                      % Wing aspect ratio [-]
-a.Lambda = -2.8;                                % Half-chord sweep angle of wing [deg]
+a.Lambda = -2.8;                                   % Half-chord sweep angle of wing [deg]
 a.TR = 0.4;                                     % Taper ratio of wing [-]
 a.tc = 0.12;                                    % Thickness-to-chord ratio of root section [-]
 a.nUlt = 4.4;                                   % Ultimate load factor [-]
