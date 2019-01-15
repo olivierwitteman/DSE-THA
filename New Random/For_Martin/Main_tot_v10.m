@@ -1,7 +1,7 @@
 % TODO: THE POTATO PLOT IS SOMEHWAT WRONG, IT DOES NOT INCORPORATE THE NEW
 % VALUE FOR XLEMAC, THUS IS A LITTLE BIT OFF. DO A SEPARATE FILE WITH
 % RUBENS's CODE FOR THE CORRECT PLOT
-% T-TAIL CONFIGURATION
+
 clc
 clear all
 close all
@@ -300,7 +300,7 @@ WSsc = MTOW * m.cr.f * 9.81 / S_ref;      % Wing loading at the start of the cru
 WSec = W4W5 * WSsc;     % Wing loading at the end of the cruise
 
 fus_length = 8.352;                       % <------ INPUT
-empen_x = 0.9;                          %      <---- INPUT WRONG WRONG WRONG
+empen_x = 0.95;                          %      <---- INPUT WRONG WRONG WRONG
 most_aft_cg = 0.6 * fus_length;         % <----- WRONG WRONG WRONG INITIAL ROUGH CALCULATION
 
 %%%%%%%% ISA CALCULATION
@@ -536,7 +536,7 @@ Ct = c_t;%tip chord [m]
 Cr = c_r;%root chord [m]
 lambda = Ct/Cr; %taper ratio of main wing [-]
 Ah = 6 - 0; %aspect ratio of horizontal tail [-] .           % <----- INPUT   
-bh= 2.87; %horizontal tail span [m] .                      % <----- INPUT   
+bh= 2.82; %horizontal tail span [m] .                      % <----- INPUT   
 Sh = bh^2/Ah; %Area of the horizontal tail wing [m] .      % <----- INPUT   NOT NEEDED I THINK ? MAYBE NO SWEEP AND LEAVE IT OUT
 cg_h= Sh/bh; %average chord
 lambda_h = 0.39 %taper ratio of tail wing [-] (
@@ -551,17 +551,18 @@ sweep_4 = atan(tan(sweep_LE) + (Cr/(2*b))*(lambda -1)); %sweep at quater chord [
 sweep_2 = -2.9*pi/180;%atan(tan(sweep_LE) - (4/A)*(0.5*((1-lambda)/(1+lambda)))); %sweep at half chord [rad]
 
 % Calculate tail wing sweep angle (could be ifferent)
-sweep_LE_h = 0;
+sweep_LE_h = 0*pi/180;
 sweep_4_h = atan(tan(sweep_LE_h) + (Cr_h/(2*bh))*(lambda_h -1));
 sweep_2_h = -2.9*pi/180;
 
 % measured from planform for given geometry (from nose to horizontal tail) [m]
-x_datum_h = 0.95 * fus_length ;   %(ASSUMED)                  % <----- INPUT               
+x_datum_h = 0.9 * fus_length ;   %(ASSUMED)                  % <----- INPUT               
 
 %distance between aerodynamic center of main wing and horizontal tail [m] 
 % lh = L_t/3.2808; %(ASSUMED) .                          % <----- INPUT   
 lh = L3 +L2/2;
-lh = 5;
+lh = 4.0 + 0.5;
+ 
 
 % % % % % x locations
 % % % % x_lemac = 3.55;          % x location of leading edge mean aerodynamic chord [m] (GUESS)
@@ -588,7 +589,7 @@ CLaAh = CLaw*(1+(2.15*bf/b))*(Snet/S) + ((pi/2)*(bf^2/S));
 
 %% Downwash
 
-zh = 0.8;%vertical distance between wing and tail root chord taken from current geometry [m] (ASSUMED) % <----- INPUT   
+zh = 0.825;%vertical distance between wing and tail root chord taken from current geometry [m] (ASSUMED) % <----- INPUT   
 m_tv = 2*zh/b; % distance factor between horizontal tail and vortex shed plane of main wing [-]
 r = 2*lh/b; % distance factor quarter chord main wing and tail [-]
 
@@ -614,13 +615,13 @@ x_ac_w = 0.25; %aerodynamic center of wing (assumed at 0.4mac)
 x_ac_c = x_ac_w - ((1.8/CLaAh)*(bf*hf*lfn/(S*MAC))) +...
     ((0.273/(1+lambda))*((bf*cg*(b-bf))/(MAC^2*(b+2.15*bf))))*tan(sweep_4) +...
     2*kn*((bn^2*ln)/(S*MAC*CLaAh)); %total aircraft aerodynamic center
-x_ac_c = 0.18;
+
 
 %% Speed on the tail an wing
-Vh_V = 1; %flow velocity ratio between H-tail and main wing [-]
+Vh_V = sqrt(0.85); %flow velocity ratio between H-tail and main wing [-]
 
 %% Controllability
-CLAh = 1.9;% lift coefficient of wing+fuselage (without tail, landing configuration) . % <----- INPUT   1.2
+CLAh = 1.25;% lift coefficient of wing+fuselage (without tail, landing configuration) . % <----- INPUT   1.2
 % lecture 4 slide 37
 CLh = -0.35*(Ah)^(1/3);% for fixed .                   % <----- INPUT   
 CL0 = 0.8563 -0.3; % Zero incident while flaps out . % <----- WRONG WRONG
@@ -646,14 +647,15 @@ Cmac_fus = -1.8*(1-(2.5*bf/lf))*((pi*bf*hf*lf)/(4*S*MAC))*(CL0/CLaAh); %pitching
 Delta_f_Cmac = mu_2*(-mu_1*dClmax*cf_c-[CL+dClmax*(1-S_wf_S)]*cf_c/8*(cf_c-1))+0.7*A/(1+2/A)*mu_3*dClmax*tan(2.8)% flaps
 
 Cm_ac = Cmac_w + Cmac_fus + Cmac_nac + Delta_f_Cmac %total moment coefficient at aerodynamic center
+Cm_ac = -0.62;
          
-Cm_ac = -0.85; %(ac assumed to be within +-10% of the neutral point)
+%Cm_ac = -0.65; %(ac assumed to be within +-10% of the neutral point)
 
 %% Equations
 x_cg=(-1:0.01:1);
 
 % Stability curve
-Sh_S= (x_cg-x_ac_c+SM)/((CLah/CLaAh)*(1-de_da)*((Vh_V)^(2))*(lh/MAC)); %Stability gradient
+Sh_S= (x_cg-x_ac_c-SM-0.01)/((CLah/CLaAh)*(1-de_da)*((Vh_V)^(2))*(lh/MAC)); %Stability gradient
 
 % Controllablity Curve
 Sh_S_C = ((Cm_ac/CLAh) -(x_ac_c)) / ((CLh/CLAh)*(lh/MAC)*Vh_V^2)+ (x_cg)/ ((CLh/CLAh)*(lh/MAC)*Vh_V^2);
@@ -698,7 +700,7 @@ for i  = x_lemac
 
     W_OEW = OEW;                                     
     cg_OEW = 2.865-0.2;     % 2.665                    % <--------- INPUT INPUT INPUT INPUT INPUT INPUT INPUT INPUT
-    cg_OEW = 3.1;
+    cg_OEW = 3.25;
 
     seat_pilot=1.595 ;                    %c.g. Position Pilot   <----- INPUT 
     seat_row1=2.721  ;                    %c.g. Position Row 1   <----- INPUT 
@@ -760,7 +762,7 @@ hold on
 xlabel("x_{cg}/MAC", "FontSize", 30)
 ylabel("x_{LEMAC}/L_{FUS}", "FontSize", 30)
 
-legend("FORWARD CG", "AFT CG", "Stability", "Neutral Stability", "Controlability")
+legend("FORWARD CG", "AFT CG", "Stability", "Controlability")
 set(gca,'FontSize',25);
 
 % close all
@@ -814,7 +816,7 @@ for i  = x_lemac
     mass_fuel = M.f;
 
     W_OEW = OEW;                                  
-    cg_OEW = 2.865 -0.2;                        % <--------- INPUT INPUT INPUT INPUT INPUT INPUT INPUT INPUT
+    cg_OEW = 2.865 -0.0;                        % <--------- INPUT INPUT INPUT INPUT INPUT INPUT INPUT INPUT
    
 
     seat_pilot=1.6 ;                    %c.g. Position Pilot   <----- INPUT 
@@ -892,7 +894,3 @@ perc_mac = 0.475; % 40% of the mac is the landing gear
 %% DCLMAX 
 [dCLMAX, TVOL] = planformlayout(b, c_r, c_t, bf, aileron_length, payload_new, M.f, S);
 dCLMAX
-
-% % % % CAP and SP.
-% % % % Handling characteristics graph
-% % % % Flight control forces
