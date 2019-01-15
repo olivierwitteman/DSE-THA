@@ -5,7 +5,7 @@
 %The general inputs are shown below.
 %S_Y is at the boom 2. the same yields for 
 %% INPUTS 
-function[shear_flow, shear_stress, max_shear, A ]= function_shear_calc(c, S_x, S_y, I_xx, I_yy, I_xy, S_x_x, S_x_y, S_y_x, S_y_y, t_box, boomarea, Torsion)
+function[shear_flow, shear_stress, max_shear, A ]= function_shear_calc(c, S_x, S_y, I_xx, I_yy, I_xy, S_x_x, S_x_y, S_y_x, S_y_y, t_box, A, Torsion)
                     %INPUT [m]      Chord length      tip=0.64 root=1.6 bekend
 syms A       
 %I_xx=48*10^-3;                %INPUT [m^4]    Moment of inertia around x axis
@@ -17,16 +17,16 @@ s_bottom=1.138/1.96*c;         %INPUT [m]      distance at the bottom of each bo
 A_encl2=0.155/1.6*c;               %0.155
 S_x_pos=[S_x_x 0.0804]*c;       %INPUT [m]    location of the shear force in x-direction
 S_y_pos=[0.295 S_y_y]*c;       %INPUT [m]    location of the shear force in y-direction
-boom1=boomarea;                   %INPUT [m^2]   Boom area of boom1
-boom2=boomarea;                   %INPUT [m^2]   Boom area of boom2
-boom3=boomarea;                   %INPUT [m^2]   Boom area of boom3
-boom4=boomarea;                   %INPUT [m^2]   Boom area of boom4
-boom5=boomarea;                   %INPUT [m^2]   Boom area of boom5
-boom6=boomarea;                   %INPUT [m^2]   Boom area of boom6
-boom7=boomarea;                   %INPUT [m^2]   Boom area of boom7
-boom8=boomarea;                   %INPUT [m^2]   Boom area of boom8
-boom9=boomarea;                   %INPUT [m^2]   Boom area of boom9
-boom10=boomarea;                  %INPUT [m^2]   Boom area of boom10
+boom1=A;                   %INPUT [m^2]   Boom area of boom1
+boom2=A;                   %INPUT [m^2]   Boom area of boom2
+boom3=A;                   %INPUT [m^2]   Boom area of boom3
+boom4=A;                   %INPUT [m^2]   Boom area of boom4
+boom5=A;                   %INPUT [m^2]   Boom area of boom5
+boom6=A;                   %INPUT [m^2]   Boom area of boom6
+boom7=A;                   %INPUT [m^2]   Boom area of boom7
+boom8=A;                   %INPUT [m^2]   Boom area of boom8
+boom9=A;                   %INPUT [m^2]   Boom area of boom9
+boom10=A;                  %INPUT [m^2]   Boom area of boom10
 boom1_xy=[0.15 0.065];                  %INPUT [m]     Boom position of boom 1 [x y] 
 boom2_xy=[0.295 0.0804];                %INPUT [m]     Boom position of boom 2 [x y] 
 boom3_xy=[0.44 0.0755];                 %INPUT [m]     Boom position of boom 3 [x y] 
@@ -110,8 +110,8 @@ q01moment=2*A_encl2;
 q_s_shear=sum(kutmoment)/q01moment;
 q_s_torsion=Torsion/(A_encl2*2);
 shear_flow=q_b1+q_s_torsion+q_s_shear;
-shear_stress=shear_flow;
-max_shear=max(shear_stress)
+shear_stress=shear_flow/t_box;
+max_shear=max(abs(shear_stress));
 end
 %% Rate of twist. Ignore below
 %now that the basic shear flow is done, the next step in calculating the
