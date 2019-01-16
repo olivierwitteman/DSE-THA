@@ -94,8 +94,8 @@ p.L.etap2 = 0.75;                                % Secondary propulsors' propuls
 p.L.Gamma = 0;                                  % Thrust vectoring in landing configuration [deg]
  
 % Take off
-p.TO.etap1 = 0.65;                              % Primary propulsors' propulsive efficiency in TO conditions (of ISOLATED propulsors) [-]
-p.TO.etap2 = 0.65;                              % Secondary propulsors' propulsive efficiency in TO conditions (of ISOLATED propulsors) [-]
+p.TO.etap1 = 0.70;%0.65                              % Primary propulsors' propulsive efficiency in TO conditions (of ISOLATED propulsors) [-]
+p.TO.etap2 = 0.70;%0.65                              % Secondary propulsors' propulsive efficiency in TO conditions (of ISOLATED propulsors) [-]
 p.TO.Gamma = 0;                                 % Thrust vectoring in TO configuration [deg]
  
 % OEI Balked landing
@@ -151,8 +151,8 @@ m.TO.h = 0;                                     % TO altitude [m]
 m.TO.f = 0.8;                                     % TO weight fraction W/MTOW [-]
 m.TO.s = 762;                                   % TO runway length [m]
 m.TO.t = 1;                                     % TO throttle setting P/P_max [-] (see note at end)
-m.TO.phi = 0.15;                                % TO supplied power ratio [-]
-m.TO.Phi = 0.8;                                % TO shaft power ratio [-]
+m.TO.phi = 0.2;                                % TO supplied power ratio [-]vv0.14
+m.TO.Phi = 0.1;                                % TO shaft power ratio [-] .   0.09
  
 % OEI Balked landing
 m.bL.G = 0.021;                                 % OEI balked landing climb gradient [-] (CS25.121d)

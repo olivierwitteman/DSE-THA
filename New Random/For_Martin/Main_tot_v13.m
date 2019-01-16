@@ -787,10 +787,26 @@ ShS_ratio = double(input(prompt_ShS));
 
 Sh_final = S*ShS_ratio;
 A_h = 6.0;    % <----- INPUT   [3, 5] slide 68 lecture 7 ADSEE 1
-A_v = 1.5;  % <----- INPUT   [1, 2] slide 68 lecture 7 ADSEE 1
+% A_v = 1.5;  % <----- INPUT   [1, 2] slide 68 lecture 7 ADSEE 1
 
 b_h = sqrt(A_h * S_h);
-b_v = sqrt(A_v * S_v);
+% b_v = sqrt(A_v * S_v);
+
+C_n_beta = 0.05738; % <-------- INPUT
+[S_v_final, b_v_final, A_v_final, lambda_v_final,LAMBDA_qcv_final, trailingedgesweep_v_final,...
+    delta_engine, delta_crosswind, delta_spin, c_v_root_final, c_v_tip_final, c_v_mac_final]...
+    = rudder(V_stall, 0.95*lf, lf, S, V_cruise, bf, hf,...
+    T_isa, c_l_alpha, b, most_aft_cg*lf, rho, C_n_beta)
+
+
+% wing_planform_design(V_cruise, A_ht, Sh_final, m_cruise, h) % Done untill block 3
+[summary_horiz_tail] = wing_planform_design(V_cruise, A_ht, Sh_final, m_cruise, h); % m_cruise
+Cr_h_final = double(summary_horiz_tail(9,2));
+Ct_h_final = double(summary_horiz_tail(10,2));
+MAC_h_final = double(summary_horiz_tail(11,2));
+b_h_final = b_h;
+
+
 
 ind = find(cg_mat(:,2) == most_aft_cg);
 % get the index and the run the loop untill this index with the ne x_lemac
@@ -805,6 +821,7 @@ ind = find(cg_mat(:,2) == most_aft_cg);
 cg_mat = zeros(length(x_lemac),2);
 counter = 1;
 x_lemac = x_lemac_scissor*lf
+
 for i  = x_lemac
 %     i = x_lemac_scissor*lf; % PROBABLY NOT CORRECT
     
@@ -867,7 +884,12 @@ for i  = x_lemac
     
     counter = counter + 1;
 %     if counter-1 == ind
-    if i == x_lemac_scissor
+    if i == x_lemac
+        disp(i)
+        disp(i)
+        disp(i)
+        disp(i)
+        disp(i)
         fpotato = figure
 %         x_lemac = x_lemac * lf; %%% AFTER x_lemac was chosen
         line([([cg_OEW,cg_OEW_cargo]- i)/MAC],[[W_OEW,W_OEW_cargo]],'Color','green');
@@ -898,89 +920,5 @@ perc_mac = 0.475; % 40% of the mac is the landing gear
 dCLMAX
 
 
-%% POTATO PLOT VERSION THREE
-% ADD ROUND UP TO THIRD DECIMAL POINT AND EXTRACT THE VALUE OF THE CHOSEN
-% LEMAC 
-% clear all
-x_lemac = [1: 0.01: 4.2];
-cg_mat = zeros(length(x_lemac),2);
-counter = 1;
-x_lemac = x_lemac_scissor*lf
-for i  = x_lemac
-%     i = x_lemac_scissor*lf; % PROBABLY NOT CORRECT
-    
-    lbs_to_kg = 0.45359237;
-    mass_pax=175;                    
-    mass_pax = mass_pax*lbs_to_kg;
 
-    mass_bags = 25;                                
-    mass_bags = mass_bags * lbs_to_kg;
-
-    mass_fuel = M.f;
-
-    W_OEW = OEW;                                     
-    cg_OEW = 2.865-0.2;     % 2.665                    % <--------- INPUT INPUT INPUT INPUT INPUT INPUT INPUT INPUT
-    cg_OEW = 3.25;
-
-    seat_pilot=1.595 ;                    %c.g. Position Pilot   <----- INPUT 
-    seat_row1=2.721  ;                    %c.g. Position Row 1   <----- INPUT 
-    seat_row2=4.063  ;                     %c.g. Position Row 2   <----- INPUT 
-    location_cargo = 1.923;                %c.g. Position Baggage <----- INPUT  1.923
-    location_fuel = i + 0.5*MAC
-    %location_batteries%c.g. Position Fuel    <----- INPUT
-%     location_fuel = cg_OEW + 0.10*l_fus;
-%     location_feul = x_Fuel;
-
-    %cargo
-    W_OEW_cargo = W_OEW+4*mass_bags;
-    cg_OEW_cargo=((cg_OEW*W_OEW)+(location_cargo*4*mass_bags))/(W_OEW_cargo);
-
-   
-    W_OEW_1pax=1*mass_pax+W_OEW_cargo;
-    W_OEW_2pax=2*mass_pax+W_OEW_cargo;
-    W_OEW_3pax=3*mass_pax+W_OEW_cargo;
-    W_OEW_4pax=4*mass_pax+W_OEW_cargo;
-    %back to front
-    cg_btf_1=((cg_OEW_cargo*W_OEW_cargo)+(seat_row2*mass_pax))/(W_OEW_1pax);
-    cg_btf_2=((cg_btf_1*W_OEW_1pax)+(seat_row2*mass_pax))/(W_OEW_2pax);
-    cg_btf_3=((cg_btf_2*W_OEW_2pax)+(seat_row1*mass_pax))/(W_OEW_3pax);
-    cg_btf_4=((cg_btf_3*W_OEW_3pax)+(seat_row1*mass_pax))/(W_OEW_4pax);
-
-
-    %front to back
-    cg_ftb_1=((cg_OEW_cargo*W_OEW_cargo)+(seat_row1*mass_pax))/(W_OEW_1pax);
-    cg_ftb_2=((cg_ftb_1*W_OEW_1pax)+(seat_row1*mass_pax))/(W_OEW_2pax);
-    cg_ftb_3=((cg_ftb_2*W_OEW_2pax)+(seat_row2*mass_pax))/(W_OEW_3pax);
-    cg_ftb_4=((cg_ftb_3*W_OEW_3pax)+(seat_row2*mass_pax))/(W_OEW_4pax);
-
-
-    %include fuel
-    cg_nofuel=cg_btf_4;
-    cg_fuel=((cg_nofuel*W_OEW_4pax)+(location_fuel*mass_fuel))/(mass_fuel+W_OEW_4pax);
-
-
-    cg_max=max([cg_OEW,cg_OEW_cargo,cg_OEW_cargo,cg_btf_1,cg_btf_2,cg_btf_3,cg_btf_4,cg_OEW_cargo,cg_btf_1,cg_btf_2,cg_btf_3,cg_btf_4,cg_fuel]);
-    cg_min=min([cg_OEW,cg_OEW_cargo,cg_OEW_cargo,cg_btf_1,cg_btf_2,cg_btf_3,cg_btf_4,cg_OEW_cargo,cg_btf_1,cg_btf_2,cg_btf_3,cg_btf_4,cg_fuel]);
-
-    cg_max = (cg_max - i)/MAC;
-    cg_min = (cg_min - i)/MAC;
-    cg_mat(counter, 1) = round(cg_min,3);
-    cg_mat(counter, 2) = round(cg_max,3);
-    
-    counter = counter + 1;
-        
-end
-
-% fpotato = figure
-% x_lemac = x_lemac * lf; %%% AFTER x_lemac was chosen
-% line([([cg_OEW,cg_OEW_cargo]- i)/MAC],[[W_OEW,W_OEW_cargo]],'Color','green');
-% line([([cg_OEW_cargo,cg_btf_1,cg_btf_2,cg_btf_3,cg_btf_4]-i)/MAC],[W_OEW_cargo,W_OEW_1pax,W_OEW_2pax,W_OEW_3pax,W_OEW_4pax],'Color','blue');
-% line([([cg_OEW_cargo,cg_ftb_1,cg_ftb_2,cg_ftb_3,cg_ftb_4]-i)/MAC],[W_OEW_cargo,W_OEW_1pax,W_OEW_2pax,W_OEW_3pax,W_OEW_4pax],'Color','red');
-% line([([cg_nofuel,cg_fuel]-i)/MAC],[W_OEW_4pax, W_OEW_4pax+mass_fuel],'Color','black');
 % 
-% xlabel("x_{cg}/MAC")
-% ylabel("Mass [kg]")
-% legend("Cargo", "Front to back", "Back to fron", "Fuel")
-% set(gca, "FontSize", 20)
-% saveas(fpotato,'PotatoDiagram.fig');
-close all

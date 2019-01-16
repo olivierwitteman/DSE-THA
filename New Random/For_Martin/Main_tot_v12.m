@@ -792,6 +792,16 @@ A_v = 1.5;  % <----- INPUT   [1, 2] slide 68 lecture 7 ADSEE 1
 b_h = sqrt(A_h * S_h);
 b_v = sqrt(A_v * S_v);
 
+
+% wing_planform_design(V_cruise, A_ht, Sh_final, m_cruise, h) % Done untill block 3
+[summary_horiz_tail] = wing_planform_design(V_cruise, A_ht, Sh_final, m_cruise, h); % m_cruise
+Cr_h_final = double(summary_horiz_tail(9,2));
+Ct_h_final = double(summary_horiz_tail(10,2));
+MAC_h_final = double(summary_horiz_tail(11,2));
+b_h_final = b_h;
+
+
+
 ind = find(cg_mat(:,2) == most_aft_cg);
 % get the index and the run the loop untill this index with the ne x_lemac
 
@@ -902,6 +912,7 @@ perc_mac = 0.475; % 40% of the mac is the landing gear
 %% DCLMAX 
 [dCLMAX, TVOL] = planformlayout(b, c_r, c_t, bf, aileron_length, payload_new, M.f, S);
 dCLMAX
+
 
 
 % 
