@@ -136,7 +136,7 @@ for i = 1:s.n
         *(1 - p.TO.T + p.TO.T*cosd(p.TO.Gamma));
     
     % Convert to required power
-    WP(i) = WP1*eta_eff;
+    WP(i) = WP1/eta_eff;
 
     % Store speed, lift coefficient, and propulsive efficiency change
     m.TO.v(i) = vs*1.1;
