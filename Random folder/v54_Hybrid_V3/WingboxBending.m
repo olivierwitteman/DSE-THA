@@ -6,12 +6,11 @@ tic
 c_r = 1.6;
 c_t = 1.6*0.4;
 b= 11;
-<<<<<<< HEAD
-Torsion=10000
-=======
+
+
 Torsion = 10000;
  
->>>>>>> 10ad22b343e8790e8a4176a19861e02fda8a15fc
+
 %A = 0.3; %<---input Boom area
  
 x1 = 0.15;  %Positions boom
@@ -100,11 +99,8 @@ M_y = (T_hl*(z_1+z_2+z_3+z_4)+T_E*b-D*z_D);
 j = 1;
 MAXSHEAR = [];
 while j < length(z)+1
-<<<<<<< HEAD
+
     [shear_flow, shear_stress, max_shear, A ]= function_shear_calc(chl(j), 1000, 1000, IXX(j), IYY(j), IXY(j), 0.25, 0.3, 0.25, 0.02,  0.02, A, Torsion);
-=======
-    [shear_flow, shear_stress, max_shear, A ]= function_shear_calc(chl(j), 1000, 1000, IXX(j), IYY(j), IXY(j), 0.25, 0.3, 0.25, 0.02, 0.02, A, Torsion);
->>>>>>> 10ad22b343e8790e8a4176a19861e02fda8a15fc
     MAXSHEAR = [MAXSHEAR, max_shear];
     j = j+1;
 end
@@ -114,7 +110,7 @@ end
 
 k = 1;
 BOOMAREA = [];
-sigmayield= 511240;
+sigmayield= 70000000;
 
 while k < length(z)+1
     sigma=(((M_x.*IYY(k)-M_y.*IXY(k))*y+(M_y.*IXX(k)-M_x.*IXY(k)).*x)/(IXX(k).*IYY(k)-IXY(k).^2)).^2;
@@ -122,6 +118,6 @@ while k < length(z)+1
     BOOMAREA = [BOOMAREA, double(solve(eqn1,A))];
     k = k+1
 end
-BOOMAREA = BOOMAREA%(BOOMAREA>=0)
+BOOMAREA = BOOMAREA(BOOMAREA>=0)
 N = 333
 toc

@@ -7,7 +7,7 @@
 %% INPUTS 
 function[shear_flow, shear_stress, max_shear, A ]= function_shear_calc(c, S_x, S_y, I_xx, I_yy, I_xy, S_x_x, S_x_y, S_y_x, S_y_y, t_box, A, Torsion)
                     %INPUT [m]      Chord length      tip=0.64 root=1.6 bekend
-syms A       
+%syms A       
 %I_xx=48*10^-3;                %INPUT [m^4]    Moment of inertia around x axis
 %I_yy=52*10^-3;                %INPUT [m^4]    Moment of inertia around y axis
 %I_xy=20*10^-3;                %INPUT ]m^4]    Product moment of inertia. 
@@ -47,12 +47,13 @@ c_g= [0.44 0.0267]*c;
 q_left=-(S_x*I_xx-S_y*I_xy)/(I_xx*I_yy-I_xy^2);         %first term of the basic shear flow.
 q_right=-(S_y*I_yy-S_x*I_xy)/(I_xx*I_yy-I_xy^2);        %second term for the basic shear flow
 q_b1=zeros(10,1); %leave it
+length(q_b1)
 boom_pos_cg=zeros(10,2);
 for num=im
     boom_pos_cg(num,1)=boom_pos(num,1)-c_g(1);
     boom_pos_cg(num,2)= boom_pos(num,2)-c_g(2);
 end
-im=[1 2 3 4 5 6 7 8 9 10];
+im=[ 2 3 4 5 6 7 8 9 10];
 s=2;
 
 %disp(q_left)
@@ -63,11 +64,12 @@ for number=im
     qvalue=q_left*Boom_area(number)*boom_pos_cg(number,1)+q_right*Boom_area(number)*boom_pos_cg(number,2);
     qvaluemat=[qvaluemat, qvalue];
     qvalue1= q_b1(s-1,1)+qvalue;
-    q_b1(s)=[qvalue1];       %the basic shear flow, starting from 10-1 outer to 10-1 innter
+    q_b1(s)=[qvalue1] ;      %the basic shear flow, starting from 10-1 outer to 10-1 innter
+    length(q_b1)
     s=s+1;
 end
 %qvaluemat
-%qvalue1
+disp(500000)
 %disp(q_b1)
 %disp(q_left*Boom_area(3)*boom_pos_cg(3,1));%+q_right*Boom_area(3)*boom_pos_cg(3,2))
 %% Calculate the final shear flow.
@@ -110,13 +112,14 @@ q01moment=2*A_encl2;
 q_s_shear=sum(kutmoment)/q01moment;
 q_s_torsion=Torsion/(A_encl2*2);
 shear_flow=q_b1+q_s_torsion+q_s_shear;
-<<<<<<< HEAD
+
 shear_stress=shear_flow;
-max_shear=max(abs(shear_stress)
-=======
+max_shear=max(abs(shear_stress));
+
 shear_stress=shear_flow/t_box;
 max_shear=max(abs(shear_stress));
->>>>>>> 10ad22b343e8790e8a4176a19861e02fda8a15fc
+disp(q_b1)
+
 end
 %% Rate of twist. Ignore below
 %now that the basic shear flow is done, the next step in calculating the

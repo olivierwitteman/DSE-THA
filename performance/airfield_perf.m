@@ -12,7 +12,7 @@ Cd_to=0.505             ;                                       %%INPUT
 g=9.81                  ;                                       %%INPUT    
 T_av_to=1               ;     341kW                             %%INPUT                                           %%INPUT 
 Dg_av_to=1              ;                                       %%INPUT 
-gamma_to=1              ;                                       %%INPUT                  
+gamma_to=alpha             ;                                       %%INPUT                  
 H_scr=15.24             ;%[M]  %input from guide                %%INPUT
 
 %% Calculations
