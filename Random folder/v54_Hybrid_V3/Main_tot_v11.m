@@ -529,7 +529,7 @@ lh = L_t/3.2808; %(ASSUMED) .                          % <----- INPUT
 
 %% HLD AND PLANFORM
 
-[dCLMAX, TVOL] = planformlayout(b, c_r, c_t, bf, aileron_length, payload_new, M.f, S)
+[dCLMAX, TVOL, flwidth] = planformlayout(b, c_r, c_t, bf, aileron_length, payload_new, M.f, S)
 
 %% Variables Stability 
 
