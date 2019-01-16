@@ -2,7 +2,7 @@
  
 % General
 a.AR = 10;                                      % Wing aspect ratio [-]
-a.Lambda = -2.8;                                % Half-chord sweep angle of wing [deg]
+a.Lambda = -2.8;                                   % Half-chord sweep angle of wing [deg]
 a.TR = 0.4;                                     % Taper ratio of wing [-]
 a.tc = 0.12;                                    % Thickness-to-chord ratio of root section [-]
 a.nUlt = 4.4;                                   % Ultimate load factor [-]
@@ -151,8 +151,8 @@ m.TO.h = 0;                                     % TO altitude [m]
 m.TO.f = 0.8;                                     % TO weight fraction W/MTOW [-]
 m.TO.s = 762;                                   % TO runway length [m]
 m.TO.t = 1;                                     % TO throttle setting P/P_max [-] (see note at end)
-m.TO.phi = 0.15;                                % TO supplied power ratio [-]
-m.TO.Phi = 0.8;                                % TO shaft power ratio [-]
+m.TO.phi = 0.14;                                % TO supplied power ratio [-]vv0.14
+m.TO.Phi = 0.09;                                % TO shaft power ratio [-] .   0.09
  
 % OEI Balked landing
 m.bL.G = 0.021;                                 % OEI balked landing climb gradient [-] (CS25.121d)

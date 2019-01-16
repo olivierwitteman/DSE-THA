@@ -92,5 +92,5 @@ legend('h=0', 'h=1000', 'h=2000', 'h=2400');
 ylabel('RC/RC_s') 
 xlabel('Equivalent airspeed [m/s]');
 ax = gca;
-ax.FontSize = 13;
+ax.FontSize = 20;
 hold off
