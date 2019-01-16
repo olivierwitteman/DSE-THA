@@ -167,7 +167,7 @@ save("cd0_matrix.mat", "cd0_space")
 % for index123 = [1:1:length(cd0_space)]
 % save("index_number.mat", "index123");
 % Load input parameters
-Input_new_v2;
+Input_new_v3;
 
 % Check input is consistent
 disp([s.levelString '> Checking powertrain input settings'])
@@ -912,7 +912,3 @@ perc_mac = 0.475; % 40% of the mac is the landing gear
 %% DCLMAX 
 [dCLMAX, TVOL] = planformlayout(b, c_r, c_t, bf, aileron_length, payload_new, M.f, S);
 dCLMAX
-
-
-
-% 

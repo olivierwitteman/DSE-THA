@@ -84,8 +84,8 @@ p.minSOC_miss = 0.2;                            % Minimum SOC (maximum discharge
 p.minSOC_tot = 0;                               % Minimum SOC (maximum discharge) of batteries after diversion mission [-]
  
 % Cruise
-p.cr.etap1 = 0.8;                               % Primary propulsors' propulsive efficiency in cruise (of ISOLATED propulsors) [-]
-p.cr.etap2 = 0.8;                              % Secondary propulsors' propulsive efficiency in cruise (of ISOLATED propulsors) [-]
+p.cr.etap1 = 0.75;                               % Primary propulsors' propulsive efficiency in cruise (of ISOLATED propulsors) [-]
+p.cr.etap2 = 0.75;                              % Secondary propulsors' propulsive efficiency in cruise (of ISOLATED propulsors) [-]
 p.cr.Gamma = 0;                                 % Thrust vectoring in cruise [deg]
  
 % Landing
@@ -94,8 +94,8 @@ p.L.etap2 = 0.75;                                % Secondary propulsors' propuls
 p.L.Gamma = 0;                                  % Thrust vectoring in landing configuration [deg]
  
 % Take off
-p.TO.etap1 = 0.60;%0.65                              % Primary propulsors' propulsive efficiency in TO conditions (of ISOLATED propulsors) [-]
-p.TO.etap2 = 0.60;%0.65                              % Secondary propulsors' propulsive efficiency in TO conditions (of ISOLATED propulsors) [-]
+p.TO.etap1 = 0.8;%0.65                              % Primary propulsors' propulsive efficiency in TO conditions (of ISOLATED propulsors) [-]
+p.TO.etap2 = 0.8;%0.65                              % Secondary propulsors' propulsive efficiency in TO conditions (of ISOLATED propulsors) [-]
 p.TO.Gamma = 0;                                 % Thrust vectoring in TO configuration [deg]
  
 % OEI Balked landing
@@ -130,14 +130,14 @@ p.ct.Gamma = 0;                                 % Thrust vectoring in top-of-cli
 % Cruise
 m.cr.h = 2400;                                 % Cruise altitude [m]
 m.cr.M = 0.2797;                                  % Cruise Mach number [-]
-m.cr.f = 0.999;                                  % Cruise weight fraction W/MTOW [-]
-m.cr.t = 0.6;                                   % Cruise throttle setting P/P_max [-] (see note at end)
+m.cr.f = 0.98;                                  % Cruise weight fraction W/MTOW [-]
+m.cr.t = 0.85;                                   % Cruise throttle setting P/P_max [-] (see note at end)
 m.cr.phi = -0.02;                                 % Cruise supplied power ratio [-]
 m.cr.Phi = 0;                                 % Cruise shaft power ratio [-]
  
 % Landing
 m.L.h = 0;                                      % Landing altitude [m]
-m.L.f = 0.94;                                   % Landing weight fraction W/MTOW [-]
+m.L.f = 0.97;                                   % Landing weight fraction W/MTOW [-]
 m.L.vs = 31.4;                                  % Stall speed requirement in landing conditions [m/s]
 m.L.vApp = 1.23;                                % Stall margin during approach/landing, vApp/vs [-] (see Patterson 2017)
 m.L.vAppIso = 1.05;                             % Stall margin of isolated wing during approach/landing, vApp/vsIso [-]
@@ -147,11 +147,11 @@ m.L.Phi = 0.6;                                 % Landing shaft power ratio [-]
  
 % Take off
 m.TO.h = 0;                                     % TO altitude [m]
-m.TO.f = 0.9;                                     % TO weight fraction W/MTOW [-]
+m.TO.f = 0.99;                                     % TO weight fraction W/MTOW [-]
 m.TO.s = 762;                                   % TO runway length [m]
-m.TO.t = 0.8;                                     % TO throttle setting P/P_max [-] (see note at end)
-m.TO.phi = 0.1;                                % TO supplied power ratio [-]vv0.14
-m.TO.Phi = 0.2;                                % TO shaft power ratio [-] .   0.09
+m.TO.t = 1;                                     % TO throttle setting P/P_max [-] (see note at end)
+m.TO.phi = 0.2;                                % TO supplied power ratio [-]vv0.14
+m.TO.Phi = 0.1;                                % TO shaft power ratio [-] .   0.09
  
 % OEI Balked landing
 m.bL.G = 0.021;                                 % OEI balked landing climb gradient [-] (CS25.121d)
@@ -336,7 +336,11 @@ f.CD = @(CD0,CL_iso,AR,e) CD0 + CL_iso^2/(pi*AR*e);
 % Weight correlations (per component instance!)
 % Turboshaft weight in [kg] as a function of shaft
 % power in [W], based on Roskam Part 5, Figure 6.2.
+
 % f.W.GT = @(P) 0.45359*10.^((log10(P/745.7)-0.011405)/1.1073)
+
+ 
+
 
 f.W.GT = @(P) 3*0.45359*10.^((log10(P/745.7)-0.011405)/1.1073);
 
