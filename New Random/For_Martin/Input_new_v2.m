@@ -336,9 +336,17 @@ f.CD = @(CD0,CL_iso,AR,e) CD0 + CL_iso^2/(pi*AR*e);
 % Weight correlations (per component instance!)
 % Turboshaft weight in [kg] as a function of shaft
 % power in [W], based on Roskam Part 5, Figure 6.2.
+<<<<<<< HEAD
 f.W.GT = @(P) 0.45359*10.^((log10(P/745.7)-0.011405)/1.1073)
 
  
+=======
+
+f.W.GT = @(P) 4*0.45359*10.^((log10(P/745.7)-0.011405)/1.1073);
+
+% f.W.GT = @(P) P * 1.34 / 2.2;
+
+>>>>>>> cd656d0288137720ee66f2907502654d315a62b4
 % OEM in [kg] as a function of MTOM [kg], based on Roskam Part 1,
 % Table 2.15 (in lb: 10.^((log10(MTOM)-AA)/BB))
 % AA = 0.3774; BB = 0.9647;   % Regional turboprop aircraft
