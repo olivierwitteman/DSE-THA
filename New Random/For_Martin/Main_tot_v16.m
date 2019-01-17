@@ -765,7 +765,7 @@ ylabel("x_{LEMAC}/L_{FUS}", "FontSize", 30)
 
 legend("FORWARD CG", "AFT CG", "Stability", "Controlability")
 set(gca,'FontSize',25);
-% saveas(fscissor, "ScissorPlot.fig")
+saveas(fscissor, "ScissorPlot.fig")
 
 % close all
 
