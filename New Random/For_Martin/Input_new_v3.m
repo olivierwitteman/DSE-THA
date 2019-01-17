@@ -18,7 +18,7 @@ e_TO=0.77;
 e_L=0.73;
  
 % zero-lift drag coefficient (no propulsive interaction assumed)
-CD0_clean=0.0338; % 0.0355 0.0338
+CD0_clean=0.032; % 0.0355 0.0338
 CD0_TO= CD0_clean + 0.015;
 CD0_L=CD0_clean + 0.055;
  
@@ -342,7 +342,7 @@ f.CD = @(CD0,CL_iso,AR,e) CD0 + CL_iso^2/(pi*AR*e);
  
 
 
-f.W.GT = @(P) 3*0.45359*10.^((log10(P/745.7)-0.011405)/1.1073);
+f.W.GT = @(P) 2.2*0.45359*10.^((log10(P/745.7)-0.011405)/1.1073);
 
 % f.W.GT = @(P) P * 1.34 / 2.2;
 

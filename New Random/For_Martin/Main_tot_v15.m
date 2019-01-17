@@ -279,7 +279,7 @@ summary_wing = [summary_wing; ["Wing Area", S]];
 P = MTOW*9.81/WPdes.minGTM.GTM; % ADD THE SECONDARY POINT WHICH WE DO NOT KNOW for some reason
 A = a.AR;
 MAC = double(summary_wing(11,2));           
-OEW = M.OEM + M.EM1 + M.EM2 + M.bat + M.f + M.GT + M.w;
+OEW = M.OEM + M.EM1 + M.EM2 + M.bat + M.f*0 + M.GT + M.w;
 S_ref = S;                        
 v = V_cruise;                     
 W4W5 = m.cr.f/m.L.f;
@@ -783,10 +783,10 @@ set(gca,'FontSize',25);
 % prompt_ShS = 'Chosen ShS: ';
 % ShS_ratio = double(input(prompt_ShS));
 
-x_lemac_scissor = 0.361;
-most_aft_cg = 0.382;
-most_forward_cg = 0.29;
-ShS_ratio = 0.2;
+x_lemac_scissor = 0.3638;
+most_aft_cg = 0.384;
+most_forward_cg = 0.272;
+ShS_ratio = 0.205;
 
 Sh_final = S*ShS_ratio;
 A_h = 6.0;    % <----- INPUT   [3, 5] slide 68 lecture 7 ADSEE 1
