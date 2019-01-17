@@ -774,25 +774,25 @@ set(gca,'FontSize',25);
 
 
 
-prompt_xlemac = 'X_lemac position: ';
-x_lemac_scissor = double(input(prompt_xlemac));
+% prompt_xlemac = 'X_lemac position: ';
+% x_lemac_scissor = double(input(prompt_xlemac));
+% 
+% 
+% prompt_aftcg = 'Most AFT cg: ';
+% most_aft_cg = double(input(prompt_aftcg));
+% 
+% prompt_forwardcg = 'Most FORWARD cg: ';
+% most_forward_cg = double(input(prompt_forwardcg));
+% 
+% prompt_ShS = 'Chosen ShS: ';
+% ShS_ratio = double(input(prompt_ShS));
 
 
-prompt_aftcg = 'Most AFT cg: ';
-most_aft_cg = double(input(prompt_aftcg));
 
-prompt_forwardcg = 'Most FORWARD cg: ';
-most_forward_cg = double(input(prompt_forwardcg));
-
-prompt_ShS = 'Chosen ShS: ';
-ShS_ratio = double(input(prompt_ShS));
-
-
-
-% x_lemac_scissor = 0.3638;
-% most_aft_cg = 0.384;
-% most_forward_cg = 0.272;
-% ShS_ratio = 0.205;
+x_lemac_scissor = 0.3575;
+most_aft_cg = 0.432;
+most_forward_cg = 0.26;
+ShS_ratio = 0.245;
 
 Sh_final = S*ShS_ratio;
 A_h = 6.0;    % <----- INPUT   [3, 5] slide 68 lecture 7 ADSEE 1
