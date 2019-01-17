@@ -32,9 +32,11 @@ ln1 = most_aft_cg - ln;
 % for low wing, the cg is considered to be located at 0.27% of the fuselage
 % diameter
  
-prompt_winghigh = 'for highwing 2 for lowwing 1: ';
-winghigh = double(input(prompt_winghigh));
+% prompt_winghigh = 'for highwing 2 for lowwing 1: ';
+% winghigh = double(input(prompt_winghigh));
  
+winghigh = 2;
+
 if  winghigh == 1
     z = 0.27*Dfuse+length_strut;
     Ymlg = (ln + lgearrange)./(((ln^2 + (tan(Tangle))^2)/z^2)-1);
