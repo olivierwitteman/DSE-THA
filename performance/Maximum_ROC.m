@@ -16,7 +16,7 @@ e=0.8;
 S=8.8;
 W=1700*9.80665;
 %important
-PA=240000;
+PA=290000;
 %
 rho=1.225;
 CD0=0.0388;
@@ -82,7 +82,7 @@ for i=V
     PR=W*sqrt(W./S*2/rho_isa*CD.^2./CL.^3);
     prmat=[prmat, PR];
     if PR<1.001*PA && PR>0.999*PA % || PR<0.95*PA
-        V_max=i
+        V_max=i;
     end
 end
 
