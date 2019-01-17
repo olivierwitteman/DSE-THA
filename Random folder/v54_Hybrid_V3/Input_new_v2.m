@@ -128,7 +128,7 @@ p.ct.Gamma = 0;                                 % Thrust vectoring in top-of-cli
 % segment).
  
 % Cruise
-m.cr.h = 2400;                                 % Cruise altitude [m]
+m.cr.h = 0;                                 % Cruise altitude [m]
 m.cr.M = 0.2797;                                  % Cruise Mach number [-]
 m.cr.f = 0.999;                                  % Cruise weight fraction W/MTOW [-]
 m.cr.t = 0.8;                                   % Cruise throttle setting P/P_max [-] (see note at end)
