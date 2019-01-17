@@ -50,7 +50,7 @@ k = c_l_alpha/(2*pi/beta);
 b_w = b;
 V_MC = 1.2 * V_stall;
 
-T_TO = 310000/V_MC ;%N
+T_TO = 180000/V_MC ;%N
 n_E = 2 ;%Number of engines
 y_E = b/2 ;%The distance between the failed engine and the plane of symmetry
 N_E = T_TO/n_E*y_E; %Moment caused by active engines
