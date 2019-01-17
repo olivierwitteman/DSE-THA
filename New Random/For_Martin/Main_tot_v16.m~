@@ -765,11 +765,10 @@ legend("FORWARD CG", "AFT CG", "Stability", "Controlability")
 set(gca,'FontSize',25);
 saveas(fscissor, "ScissorPlot.fig")
 
-
 % close all
 
-prompt_xlemac = 'X_lemac position: ';
-x_lemac_scissor = double(input(prompt_xlemac));
+% prompt_xlemac = 'X_lemac position: ';
+% x_lemac_scissor = double(input(prompt_xlemac));
 
 
 
@@ -785,6 +784,8 @@ x_lemac_scissor = double(input(prompt_xlemac));
 % 
 % prompt_ShS = 'Chosen ShS: ';
 % ShS_ratio = double(input(prompt_ShS));
+
+
 
 x_lemac_scissor = 0.3638;
 most_aft_cg = 0.384;
@@ -880,8 +881,8 @@ for i  = x_lemac
     cg_fuel=((cg_nofuel*W_OEW_4pax)+(location_fuel*mass_fuel))/(mass_fuel+W_OEW_4pax);
 
 
-    cg_max=max([cg_OEW,cg_OEW_cargo,cg_OEW_cargo,cg_btf_1,cg_btf_2,cg_btf_3,cg_btf_4,cg_OEW_cargo,cg_btf_1,cg_btf_2,cg_btf_3,cg_btf_4,cg_fuel]);
-    cg_min=min([cg_OEW,cg_OEW_cargo,cg_OEW_cargo,cg_btf_1,cg_btf_2,cg_btf_3,cg_btf_4,cg_OEW_cargo,cg_btf_1,cg_btf_2,cg_btf_3,cg_btf_4,cg_fuel]);
+    cg_max=max([cg_OEW,cg_OEW_cargo,cg_OEW_cargo,cg_btf_1,cg_btf_2,cg_btf_3,cg_btf_4,cg_OEW_cargo,cg_ftb_1,cg_ftb_2,cg_ftb_3,cg_ftb_4,cg_fuel]);
+    cg_min=min([cg_OEW,cg_OEW_cargo,cg_OEW_cargo,cg_btf_1,cg_btf_2,cg_btf_3,cg_btf_4,cg_OEW_cargo,cg_ftb_1,cg_ftb_2,cg_ftb_3,cg_ftb_4,cg_fuel]);
 
     cg_max = (cg_max - i)/MAC;
     cg_min = (cg_min - i)/MAC;
