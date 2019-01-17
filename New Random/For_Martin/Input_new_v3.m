@@ -18,7 +18,7 @@ e_TO=0.77;
 e_L=0.73;
  
 % zero-lift drag coefficient (no propulsive interaction assumed)
-CD0_clean=0.0338; % 0.0355
+CD0_clean=0.0338; % 0.0355 0.0338
 CD0_TO= CD0_clean + 0.015;
 CD0_L=CD0_clean + 0.055;
  
