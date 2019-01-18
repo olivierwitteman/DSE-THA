@@ -560,7 +560,7 @@ x_datum_h = 0.9 * fus_length ;   %(ASSUMED)                  % <----- INPUT
 %distance between aerodynamic center of main wing and horizontal tail [m] 
 % lh = L_t/3.2808; %(ASSUMED) .                          % <----- INPUT   
 lh = L3 +L2/2;
-lh = 4.0 + 0.5;
+lh = 4.0 + 0.3;
  
 
 % % % % % x locations
@@ -578,7 +578,8 @@ CLaw = (2*pi*A)/(2 + sqrt(4 + (A/eta)^2 *(1 + (tan(sweep_2)^2/beta^2)) )) ;
 %compressibility ignored due to low speeds
 
 %for main wing
-CLah = (2*pi*Ah)/(2+ sqrt(4 + (Ah/eta)^2 *(1 + (tan(sweep_2_h)^2/beta^2)) ));
+CLah = (2*pi*Ah)/(2+ sqrt(4 + (Ah/eta)^2 *(1 + (tan(sweep_2_h)^2/beta^2)) )) - 0.035*0;
+
 % dCl/dalpha using DATCOM method [1/rad]
 %compressibility ignored due to low speeds
 
@@ -600,13 +601,14 @@ phi= asin(m_tv/r)*180/pi; %angle between r and m_tv
 %assume 0, as the engine is located on the tip of the fuselage for the fuel
 %configuration
 delta_s_de_da = 6.5*((rho*Pbr^2*S^3+Cl^3)/(lh^4*MTOW^3))^(0.25)*(sin(6*phi))^(2.5); %downwash propeller factor
+% delta_s_de_da = 0.039
 
 ked = ((0.1121+0.1265*sweep_4+0.1766*sweep_4^2) / r^2 ) + 0.1024/r + 2;  %downwash corrective coefficient 
 ked0 = 0.1124/r^2 + 0.1024/r + 2; %downwash corrective coefficient 
 de_da = delta_s_de_da + (ked/ked0)*( (r/(r^2 + m_tv^2))*(0.4876/sqrt(r^2 + 0.6319 + m_tv^2))+...
     (1+(r^2/(r^2 + 0.7915+5.0734*m_tv^2))^0.3113)*(1-sqrt(m_tv^2/(1+m_tv^2))))...
     *(CLaw/(pi*A)); %total downwash with added delta_s controbution for propeller !!!!!! delta_s_de_da 000
-
+% de_da = 0.29
 %% Aerodynamic center
 kn = -4;% for an engine positioned in front of the lemac/nose propeller
 x_ac_w = 0.25; %aerodynamic center of wing (assumed at 0.4mac)
@@ -620,7 +622,7 @@ x_ac_c = x_ac_w - ((1.8/CLaAh)*(bf*hf*lfn/(S*MAC))) +...
 Vh_V = sqrt(0.85); %flow velocity ratio between H-tail and main wing [-]
 
 %% Controllability
-CLAh = 1.25;% lift coefficient of wing+fuselage (without tail, landing configuration) . % <----- INPUT   1.2
+CLAh = 1.25;% 125lift coefficient of wing+fuselage (without tail, landing configuration) . % <----- INPUT   1.2
 % lecture 4 slide 37
 CLh = -0.35*(Ah)^(1/3);% for fixed .                   % <----- INPUT   
 CL0 = 0.8563 -0.3; % Zero incident while flaps out . % <----- WRONG WRONG
@@ -646,7 +648,7 @@ Cmac_fus = -1.8*(1-(2.5*bf/lf))*((pi*bf*hf*lf)/(4*S*MAC))*(CL0/CLaAh); %pitching
 Delta_f_Cmac = mu_2*(-mu_1*dClmax*cf_c-[CL+dClmax*(1-S_wf_S)]*cf_c/8*(cf_c-1))+0.7*A/(1+2/A)*mu_3*dClmax*tan(2.8)% flaps
 
 Cm_ac = Cmac_w + Cmac_fus + Cmac_nac + Delta_f_Cmac %total moment coefficient at aerodynamic center
-Cm_ac = -0.62;
+Cm_ac = -0.68; %-0.62 -0.7
          
 %Cm_ac = -0.65; %(ac assumed to be within +-10% of the neutral point)
 
@@ -654,7 +656,7 @@ Cm_ac = -0.62;
 x_cg=(-1:0.01:1);
 
 % Stability curve
-Sh_S= (x_cg-x_ac_c-SM-0.01)/((CLah/CLaAh)*(1-de_da)*((Vh_V)^(2))*(lh/MAC)); %Stability gradient
+Sh_S= (x_cg-x_ac_c-SM-0.01-0.01)/((CLah/CLaAh)*(1-de_da)*((Vh_V)^(2))*(lh/MAC)); %Stability gradient
 
 % Controllablity Curve
 Sh_S_C = ((Cm_ac/CLAh) -(x_ac_c)) / ((CLh/CLAh)*(lh/MAC)*Vh_V^2)+ (x_cg)/ ((CLh/CLAh)*(lh/MAC)*Vh_V^2);
@@ -699,13 +701,13 @@ for i  = x_lemac
 
     W_OEW = OEW;                                     
     cg_OEW = 2.865-0.2;     % 2.665                    % <--------- INPUT INPUT INPUT INPUT INPUT INPUT INPUT INPUT
-    cg_OEW = 3.25;
+    cg_OEW = 3.25; % 3.25
 
     seat_pilot=1.595 ;                    %c.g. Position Pilot   <----- INPUT 
     seat_row1=2.721  ;                    %c.g. Position Row 1   <----- INPUT 
-    seat_row2=4.063  ;                     %c.g. Position Row 2   <----- INPUT 
-    location_cargo = 1.923;                %c.g. Position Baggage <----- INPUT  1.923
-    location_fuel = 3.762;              %c.g. Position Baggage <----- INPUT
+    seat_row2=4.063  ;                    %c.g. Position Row 2   <----- INPUT 
+    location_cargo = 1.923;               %c.g. Position Baggage <----- INPUT  1.923
+    location_fuel = 3.762;                %c.g. Position Baggage <----- INPUT
     location_fuel = i + 0.5*MAC
     %location_batteries%c.g. Position Fuel    <----- INPUT
 %     location_fuel = cg_OEW + 0.10*l_fus;
@@ -739,8 +741,8 @@ for i  = x_lemac
     cg_fuel=((cg_nofuel*W_OEW_4pax)+(location_fuel*mass_fuel))/(mass_fuel+W_OEW_4pax);
 
 
-    cg_max=max([cg_OEW,cg_OEW_cargo,cg_OEW_cargo,cg_btf_1,cg_btf_2,cg_btf_3,cg_btf_4,cg_OEW_cargo,cg_btf_1,cg_btf_2,cg_btf_3,cg_btf_4,cg_fuel]);
-    cg_min=min([cg_OEW,cg_OEW_cargo,cg_OEW_cargo,cg_btf_1,cg_btf_2,cg_btf_3,cg_btf_4,cg_OEW_cargo,cg_btf_1,cg_btf_2,cg_btf_3,cg_btf_4,cg_fuel]);
+    cg_max=max([cg_OEW,cg_OEW_cargo,cg_OEW_cargo,cg_btf_1,cg_btf_2,cg_btf_3,cg_btf_4,cg_OEW_cargo,cg_ftb_1,cg_ftb_2,cg_ftb_3,cg_ftb_4,cg_fuel]);
+    cg_min=min([cg_OEW,cg_OEW_cargo,cg_OEW_cargo,cg_btf_1,cg_btf_2,cg_btf_3,cg_btf_4,cg_OEW_cargo,cg_ftb_1,cg_ftb_2,cg_ftb_3,cg_ftb_4,cg_fuel]);
 
     cg_max = (cg_max - i)/MAC;
     cg_min = (cg_min - i)/MAC;
@@ -765,11 +767,10 @@ legend("FORWARD CG", "AFT CG", "Stability", "Controlability")
 set(gca,'FontSize',25);
 saveas(fscissor, "ScissorPlot.fig")
 
-
 % close all
 
-prompt_xlemac = 'X_lemac position: ';
-x_lemac_scissor = double(input(prompt_xlemac));
+% prompt_xlemac = 'X_lemac position: ';
+% x_lemac_scissor = double(input(prompt_xlemac));
 
 
 
@@ -786,10 +787,12 @@ x_lemac_scissor = double(input(prompt_xlemac));
 % prompt_ShS = 'Chosen ShS: ';
 % ShS_ratio = double(input(prompt_ShS));
 
-x_lemac_scissor = 0.3638;
-most_aft_cg = 0.384;
-most_forward_cg = 0.272;
-ShS_ratio = 0.205;
+
+
+x_lemac_scissor = 0.3575;
+most_aft_cg = 0.432;
+most_forward_cg = 0.26;
+ShS_ratio = 0.245;
 
 Sh_final = S*ShS_ratio;
 A_h = 6.0;    % <----- INPUT   [3, 5] slide 68 lecture 7 ADSEE 1
@@ -880,8 +883,8 @@ for i  = x_lemac
     cg_fuel=((cg_nofuel*W_OEW_4pax)+(location_fuel*mass_fuel))/(mass_fuel+W_OEW_4pax);
 
 
-    cg_max=max([cg_OEW,cg_OEW_cargo,cg_OEW_cargo,cg_btf_1,cg_btf_2,cg_btf_3,cg_btf_4,cg_OEW_cargo,cg_btf_1,cg_btf_2,cg_btf_3,cg_btf_4,cg_fuel]);
-    cg_min=min([cg_OEW,cg_OEW_cargo,cg_OEW_cargo,cg_btf_1,cg_btf_2,cg_btf_3,cg_btf_4,cg_OEW_cargo,cg_btf_1,cg_btf_2,cg_btf_3,cg_btf_4,cg_fuel]);
+    cg_max=max([cg_OEW,cg_OEW_cargo,cg_OEW_cargo,cg_btf_1,cg_btf_2,cg_btf_3,cg_btf_4,cg_OEW_cargo,cg_ftb_1,cg_ftb_2,cg_ftb_3,cg_ftb_4,cg_fuel]);
+    cg_min=min([cg_OEW,cg_OEW_cargo,cg_OEW_cargo,cg_btf_1,cg_btf_2,cg_btf_3,cg_btf_4,cg_OEW_cargo,cg_ftb_1,cg_ftb_2,cg_ftb_3,cg_ftb_4,cg_fuel]);
 
     cg_max = (cg_max - i)/MAC;
     cg_min = (cg_min - i)/MAC;
