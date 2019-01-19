@@ -1,6 +1,4 @@
-% TODO: THE POTATO PLOT IS SOMEHWAT WRONG, IT DOES NOT INCORPORATE THE NEW
-% VALUE FOR XLEMAC, THUS IS A LITTLE BIT OFF. DO A SEPARATE FILE WITH
-% RUBENS's CODE FOR THE CORRECT PLOT
+% POTATO PLOT AND LANDING GEAR POSITIONS ARE NOT 100% CORRECT!!!!
 
 clc
 clear all
@@ -281,7 +279,7 @@ summary_wing = [summary_wing; ["Wing Area", S]];
 P = MTOW*9.81/WPdes.minGTM.GTM; % ADD THE SECONDARY POINT WHICH WE DO NOT KNOW for some reason
 A = a.AR;
 MAC = double(summary_wing(11,2));           
-OEW = M.OEM + M.EM1 + M.EM2 + M.bat + M.f + M.GT + M.w;
+OEW = M.OEM + M.EM1 + M.EM2 + M.bat + M.f*0 + M.GT + M.w;
 S_ref = S;                        
 v = V_cruise;                     
 W4W5 = m.cr.f/m.L.f;
@@ -765,32 +763,46 @@ ylabel("x_{LEMAC}/L_{FUS}", "FontSize", 30)
 
 legend("FORWARD CG", "AFT CG", "Stability", "Controlability")
 set(gca,'FontSize',25);
+saveas(fscissor, "ScissorPlot.fig")
+
 
 % close all
-
-
-
-
 
 prompt_xlemac = 'X_lemac position: ';
 x_lemac_scissor = double(input(prompt_xlemac));
 
 
-prompt_aftcg = 'Most AFT cg: ';
-most_aft_cg = double(input(prompt_aftcg));
 
-prompt_forwardcg = 'Most FORWARD cg: ';
-most_forward_cg = double(input(prompt_forwardcg));
+% prompt_xlemac = 'X_lemac position: ';
+% x_lemac_scissor = double(input(prompt_xlemac));
+% 
+% 
+% prompt_aftcg = 'Most AFT cg: ';
+% most_aft_cg = double(input(prompt_aftcg));
+% 
+% prompt_forwardcg = 'Most FORWARD cg: ';
+% most_forward_cg = double(input(prompt_forwardcg));
+% 
+% prompt_ShS = 'Chosen ShS: ';
+% ShS_ratio = double(input(prompt_ShS));
 
-prompt_ShS = 'Chosen ShS: ';
-ShS_ratio = double(input(prompt_ShS));
+x_lemac_scissor = 0.3638;
+most_aft_cg = 0.384;
+most_forward_cg = 0.272;
+ShS_ratio = 0.205;
 
 Sh_final = S*ShS_ratio;
 A_h = 6.0;    % <----- INPUT   [3, 5] slide 68 lecture 7 ADSEE 1
-A_v = 1.5;  % <----- INPUT   [1, 2] slide 68 lecture 7 ADSEE 1
+% A_v = 1.5;  % <----- INPUT   [1, 2] slide 68 lecture 7 ADSEE 1
 
 b_h = sqrt(A_h * S_h);
-b_v = sqrt(A_v * S_v);
+% b_v = sqrt(A_v * S_v);
+
+C_n_beta = 0.05738; % <-------- INPUT
+[S_v_final, b_v_final, A_v_final, lambda_v_final,LAMBDA_qcv_final, trailingedgesweep_v_final,...
+    delta_engine, delta_crosswind, delta_spin, c_v_root_final, c_v_tip_final, c_v_mac_final]...
+    = rudder(V_stall, 0.95*lf, lf, S, V_cruise, bf, hf,...
+    T_isa, c_l_alpha, b, most_aft_cg*lf, rho, C_n_beta)
 
 
 % wing_planform_design(V_cruise, A_ht, Sh_final, m_cruise, h) % Done untill block 3

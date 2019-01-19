@@ -167,7 +167,7 @@ save("cd0_matrix.mat", "cd0_space")
 % for index123 = [1:1:length(cd0_space)]
 % save("index_number.mat", "index123");
 % Load input parameters
-Input_new_v3;
+Input_new_v2;
 
 % Check input is consistent
 disp([s.levelString '> Checking powertrain input settings'])
@@ -787,10 +787,16 @@ ShS_ratio = double(input(prompt_ShS));
 
 Sh_final = S*ShS_ratio;
 A_h = 6.0;    % <----- INPUT   [3, 5] slide 68 lecture 7 ADSEE 1
-A_v = 1.5;  % <----- INPUT   [1, 2] slide 68 lecture 7 ADSEE 1
+% A_v = 1.5;  % <----- INPUT   [1, 2] slide 68 lecture 7 ADSEE 1
 
 b_h = sqrt(A_h * S_h);
-b_v = sqrt(A_v * S_v);
+% b_v = sqrt(A_v * S_v);
+
+C_n_beta = 0.05738; % <-------- INPUT
+[S_v_final, b_v_final, A_v_final, lambda_v_final,LAMBDA_qcv_final, trailingedgesweep_v_final,...
+    delta_engine, delta_crosswind, delta_spin, c_v_root_final, c_v_tip_final, c_v_mac_final]...
+    = rudder(V_stall, 0.95*lf, lf, S, V_cruise, bf, hf,...
+    T_isa, c_l_alpha, b, most_aft_cg*lf, rho, C_n_beta)
 
 
 % wing_planform_design(V_cruise, A_ht, Sh_final, m_cruise, h) % Done untill block 3
@@ -912,3 +918,7 @@ perc_mac = 0.475; % 40% of the mac is the landing gear
 %% DCLMAX 
 [dCLMAX, TVOL] = planformlayout(b, c_r, c_t, bf, aileron_length, payload_new, M.f, S);
 dCLMAX
+
+
+
+% 

@@ -10,7 +10,7 @@ a.nUlt = 4.4;                                   % Ultimate load factor [-]
 % maximum lift coefficient (no propulsive interaction assumed)
 CLmax_clean=1.5;
 CLmax_TO=1.7;
-CLmax_L=2.1; % 2.37 2.1
+CLmax_L=1.5 + 0.52; % 2.37 2.1
  
 % Oswald factor (no propulsive interaction assumed)
 e_clean=0.82;
@@ -18,7 +18,7 @@ e_TO=0.77;
 e_L=0.73;
  
 % zero-lift drag coefficient (no propulsive interaction assumed)
-CD0_clean=0.0338; % 0.0355
+CD0_clean=0.032; % 0.0355 0.0338
 CD0_TO= CD0_clean + 0.015;
 CD0_L=CD0_clean + 0.055;
  
@@ -63,7 +63,7 @@ p.config = 'SPPH';                          % Powertrain architecture ('conventi
 p.b_dp = 0.5;                                   % Fraction of wing span occupied by DP system [-]
 p.dy = 0.01;                                       % Spacing between adjacent DP propulsors, as fraction of propulsor diameter [-]
 p.N1 = 2;                                       % Number of chains in primary powertrain [-]
-p.N2 = 6;                                       % Number of chains in secondary powertrain[-]
+p.N2 = 4;                                       % Number of chains in secondary powertrain[-]
 p.DP = 2;                                       % Which PS has an effect on wing performance? (1 = primary, 2 = secondary, 0 = none)
 p.xp = -0.25;                                     % Axial position of propellers as a fraction of chord
                                                 % xp < 0: tractor
@@ -78,14 +78,14 @@ p.eta_GB = 0.95;                                % Transmission efficiency of gea
 p.eta_GT = 0.35;                                % Conversion (thermal) efficiency of gas turbine
 p.SE.bat = 1.6e6;                               % Battery specific energy [J/kg] http://assets.solidenergysystems.com/wp-content/uploads/2017/09/08171937/Hermes_Spec_Sheet1.pdf
 p.SE.f = 42.8e6;                                % Fuel specific energy [J/kg]
-p.SP.EM = 7.7e3;                                % Electrical machine specific power [W/kg]
+p.SP.EM = 8.57e3; % 7.7       http://emrax.com/products/emrax-188/                          % Electrical machine specific power [W/kg]
 p.SP.bat = 2000;                                % Battery pack specific power [W/kg]
 p.minSOC_miss = 0.2;                            % Minimum SOC (maximum discharge) of batteries after nominal mission [-]
 p.minSOC_tot = 0;                               % Minimum SOC (maximum discharge) of batteries after diversion mission [-]
  
 % Cruise
-p.cr.etap1 = 0.8;                               % Primary propulsors' propulsive efficiency in cruise (of ISOLATED propulsors) [-]
-p.cr.etap2 = 0.8;                              % Secondary propulsors' propulsive efficiency in cruise (of ISOLATED propulsors) [-]
+p.cr.etap1 = 0.75;                               % Primary propulsors' propulsive efficiency in cruise (of ISOLATED propulsors) [-]
+p.cr.etap2 = 0.75;                              % Secondary propulsors' propulsive efficiency in cruise (of ISOLATED propulsors) [-]
 p.cr.Gamma = 0;                                 % Thrust vectoring in cruise [deg]
  
 % Landing
@@ -94,8 +94,8 @@ p.L.etap2 = 0.75;                                % Secondary propulsors' propuls
 p.L.Gamma = 0;                                  % Thrust vectoring in landing configuration [deg]
  
 % Take off
-p.TO.etap1 = 0.70;                              % Primary propulsors' propulsive efficiency in TO conditions (of ISOLATED propulsors) [-]
-p.TO.etap2 = 0.70;                              % Secondary propulsors' propulsive efficiency in TO conditions (of ISOLATED propulsors) [-]
+p.TO.etap1 = 0.8;%0.65                              % Primary propulsors' propulsive efficiency in TO conditions (of ISOLATED propulsors) [-]
+p.TO.etap2 = 0.8;%0.65                              % Secondary propulsors' propulsive efficiency in TO conditions (of ISOLATED propulsors) [-]
 p.TO.Gamma = 0;                                 % Thrust vectoring in TO configuration [deg]
  
 % OEI Balked landing
@@ -130,9 +130,9 @@ p.ct.Gamma = 0;                                 % Thrust vectoring in top-of-cli
 % Cruise
 m.cr.h = 2400;                                 % Cruise altitude [m]
 m.cr.M = 0.2797;                                  % Cruise Mach number [-]
-m.cr.f = 0.999;                                  % Cruise weight fraction W/MTOW [-]
+m.cr.f = 0.98;                                  % Cruise weight fraction W/MTOW [-]
 m.cr.t = 0.8;                                   % Cruise throttle setting P/P_max [-] (see note at end)
-m.cr.phi = 0;                                 % Cruise supplied power ratio [-]
+m.cr.phi = -0.02;                                 % Cruise supplied power ratio [-]
 m.cr.Phi = 0;                                 % Cruise shaft power ratio [-]
  
 % Landing
@@ -146,13 +146,12 @@ m.L.phi = 0.6;                                 % Landing supplied power ratio [-
 m.L.Phi = 0.6;                                 % Landing shaft power ratio [-]
  
 % Take off
- 
 m.TO.h = 0;                                     % TO altitude [m]
-m.TO.f = 0.8;                                     % TO weight fraction W/MTOW [-]
+m.TO.f = 0.99;                                     % TO weight fraction W/MTOW [-]
 m.TO.s = 762;                                   % TO runway length [m]
 m.TO.t = 1;                                     % TO throttle setting P/P_max [-] (see note at end)
-m.TO.phi = 0.2;                                % TO supplied power ratio [-]
-m.TO.Phi = 0.1;                                % TO shaft power ratio [-]
+m.TO.phi = 0.2;                                % TO supplied power ratio [-]vv0.14
+m.TO.Phi = 0.1;                                % TO shaft power ratio [-] .   0.09
  
 % OEI Balked landing
 m.bL.G = 0.021;                                 % OEI balked landing climb gradient [-] (CS25.121d)
@@ -337,8 +336,16 @@ f.CD = @(CD0,CL_iso,AR,e) CD0 + CL_iso^2/(pi*AR*e);
 % Weight correlations (per component instance!)
 % Turboshaft weight in [kg] as a function of shaft
 % power in [W], based on Roskam Part 5, Figure 6.2.
-f.W.GT = @(P) 0.45359*10.^((log10(P/745.7)-0.011405)/1.1073);
+
+% f.W.GT = @(P) 0.45359*10.^((log10(P/745.7)-0.011405)/1.1073)
+
  
+
+
+f.W.GT = @(P) 2.2*0.45359*10.^((log10(P/745.7)-0.011405)/1.1073);
+
+% f.W.GT = @(P) P * 1.34 / 2.2;
+
 % OEM in [kg] as a function of MTOM [kg], based on Roskam Part 1,
 % Table 2.15 (in lb: 10.^((log10(MTOM)-AA)/BB))
 % AA = 0.3774; BB = 0.9647;   % Regional turboprop aircraft

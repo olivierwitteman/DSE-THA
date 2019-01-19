@@ -2,6 +2,7 @@ clc
 clear
 
 tic
+<<<<<<< HEAD
 %function [BOOMAREA] = WingboxBending(c_r, c_t, b, W_en)
 c_r = 1.3;
 c_t = c_r*0.4;
@@ -11,7 +12,17 @@ W_engine = 200;
 rho = 0.9664;
 MCF = -0.06 ;
 V_cruise = 92.56;
+=======
+%function [BOOMAREA] = WingboxBending(c_r, c_t, b)
+c_r = 1.6;
+c_t = 1.6*0.4;
+b= 11;
+
+
+Torsion = 10000;
+>>>>>>> 9176aa129696a17a5bde06605029e108e3b35db5
  
+
 %A = 0.3; %<---input Boom area
  
 x1 = 0.15;  %Positions boom
@@ -120,7 +131,12 @@ MAXSHEAR = [];
 TAU = [];
 
 while j < length(z)+1
+<<<<<<< HEAD
     [shear_flow, shear_stress, max_shear, A ]= function_shear_calc(chl(j), SX(j), SY(j), IXX(j), IYY(j), IXY(j), 0.02, A, TORSION(j));
+=======
+
+    [shear_flow, shear_stress, max_shear, A ]= function_shear_calc(chl(j), 1000, 1000, IXX(j), IYY(j), IXY(j), 0.25, 0.3, 0.25, 0.02,  0.02, A, Torsion);
+>>>>>>> 9176aa129696a17a5bde06605029e108e3b35db5
     MAXSHEAR = [MAXSHEAR, max_shear];
     TAU = [TAU, shear_stress];
     j = j+1;
@@ -129,7 +145,13 @@ end
 %sigma_x_max = ((M_z*I_yy-M_y*I_yz)*y+(M_y*I_zz-M_z*I_yz)*z)/(I_yy*I_zz-I_yz^2);
 %sigma_y_max = ((M_x*I_zz-M_z*I_xz)*z+(M_z*I_xx-M_x*I_xz)*x)/(I_zz*I_xx-I_xz^2);
 
+<<<<<<< HEAD
 k = 1
+=======
+k = 1;
+BOOMAREA = [];
+sigmayield= 70000000;
+>>>>>>> 9176aa129696a17a5bde06605029e108e3b35db5
 
 sigmayield= 78*10^6;
 j = 1;
@@ -145,6 +167,7 @@ while k < length(z)+1
     BAM = [BAM, max(max(BOOMAREA))]
     k = k+1
 end
+<<<<<<< HEAD
 BAM = BAM(BAM>=0);
 ASIZE = max(BAM)*10^6 %MM2
 
@@ -165,4 +188,8 @@ plot(z,SY,'LineWidth', 3)
 xlabel('z [m]')
 ylabel('Sy [Nm]')
 
+=======
+BOOMAREA = BOOMAREA(BOOMAREA>=0)
+N = 333
+>>>>>>> 9176aa129696a17a5bde06605029e108e3b35db5
 toc
