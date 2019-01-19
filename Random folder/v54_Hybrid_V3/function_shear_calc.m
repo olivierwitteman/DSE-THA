@@ -5,18 +5,18 @@
 %The general inputs are shown below.
 %S_Y is at the boom 2. the same yields for 
 %% INPUTS 
-function[shear_flow, shear_stress, max_shear, A ]= function_shear_calc(c, S_x, S_y, I_xx, I_yy, I_xy, S_x_x, S_x_y, S_y_x, S_y_y, t_box, A, Torsion)
+function[shear_flow, shear_stress, max_shear, A ]= function_shear_calc(c, S_x, S_y, I_xx, I_yy, I_xy, t_box, A, Torsion)
                     %INPUT [m]      Chord length      tip=0.64 root=1.6 bekend
 syms A       
 %I_xx=48*10^-3;                %INPUT [m^4]    Moment of inertia around x axis
 %I_yy=52*10^-3;                %INPUT [m^4]    Moment of inertia around y axis
 %I_xy=20*10^-3;                %INPUT ]m^4]    Product moment of inertia. 
-s_top=1.141/1.96^c;            %INPUT [m]      distance between each boom
-s_bottom=1.138/1.96*c;         %INPUT [m]      distance at the bottom of each boom
+%s_top=1.141/1.96^c;            %INPUT [m]      distance between each boom
+%s_bottom=1.138/1.96*c;         %INPUT [m]      distance at the bottom of each boom
 
-A_encl2=0.155/1.6*c;               %0.155
-S_x_pos=[S_x_x 0.0804]*c;       %INPUT [m]    location of the shear force in x-direction
-S_y_pos=[0.295 S_y_y]*c;       %INPUT [m]    location of the shear force in y-direction
+A_encl2=0.1.*c.*0.58.*c;               %0.155
+%S_x_pos=[S_x_x 0.0804]*c;       %INPUT [m]    location of the shear force in x-direction
+%S_y_pos=[0.295 S_y_y]*c;       %INPUT [m]    location of the shear force in y-direction
 boom1=A;                   %INPUT [m^2]   Boom area of boom1
 boom2=A;                   %INPUT [m^2]   Boom area of boom2
 boom3=A;                   %INPUT [m^2]   Boom area of boom3
@@ -52,7 +52,7 @@ for num=im
     boom_pos_cg(num,1)=boom_pos(num,1)-c_g(1);
     boom_pos_cg(num,2)= boom_pos(num,2)-c_g(2);
 end
-im=[1 2 3 4 5 6 7 8 9 10];
+im=[2 3 4 5 6 7 8 9 10];
 s=2;
 
 %disp(q_left)
@@ -108,7 +108,7 @@ end
 %Shear_moment=-S_x*(boom_pos(5,2)-S_x_pos(2))+S_y*(boom_pos(5,1)-S_y_pos(1));
 q01moment=2*A_encl2;
 q_s_shear=sum(kutmoment)/q01moment;
-q_s_torsion=Torsion/(A_encl2*2);
+q_s_torsion=Torsion/(A_encl2.*2);
 shear_flow=q_b1+q_s_torsion+q_s_shear;
 shear_stress=shear_flow/t_box;
 max_shear=max(abs(shear_stress));
