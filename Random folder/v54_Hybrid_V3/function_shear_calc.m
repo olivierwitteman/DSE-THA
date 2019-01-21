@@ -1,16 +1,16 @@
-%% function 
-%% Calculate the shear and stresses in the booms and the skin of the wing box 
+%% function
+%% Calculate the shear and stresses in the booms and the skin of the wing box
 %A few assumptions are made in this program. Only the booms carry he normal
 %stresses and the skin panels only carry the shear stress.
 %The general inputs are shown below.
-%S_Y is at the boom 2. the same yields for 
-%% INPUTS 
+%S_Y is at the boom 2. the same yields for
+%% INPUTS
 function[shear_flow, shear_stress, max_shear, A ]= function_shear_calc(c, S_x, S_y, I_xx, I_yy, I_xy, t_box, A, Torsion)
                     %INPUT [m]      Chord length      tip=0.64 root=1.6 bekend
-%syms A       
+%syms A
 %I_xx=48*10^-3;                %INPUT [m^4]    Moment of inertia around x axis
 %I_yy=52*10^-3;                %INPUT [m^4]    Moment of inertia around y axis
-%I_xy=20*10^-3;                %INPUT ]m^4]    Product moment of inertia. 
+%I_xy=20*10^-3;                %INPUT ]m^4]    Product moment of inertia.
 %s_top=1.141/1.96^c;            %INPUT [m]      distance between each boom
 %s_bottom=1.138/1.96*c;         %INPUT [m]      distance at the bottom of each boom
 
@@ -27,20 +27,20 @@ boom7=A;                   %INPUT [m^2]   Boom area of boom7
 boom8=A;                   %INPUT [m^2]   Boom area of boom8
 boom9=A;                   %INPUT [m^2]   Boom area of boom9
 boom10=A;                  %INPUT [m^2]   Boom area of boom10
-boom1_xy=[0.15 0.065];                  %INPUT [m]     Boom position of boom 1 [x y] 
-boom2_xy=[0.295 0.0804];                %INPUT [m]     Boom position of boom 2 [x y] 
-boom3_xy=[0.44 0.0755];                 %INPUT [m]     Boom position of boom 3 [x y] 
-boom4_xy=[0.585 0.0654];                %INPUT [m]     Boom position of boom 4 [x y] 
-boom5_xy=[0.73 0.0473];                 %INPUT [m]     Boom position of boom 5 [x y] 
-boom6_xy=[0.73 -0.0197];                %INPUT [m]     Boom position of boom 6 [x y] 
-boom7_xy=[0.585 -0.0288];               %INPUT [m]    
-boom8_xy=[0.44 -0.036];                 %INPUT [m]     Boom position of boom 8 [x y] 
-boom9_xy=[0.295 -0.0414];               %INPUT [m]     Boom position of boom 9 [x y] 
-boom10_xy=[0.15 -0.0412];                 %INPUT [m]     Boom position of boom 10 [x y] 
+boom1_xy=[0.15 0.065];                  %INPUT [m]     Boom position of boom 1 [x y]
+boom2_xy=[0.295 0.0804];                %INPUT [m]     Boom position of boom 2 [x y]
+boom3_xy=[0.44 0.0755];                 %INPUT [m]     Boom position of boom 3 [x y]
+boom4_xy=[0.585 0.0654];                %INPUT [m]     Boom position of boom 4 [x y]
+boom5_xy=[0.73 0.0473];                 %INPUT [m]     Boom position of boom 5 [x y]
+boom6_xy=[0.73 -0.0197];                %INPUT [m]     Boom position of boom 6 [x y]
+boom7_xy=[0.585 -0.0288];               %INPUT [m]
+boom8_xy=[0.44 -0.036];                 %INPUT [m]     Boom position of boom 8 [x y]
+boom9_xy=[0.295 -0.0414];               %INPUT [m]     Boom position of boom 9 [x y]
+boom10_xy=[0.15 -0.0412];                 %INPUT [m]     Boom position of boom 10 [x y]
 im=[1 2 3 4 5 6 7 8 9 10];               %for programs sake, nothing to worry about.
 %% Calculation for basic shear flow.
 % the cut is made in 1-2  Then the basic shear flow is calculated by going
-% from 1-2 and going clockwise to 10-1  inner (index 10) 
+% from 1-2 and going clockwise to 10-1  inner (index 10)
 Boom_area=[ boom1 boom2 boom3 boom4 boom5 boom6 boom7 boom8 boom9 boom10];
 boom_pos=[boom1_xy; boom2_xy; boom3_xy; boom4_xy; boom5_xy; boom6_xy; boom7_xy; boom8_xy; boom9_xy; boom10_xy]*c;
 c_g= [0.44 0.0267]*c;
@@ -53,11 +53,7 @@ for num=im
     boom_pos_cg(num,1)=boom_pos(num,1)-c_g(1);
     boom_pos_cg(num,2)= boom_pos(num,2)-c_g(2);
 end
-<<<<<<< HEAD
 im=[2 3 4 5 6 7 8 9 10];
-=======
-im=[ 2 3 4 5 6 7 8 9 10];
->>>>>>> 9176aa129696a17a5bde06605029e108e3b35db5
 s=2;
 
 %disp(q_left)
@@ -85,9 +81,9 @@ j=[1 2 3 4 5 6 7 8 9 ];
 m=0;
 d_relative=zeros(10,2);
 for im=j
-   
+
    d_x = boom_pos_cg(im+1,1)-boom_pos_cg(im,1);
-   d_y = boom_pos_cg(im+1,2)-boom_pos_cg(im,2); 
+   d_y = boom_pos_cg(im+1,2)-boom_pos_cg(im,2);
    d_relative(im,1)=d_x;
    d_relative(im,2)=d_y;
    d_relative(10,1)=boom_pos_cg(1,1)-boom_pos_cg(10,1);
@@ -131,9 +127,9 @@ end
 %then calcualte the resilliant shear flow.
 %s_front=boom_pos_cg(1,2)-boom_pos_cg(10,2);       %INPUT [m]      length of the front spar
 %s_back =boom_pos_cg(5,2)-boom_pos_cg(6,2);      %INPUT [m]      length of the rear spar
- 
+
 %d_top=s_top/4.;
-      
+
 %d_bottom=s_bottom/4.;
 
 %twist_semicirc_q01=1/(2*A_encl1)*(semi_circ/t_semicirc+s_front/t_box);
@@ -148,7 +144,3 @@ end
 %solvmatrix2=[Shear_moment-sum(kutmoment);  twist_box_rest-twist_semicric_rest];
 %q0mat=linsolve(solvmatrix1,solvmatrix2);
 %disp(sum(kutmoment))
-
-
-    
-

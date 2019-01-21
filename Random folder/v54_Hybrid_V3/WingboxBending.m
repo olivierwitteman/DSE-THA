@@ -2,25 +2,20 @@ clc
 clear
 
 tic
-<<<<<<< HEAD
 %function [BOOMAREA] = WingboxBending(c_r, c_t, b, W_en)
-c_r = 1.3;
+c_r = 1.3945;
 c_t = c_r*0.4;
-b= 9.1;
-W_engine = 200;
+b= 9.76;
+W_engine = 115;
 %Torsion = 10000;
 rho = 0.9664;
 MCF = -0.06 ;
 V_cruise = 92.56;
-=======
-%function [BOOMAREA] = WingboxBending(c_r, c_t, b)
-c_r = 1.6;
-c_t = 1.6*0.4;
-b= 11;
 
+%function [BOOMAREA] = WingboxBending(c_r, c_t, b)
 
 Torsion = 10000;
->>>>>>> 9176aa129696a17a5bde06605029e108e3b35db5
+
  
 
 %A = 0.3; %<---input Boom area
@@ -77,7 +72,7 @@ M_y = 4113*(0.5*b-z); %4113 is the max thrust of one engine.
 %OBTAINING MX DISTRIBUTION
 filename = 'forcesandmoments.xlsx';
 sheet = 1;
-COLS = 'E2:E457';
+COLS = 'E2:E485';
 MXLIST = xlsread(filename, sheet, COLS);
 MXLIST = flip(MXLIST);
 MX = 4.4.*(MXLIST(1:10:end))'-4.4*W_engine*9.81*(0.5*b-z);
@@ -90,11 +85,11 @@ TZ = TRIMAT*TDIS';
 TORSION = TZ;
 
 %OBTAINING SY DISTRIBUTION
-COLSSY = 'B2:B457';
+COLSSY = 'B2:B485';
 SYLIST = xlsread(filename, sheet, COLSSY);
 SYLIST = flip(SYLIST);
 SYFRAC = SYLIST(1:10:end)*dz;
-SY = TRIMAT*SYFRAC;
+SY = TRIMAT*SYFRAC-W_engine*9.81*ones(1,length(z));
 
 %OBTAINING SX DISTRIBUTION
 SX = 4113*ones(1,length(z));
@@ -131,12 +126,9 @@ MAXSHEAR = [];
 TAU = [];
 
 while j < length(z)+1
-<<<<<<< HEAD
-    [shear_flow, shear_stress, max_shear, A ]= function_shear_calc(chl(j), SX(j), SY(j), IXX(j), IYY(j), IXY(j), 0.02, A, TORSION(j));
-=======
 
-    [shear_flow, shear_stress, max_shear, A ]= function_shear_calc(chl(j), 1000, 1000, IXX(j), IYY(j), IXY(j), 0.25, 0.3, 0.25, 0.02,  0.02, A, Torsion);
->>>>>>> 9176aa129696a17a5bde06605029e108e3b35db5
+    [shear_flow, shear_stress, max_shear, A ]= function_shear_calc(chl(j), SX(j), SY(j), IXX(j), IYY(j), IXY(j), 0.02, A, TORSION(j));
+
     MAXSHEAR = [MAXSHEAR, max_shear];
     TAU = [TAU, shear_stress];
     j = j+1;
@@ -145,14 +137,8 @@ end
 %sigma_x_max = ((M_z*I_yy-M_y*I_yz)*y+(M_y*I_zz-M_z*I_yz)*z)/(I_yy*I_zz-I_yz^2);
 %sigma_y_max = ((M_x*I_zz-M_z*I_xz)*z+(M_z*I_xx-M_x*I_xz)*x)/(I_zz*I_xx-I_xz^2);
 
-<<<<<<< HEAD
-k = 1
-=======
 k = 1;
 BOOMAREA = [];
-sigmayield= 70000000;
->>>>>>> 9176aa129696a17a5bde06605029e108e3b35db5
-
 sigmayield= 78*10^6;
 j = 1;
 j=linspace(1,10,10);
@@ -167,7 +153,7 @@ while k < length(z)+1
     BAM = [BAM, max(max(BOOMAREA))]
     k = k+1
 end
-<<<<<<< HEAD
+
 BAM = BAM(BAM>=0);
 ASIZE = max(BAM)*10^6 %MM2
 
@@ -188,8 +174,6 @@ plot(z,SY,'LineWidth', 3)
 xlabel('z [m]')
 ylabel('Sy [Nm]')
 
-=======
 BOOMAREA = BOOMAREA(BOOMAREA>=0)
 N = 333
->>>>>>> 9176aa129696a17a5bde06605029e108e3b35db5
 toc
