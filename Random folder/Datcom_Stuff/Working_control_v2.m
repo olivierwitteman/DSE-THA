@@ -1,5 +1,5 @@
-clc; clear all; 
-
+clc; clear all; % this is actually version 1
+close all
 
 %Sources used:
 %Lectures Flight Dynamic// AE3212-I
@@ -10,10 +10,16 @@ clc; clear all;
 %%Inputs
 %CRUISE CONDITIONS FOR ALL MANEUVERS 
 
-Ix = 55229.17; %Moment of inertia around x-axis [kg*m^2] ????
-Iy = 4909.91; %Moment of inertia around y-axis [kg*m^2] ????
-Iz = 58139.42; %Moment of inertia around z-axis [kg*m^2] ????
-Ixz = 627.60; %Moment of inertia around xz-plane [kg*m^2] ????
+% Ix = 55229.17/1.3; %Moment of inertia around x-axis [kg*m^2] ????
+% Iy = Ix/2.; %Moment of inertia around y-axis [kg*m^2] ???? 4909
+% Iz = 58139.42/1.3; %Moment of inertia around z-axis [kg*m^2] ????
+% Ixz = 627.60; %Moment of inertia around xz-plane [kg*m^2] ????
+
+
+Ix = 3111.17; %Moment of inertia around x-axis [kg*m^2] ????
+Iy = 4169; %Moment of inertia around y-axis [kg*m^2] ???? 4909
+Iz = 6452; %Moment of inertia around z-axis [kg*m^2] ????
+Ixz = 400.60; %Moment of inertia around xz-plane [kg*m^2] ????
 C_la= 4.7603; %Lift curve slope, taken from data sheet provided by Martin dCl/dalpha[1/rad]  ????
 S= 9.52; %Wing surface area [m^2] ???? STAN
 c= 1.036; %Mean aerodynamic chord [m] ???? STAN
@@ -28,19 +34,40 @@ rho = 0.966632; %Density at 5000m altitude [kg/m^3]
 C_D = 0.0294; %Drag coefficient of the aircraft [-]
 T_p = 180000.; %Thrust of the propuslive system [N] , as taken from Vlado
 T_c = T_p/(0.5*rho*V^2*S); %Thrust coefficient of the propulsive system [-]
+% T_c = -C_D
 mu_c=m./(rho*S*c); %Dimesional parameter for symmetric motion 
 mu_b=m./(rho*S*b); %Dimesional parameter for asymmetric motion 
 Kx2 = (Ix/(rho*S*b^3))/mu_b; % Non-dimesional moment of inertia around x axis [kg*m^2]
 Ky2 = (Iy/(rho*S*c^3))/mu_c; % Non-dimenstional moment of inertia around y axis [kg*m^2]
 Kz2 = (Iz/(rho*S*b^3))/mu_b; %Non-dimensional moment of inertia around z axis [kg*m^2]
 Kxz = (Ixz/(rho*S*b^3))/mu_b;%Non-dimensional moment of inertia around in the xz plane [kg*m^2]
-e = 0.8; %Assumed oswald efficiency factor
+e = 0.82; %Assumed oswald efficiency factor
 H = 2400; %Cruise altitude [m]
-de_da = 0.392; %Total downwash gradient [-]
-Sh = 2.726; %Surface area of horizontal tail [m^2]
-lh = 4.4889; %Distance between the aerodynamic center of the wing and the aerodynamic center of the horizontal tail [m]
+de_da = 0.372; %Total downwash gradient [-]
+Sh = 2.3347; %Surface area of horizontal tail [m^2]
+lh = 4.3; %Distance between the aerodynamic center of the wing and the aerodynamic center of the horizontal tail [m]
 Vh_V = sqrt(0.85); % Velocity ratio of horizontal tail to wing [-]
-C_nha = 0.5/0.174533; %Lift curve slope of horizontal tail, extrapolated from data by Martin [-]
+C_nha = 5.69; %Lift curve slope of horizontal tail, extrapolated from data by Martin [-]
+
+% % % % % % Derivatives for symmetric flight
+% % % % % alpha_0 = 1.03*pi/180;
+% % % % % i_p = -0.57*pi/180;
+% % % % % C_x0 = -C_D + T_c; %Coefficient of X-force in X-direction in equilibrium condition
+% % % % % C_z0 = -C_L - C_D*(alpha_0 + i_p); %Coefficient of Z-force in Z-direction in equilibrium condition
+% % % % % C_xu = -0.001; %-0.0279; % Derivative of coefficient of X-force in X-direction with respect to velocity
+% % % % % C_zu =  -2.*C_L + C_D*(-(alpha_0 + i_p)); %-0.3762;% Derivative of coefficient of Z-force in Z-direction with respect to velocity
+% % % % % C_mu = 0.0;%0.0699; % Derivative of the pitching moment coefficient with respect to velocity
+% % % % % C_xa =  C_L*(1-(2.*C_la)/(pi*A*e)); %-0.4797; % Derivative of coefficient of X-force in X-direction with respect to angle of attack
+% % % % % C_za = -C_la - C_D; %-5.7434;% Derivative of coefficient of Z-force in Z-direction with respect to angle of attack
+% % % % % C_ma =  -0.37; %-0.66-0.5626; % Derivative of the pitching moment coefficient with respect to angle of attack, from data by Martin
+% % % % % C_zq = -2.*C_nha*Vh_V^2*(Sh*lh)/(S*c)  ; %-5.6629; % Derivative of coefficient of Z-force in Z-direction with respect to pitching velocity
+% % % % % C_mq =   -1.15*C_nha*Vh_V^2*(Sh*lh^2)/(S*c^2); %-8.7941; % Derivative of the pitching moment coefficient with respect to pitching velocity
+% % % % % C_zq = C_mq*1.03/(1.1*lh)
+% % % % % C_zar = -0.2*de_da*Vh_V^2*(Sh*lh)/(S*c) ; %-0.0035; % Derivative of coefficient of Z-force in Z-direction with respect to the change in the angle of attack
+% % % % % C_mar = -0.2*de_da*Vh_V^2*(Sh*lh^2)/(S*c^2) ; %0.1780; % Derivative of the pitching moment coefficient with respect to the change in the angle of attack
+
+
+
 
 %Derivatives for symmetric flight
 C_x0 = -C_D + T_c; %Coefficient of X-force in X-direction in equilibrium condition
@@ -50,11 +77,15 @@ C_zu =  -2.*C_L ; %-0.3762;% Derivative of coefficient of Z-force in Z-direction
 C_mu = 0.0;%0.0699; % Derivative of the pitching moment coefficient with respect to velocity
 C_xa =  C_L*(1-(2.*C_la)/(pi*A*e)); %-0.4797; % Derivative of coefficient of X-force in X-direction with respect to angle of attack
 C_za = -C_la - C_D; %-5.7434;% Derivative of coefficient of Z-force in Z-direction with respect to angle of attack
-C_ma =  -0.66 ; %-0.5626; % Derivative of the pitching moment coefficient with respect to angle of attack, from data by Martin
+C_ma =  -0.37 ; %-0.5626; % Derivative of the pitching moment coefficient with respect to angle of attack, from data by Martin
 C_zq = -2.*C_nha*Vh_V^2*(Sh*lh)/(S*c)  ; %-5.6629; % Derivative of coefficient of Z-force in Z-direction with respect to pitching velocity
 C_mq =   -1.15*C_nha*Vh_V^2*(Sh*lh^2)/(S*c^2); %-8.7941; % Derivative of the pitching moment coefficient with respect to pitching velocity
 C_zar = -0.2*de_da*Vh_V^2*(Sh*lh)/(S*c) ; %-0.0035; % Derivative of coefficient of Z-force in Z-direction with respect to the change in the angle of attack
 C_mar = -0.2*de_da*Vh_V^2*(Sh*lh^2)/(S*c^2) ; %0.1780; % Derivative of the pitching moment coefficient with respect to the change in the angle of attack
+
+
+
+
 
 %Derivatives for asymmetric flight
 %Taken from cessna citation II as a reference aicraft with similar
@@ -75,16 +106,16 @@ C_nr = -0.2061;% Derivative of the yawing moment coefficient with respect to the
 %Derivatives for asymmetric flight OUR VALUES
 %Taken from cessna citation II as a reference aicraft with similar
 %geometry,since 3D simulations required for correct derivatives
-C_yb = -0.009164; % Derivative of coefficient of the Y-force in Y-direction with resprect to the sideslip angle
-C_lb = -0.0001892;% Derivative of the rolling moment coefficient with respect to the sideslip angle
-C_nb =  0.00296;% Derivative of the yawing moment coefficient with respect to the sideslip angle
+C_yb = -0.346; % Derivative of coefficient of the Y-force in Y-direction with resprect to the sideslip angle
+C_lb = -0.12;% Derivative of the rolling moment coefficient with respect to the sideslip angle
+C_nb =  0.105;% Derivative of the yawing moment coefficient with respect to the sideslip angle
 C_nbr =  0.0; % Derivative of the yawing moment coefficient with respect to the change in the sideslip angle ??????
-C_yp = -0.0000729;% Derivative of coefficient of the Y-force in Y-direction with resprect to the rolling velocity
-C_lp = -0.00879;% Derivative of the rolling moment coefficient with respect to rolling velocity
-C_np = -0.0001858; % Derivative of the yawing moment coefficient with respect to the rolling velocity
-C_yr = 0.8495; % Derivative of coefficient of the Y-force in Y-direction with resprect to the yawing velocity
-C_lr = 0.2376; % Derivative of the rolling moment coefficient with respect to yawing velocity
-C_nr = -0.2061;% Derivative of the yawing moment coefficient with respect to the yawing velocity
+C_yp = -0.00504;% Derivative of coefficient of the Y-force in Y-direction with resprect to the rolling velocity
+C_lp = -0.500;% Derivative of the rolling moment coefficient with respect to rolling velocity
+C_np = -0.012; % Derivative of the yawing moment coefficient with respect to the rolling velocity
+% C_yr = 0.8495; % Derivative of coefficient of the Y-force in Y-direction with resprect to the yawing velocity
+C_lr = 0.057; % Derivative of the rolling moment coefficient with respect to yawing velocity
+C_nr = -0.094;% Derivative of the yawing moment coefficient with respect to the yawing velocity
 
 
 %%

@@ -300,17 +300,17 @@ end
 
 % Generate chart
 H = pie(X,explode,Z);
-if M.bat == 0
-    hT = title(['MTOM = ' num2str(M.TOM,'%.0f') ' kg, S_w = ' num2str(aircraft.Sw,'%.0f') ' m^2']);
-else
-    if M.bat == M.bat_E
-        hT = title({['MTOM = ' num2str(M.TOM,'%.0f') ' kg, S_w = ' num2str(aircraft.Sw,'%.0f') ' m^2'],...
-            '(Battery sized by energy requirements)'});
-    elseif M.bat == M.bat_P
-        hT = title({['MTOM = ' num2str(M.TOM,'%.0f') ' kg, S_w = ' num2str(aircraft.Sw,'%.0f') ' m^2'],...
-            '(Battery sized by power requirements)'});
-    end;
-end
+% if M.bat == 0
+%     hT = title(['MTOM = ' num2str(M.TOM,'%.0f') ' kg, S_w = ' num2str(aircraft.Sw,'%.0f') ' m^2']);
+% else
+%     if M.bat == M.bat_E
+%         hT = title({['MTOM = ' num2str(M.TOM,'%.0f') ' kg, S_w = ' num2str(aircraft.Sw,'%.0f') ' m^2'],...
+%             '(Battery sized by energy requirements)'});
+%     elseif M.bat == M.bat_P
+%         hT = title({['MTOM = ' num2str(M.TOM,'%.0f') ' kg, S_w = ' num2str(aircraft.Sw,'%.0f') ' m^2'],...
+%             '(Battery sized by power requirements)'});
+%     end;
+% end
 % S_final_plrease_give = aircraft.SW; %%%%% ADDDED BY ME
 hT.Position = [0 -1.5 0];
 if length(H) == 2*length(X)

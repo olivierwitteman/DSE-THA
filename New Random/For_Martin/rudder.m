@@ -26,7 +26,7 @@
 %rho_cruise air density at cruise altitude
 %C_n_beta The change in moment N coefficient with respect to the sideslip
 
-function [C_L_alpha,S_v, b_v, A_v, lambda_v,LAMBDA_qc, trailingedgesweep_v,...
+function [Vtail_Drag_induced, S_V1, S_V2, C_L_alpha,S_v, b_v, A_v, lambda_v,LAMBDA_qc, trailingedgesweep_v,...
     delta_engine, delta_crosswind, delta_spin, c_v_root, c_v_tip, c_v_mac]...
     = rudder(V_stall, l_v, l_f, S_W, v_cruise,fuselage_width, fuselage_height,...
     T_cruise, c_l_alpha, b, x_m, rho_cruise, C_n_beta)
@@ -170,5 +170,7 @@ S_Ve = S_v - (0.2*b_v*c_v_mac); %with 0.2 the percentage of area that isnt effec
 V_Ve =  l_v*S_Ve/(b*S_ref);
 C_n_dR_e = -C_L_alpha_v*V_Ve*eta_v*tau_r;
 delta_spin = radtodeg(2*N_SR/(rho_cruise*V_stall^2*S_ref*b*C_n_dR_e));
+
+Vtail_Drag_induced = C_L_alpha*C_L_alpha*25*pi/180/(pi*1.5*0.8)
 
 end

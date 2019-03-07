@@ -1,4 +1,4 @@
-function [length_strut, l_gear_n, z, Ymlg ] = lg_position(perc_mac, l_plane, tailcone_length, ...
+function [ln1, length_strut, l_gear_n, z, Ymlg ] = lg_position(perc_mac, l_plane, tailcone_length, ...
     most_aft_cg, x_lemac, MAC, Dfuse, MTOW) 
 % perc_mac = 0.4; % 40% of mac assumption
 % l_plane = 7.5;       % <---- INPUT from adsee 1
@@ -13,7 +13,7 @@ lgearrange = l_gear_n - most_aft_cg;
  
 length_strut = lgearrange/tan(15*pi/180);
  
-if length_strut/(l_plane - l_gear_n) < tan(15*pi/180);
+if tan(length_strut/(l_plane - l_gear_n)) < tan(15*pi/180);
     disp("Good to go")
     disp(length_strut);
     disp(l_gear_n);

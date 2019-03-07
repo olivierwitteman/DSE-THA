@@ -802,10 +802,10 @@ b_h = sqrt(A_h * S_h);
 % b_v = sqrt(A_v * S_v);
 
 C_n_beta = 0.05738; % <-------- INPUT
-[C_L_alpha_haroun,S_v_final, b_v_final, A_v_final, lambda_v_final,LAMBDA_qcv_final, trailingedgesweep_v_final,...
+[Vtail_Drag_induced, S_V1, S_V2, C_L_alpha_haroun,S_v_final, b_v_final, A_v_final, lambda_v_final,LAMBDA_qcv_final, trailingedgesweep_v_final,...
     delta_engine, delta_crosswind, delta_spin, c_v_root_final, c_v_tip_final, c_v_mac_final]...
-    = rudder(V_stall, 0.95*lf, lf, S, V_cruise, bf, hf,...
-    T_isa, c_l_alpha, b, most_aft_cg*lf, rho, C_n_beta)
+    = rudder(V_stall, 0.60*lf, lf, S, V_cruise, bf, hf,...
+    T_isa, c_l_alpha, b, most_aft_cg*lf, rho, C_n_beta)%0.95
 
 
 % wing_planform_design(V_cruise, A_ht, Sh_final, m_cruise, h) % Done untill block 3
@@ -918,10 +918,10 @@ for i  = x_lemac
 end
 
 %% LANDING GEAR POSITION
-perc_mac = 0.475; % 40% of the mac is the landing gear
+perc_mac = 0.655; % 40% of the mac is the landing gear 0.475
 
 
-[length_strut, l_gear_n, z, Ymlg ] = lg_position(perc_mac, lf, L3, ...
+[ln1,length_strut, l_gear_n, z, Ymlg ] = lg_position(perc_mac, lf, L3, ...
      x_lemac_scissor*lf + most_aft_cg*MAC, x_lemac_scissor*lf, MAC, bf, MTOW) 
 
 %% DCLMAX 
