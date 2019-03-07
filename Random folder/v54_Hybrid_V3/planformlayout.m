@@ -18,6 +18,7 @@ fls = (wwidth-aileron_length)*chlavgflap;
 Swf_S = 2*fls/S;
 AWB = 0.05*chl %Enclosed area wingbox as a function of z assumption
 
+<<<<<<< HEAD
 
 dCLMAX = 0.9*0.9*Swf_S
 TVOL = sum(AWB*0.01) %wingbox volume in m3
@@ -26,3 +27,10 @@ end
 
 
 
+=======
+dCLMAX = 0.9*0.9*Swf_S
+TVOL = sum(AWB*0.01) %wingbox volume in m3
+
+
+end
+>>>>>>> 11cfa611f46c24842b1bbf1f1912c4939d27fba1

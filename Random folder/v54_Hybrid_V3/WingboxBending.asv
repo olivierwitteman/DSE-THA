@@ -89,7 +89,7 @@ COLSSY = 'B2:B485';
 SYLIST = xlsread(filename, sheet, COLSSY);
 SYLIST = flip(SYLIST);
 SYFRAC = SYLIST(1:10:end)*dz;
-SY = TRIMAT*SYFRAC-W_engine*9.81*ones(1,length(z));
+SY = TRIMAT*SYFRAC-;
 
 %OBTAINING SX DISTRIBUTION
 SX = 4113*ones(1,length(z));
